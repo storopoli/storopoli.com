@@ -1,12 +1,22 @@
----
-.title = "Some Intuitions on Zero-Knowledge Proofs",
-.date = @date("2024-06-08T15:48:33"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["bitcoin", "cryptography"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Some Intuitions on Zero-Knowledge Proofs"
+date = "2024-06-08T15:48:33"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["cryptography", "bitcoin"]
+
+[extra]
+katex = true
+mermaid = true
++++
+
+{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions
+and [Mermaid](https://mermaid.js.org) to render flowcharts.
+
+To see the rendered content, you'll need to enable JavaScript.
+{% end %}
 
 ![Zero-knowledge proofs and the meaning of life](zkp_meme.jpg)
 
@@ -58,7 +68,7 @@ However, as you might guess, the subject is quite complex,
 and I'll try to simplify it as much as possible;
 but some mathematical background is necessary.
 
-## [What are ZKPs?]($section.id('what-are-zkps'))
+## What are ZKPs?
 
 Let's formalize the concept of **Zero-Knowledge Proofs**.
 A formal definition of zero-knowledge has to use some computational model,
@@ -109,19 +119,19 @@ The tuple $(P, V, S)$ is a **Zero-Knowledge Proof** if the following properties 
    Here $\text{View}_V$ is the view of the verifier $V$,
    and $\leftrightarrow$ denotes the interaction between the prover and the verifier.
 
->[]($block.attrs('info'))
->A function $f$ is negligible if for every polynomial $p$,
->there exists an $N$ such that for all $n > N$,
->$$ f(n) < \frac{1}{p(n)}. $$
->If you want to learn more about negligible functions,
->read Chapter 3, Section 3.1 of the book [Introduction to Modern Cryptography](https://doi.org/10.1201/9781420010756) by Katz & Lindell.
+> [](<$block.attrs('info')>)
+> A function $f$ is negligible if for every polynomial $p$,
+> there exists an $N$ such that for all $n > N$,
+> $$ f(n) < \frac{1}{p(n)}. $$
+> If you want to learn more about negligible functions,
+> read Chapter 3, Section 3.1 of the book [Introduction to Modern Cryptography](https://doi.org/10.1201/9781420010756) by Katz & Lindell.
 
 If you come up from a scheme that satisfies these properties,
 congratulations, you have a **Zero-Knowledge Proof** scheme
 and you can name it whatever you want,
 just like a Pokemon!
 
-## [ZKPs Taxonomy]($section.id('zkps-taxonomy'))
+## ZKPs Taxonomy
 
 We can classify **Zero-Knowledge Proofs** into two broad categories:
 
@@ -161,7 +171,7 @@ Some of the most popular Zero-Knowledge Proof systems are:
   This is a non-interactive ZKP system with a transparent setup,
   with an additional property of being (plausibly) post-quantum secure.
 
-## [zk-SNARKs]($section.id('zk-snarks'))
+## zk-SNARKs
 
 **zk-SNARKs** are the most popular Zero-Knowledge Proof system.
 They are used in the Zcash protocol,
@@ -173,10 +183,10 @@ on top of Bitcoin.
 
 Let's go over the concepts behind zk-SNARKs.
 
->[]($block.attrs('info'))
->most of this section is based on [Petkus19].
+> [](<$block.attrs('info')>)
+> most of this section is based on [Petkus19].
 
-### [The first idea: Proving Knowledge of a Polynomial]($section.id('the-first-idea'))
+### The first idea: Proving Knowledge of a Polynomial
 
 First some polynomial primer.
 **A polynomial $f(x)$ is a function that can be written as**:
@@ -189,9 +199,9 @@ and $d$ is the degree of the polynomial.
 Now, the [Fundamental Theorem of Algebra](https://en.wikipedia.org/wiki/Fundamental_theorem_of_algebra) states that
 **a polynomial of degree $d$ can have at most $d$ (real-valued-only) roots**.
 
->[]($block.attrs('info'))
->The "at most" is because we are talking about real-valued-only roots.
->If we consider complex roots, then a polynomial of degree $d$ has exactly $d$ roots.
+> [](<$block.attrs('info')>)
+> The "at most" is because we are talking about real-valued-only roots.
+> If we consider complex roots, then a polynomial of degree $d$ has exactly $d$ roots.
 
 This can be extended to the concept that **two non-equal polynomials of degree $d$ can have at most $d$ points of intersection**.
 
@@ -219,14 +229,14 @@ Therefore, we can assume with overwhelming probability that the prover knows the
 This is due to the fact that an adversary has $\frac{d}{10^{77}}$ chance of guessing the polynomial[^birthday],
 which we can safely consider negligible.
 
->[]($block.attrs('info'))
->The [Birthday paradox](https://en.wikipedia.org/wiki/Birthday_problem)
->states that any collision resistance scheme has a probability of $\frac{1}{2}$ of collision,
->hence we take the square root of the number of possible values.
->So, the security of the polynomial proof is $\sqrt{10^{77}} = 10^{38.5}$,
->which is still a huge number.
+> [](<$block.attrs('info')>)
+> The [Birthday paradox](https://en.wikipedia.org/wiki/Birthday_problem)
+> states that any collision resistance scheme has a probability of $\frac{1}{2}$ of collision,
+> hence we take the square root of the number of possible values.
+> So, the security of the polynomial proof is $\sqrt{10^{77}} = 10^{38.5}$,
+> which is still a huge number.
 
-### [The second idea: Proving Knowledge of a Polynomial without Revealing the Polynomial]($section.id('the-second-idea'))
+### The second idea: Proving Knowledge of a Polynomial without Revealing the Polynomial
 
 The protocol above has some implications,
 mainly that the protocol works only for a certain polynomial,
@@ -289,7 +299,7 @@ Noice!
 We know only need to find a trick to represent
 any sort of computation as a polynomial.
 
-### [The third idea: Representing Computations as Polynomials]($section.id('the-third-idea'))
+### The third idea: Representing Computations as Polynomials
 
 We can **represent any computation as a polynomial by using [Arithmetic Circuits](https://en.wikipedia.org/wiki/Arithmetic_circuit)**.
 An arithmetic circuit is a directed acyclic graph (DAG) where:
@@ -301,27 +311,21 @@ An arithmetic circuit is a directed acyclic graph (DAG) where:
 
 Here's an example of an arithmetic circuit that represents the polynomial $p(x_1, x_2) = x_2^3 + x_1 x_2^2 + x_2^2 + x_1 x_2$:
 
-```
-       +----+       +----+       +----+
-       | x₁ |       | x₂ |       | 1  |
-       +----+       +----+       +----+
-         |             |             |
-         |             |             |
-         |             +-------------+
-         |                           |
-         v                           v
-       +----+                     +----+
-       |  + |<---------------------|  + |
-       +----+                     +----+
-         |                           |
-         |                           |
-         +-------------+-------------+
-                       |
-                       v
-                    +-----+
-                    |  ×  |
-                    +-----+
-```
+{% mermaid() %}
+flowchart TD
+x1["x₁"]
+x2["x₂"]
+one["1"]
+add1["\+"]
+add2["\+"]
+mult["×"]
+x1 --> add1
+x2 --> add2
+one --> add2
+add2 --> add1
+add1 --> mult
+add2 --> mult
+{% end %}
 
 In the circuit above, the input gates compute (from left to right)
 $x_{1},x_{2}$ and $1$,
@@ -335,7 +339,7 @@ This can be done by proving that the output of the circuit is equal to the targe
 multiplied by some arbitrary polynomial $h(x)$,
 as we did in the previous section.
 
-## [Remarks]($section.id('remarks'))
+## Remarks
 
 This is a very high-level overview of Zero-Knowledge Proofs.
 The subject is quite complex and requires a lot of mathematical background.
@@ -343,11 +347,12 @@ I tried to simplify it as much as possible,
 to give a general intuition of how Zero-Knowledge Proofs work.
 Please check the resources below for more in-depth information.
 
-## [Resources]($section.id('resources'))
+## Resources
 
->[]($block.attrs('info'))
->We have tons of papers on the subject.
->Here are some selected few.
+{% admonition(type="info", icon="info", title="Info") %}
+We have tons of papers on the subject.
+Here are some selected few.
+{% end %}
 
 The whole idea of ZKPs as discussed above in three properties
 (Completeness, Soundness, and Zero-Knowledge)
@@ -378,16 +383,26 @@ This [video from YouTube](https://youtu.be/iRQw2RpQAVc)
 explains the math behind the Arithmetic Circuits
 and how to encode them as polynomials.
 
-## [References]($section.id('references'))
+## References
 
-- `SMR85`: https://epubs.siam.org/doi/10.1137/0218012 "Goldwasser, S., Micali, S., & Rackoff, C. (1985). The knowledge complexity of interactive proof systems. SIAM Journal on computing, 18(1), 186-208."
-- `Kil92`: https://dl.acm.org/doi/abs/10.1145/129712.129782 "Kilian, J. (1992). A note on efficient zero-knowledge proofs and arguments (extended abstract). In Proceedings of the twenty-fourth annual ACM symposium on Theory of computing (pp. 723-732)."
-- `Mic94`: https://ieeexplore.ieee.org/abstract/document/365746/ "Micali, S. (1994). CS proofs (extended abstract). In Proceedings 35th Annual Symposium on Foundations of Computer Science (pp. 436-445)."
-- `Bit11`: https://eprint.iacr.org/2011/443 "Bitansky, N., Canetti, R., & Goldwasser, S. (2011). From Extractable Collision Resistance to Succinct Non-Interactive Arguments of Knowledge, and Back Again. In Proceedings of the 3rd innovations in theoretical computer science conference (pp. 326-349)."
-- `Gen12`: https://eprint.iacr.org/2012/215 "Gennaro, R., Gentry, C., Parno, B., & Raykova, M. (2013). Quadratic span programs and succinct NIZKs without PCPs. In Advances in Cryptology–EUROCRYPT 2013: 32nd Annual International Conference on the Theory and Applications of Cryptographic Techniques, Athens, Greece, May 26-30, 2013. Proceedings 32 (pp. 626-645)."
-- `Par13`: https://eprint.iacr.org/2013/279 "Parno, B., Gentry, C., Howell, J., & Raykova, M. (2013). Pinocchio: Nearly practical verifiable computation. In Proceedings of the 2013 IEEE Symposium on Security and Privacy (SP) (pp. 238-252)."
-- `Bunz18`: https://ieeexplore.ieee.org/document/8418611 "Bünz, B., Bootle, J., Boneh, D., Poelstra, A., Wuille, P., & Maxwell, G. (2018). Bulletproofs: Short Proofs for Confidential Transactions and More. In Proceedings of the 2018 IEEE Symposium on Security and Privacy (SP) (pp. 315-334)."
-- `Eagen24`: https://link.springer.com/chapter/10.1007/978-3-031-58740-5_9 "Bulletproofs++: next generation confidential transactions via reciprocal set membership arguments. In Annual International Conference on the Theory and Applications of Cryptographic Techniques (pp. 249-279)."
-- `Ben-Sasson19`: https://link.springer.com/chapter/10.1007/978-3-030-26954-8_23 "Ben-Sasson, E., Bentov, I., Horesh, Y., & Riabzev, M. (2019). Scalable zero knowledge with no trusted setup. In Advances in Cryptology–CRYPTO 2019: 39th Annual International Cryptology Conference, Santa Barbara, CA, USA, August 18–22, 2019, Proceedings, Part III 39 (pp. 701-732)."
-- `Petkus19`: https://arxiv.org/abs/1906.07221 "Petkus, M. (2019). Why and How zk-SNARK works. arXiv preprint 1906.07221."
+{% references() %}
+`SMR85`: <https://epubs.siam.org/doi/10.1137/0218012> "Goldwasser, S., Micali, S., & Rackoff, C. (1985). The knowledge complexity of interactive proof systems. SIAM Journal on computing, 18(1), 186-208."
 
+`Kil92`: <https://dl.acm.org/doi/abs/10.1145/129712.129782> "Kilian, J. (1992). A note on efficient zero-knowledge proofs and arguments (extended abstract). In Proceedings of the twenty-fourth annual ACM symposium on Theory of computing (pp. 723-732)."
+
+`Mic94`: <https://ieeexplore.ieee.org/abstract/document/365746/> "Micali, S. (1994). CS proofs (extended abstract). In Proceedings 35th Annual Symposium on Foundations of Computer Science (pp. 436-445)."
+
+`Bit11`: <https://eprint.iacr.org/2011/443> "Bitansky, N., Canetti, R., & Goldwasser, S. (2011). From Extractable Collision Resistance to Succinct Non-Interactive Arguments of Knowledge, and Back Again. In Proceedings of the 3rd innovations in theoretical computer science conference (pp. 326-349)."
+
+`Gen12`: <https://eprint.iacr.org/2012/215> "Gennaro, R., Gentry, C., Parno, B., & Raykova, M. (2013). Quadratic span programs and succinct NIZKs without PCPs. In Advances in Cryptology–EUROCRYPT 2013: 32nd Annual International Conference on the Theory and Applications of Cryptographic Techniques, Athens, Greece, May 26-30, 2013. Proceedings 32 (pp. 626-645)."
+
+`Par13`: <https://eprint.iacr.org/2013/279> "Parno, B., Gentry, C., Howell, J., & Raykova, M. (2013). Pinocchio: Nearly practical verifiable computation. In Proceedings of the 2013 IEEE Symposium on Security and Privacy (SP) (pp. 238-252)."
+
+`Bunz18`: <https://ieeexplore.ieee.org/document/8418611> "Bünz, B., Bootle, J., Boneh, D., Poelstra, A., Wuille, P., & Maxwell, G. (2018). Bulletproofs: Short Proofs for Confidential Transactions and More. In Proceedings of the 2018 IEEE Symposium on Security and Privacy (SP) (pp. 315-334)."
+
+`Eagen24`: <https://link.springer.com/chapter/10.1007/978-3-031-58740-5_9> "Bulletproofs++: next generation confidential transactions via reciprocal set membership arguments. In Annual International Conference on the Theory and Applications of Cryptographic Techniques (pp. 249-279)."
+
+`Ben-Sasson19`: <https://link.springer.com/chapter/10.1007/978-3-030-26954-8_23> "Ben-Sasson, E., Bentov, I., Horesh, Y., & Riabzev, M. (2019). Scalable zero knowledge with no trusted setup. In Advances in Cryptology–CRYPTO 2019: 39th Annual International Cryptology Conference, Santa Barbara, CA, USA, August 18–22, 2019, Proceedings, Part III 39 (pp. 701-732)."
+
+`Petkus19`: <https://arxiv.org/abs/1906.07221> "Petkus, M. (2019). Why and How zk-SNARK works. arXiv preprint 1906.07221."
+{% end %}
