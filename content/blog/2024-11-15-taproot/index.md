@@ -1,22 +1,33 @@
----
-.title = "Merkle Trees and the Taproot Protocol",
-.date = @date("2024-11-15T08:44:46"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["math"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Merkle Trees and the Taproot Protocol"
+date = "2024-11-15T08:44:46"
+author = "Jose Storopoli, PhD"
 
->[]($block.attrs('info'))
->Dedicated to John Peter, since I was tired of having
->to explain this to him every time we met.
+[taxonomies]
+tags = ["math", "cryptography", "bitcoin"]
+
+[extra]
+katex = true
+mermaid = true
++++
+
+{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions
+and [Mermaid](https://mermaid.js.org) to render flowcharts.
+
+To see the rendered content, you'll need to enable JavaScript.
+{% end %}
+
+{% admonition(type="info", icon="info") %}
+Dedicated to John Peter, since I was tired of having
+to explain this to him every time we met.
+{% end %}
 
 This post gives an intuition to the **Taproot protocol** in Bitcoin,
 specifically how **Merkle trees** are used to hide the complexity of
 several possible spending conditions.
 
-## [Taproot]($section.id('taproot'))
+## Taproot
 
 Taproot was activated as a soft fork in the Bitcoin network
 on **November 2021**.
@@ -38,7 +49,7 @@ I'm not gonna cover Schnorr signatures here, but you can check
 
 So let's start with Merkle trees.
 
-## [Merkle Trees]($section.id('merkle-trees'))
+## Merkle Trees
 
 A
 [**Merkle tree**](https://en.wikipedia.org/wiki/Merkle_tree)
@@ -48,19 +59,24 @@ The root of the tree is called the **Merkle root**.
 
 Here's an example:
 
-```
-              root
-             /    \
-            /      \
-           /        \
-          /          \
-         /            \
-        /              \
-    H(0 | 1)        H(2 | 3)
-      /   \           /    \
-     /     \         /      \
-    0       1       2        3
-```
+{% mermaid() %}
+flowchart TD
+root["root"]
+h01["H(0 | 1)"]
+h23["H(2 | 3)"]
+leaf0["0"]
+leaf1["1"]
+leaf2["2"]
+leaf3["3"]
+
+root --- h01
+root --- h23
+h01 --- leaf0
+h01 --- leaf1
+h23 --- leaf2
+h23 --- leaf3
+
+{% end %}
 
 In the picture above, the leaves are the numbers 0, 1, 2, and 3.
 Consider these as data that you want to commit to.
@@ -69,7 +85,7 @@ We construct the tree by hashing
 the leaves and then concatenating the hashes,
 and hashing the result until we reach the root.
 
-### [Merkle Trees as Commitment Schemes]($section.id('merkle-trees-as-commitment-schemes'))
+### Merkle Trees as Commitment Schemes
 
 In cryptography, we have something called a
 [**commitment scheme**](https://en.wikipedia.org/wiki/Commitment_scheme).
@@ -111,7 +127,7 @@ where $n$ is the number of leaves,
 or the depth of the desired leaf in the tree.
 This makes Merkle trees a very efficient commitment scheme.
 
-## [Taproot and Merkle Trees]($section.id('taproot-and-merkle-trees'))
+## Taproot and Merkle Trees
 
 Now that we understand Merkle trees, let's see how they are used in Taproot.
 The anatomy of a **Pay-to-Taproot (P2TR) address**
@@ -125,42 +141,36 @@ You can find more about the Taproot soft fork in the
 [BIP 341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
 that describes Taproot spending rules.
 
->[]($block.attrs('info'))
->Note that there are ways to tweak the internal key
->that I will not cover here for simplicity.
->They are mainly used to disable the key path
->in a verifiable way and force the spending
->to only use script path conditions.
->Again, check
->[BIP 341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
->for more details.
+{% admonition(type="info", icon="info") %}
+Note that there are ways to tweak the internal key
+that I will not cover here for simplicity.
+They are mainly used to disable the key path
+in a verifiable way and force the spending
+to only use script path conditions.
+Again, check
+[BIP 341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki)
+for more details.
+{% end %}
 
 Here's an example of a Taproot address:
 
-```
-               +------+
-               | P2TR |
-               +------+
-                  |
-         +--------+--------+
-         |                 |
-     +-----------+   +-------------+
-     | Internal  |   | Root of the |
-     |   Key     |   |  Merkle Tree|
-     +-----------+   +-------------+
-                         |
-               +---------+---------+
-               |                   |
-           +-------+           +-------+
-           |   S1  |           |  Node |
-           +-------+           +-------+
-                                   |
-                           +-------+-------+
-                           |               |
-                       +-------+       +-------+
-                       |   S2  |       |   S3  |
-                       +-------+       +-------+
-```
+{% mermaid() %}
+flowchart TD
+p2tr["P2TR"]
+internal["Internal Key"]
+merkle["Root of the Merkle Tree"]
+s1["S1"]
+node["Node"]
+s2["S2"]
+s3["S3"]
+
+p2tr --- internal
+p2tr --- merkle
+merkle --- s1
+merkle --- node
+node --- s2
+node --- s3
+{% end %}
 
 Here we can see that we have the internal key and the root of the Merkle tree.
 The internal key is the key path, and the Merkle tree is the script path.
@@ -179,10 +189,11 @@ where you need to reveal the script and Bitcoin
 consensus will not only check if the script is correct,
 but also that it matches the hash committed.
 
->[]($block.attrs('info'))
->Yes, P2SH is a commitment scheme.
->It is hiding because you cannot know the script by looking at the hash.
->And it is binding because you cannot change the script without changing the hash.
+{% admonition(type="info", icon="info") %}
+Yes, P2SH is a commitment scheme.
+It is hiding because you cannot know the script by looking at the hash.
+And it is binding because you cannot change the script without changing the hash.
+{% end %}
 
 In a Merkle tree,
 it takes $O(\log n)$ space to prove inclusion,
@@ -222,7 +233,7 @@ to emulate the same behavior as the Merkle tree,
 but good luck paying the fees for that monstrous script
 when you want to spend from the address.
 
-## [Why is this useful?]($section.id('why-is-this-useful') )
+## Why is this useful?
 
 I work at [Alpen Labs](https://alpenlabs.io/),
 where we are developing [Strata](https://stratabtc.org),
@@ -261,12 +272,12 @@ required by the Groth16 verifier
 along with a way to express Lamport signature verification in Bitcoin script.
 But this is a topic for a future post.
 
->[]($block.attrs('info'))
->If you want to know more about how to encode a Groth16 verifier
->using Bitcoin script, check the
->[Alpen Labs blog](https://www.alpenlabs.io/blog/state-of-snark-verification-with-bitvm2).
+> [](<$block.attrs('info')>)
+> If you want to know more about how to encode a Groth16 verifier
+> using Bitcoin script, check the
+> [Alpen Labs blog](https://www.alpenlabs.io/blog/state-of-snark-verification-with-bitvm2).
 
-## [Further Reading]($section.id('further-reading'))
+## Further Reading
 
 The idea behind this post is to give an intuition to the Taproot protocol
 and how Merkle trees are used to hide the complexity of the spending conditions.
@@ -277,8 +288,9 @@ to check all the technicalities of Taproot,
 such as the different ways to tweak the internal key,
 tagged hashes, and Taproot annexes.
 
->[]($block.attrs('info'))
->I would also recommend [base58's workshop on Taproot](https://base58.school/classes/taproot).
+{% admonition(type="info", icon="info") %}
+I would also recommend [base58's workshop on Taproot](https://base58.school/classes/taproot).
+{% end %}
 
 Merkle trees were introduced by Ralph Merkle in 1979.
 If you want to know more about Merkle trees, check
@@ -294,4 +306,3 @@ a combination of a Merkle tree
 and a [Patricia trie](https://en.wikipedia.org/wiki/Patricia_trie),
 which is a ["Merkle" trie](https://en.wikipedia.org/wiki/Trie)
 where the keys are hashed.
-
