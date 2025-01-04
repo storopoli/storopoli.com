@@ -1,12 +1,20 @@
----
-.title = "Word Embeddings",
-.date = @date("2023-11-19T22:49:51"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["julia", "machine learning"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Word Embeddings"
+date = "2023-11-19T22:49:51"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["math", "machine learning", "julia"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="tip", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![Euclid of Alexandria](euclid.jpg)
 
@@ -22,7 +30,7 @@ In this post, we'll learn how to represent words using word embeddings,
 and how to use basic trigonometry to play around with them.
 Of course, we'll use [Julia](https://julialang.org).
 
-## [Word Embeddings]($section.id('word-embeddings'))
+## Word Embeddings
 
 **[Word embeddings](https://en.wikipedia.org/wiki/Word_embedding) is a way to
 represent words as a real-valued vector that encodes the meaning of the word
@@ -68,7 +76,7 @@ Lastly, generally the dimensionality of the vectors used in word embeddings
 are high, $n > 50$, since it needs a proper amount of dimensions in order to
 represent all the semantic information of words with vectors.
 
-## [Pre-Trained Word Embeddings]($section.id('pre-trained-word-embeddings'))
+## Pre-Trained Word Embeddings
 
 Generally we don't train our own word embeddings from scratch,
 we use pre-trained ones.
@@ -85,7 +93,7 @@ Here is a list of some of the most popular ones:
   From Facebook, released in 2016.
   Supports hundreds of languages.
 
-## [Julia Code]($section.id('julia-code'))
+## Julia Code
 
 We will use the [`Embeddings.jl`](https://github.com/JuliaText/Embeddings.jl)
 package to easily load word embeddings as vectors,
@@ -96,7 +104,7 @@ where one package can define types, another can define functions,
 and another can define custom behavior of these functions on types that
 are defined in other packages.
 
-```python
+```julia
 julia> using Embeddings
 
 julia> using Distances
@@ -107,7 +115,7 @@ word embeddings.
 First, let's check what we have in store to choose from
 GloVe's English language embeddings:
 
-```python
+```julia
 julia> language_files(GloVe{:en})
 20-element Vector{String}:
  "glove.6B/glove.6B.50d.txt"
@@ -140,7 +148,7 @@ argument as an `Int` to choose from which index of the `language_files` to use.
 Finally, I just want the words "king", "queen", "man", "woman";
 so I am passing these words as a `Set` to the `keep_words` keyword argument:
 
-```python
+```julia
 julia> const glove = load_embeddings(GloVe{:en}, 1; keep_words=Set(["king", "queen", "man", "woman"]));
 Embeddings.EmbeddingTable{Matrix{Float32}, Vector{String}}(Float32[-0.094386 0.50451 -0.18153 0.37854; 0.43007 0.68607 0.64827 1.8233; … ; 0.53135 -0.64426 0.48764 0.0092753; -0.11725 -0.51042 -0.10467 -0.60284], ["man", "king", "woman", "queen"])
 ```
@@ -150,7 +158,7 @@ If you see the output of `load_embeddings`,
 the order is `"man", "king", "woman", "queen"]`
 Let's see how a word is represented:
 
-```python
+```julia
 julia> queen = glove.embeddings[:, 4]
 50-element Vector{Float32}:
   0.37854
@@ -172,7 +180,7 @@ subtract the word "men",
 add the word "woman",
 and check the distance of the result to the word "queen":
 
-```python
+```julia
 julia> man = glove.embeddings[:, 1];
 
 julia> king = glove.embeddings[:, 2];
@@ -185,7 +193,7 @@ julia> cosine_dist(king - man + woman, queen)
 
 This is less than 1/4 of the distance of "woman" to "king":
 
-```python
+```julia
 julia> cosine_dist(woman, king)
 0.58866215f0
 ```
@@ -193,11 +201,11 @@ julia> cosine_dist(woman, king)
 Feel free to play around with others words.
 If you want suggestions, another classical example is:
 
-```python
+```julia
 cosine_dist(Madrid - Spain + France, Paris)
 ```
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 I think that by allying interesting applications to abstract math topics
 like trigonometry is the vital missing piece in STEM education.
@@ -206,4 +214,3 @@ how new and exciting technologies have some amazing simple math under the hood.
 If you liked this post, you would probably like [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra).
 I would highly recommend [Gilbert Strang's books](https://math.mit.edu/~gs/)
 and [3blue1brown series on linear algebra](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab).
-
