@@ -15,17 +15,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Setup Zig
-        uses: mlugg/setup-zig@v1
-        with:
-          version: 0.13.0
-
-      - name: Build
-        run: zig build --summary new
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./zig-out
+      - name: Build and deploy
+        uses: shalzz/zola-deploy-action@v0.19.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
