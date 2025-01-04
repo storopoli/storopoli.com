@@ -1,12 +1,20 @@
----
-.title = "Lindley's Paradox, or The consistency of Bayesian Thinking",
-.date = @date("2023-11-22T07:06:59"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["bayesian", "probability", "julia"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Lindley's Paradox, or The consistency of Bayesian Thinking"
+date = "2023-11-22T07:06:59"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["math", "bayesian", "probability", "julia"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="tip", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![Dennis Lindley](lindley.jpg)
 
@@ -26,7 +34,7 @@ Lindley predicted in 1975 that "Bayesian methods will indeed become pervasive,
 enabled by the development of powerful computing facilities" (Lindley, 1975).
 You can find more about all of Lindley's achievements in his [obituary](https://www.theguardian.com/science/2014/mar/16/dennis-lindley).
 
-## [Lindley's Paradox]($section.id('lindleys-paradox'))
+## Lindley's Paradox
 
 Lindley's paradox is a counterintuitive situation in statistics
 in which the Bayesian and frequentist approaches to a hypothesis testing problem
@@ -64,7 +72,7 @@ and one of the many in which Bayesian emerges as the most coherent.
 Let's give a example and go over the analytical result with a ton of math,
 but also a computational result with [Julia](https://julialang.org).
 
-## [Example]($section.id('example'))
+## Example
 
 Here's the setup for the example.
 In a certain city 49,581 boys and 48,870 girls have been
@@ -90,12 +98,12 @@ We then set up our two competing hypotheses:
 1. $H_0$: $\theta = 0.5$.
 1. $H_a$: $\theta \ne 0.5$.
 
-### [Analytical Solution]($section.id('analytical-solutions'))
+### Analytical Solution
 
 This is a toy-problem and, like most toy problems,
 we can solve it analytically for both the frequentist and the Bayesian approaches.
 
-#### [Analytical Solutions -- Frequentist Approach]($section.id('analytical-solutions-frequentist'))
+#### Analytical Solutions -- Frequentist Approach
 
 The frequentist approach to testing $H_0$ is to compute a $p$-value,
 the probability of observing births of boys at least as large as 49,581
@@ -116,15 +124,20 @@ We need to calculate the conditional probability of
 $X \geq \frac{49,581}{98,451} \approx 0.5036$
 given $\mu = n \theta = 98,451 \cdot \frac{1}{2} = 49,225.5$
 and
-$\sigma = \sqrt{n \theta (1 - \theta)} = \sqrt{98,451 \cdot \frac{1}{2} \cdot (1 - \frac{1}{2})}$:
+
+$\sigma = \sqrt{n \theta (1 - \theta)} =
+\sqrt{98,451 \cdot \frac{1}{2} \cdot (1 - \frac{1}{2})}$:
 
 $$P(X \ge 0.5036 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75})$$
 
 This is basically a
 [cumulative distribution function (CDF)](https://en.wikipedia.org/wiki/Cumulative_distribution_function)
-of $X$ on the interval $[49,225.5, 98,451]$:
+of $X$ on the interval $[49,225.5; 98,451]$:
 
-$$\int_{49,225.5}^{98,451} \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \frac{\left( \frac{x - \mu}{\sigma} \right)^2}{2}} dx$$
+$$
+\int_{49,225.5}^{98,451} \frac{1}{\sqrt{2 \pi \sigma^2}}
+e^{- \frac{\left( \frac{x - \mu}{\sigma} \right)^2}{2}} dx
+$$
 
 After inserting the values and doing some arithmetic,
 our answer is approximately $0.0117$.
@@ -138,7 +151,7 @@ Hooray! We rejected the null hypothesis!
 Quick! Grab a frequentist celebratory cigar!
 But, wait. Let's check the Bayesian approach.
 
-#### [Analytical Solutions -- Bayesian Approach]($section.id('analytical-solutions-bayesian'))
+#### Analytical Solutions -- Bayesian Approach
 
 For the Bayesian approach, we need to set prior probabilities on both hypotheses.
 Since we do not favor one from another, let's set equal prior probabilities:
@@ -170,14 +183,20 @@ Again, we'll use the normal approximation:
 
 $$
 \begin{aligned}
-  &P \left( \theta = 0.5 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75} \right) \\\
+  &P \left( \theta = 0.5 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75} \right) \\\\
   &= \frac{
-    \frac{1}{\sqrt{2 \pi \sigma^2}} e^{- \left( \frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5
+    \frac{1}{
+      \sqrt{2 \pi \sigma^2}
+    }
+   e^{- \left( \frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5
   }
   {
-    \frac{1}{\sqrt{2 \pi \sigma^2}} e^{ \left( -\frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5 +
-    \int_0^1 \frac {1}{\sqrt{2 \pi \sigma^2} } e^{- \left( \frac{\mu - \mu \cdot \theta)}{2 \sigma} \right)^2}d \theta \cdot 0.5
-  } \\\
+    \frac{1}{\sqrt{2 \pi \sigma^2}}
+    e^{ \left( -\frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5 +
+    \int_0^1 \frac {1}{\sqrt{2 \pi \sigma^2} }
+    e^{- \left( \frac{\mu - \mu \cdot \theta)}{2 \sigma} \right)^2}
+    d \theta \cdot 0.5
+  } \\\\
   &= 0.9505
 \end{aligned}
 $$
@@ -186,7 +205,10 @@ The likelihood of the alternative hypothesis,
 $P(\theta \mid H_a)$,
 is just the CDF of all possible values of $\theta \ne 0.5$.
 
-$$P(H_0 \mid \text{data}) = P \left( \theta = 0.5 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75} \right) > 0.95$$
+$$
+P(H_0 \mid \text{data}) = P \left( \theta = 0.5 \mid \mu = 49,225.5,
+sigma = \sqrt{24.612.75} \right) > 0.95
+$$
 
 And we fail to reject the null hypothesis, in frequentist terms.
 However, we can also say in Bayesian terms, that we strongly favor $H_0$
@@ -195,7 +217,7 @@ over $H_a$.
 Quick! Grab the Bayesian celebratory cigar!
 The null is back on the game!
 
-### [Computational Solutional]($section.id('computational-solutions'))
+### Computational Solutional
 
 For the computational solution, we'll use [Julia](https://julialang.org)
 and the following packages:
@@ -203,12 +225,12 @@ and the following packages:
 - [`HypothesisTest.jl`](https://github.com/JuliaStats/HypothesisTests.jl)
 - [`Turing.jl`](https://turinglang.org/)
 
-#### [Computational Solutions -- Frequentist Approach]($section.id('computational-solutions-frequentist'))
+#### Computational Solutions -- Frequentist Approach
 
 We can perform a [`BinomialTest`](https://juliastats.org/HypothesisTests.jl/stable/nonparametric/#Binomial-test)
 with `HypothesisTest.jl`:
 
-```python
+```julia
 julia> using HypothesisTests
 
 julia> BinomialTest(49_225, 98_451, 0.5036)
@@ -235,14 +257,14 @@ since `BinomialTest` do not support real numbers.
 But the results match with the analytical solution,
 we still reject the null.
 
-#### [Computational Solutions -- Bayesian Approach]($section.id('computational-solutions-bayesian'))
+#### Computational Solutions -- Bayesian Approach
 
 Now, for the Bayesian computational approach,
 I'm going to use a generative modeling approach,
 and one of my favorites probabilistic programming languages,
 `Turing.jl`:
 
-```python
+```julia
 julia> using Turing
 
 julia> @model function birth_rate()
@@ -287,7 +309,7 @@ captures a certain posterior density threshold value.
 In this case, we'll use a threshold interval of 95%,
 i.e. an $\alpha = 0.05$:
 
-```python
+```julia
 julia> hpd(chain; alpha=0.05)
 HPD
   parameters     lower     upper
@@ -300,7 +322,7 @@ We see that we fail to reject the null,
 $\theta = 0.5$ at $\alpha = 0.05$ which is in accordance with the analytical
 solution.
 
-## [Why the Frequentist and Bayesian Approaches Disagree]($section.id('why-the-frequentist-and-bayesian-approaches-disagree'))
+## Why the Frequentist and Bayesian Approaches Disagree
 
 Why do the approaches disagree?
 What is going on under the hood?
@@ -315,7 +337,11 @@ the $p$-value is pretty much a _proxy_ for sample size
 and have little to no utility on hypothesis testing.
 This is known as $p$-hacking.
 
-## [References]($section.id('references'))
+## References
+
+{% references() %}
 
 Lindley, Dennis V. "The future of statistics: A Bayesian 21st century".
 _Advances in Applied Probability_ 7 (1975): 106-115.
+
+{% end %}
