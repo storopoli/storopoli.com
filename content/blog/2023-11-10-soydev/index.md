@@ -1,12 +1,11 @@
----
-.title = "What is soydev? And why do I hate it",
-.date = @date("2023-11-13T07:06:59"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["web development"],
-.draft = false,
-.custom = {"toc": true},
----
++++
+title = "What is soydev? And why do I hate it"
+date = "2023-11-13T07:06:59"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["programming", "web development"]
++++
 
 ![Soydev meme](soydev.jpg)
 
@@ -24,7 +23,7 @@ While we'll start with a look at the soydev stereotype,
 our journey will lead us to a wider reflection on the importance of depth in
 technological understanding.
 
-## [Definition]($section.id('definition'))
+## Definition
 
 First, let's tackle the definition of _soydev_.
 [Urban Dictionary](https://www.urbandictionary.com/define.php?term=Soydev)
@@ -108,7 +107,7 @@ A soydev might be someone who:
 1. Don't understand the math, or what is going on under the hood when
    using machine learning libraries.
 
-## [Why soydev is bad]($section.id('why-soydev-is-bad'))
+## Why soydev is bad
 
 First, let's understand that being a soydev is not necessarily bad,
 but is highly limited on his ability and curiosity.
@@ -128,7 +127,7 @@ questioning or thinking about the problems that they are trying to solve.
 Hence, the culture of soydev is bad for the future of technology,
 where most new developers will be highly limited in their ability to innovate.
 
-## [Why soydev is on the rise]($section.id('why-soydev-is-on-the-rise'))
+## Why soydev is on the rise
 
 I think that soydev culture is highly correlated with
 the increase of technology and
@@ -186,7 +185,7 @@ Which one would result in deeper understanding of the underlying concepts?
 The rise of soydevs mirrors a societal shift towards immediate gratification and
 away from the pursuit of deep knowledge.
 
-## [How to stop being a soydev]($section.id('how-to-stop-being-a-soydev'))
+## How to stop being a soydev
 
 Despite these unstoppable trends I do think that it is possible to use
 tools and shallow abstractions without being a soydev.
@@ -228,4 +227,3 @@ Here is a short, not by any means exhaustive list of things that you can start d
    Often I have to hold myself not diving into certain areas, ideas or concepts
    because I cannot afford the time to learn them.
    However, I am always tempted by them.
-
