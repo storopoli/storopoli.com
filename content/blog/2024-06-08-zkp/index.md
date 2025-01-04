@@ -349,7 +349,7 @@ Please check the resources below for more in-depth information.
 
 ## Resources
 
-{% admonition(type="info", icon="info", title="Info") %}
+{% admonition(type="info", icon="info") %}
 We have tons of papers on the subject.
 Here are some selected few.
 {% end %}
