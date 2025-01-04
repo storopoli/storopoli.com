@@ -1,12 +1,11 @@
----
-.title = "Zero-cost Abstractions",
-.date = @date("2023-11-28T18:19:36"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["julia", "rust", "python"],
-.draft = false,
-.custom = {"toc": true},
----
++++
+title = "Zero-cost Abstractions"
+date = "2023-11-28T18:19:36"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["programming", "julia", "rust", "python"]
++++
 
 In programming language circles there's a recently trend of discussing a concept
 called **zero-cost abstractions**:
@@ -29,25 +28,25 @@ _Hell yes_!
 To put more formally,
 I like [this definition from StackOverflow](https://stackoverflow.com/a/69178445):
 
->Zero Cost Abstractions means adding higher-level programming concepts, like generics,
->collections and so on do not come with a run-time cost,
->only compile time cost (the code will be slower to compile).
->Any operation on zero-cost abstractions is as fast as you would write out
->matching functionality by hand using lower-level programming concepts like
->for loops, counters, ifs and using raw pointers.
+> Zero Cost Abstractions means adding higher-level programming concepts, like generics,
+> collections and so on do not come with a run-time cost,
+> only compile time cost (the code will be slower to compile).
+> Any operation on zero-cost abstractions is as fast as you would write out
+> matching functionality by hand using lower-level programming concepts like
+> for loops, counters, ifs and using raw pointers.
 
 Here's an analogy:
 
->Imagine that you are going to buy a car.
->The sales person offers you a fancy car praising how easy it is to drive it,
->that you don't need to think about RPM, clutch and stick shift,
->parking maneuver, fuel type, and other shenanigans.
->You just turn it on and drive.
->However, once you take a look at the car's data sheet, you are horrified.
->The car is bad in every aspect except easy of use.
->It has dreadful fuel consumption,
->atrocious safety ratings,
->disastrous handling, and so on...
+> Imagine that you are going to buy a car.
+> The sales person offers you a fancy car praising how easy it is to drive it,
+> that you don't need to think about RPM, clutch and stick shift,
+> parking maneuver, fuel type, and other shenanigans.
+> You just turn it on and drive.
+> However, once you take a look at the car's data sheet, you are horrified.
+> The car is bad in every aspect except easy of use.
+> It has dreadful fuel consumption,
+> atrocious safety ratings,
+> disastrous handling, and so on...
 
 Believe me, you wouldn't want to own that car.
 
@@ -63,7 +62,7 @@ If Python wasn't used so widely in production,
 I would definitely leave it alone.
 Don't get me wrong, Python is the second-best language for everything.
 
-## [The curious case of the Python boolean]($section.id('the-curious-case-of-the-python-boolean'))
+## The curious case of the Python boolean
 
 ![Python WTF?](non-zero-cost-abstraction.png)
 
@@ -80,7 +79,8 @@ Just grab your nearest Python REPL:
 
 The function [`sys.getsizeof`](https://docs.python.org/3/library/sys.html#sys.getsizeof)
 returns the size of an object in bytes.
-**How the hell Python needs 28 bytes to represent something that needs at most 1 byte**?
+**How the hell Python needs 28 bytes to represent something
+that needs at most 1 byte**?
 Imagine incurring a 28x penalty in memory size requirements for every boolean
 that you use.
 Now multiply this by every operation that your code is going to run in production
@@ -125,7 +125,7 @@ In a sense the most efficient Python programmer is a C/C++ programmer...
 
 Here's [Julia](https://julialang.org), which is also dynamically-typed:
 
-```python
+```julia
 julia> Base.summarysize(true)
 1
 ```
@@ -158,12 +158,12 @@ $ cargo run --release
 Size of bool: 1 byte
 ```
 
-## [More zero-costs abstractions]($section.id('more-zero-costs-abstractions'))
+## More zero-costs abstractions
 
 Let's cover two more zero-costs abstractions, both in Julia and in Rust:
 **for-loops** and **enums**.
 
-### [For-loops]($section.id('for-loops'))
+### For-loops
 
 A friend and a Julia-advocate once told me that Julia's master plan is to secretly
 "make everyone aware about _compilers_".
@@ -240,7 +240,7 @@ In a sense, Julia is a front-end for LLVM.
 It turns your easy-to-read and easy-to-write Julia code into LLVM IR code.
 Take this for-loop example inside a function:
 
-```python
+```julia
 function sum_10()
     acc = 0
     for i in 1:10
@@ -253,7 +253,7 @@ end
 Let's check what Julia generates as LLVM IR code for this function.
 We can do that with the `@code_llvm` macro.
 
-```python
+```julia
 julia> @code_llvm debuginfo=:none sum_10()
 define i64 @julia_sum_10_172() #0 {
 top:
@@ -268,7 +268,7 @@ and the LLVM IR generated code is pretty much just "return 55 as a 64-bit intege
 Let's also check the machine-dependent instructions with the `@code_native` macro.
 I am using an Apple Silicon machine, so these instructions might differ from yours:
 
-```python
+```julia
 julia> @code_native debuginfo=:none sum_10()
         .section        __TEXT,__text,regular,pure_instructions
         .build_version macos, 14, 0
@@ -338,7 +338,7 @@ in Julia are 64 bits and in Rust 32 bits.
 However, the machine code is **identical**:
 "move the value 55 into a `w` something register".
 
-### [Enums]($section.id('enums'))
+### Enums
 
 Another zero-cost abstraction, in Julia and Rust, is **enums**.
 
@@ -346,7 +346,7 @@ In Julia all enums, by default have a `BaseType` of `Int32`:
 a signed 32-bit integer.
 However, we can override this with type annotations:
 
-```python
+```julia
 julia> @enum Thing::Bool One Two
 
 julia> Base.summarysize(Thing(false))
@@ -387,7 +387,7 @@ However, contrary to Julia, Rust compiler automatically detects the enum's
 variant space size and adjust accordingly.
 So, no need of overrides.
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 Zero-cost abstractions are a joy to have in a programming language.
 It enables you, as a programmer, to just focus on what's important:
@@ -397,4 +397,3 @@ It is no wonder that zero-cost abstractions is a pervasive feature
 of two of my top-favorite languages:
 [Julia](https://julialang.org)
 and [Rust](https://rust-lang.org).
-
