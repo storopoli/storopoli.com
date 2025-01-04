@@ -10,7 +10,7 @@ tags = ["math", "bayesian", "probability", "julia"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="tip", title="Evil JavaScript") %}
+{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
 This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
 
 To see the rendered mathematical expressions, you'll need to enable JavaScript.
