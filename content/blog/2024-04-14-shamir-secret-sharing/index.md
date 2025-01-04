@@ -1,12 +1,20 @@
----
-.title = "Shamir's Secret Sharing",
-.date = @date("2024-04-14T10:37:02"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["bitcoin", "cryptography"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Shamir's Secret Sharing"
+date = "2024-04-14T10:37:02"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["cryptography", "bitcoin"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![The Polynomial king and he can do anything!](polynomial_king.webp)
 
@@ -22,7 +30,7 @@ and describe the mathematical details behind it.
 The code for all the plots in this post can be found in
 [`storopoli/shamir-secret-sharing`](https://github.com/storopoli/shamir-secret-sharing).
 
-## [Polynomial Interpolation]($section.id('polynomial-interpolation'))
+## Polynomial Interpolation
 
 **If you have two points you can draw a _unique_ line that passes through them**.
 Suppose that you have the points $(3,3)$ and $(4,4)$.
@@ -46,22 +54,22 @@ Hence, there is only one cubic polynomial that passes through these four points.
 As you might have guessed, **if you have $n$ points you can draw a _unique_ polynomial of degree $n-1$ that passes through them**.
 This is called **polynomial interpolation**.
 
->[]($block.attrs('info'))
->Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
+> [](<$block.attrs('info')>)
+> Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
 
 More formally, say that we have a polynomial $f(x)$ of degree $n$:
 
-$$ f(x) = ax^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0 $$
+$$ f(x) = ax^n + a\_{n-1} x^{n-1} + \ldots + a_1 x + a_0 $$
 
 and we have $n$ points $(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)$.
 Then, there is a unique polynomial $f(x)$ of degree $n-1$ such that $f(x_i) = y_i$ for $i = 1, 2, \ldots, n$.
 
-## [Shamir's Secret Sharing]($section.id('sharing-secret'))
+## Shamir's Secret Sharing
 
 Ok now let's connect this idea to Shamir's Secret Sharing.
 Suppose you encode a **secret $k$ as a number**.
 Let's say a private key for a Bitcoin wallet.
-As you've already know, a private key is just a [very big number]($link.page('blog/2024-02-05-crypto-basics')).
+As you've already know, a private key is just a [very big number](<$link.page('blog/2024-02-05-crypto-basics')>).
 
 You want to split this secret into **$N$ parts**, called **shares**.
 You also want to specify a **threshold $T$** such that the **secret $k$ can only be reconstructed if at _least_ $T$ shares are combined**.
@@ -88,7 +96,7 @@ In this setup we generate addresses from the extended public key (xpub) of a Bit
 Then, we split the private key into shares and distribute them to different people.
 Only if at least $T$ people come together, they can reconstruct the private key and spend the funds.
 
-## [Rotating Shares]($section.id('rotating-shares'))
+## Rotating Shares
 
 Note that there's nothing special about the points
 
@@ -119,7 +127,7 @@ This is shown in the image below:
 
 Here **all previous points have been replaced by new points**.
 
-## [The Polynomial King]($section.id('the-polynomial-king'))
+## The Polynomial King
 
 > I am the [~~Lizard~~ Polynomial King, I can do anything!](https://youtu.be/ashTaoGrR2o?t=642)
 >
@@ -133,10 +141,10 @@ For example, if the shares are generated in a predictable way, an attacker could
 Or, during the reconstruction phase, an attacker could learn the polynomial by observing the shares.
 Additionally, during a distributed share generation, an attacker could disrupt the process and force the participants to reveal their shares.
 
->[]($block.attrs('info'))
->Or force them to reuse nonces. Then, "poof", private keys are gone.
+> [](<$block.attrs('info')>)
+> Or force them to reuse nonces. Then, "poof", private keys are gone.
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 In this post, **we've seen how polynomial interpolation can be used to split a secret into multiple shares**.
 We've also seen how the **secret can be reconstructed if a certain number of shares are combined**.
