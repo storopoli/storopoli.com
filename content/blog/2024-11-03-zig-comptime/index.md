@@ -1,12 +1,11 @@
----
-.title = "Zig comptime is such a powerful built-in feature",
-.date = @date("2024-11-03T11:03:11"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["zig", "compiler", "rust"],
-.draft = false,
-.custom = {"toc": true},
----
++++
+title = "Zig comptime is such a powerful built-in feature"
+date = "2024-11-03T11:03:11"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["zig", "compiler", "rust"]
++++
 
 I have been following the development of [Zig](https://ziglang.org/)
 for a while now.
@@ -55,7 +54,7 @@ In fact, you can **compile and interop C and Zig** code with Zig.
 So you can start migrating your C codebase to Zig incrementally.
 As an additional caveat, **Zig can be faster than C**.
 
-## [Zig's `comptime`]($section.id('zig-comptime'))
+## Zig's `comptime`
 
 I've been wanting to write about Zig for a while now.
 But I had no topic in mind.
@@ -66,7 +65,7 @@ professional journey from Rust to Zig,
 and the amazing work he's doing at
 [TigerBeetle](https://tigerbeetle.com):
 
-[![Matklad - Modern Systems Programming: Rust and Zig](youtube_preview.jpg)](https://youtu.be/4aLy6qjhHeo?t=1904)
+{{ youtube(id="4aLy6qjhHeo?t=1904") }}
 
 The talk goes on to compare Rust and Zig in terms of systems programming.
 Then, at the middle of the talk, he starts to talk about Zig.
@@ -84,7 +83,7 @@ You can do `comptime` in Zig in different places, such as:
 Here are some examples thanks to [Loris Cro](https://kristoff.it/blog/what-is-zig-comptime/)
 and [Zig's documentation](https://ziglang.org/documentation/master/#comptime).
 
-### [Parameters of functions]($section.id('parameters-of-functions'))
+### Parameters of functions
 
 The first Zig code example is about using `comptime`
 to decide the length of a statically-allocated array:
@@ -100,7 +99,7 @@ pub fn main() void {
 }
 ```
 
-### [Variables]($section.id('variables'))
+### Variables
 
 The second example is about using `comptime` to define a variable.
 This Zig code evaluates a Fibonacci number at compile-time:
@@ -122,7 +121,7 @@ test "fibonacci" {
 }
 ```
 
-### [Expressions]($section.id('expressions'))
+### Expressions
 
 The final example is about using `comptime` to evaluate an expression.
 The following Zig code evaluates a `for`-loop at compile-time.
@@ -137,7 +136,7 @@ comptime {
 }
 ```
 
-### [Bonus example: Zig's Generics]($section.id('bonus-example'))
+### Bonus example: Zig's Generics
 
 Now you can see how impressive `comptime` is.
 In fact, Zig's generics are implemented using `comptime`.
@@ -159,7 +158,7 @@ var list = List(i32){
 };
 ```
 
-### [The caveats of `comptime`]($section.id('the-caveats-of-comptime'))
+### The caveats of `comptime`
 
 `comptime` has some caveats.
 `comptime` expressions must be known at compile-time.
@@ -171,7 +170,7 @@ That means:
 If you guarantee that the value is known at compile-time,
 you can use `comptime` to evaluate anything at compile-time.
 
-## [The motivating example]($section.id('the-motivating-example'))
+## The motivating example
 
 The motivating example for this blog post is an explanation
 that matklad gives in his talk about how they use `comptime` at TigerBeetle
@@ -187,7 +186,7 @@ So here's a toy problem that I came up with to compare Zig and Rust.
 Instead of checking for padding in fields of a `struct`,
 I decided to simplify and check for zero-padding in a string.
 
-### [Zero padding check in Zig]($section.id('zero-padding-check-in-zig'))
+### Zero padding check in Zig
 
 In Zig, strings are arrays of bytes,
 and you can iterate over them at compile-time:
@@ -216,7 +215,7 @@ pub fn main() void {
 
 The code above uses `comptime` to check if a string has zero-padding.
 
-### [Zero padding check in Rust]($section.id('zero-padding-check-in-rust'))
+### Zero padding check in Rust
 
 Compare this to how to do the same thing in Rust.
 We need to use a procedural macro to achieve the same result.
@@ -270,7 +269,7 @@ Second, despite the fact that this is a simple example,
 procedural macros in Rust have their own domain-specific language (DSL)
 and the complexity can grow quickly as the problem becomes more complex.
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 Yeah, **Zig is a great language and has a bright future ahead**.
 **`comptime`** is a powerful feature that allows you to **run almost _any_ code at compile-time**.
