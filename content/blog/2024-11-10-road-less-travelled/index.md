@@ -1,17 +1,17 @@
----
-.title = "The Road Less Travelled",
-.date = @date("2024-11-10T10:02:30"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["zig", "compiler", "rust", "web development"],
-.draft = false,
-.custom = {"toc": true},
----
++++
+title = "The Road Less Travelled"
+date = "2024-11-10T10:02:30"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["philosophy", "programming"]
++++
 
 ![The Road Less Travelled](road_less_travelled.jpg)
 
-Recently, I've moved my blog from Go and hugo towards
-[Zig](https://ziglang.org) and [Zine](https://zine-ssg.io).
+Recently, I've moved my blog from Go and Hugo towards
+[Rust](https://rust-lang.org) and
+[Zola](https://getzola.org).
 
 That made me revisit one of my favorites ideas: **the road less travelled**.
 It is a metaphor for taking the unconventional path,
@@ -22,20 +22,20 @@ Well, I can think of a few:
 
 - Avoiding JavaScript like the devil avoids the cross
 - Being a polyglot programmer, and getting used with managing memory and pointers.
- This means C, Rust, and Zig.
+  This means C, Rust, and Zig.
 - Learning the fundamentals concepts that underlie computer science,
- math, and cryptography.
+  math, and cryptography.
 - Mastering and customizing my tools as needed.
- That's why I use vim and the terminal for almost everything,
- instead of GUIs and VS Code.
+  That's why I use vim and the terminal for almost everything,
+  instead of GUIs and VS Code.
 - Writing a blog instead of posting on social media.
 - Reading books instead of watching TV shows.
 - Being a minimalist and a stoic.
 - Being a privacy advocate and one of the early adopters of Signal,
- instead of WhatsApp or Telegram.
+  instead of WhatsApp or Telegram.
 - Leaving the warm cradle of academia to work as a software engineer in startups.
 
-## [Hercules at the Crossroads]($section.id('hercules-at-the-crossroads'))
+## Hercules at the Crossroads
 
 ![Hercules at the Crossroads](hercules_at_the_crossroads.jpeg)
 
@@ -66,7 +66,7 @@ or will you take the hard path, the one that promises struggle and greatness?
 
 This is the essence of the road less travelled.
 
-## [Avoiding JavaScript]($section.id('avoiding-javascript'))
+## Avoiding JavaScript
 
 I can go on and on about JavaScript.
 I think it is great for what it was designed for:
@@ -97,7 +97,7 @@ fucking JavaScript on the server.
 So yeah, don't use JavaScript outside of making flashy buttons and forms
 in a browser window.
 
-## [Being a Polyglot Programmer]($section.id('being-a-polyglot-programmer'))
+## Being a Polyglot Programmer
 
 This is kinda easy to justify.
 If you only know how to use a hammer, everything looks like a nail.
@@ -112,7 +112,7 @@ like C, Rust, or Zig, to understand how the computer works;
 and you should also learn a functional language,
 like Haskell, to understand how to reason about programs.
 
-## [Learning the Fundamentals]($section.id('learning-the-fundamentals'))
+## Learning the Fundamentals
 
 Let me tell you a secret.
 There's a type of knowledge that will always be true,
@@ -134,13 +134,13 @@ follow a Von Neumann-ish architecture,
 and an Instruction Set Architecture (ISA) that is Turing-complete,
 then your computer science knowledge will always be true.
 
-There's a nice tale about when [Von Neumann]($link.page('blog/2024-06-22-von-neumann'))
+There's a nice tale about when [Von Neumann](<$link.page('blog/2024-06-22-von-neumann')>)
 was asked, soon after the atomic bomb was dropped on Hiroshima,
 what he was working on, and if he was working on a new weapon.
 He kindly replied "No, I am working on something even more powerful:
 computers".
 
-## [Writing a Blog]($section.id('writing-a-blog'))
+## Writing a Blog
 
 In a world where everyone is gladly giving away their privacy
 and data for free (and sometimes even paying for) to
@@ -151,11 +151,11 @@ This can be easily accomplished with a blog.
 Also, writing is a great to organize your thoughts,
 and to share your knowledge with the world.
 
-## [Reading Books]($section.id('reading-books'))
+## Reading Books
 
 Do I need to say more?
 
-## [Leaving the Warm Cradle of Academia]($section.id('warm-cradle-of-academia'))
+## Leaving the Warm Cradle of Academia
 
 I really wanted to like Academia.
 It foster all the principles that I hold dear:
@@ -175,7 +175,7 @@ However, it also has its dark side:
 Instead, unexpectedly, I found in some startups the same principles that I hold dear.
 Especially the ones that are focused on technology and innovation.
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 Drop the JavaScript.
 Learn Math and Computer Science.
