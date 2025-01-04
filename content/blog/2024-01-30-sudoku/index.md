@@ -1,12 +1,11 @@
----
-.title = "Fullstack and Progressive Web Apps in Rust: A Tale of a Sudoku Spyware",
-.date = @date("2024-01-30T08:57:33"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["rust", "dioxus", "web development"],
-.draft = false,
-.custom = {"toc": true,},
----
++++
+title = "Fullstack and Progressive Web Apps in Rust: A Tale of a Sudoku Spyware"
+date = "2024-01-30T08:57:33"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["rust", "dioxus", "web development"]
++++
 
 ![rust webdev meme](rust_webdev_meme.jpg)
 
@@ -28,7 +27,7 @@ Here's a screenshot of the game:
 
 ![Sudoku screenshot](sudoku_screenshot.png)
 
-## [Tools of Choice]($section.id('tools-of-choice'))
+## Tools of Choice
 
 So what would I use to build this game?
 Only one thing: [**Dioxus**](https://dioxuslabs.com/).
@@ -42,7 +41,7 @@ That's it. **Just Rust and HTML with some raw CSS**.
 No "YavaScript". No Node.js. No npm. No webpack. No Tailwind CSS.
 Just `cargo run --release` and you're done.
 
-## [Package Management]($section.id('package-management'))
+## Package Management
 
 Using Rust for fullstack development is an amazing thing.
 First, **package management is a breeze with Cargo**.
@@ -53,7 +52,7 @@ Have you ever gone into your project and ran `npm audit`?
 
 This is solvable with Rust.
 
-## [Runtime Errors]($section.id('runtime-errors'))
+## Runtime Errors
 
 An additional advantage is that you **don't have to worry about common
 runtime errors** like `undefined is not a function` or `null is not an object`.
@@ -71,7 +70,7 @@ You can sleep soundly at night knowing that your application won't crash
 and as long as the **host machine has electricity and internet access,
 your app is working as expected**.
 
-## [Performance]($section.id('performance'))
+## Performance
 
 Rust is known for its **performance**.
 This is due to the fact that Rust gives you control over deciding on which type you'll use for a variable.
@@ -86,7 +85,7 @@ You just don't have this level of control with "YavaScript".
 You get either strings or numbers and you can't decide on the size of the number.
 And all of your strings will be heap-allocated and copied around.
 
-## [Progressive Web Apps]($section.id('progressive-web-apps'))
+## Progressive Web Apps
 
 Progressive Web Apps (PWAs) are web applications that are regular web pages or websites,
 but can appear to the user like traditional applications or native mobile applications.
@@ -101,7 +100,7 @@ In my case, I only had to change the metadata in the `manifest.json` file
 and add what I wanted to cache in the service worker `.js` file.
 These were only the favicon icon and the CSS style file.
 
-## [Sudoku Algorithm]($section.id('sudoku-algorithm'))
+## Sudoku Algorithm
 
 I didn't have to worry about the algorithm to generate the Sudoku board.
 This was already implemented in the [`sudoku`](https://crates.io/crates/sudoku) crate.
@@ -114,7 +113,7 @@ Some things that I had to implement were:
 - **find the conflicting cells**.
   Given a cell, find the cells in the same row, column and sub-grid that have the same value.
 
-### [Find the Related Cells]($section.id('find-the-related-cells'))
+### Find the Related Cells
 
 This was a simple task, yet it was very fun to implement.
 
@@ -159,7 +158,7 @@ pub fn get_related_cells(index: u8) -> Vec<u8> {
 }
 ```
 
-### [Find the Conflicting Cells]($section.id('find-the-conflicting-cells'))
+### Find the Conflicting Cells
 
 To find the conflicting cells, you need to get the value of the target cell.
 Then you can get the related cells and filter the ones that have the same value as the target cell.
@@ -199,11 +198,11 @@ Here's the code, and I took the liberty of adding the docstrings (the `///` comm
 ```rust
 /// Get all the conflictings cells for all filled cells in a Sudoku board
 ///
-/// ## Parameters
+/// # Parameters
 ///
 /// - `current_sudoku: SudokuState` - A reference to the current [`SudokuState`]
 ///
-/// ## Returns
+/// # Returns
 ///
 /// Returns a `Vec<u8>` representing all cell's indices that are conflicting
 /// with the current Sudoku board.
@@ -239,7 +238,7 @@ of `u8`s, and we don't want that.
 We want a flat `Vec<u8>` of all conflicting cells.
 Recursion is always tricky, go ask Alan Turing.
 
-## [Sudoku App State]($section.id('sudo-app-state'))
+## Sudoku App State
 
 As you can see, I used a `SudokuState` type to represent the state of the game.
 This is just a type alias for a `[u8; 81]` array.
@@ -272,23 +271,23 @@ Again I'll add the docstrings since they incorporate some good practices that ar
 /// pair of elements that are not equal.
 /// It assumes that there is exactly one such pair and returns its index.
 ///
-/// ## Parameters
+/// # Parameters
 ///
 /// * `previous: SudokuState` - A reference to the first [`SudokuState`] to compare.
 /// * `current: SudokuState` - A reference to the second [`SudokuState`] to compare.
 ///
-/// ## Returns
+/// # Returns
 ///
 /// Returns `Some(usize)` with the index of the differing element if found,
 /// otherwise returns `None` if the arrays are identical (which should not
 /// happen given the problem constraints).
 ///
-/// ## Panics
+/// # Panics
 ///
 /// The function will panic if cannot convert any of the Sudoku's board cells
 /// indexes from `usize` into a `u8`
 ///
-/// ## Examples
+/// # Examples
 ///
 /// ```
 /// let old_board: SudokuState = [0; 81];
@@ -313,7 +312,7 @@ Hence, we add a `## Panics` section to the docstring to inform the user of this 
 Additionally, we add an `## Examples` section to show how to use the function.
 These are good practices that are worth mentioning and I highly encourage you to use them in your Rust code.
 
-## [Tests]($section.id('tests'))
+## Tests
 
 Another advantage of using Rust is that you can write tests for your code
 without needing to use a third-party library.
@@ -360,7 +359,7 @@ And also two tests for the `find_changed_cell` function:
     }
 ```
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 I had a lot of fun building this game.
 I gave my mother an amazing gift that she'll treasure forever.
