@@ -1,4 +1,0 @@
-Contact: mailto:jose@storopoli.com
-Expires: 2030-01-01T03:00:00.000Z
-Encryption: https://storopoli.com/assets/publickey.txt
-

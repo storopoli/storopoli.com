@@ -4,14 +4,15 @@
 
 This is my personal site at [storopoli.com](https://storopoli.com).
 
-It is built with [Zig](https://ziglang.org/)
-and [Zine](https://zine-ssg.io).
+It is built with [Rust](https://www.rust-lang.org/),
+[Zola](https://www.getzola.org/),
+and the [tabi](https://welpo.github.io/tabi) theme.
 
-To run the site locally, you need to have Zig installed,
+To run the site locally, you need to have Zola installed,
 and run the following command;
 
 ```sh
-zig build serve
+zola serve
 ```
 
 ## JavaScript
@@ -20,19 +21,32 @@ By default, all JavaScript[^javascript] is disabled.
 
 ## Math Support
 
-Math support can be enabled by setting the frontmatter with;
+Math support can be enabled by setting the frontmatter with:
 
-```zig
-.custom = {"math": true},
+```toml
+[extra]
+katex = true
 ```
 
-This will load either [KaTeX](https://katex.org/)
+This will load [KaTeX](https://katex.org/)
 under the hood, and anything between `$` and `$$`
 will be rendered as inline or equation math
 using JavaScript.
 
-Check all the supported functions in [KaTeX documentation](https://katex.org/docs/supported)
-or [wypst sourcecode](https://github.com/0xpapercut/wypst/blob/0687e570c6c641c0875f4e9448d7936c1eadc9ac/src/core/src/converter.rs#L488-L511)
+Check all the supported functions in [KaTeX documentation](https://katex.org/docs/supported).
+
+## Mermaid
+
+Mermaid diagrams can be enabled by setting the frontmatter with:
+
+```toml
+[extra]
+mermaid = true
+```
+
+This will load [Mermaid](https://mermaid.js.org/)
+under the hood, and anything between `{% mermaid() %}` and `{% end %}`
+will be rendered as a Mermaid diagram.
 
 ## License
 

@@ -1,9 +1,0 @@
-<extend template="base.shtml">
-<title id="title">Home</title>
-<head id="head"></head>
-<div id="content">
-  <h3 style="margin-top:0;"><br>
-    <img src="$site.asset('pp.jpg').link()" height=200  class="profile-pic"></h3>
-  <div id="page" :html="$page.content()"></div>
-</div>
-<footer id="footer"></footer>

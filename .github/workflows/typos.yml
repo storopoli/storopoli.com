@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout Actions Repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Check spelling
         uses: crate-ci/typos@master
