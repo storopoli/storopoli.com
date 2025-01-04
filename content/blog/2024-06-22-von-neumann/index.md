@@ -1,12 +1,20 @@
----
-.title = "Von Neumann: the Sharpest Mind of the 20th Century",
-.date = @date("2024-06-22T05:54:46"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["math"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Von Neumann: the Sharpest Mind of the 20th Century"
+date = "2024-06-22T05:54:46"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["math"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![Von Neumann's wartime Los Alamos ID badge photo](von_neumann.jpg)
 
@@ -43,7 +51,7 @@ The list above is just a quick summary of his achievements.
 Everywhere you look in mathematics, physics, computer science, and even biology and economics,
 you'll find von Neumann's fingerprints.
 
-## The [Sharpest Mind of the 20th Century]($section.id('the-sharpest-mind-of-the-20th-century'))
+## The Sharpest Mind of the 20th Century
 
 Von Neumann was recognized by his peers as one of the most intelligent people
 to have ever lived.
@@ -80,50 +88,24 @@ If you want to know more about von Neumann, I recommend his biography:
 [The Man from the Future: The Visionary Life of John von Neumann](https://www.goodreads.com/book/show/61089520-the-man-from-the-future)
 by Ananyo Bhattacharya.
 
-## [The Fly Puzzle]($section.id('the-fly-puzzle'))
+## The Fly Puzzle
 
 One of the most famous stories about von Neumann is the fly puzzle.
 This was reported by [Eugene Wigner](https://en.wikipedia.org/wiki/Eugene_Wigner)
 in the 1966 documentary on Von Neumann.
 Below is the exact part where Wigner tells the story:
 
-```=html
-<style>
-  .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  
-</style>
-<div class='embed-container'>
-  <iframe
-    src='https://www.youtube.com/embed/HpJgBcE-cFQ?start=184'
-    frameborder='0'
-    allowfullscreen
-  ></iframe>
-</div>
-```
+{{ youtube(id="HpJgBcE-cFQ?start=184") }}
 
 The tale takes place in Los Alamos during the Manhattan Project.
 [Max Born (Nobel Prize winner)](https://en.wikipedia.org/wiki/Max_Born)
 told von Neumann's the following puzzle:
 
->Two bicycles begin 20 miles apart,
->and each travels toward the other at 10 miles per hour until they collide;
->meanwhile, a fly travels continuously back and forth between the bicycles
->at 15 miles per hour until it is squashed in the collision.
->How far does the fly travel in total?
+> Two bicycles begin 20 miles apart,
+> and each travels toward the other at 10 miles per hour until they collide;
+> meanwhile, a fly travels continuously back and forth between the bicycles
+> at 15 miles per hour until it is squashed in the collision.
+> How far does the fly travel in total?
 
 One can solve this rather easily by not paying attention to the inherent infinite geometric series that the fly travels.
 Instead, focus on the fact that the fly is squashed when the bicycles collide,
