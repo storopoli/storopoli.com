@@ -1,12 +1,20 @@
----
-.title = "Seed Phrases and Entropy",
-.date = @date("2024-02-11T15:59:02"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["bitcoin", "cryptography", "probability"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Seed Phrases and Entropy"
+date = "2024-02-11T15:59:02"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["cryptography", "probability", "bitcoin"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="tip", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![Password meme](password_strength.png)
 
@@ -15,11 +23,11 @@ We'll cover what the hell is **Entropy**,
 good **password practices**,
 and how it relates to **Bitcoin "seed phrases"**.
 
->[]($block.attrs('info'))
->seed phrases are technically called "mnemonic phrases",
->but I'll use the term "seed phrases" for the rest of the post.
+> [](<$block.attrs('info')>)
+> seed phrases are technically called "mnemonic phrases",
+> but I'll use the term "seed phrases" for the rest of the post.
 
-## [Entropy]($section.id('entropy'))
+## Entropy
 
 Before we go into passwords,
 I'll introduce the concept of **_Entropy_**.
@@ -60,7 +68,7 @@ and as $N$ approaches infinity,
 the sum of the logarithms approaches negative infinity.
 Then, multiplying by $-k$ yields positive infinity.
 
-### [How the hell Physics came to Passwords?]($section.id('how-the-hell-physics-came-to-passwords'))
+### How the hell Physics came to Passwords?
 
 There's once a great men called [Claude Shannon](https://en.wikipedia.org/wiki/Claude_Shannon),
 who single-handedly founded the field of [**Information Theory**](https://en.wikipedia.org/wiki/Information_theory),
@@ -130,7 +138,7 @@ $$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​) = - \sum_{i=1}^6\left(\
 This means that the outcome of a fair 6-sided die has 2.58 bits of Entropy.
 we need $\operatorname{ceil}(2.58) = 3$ bits to encode the outcome of a fair 6-sided die.
 
-### [Entropy and Passwords]($section.id('entropy-and-passwords'))
+### Entropy and Passwords
 
 Ok now we come full circle.
 Let's talk, finally, about passwords.
@@ -158,13 +166,13 @@ $$H = 8 \cdot \log_2(26) \approx 37.6 \text{ bits}$$
 
 This means that an attacker would need to try $2^{37.6} \approx 2.01 \cdot 10^{11}$ combinations to guess the password.
 
->[]($block.attrs('info'))
->Technically, we need to divide the number of combinations by 2,
->since we are assuming that the attacker is using a brute-force attack,
->which means that the attacker is trying all possible combinations,
->and the password could be at the beginning or at the end of the search space.
->This is called the [birthday paradox](https://en.wikipedia.org/wiki/Birthday_problem),
->and it assumes that the password is uniformly distributed in the search space.
+> [](<$block.attrs('info')>)
+> Technically, we need to divide the number of combinations by 2,
+> since we are assuming that the attacker is using a brute-force attack,
+> which means that the attacker is trying all possible combinations,
+> and the password could be at the beginning or at the end of the search space.
+> This is called the [birthday paradox](https://en.wikipedia.org/wiki/Birthday_problem),
+> and it assumes that the password is uniformly distributed in the search space.
 
 If the password were to include uppercase letters, numbers, and symbols
 (let's assume 95 possible characters in total),
@@ -198,13 +206,13 @@ So, the first password would be cracked in less than a second,
 while the second would take a few hours.
 This with just one 1.5k USD GPU.
 
-## [Bitcoin Seed Phrases]($section.id('bitcoin-seed-phrases'))
+## Bitcoin Seed Phrases
 
 Now that we understand Entropy and how it relates to passwords,
 let's talk about bitcoin seed phrases.
 
 Remember that our private key is a big-fucking number?
-If not, check my [post on cryptographics basics]($link.page('blog/2024-02-05-crypto-basics')).
+If not, check my [post on cryptographics basics](<$link.page('blog/2024-02-05-crypto-basics')>).
 
 [BIP-39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki)
 specifies how to use easy-to-remember seed phrases to store and recover
@@ -252,7 +260,7 @@ $$\frac{2^{253}}{10^{12}} \approx 1.45 \cdot 10^{64} \text{ seconds} \approx 1.6
 
 That's another huge number of years.
 
-## [Seed Phrases and Passwords]($section.id('seed-phrases-and-passwords'))
+## Seed Phrases and Passwords
 
 You can also use a seed phrase as a password.
 The bonus point is that you don't need to use the last word as a checksum,
@@ -272,7 +280,7 @@ Even if you know the dictionary set and the length of the password,
 i.e. the number of words in the seed phrase,
 it would take a lot of years to crack it.
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 Entropy is a measure of the amount of disorder in a system.
 In the context of passwords, it's a measure of how unpredictable a password is.
@@ -290,7 +298,7 @@ If you want to generate a seed phrase,
 you can use [KeePassXC](https://keepassxc.org/),
 which is a great open-source **_offline_** password manager that supports seed phrases.
 
->[]($block.attrs('info'))
->Technically, KeePassXC uses the [EFF wordlist](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt),
->which has 7,776 words, so each word gives you $\log_2(7776) \approx 12.9$ bits of Entropy.
->They were created to be easy to use with 6-sided dice.
+> [](<$block.attrs('info')>)
+> Technically, KeePassXC uses the [EFF wordlist](https://www.eff.org/files/2016/07/18/eff_large_wordlist.txt),
+> which has 7,776 words, so each word gives you $\log_2(7776) \approx 12.9$ bits of Entropy.
+> They were created to be easy to use with 6-sided dice.
