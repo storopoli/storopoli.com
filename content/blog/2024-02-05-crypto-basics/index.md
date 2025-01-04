@@ -1,12 +1,20 @@
----
-.title = "Basics of Cryptographic Signatures",
-.date = @date("2024-02-05T18:53:28"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["cryptography", "bitcoin"],
-.draft = false,
-.custom = {"toc": true, "math": true},
----
++++
+title = "Basics of Cryptographic Signatures"
+date = "2024-02-05T18:53:28"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["cryptography", "bitcoin"]
+
+[extra]
+katex = true
++++
+
+{% admonition(type="warning", icon="tip", title="Evil JavaScript") %}
+This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
+
+To see the rendered mathematical expressions, you'll need to enable JavaScript.
+{% end %}
 
 ![Euclid's one-way function](euclid.webp)
 
@@ -23,7 +31,7 @@ We'll go through the following topics:
 - Why we don't reuse nonces?
 - Why we can combine Schnorr Signatures and not DSA?
 
-## [One-way functions]($section.id('one-way-functions'))
+## One-way functions
 
 A one-way function is a **function that is easy to compute on every input,
 but hard to invert given the image of a random input**.
@@ -65,7 +73,7 @@ Easy to check, right?
 Hard to find.
 That's because prime factorization, if you choose a fucking big number, is a one-way function.
 
-## [Hash Functions]($section.id('hash-functions'))
+## Hash Functions
 
 Let's spice things up.
 There is a special class of one-way functions called **hash functions**.
@@ -109,7 +117,7 @@ including but not limited to:
 
 We'll cover just the **digital signatures** part in this post.
 
-### [SHA-2 and its variants]($section.id('sha-2-and-its-variants'))
+### SHA-2 and its variants
 
 The Secure Hash Algorithm 2 (SHA-2) is a set of cryptographic hash functions designed by the National Security Agency (NSA).
 It was first published in 2001.
@@ -159,7 +167,7 @@ Here we are only adding a period at the end of the sentence,
 and the hash is completely different.
 This is due to the property of collision resistance that we mentioned earlier.
 
-## [Fields]($section.id('fields'))
+## Fields
 
 Before we dive into public-key cryptography,
 we need a brief interlude on fields.
@@ -203,7 +211,7 @@ and **division**
 
 $$a \div b = a \times b^{-1}.$$
 
-### [Finite Fields]($section.id('finite-fields'))
+### Finite Fields
 
 Now we are ready for finite fields.
 A [_finite field_](https://en.wikipedia.org/wiki/Finite_field), also called a Galois field (in honor of Évariste Galois),
@@ -248,7 +256,7 @@ However, if $n = r \times s$ where $r$ and $s$ are prime numbers,
 and $r < s$,
 then $\mathbb{Z}_n$ is a finite field of order $r$.
 
-#### [Operations in Finite Fields]($section.id('operations-in-finite-fields'))
+#### Operations in Finite Fields
 
 **Addition** in finite fields is defined as the remainder of the sum of two elements modulo the order of the
 field.
@@ -299,7 +307,7 @@ that's why it's called the discrete logarithm problem.
 Good luck my friend, no efficient method is known for computing them in general.
 You can try brute force, but that's not efficient.
 
-#### [Why the Discrete Logarithm Problem is Hard as Fuck]($section.id('why-the-dlp-is-hard'))
+#### Why the Discrete Logarithm Problem is Hard as Fuck
 
 To get a feeling why the discrete logarithm problem is difficult,
 let's add one more concept to our bag of knowledge.
@@ -344,7 +352,7 @@ but it is very hard to find $x$ given $3^x \mod p$.
 
 Now we are ready to dive into public-key cryptography.
 
-#### [Numerical Example of the Discrete Logarithm Problem]($section.id('numerical-example-of-the-dlp'))
+#### Numerical Example of the Discrete Logarithm Problem
 
 Let's illustrate the discrete logarithm problem with a numerical example.
 
@@ -362,10 +370,10 @@ $$3^x = 15 \mod 17 $$
 Try to find it.
 Good luck.
 
->[]($block.attrs('info'))
->The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
+> [](<$block.attrs('info')>)
+> The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
 
-## [Public-key cryptography]($section.id('public-key-cryptography'))
+## Public-key cryptography
 
 Public-key cryptography, or asymmetric cryptography, is a cryptographic system that uses pairs of keys:
 private and public.
@@ -408,7 +416,7 @@ and the student and other people could verify that I was the author of the lette
 Next, we'll dive into the details of the Digital Signature Algorithm (DSA)
 and the Schnorr signature algorithm.
 
-## [DSA]($section.id('dsa'))
+## DSA
 
 DSA stands for [Digital Signature Algorithm](https://en.wikipedia.org/wiki/Digital_Signature_Algorithm).
 It was first proposed by the National Institute of Standards and Technology (NIST) in 1991.
@@ -451,7 +459,7 @@ I added some comments to every operation in parentheses to make it easier to fol
 There you go.
 This attest that the signature is correct and the message was signed by the owner of the private key.
 
-## [Schnorr]($section.id('schnorr'))
+## Schnorr
 
 [Schnorr signature algorithm](https://en.wikipedia.org/wiki/Schnorr_signature)
 is a very similar algorithm to DSA.
@@ -497,7 +505,7 @@ As before, I added some comments to every operation in parentheses to make it ea
 There you go.
 This attest that the signature is correct and the message was signed by the owner of the private key.
 
-## [Why we don't reuse nonces?]($section.id('why-we-dont-reuse-nonces'))
+## Why we don't reuse nonces?
 
 Never, ever, reuse a nonce.
 Why?
@@ -518,8 +526,8 @@ First, let's do the ~~ugly~~ DSA math:
 
 $$
 \begin{aligned}
-  s^\prime - s &= (k^{\prime {-1}} (H(m_1) + S_k K')) - (k^{-1} (H(m_2) + S_k K)) \\\
-  s^\prime - s &= k^{-1} (H(m_1) - H(m_2)) \\\
+  s^\prime - s &= (k^{\prime {-1}} (H(m_1) + S_k K')) - (k^{-1} (H(m_2) + S_k K)) \\\\
+  s^\prime - s &= k^{-1} (H(m_1) - H(m_2)) \\\\
   k &= (H(m_1) - H(m_2)) (s^\prime - s)^{-1}
 \end{aligned}
 $$
@@ -539,7 +547,7 @@ If $k\^\prime = k$ (nonce reuse) then you can easily isolate $S_k$ with simple a
 
 Remember: you know $s\^\prime, s, e, e\^\prime$ and $k\^\prime - k = 0$.
 
-## [Why we can combine Schnorr Signatures and not DSA?]($section.id('why-we-can-combine-schnorr-signatures-and-not-dsa'))
+## Why we can combine Schnorr Signatures and not DSA?
 
 In Bitcoin, we can combine Schnorr signatures and not DSA.
 Why?
@@ -586,7 +594,7 @@ This is not possible with DSA.
 Because the signature step in DSA is not linear,
 it has a $k^{-1}$ in it.
 
-## [Technical Interlude: Elliptic Curves]($section.id('technical-interlude-elliptic-curves'))
+## Technical Interlude: Elliptic Curves
 
 Technically speaking, Bitcoin uses the Elliptic Curve Digital Signature Algorithm (ECDSA),
 and the Schnorr signature algorithm is based on the same elliptic curve (EC) as ECDSA.
@@ -603,7 +611,7 @@ It has everything that we've seen so far:
 - Generators
 - Discrete Logarithm Problem
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 I hope you enjoyed this companion post to the
 [cryptography workshop](https://github.com/storopoli/cryptography-workshop).
