@@ -1,12 +1,11 @@
----
-.title = "htmx: an Oasis in a Desert of Soy",
-.date = @date("2024-01-14T06:13:19"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["htmx", "javascript", "rust", "web development"],
-.draft = false,
-.custom = {"toc": true,},
----
++++
+title = "htmx: an Oasis in a Desert of Soy"
+date = "2024-01-14T06:13:19"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["htmx", "javascript", "rust", "web development"]
++++
 
 ![htmx bell curve](bellcurve.png)
 
@@ -15,7 +14,7 @@ So, when I acquired the domain
 [`stoicquotes.io`](https://stoicquotes.io),
 I've decided to give [`htmx`](https://htmx.org) a try.
 
-## [What is `htmx`?]($section.id('what-is-htmx'))
+## What is `htmx`?
 
 **`htmx`** is a small JavaScript library that allows you to enhance your HTML with
 attributes to perform AJAX (Asynchronous JavaScript and XML) without writing
@@ -25,7 +24,7 @@ updates, form submission, etc. `htmx` is designed to be easy to use, requiring
 minimal JavaScript knowledge, so that you can add interactivity to web pages
 with just HTML.
 
-Let's contrast this with the [Soy stuff]($link.page('blog/2023-11-10-soydev'))
+Let's contrast this with the [Soy stuff](<$link.page('blog/2023-11-10-soydev')>)
 like the notorious React framework. **React**, on the other hand, is a JavaScript
 library for building user interfaces, primarily through a component-based
 architecture. It manages the creation of user interface elements, updates the UI
@@ -64,7 +63,7 @@ and back-end. If the JSON that the server sends doesn't conform to the exact
 specifications of the front-end, the application ~~becomes a dumpster fire~~
 breaks.
 
-## [Hypermedia]($section.id('hypermedia'))
+## Hypermedia
 
 When the web was created it was based on the concept of
 [**Hypermedia**](https://en.wikipedia.org/wiki/Hypermedia).
@@ -89,7 +88,7 @@ HTML only has _two_ elements that interact with the server:
 That's the main purpose of `htmx`: allowing HTML elements to leverage all the
 capabilities of HTTP.
 
-## [`htmx` in Practice]($section.id('htmx-in-practice'))
+## `htmx` in Practice
 
 OK, enough of abstract and theoretical concepts. Let's see how `htmx` works in
 practice.
@@ -163,7 +162,7 @@ Here's a breakdown of what the trifecta of amazing tools means:
    removal of unnecessary components. It should be capable of performing tasks
    without requiring verbose instructions or processes.
 
-### [How we would do this in React?]($section.id('how-we-would-do-this-in-react'))
+### How we would do this in React?
 
 Now compare this with React.
 
@@ -215,7 +214,7 @@ export default Quote;
 That's a LOT of JavaScript code.
 The Soy Gods must be smiling upon you, my friend.
 
-## [Conclusion]($section.id('section-conclusion'))
+## Conclusion
 
 I highly recommend that you check out [`htmx`](https://htmx.org),
 especially the free [Hypermedia systems book](https://htmx.org/#book) which
