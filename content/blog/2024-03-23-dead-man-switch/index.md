@@ -1,12 +1,11 @@
----
-.title = "Sherlock Holmes Final Letter: A Simple Dead Man's Switch in Rust",
-.date = @date("2024-03-23T14:00:16"),
-.author = "Jose Storopoli, PhD",
-.layout = "post.shtml",
-.tags = ["rust", "nix", "privacy"],
-.draft = false,
-.custom = {"toc": true},
----
++++
+title = "Sherlock Holmes Final Letter: A Simple Dead Man's Switch in Rust"
+date = "2024-03-23T14:00:16"
+author = "Jose Storopoli, PhD"
+
+[taxonomies]
+tags = ["rust", "nix", "privacy"]
++++
 
 ![Sherlock Holmes fights Moriarty at the Reichenbach Falls](the_final_problem.png)
 
@@ -17,16 +16,16 @@ Don't worry, I got you covered.
 In this post,
 I'll introduce you to a **simple no-bullshit dead man's switch** written in Rust.
 
-## [Dead Man's Switch]($section.id('dead-mans-switch'))
+## Dead Man's Switch
 
 According to [Wikipedia](https://en.wikipedia.org/wiki/Dead_man%27s_switch):
 
->A **dead man's switch** is a switch that is designed to be **activated or
->deactivated if the human operator becomes incapacitated**, such as through death,
->loss of consciousness, or being bodily removed from control.
->Originally applied to switches on a vehicle or machine,
->it has since come to be used to describe other intangible uses,
->as in **computer software**.
+> A **dead man's switch** is a switch that is designed to be **activated or
+> deactivated if the human operator becomes incapacitated**, such as through death,
+> loss of consciousness, or being bodily removed from control.
+> Originally applied to switches on a vehicle or machine,
+> it has since come to be used to describe other intangible uses,
+> as in **computer software**.
 
 A Dead Man's Switch (DMS) can be handy and common scenarios might be:
 
@@ -68,10 +67,11 @@ users anymore.
 If people are paying for this, they can pay for a Linux server somewhere.
 But they would need a simple DMS to run on it.
 
-## [How to Use It]($section.id('how-to-use-it'))
+## How to Use It
 
-># [Disclaimer]($block.attrs('info'))
->Use at your own risk. Check the f\*\*\*\*(as in _friendly_) code.
+{% admonition(type="danger", icon="danger", title="Disclaimer") %}
+Use at your own risk. Check the f\*\*\*\*(as in _friendly_) code.
+{% end %}
 
 I invite you to check out the code on GitHub at
 [`storopoli/dead-man-switch`](https://github.com/storopoli/dead-man-switch).
@@ -107,15 +107,15 @@ Here are the two easiest ways:
 1. **Using Nix**. This is the easiest just do
    `nix run github:storopoli/dead-man-switch`.
 
->[]($block.attrs('info'))
->I've also released a Web Interface for the dead-man-switch.
->You can easily deploy it using Docker or Docker Compose.
->Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
+> [](<$block.attrs('info')>)
+> I've also released a Web Interface for the dead-man-switch.
+> You can easily deploy it using Docker or Docker Compose.
+> Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
 >
->I've also launched a [StartOS](https://start9.com) app with a simple interface
->for configuring and checking in with the Dead Man's Switch.
->Check out the instructions on the
->[`dead-man-switch-startos` repository](https://github.com/storopoli/dead-man-switch-startos).
+> I've also launched a [StartOS](https://start9.com) app with a simple interface
+> for configuring and checking in with the Dead Man's Switch.
+> Check out the instructions on the
+> [`dead-man-switch-startos` repository](https://github.com/storopoli/dead-man-switch-startos).
 
 Once, you successfully run the app, you will see the following output:
 
@@ -142,9 +142,9 @@ Hence, the configuration file is at `/root/.config/deadman/config.toml`.
 If you open the configuration file, you will see the following content.
 I've added some default values for inspiration[^central-park]:
 
->[]($block.attrs('info'))
->Please don't go to bench 137 in Central Park, NY.
->That was just an example.
+> [](<$block.attrs('info')>)
+> Please don't go to bench 137 in Central Park, NY.
+> That was just an example.
 
 ```toml
 username = "me@example.com"
@@ -240,10 +240,12 @@ even if you are already in the Dead Man's Timer.
 
 If both timers run out, the messages will be sent and DMS will exit.
 
-## [The Implementation Details]($section.id('the-implementation-details'))
+## The Implementation Details
 
->For the stupid smelly nerds that want to go beyond the
->["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
+{% admonition(type="info", icon="info", title="Info") %}
+For the stupid smelly nerds that want to go beyond the
+["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
+{% end %}
 
 Before we dive into the code, here are the **dependencies** that I am using.
 I've tried to keep them to a minimum, since I want this to be a dead-simple
@@ -261,9 +263,9 @@ attack surface:
 - [`chrono`](https://crates.io/crates/chrono) to handle timers and date/time
   formatting.
 
->[]($block.attrs('info'))
->The Dead Man's Switch Web Interface uses [`axum`](https://github.com/tokio-rs/axum),
->[`askama`](https://djc.github.io/askama/) and [`tower`](https://github.com/tower-rs/tower).
+> [](<$block.attrs('info')>)
+> The Dead Man's Switch Web Interface uses [`axum`](https://github.com/tokio-rs/axum),
+> [`askama`](https://djc.github.io/askama/) and [`tower`](https://github.com/tower-rs/tower).
 
 The app is divided into a library and a binary.
 The library is contained in the `lib.rs` file and the binary in the `main.rs`,
@@ -290,13 +292,13 @@ As we can see, it is divided into 4 modules:
 Feel free to dive in any of these files to understand the implementation details.
 I've made sure that the code is _both_ **well-tested** and **well-documented**.
 
-## [Contributions are Welcome]($section.id('contributions-are-welcome'))
+## Contributions are Welcome
 
 If you want to contribute to the project, feel free to open a pull request.
 I've marked a few issues as `good first issue` to help you get started.
 Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
 
-## [Conclusion]($section.id('conclusion'))
+## Conclusion
 
 I've built a simple no-bullshit Dead Man's Switch so that any person can use it.
 Feel free to use it and share it with your friends.
@@ -311,7 +313,8 @@ Probably the way he would have used it is by:
 1. Disallow password authentication and only allow key-based authentication.
 1. Encrypt everything in the case the server is seized.
 
->[]($block.attrs('info'))
->Sherlock could also use a coreboot non-KYC piece of hardware that
->runs StartOS and the newly launched Dead Man's Switch StartOS app that already
->uses an onion service for handling the check-ins via Tor.
+{% admonition(type="tip", icon="tip", title="Tip") %}
+Sherlock could also use a coreboot non-KYC piece of hardware that
+runs StartOS and the newly launched Dead Man's Switch StartOS app that already
+uses an onion service for handling the check-ins via Tor.
+{% end %}
