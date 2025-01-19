@@ -29,10 +29,9 @@ and "fix the money, fix the world".
 If you are in a bad day, grab a curated Stoicism piece of advice at
 [`stoicquotes.io`](https://stoicquotes.io).
 
-Also, remember that you might be wrong,
-or, don't use P=0 for your [priors](https://en.wikipedia.org/wiki/Cromwell%27s_rule).
-Finally,
-[never attribute to malice that which is adequately explained by stupidity](https://en.wikipedia.org/wiki/Hanlon%27s_razor).
+If you have state secrets or any message that you
+want to pass along in the case you are incapacitated,
+or dead, try my [Dead Man's Switch](https://github.com/storopoli/dead-man-switch).
 
 Everything that I do is either open source
 or has a permissive Creative Commons license.
