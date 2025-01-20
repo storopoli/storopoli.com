@@ -5,6 +5,8 @@ on:
     - cron: "0 9 * * 1"
   workflow_dispatch: null
 
+permissions: {}
+
 jobs:
   check-links:
     runs-on: ubuntu-latest
