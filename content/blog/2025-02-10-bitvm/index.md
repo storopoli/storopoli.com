@@ -126,3 +126,14 @@ without revealing the computation itself.
 ## Big Idea 3: Emulating Covenants with Connector Outputs
 
 ## Conclusion
+
+The focus of this post is to give a high-level overview of BitVM,
+and building intuitions on how it works.
+
+Of course, you need a LOT of engineering to implement BitVM.
+If you are curious about the details, you can check out the
+[BitVM repo](https://github.com/BitVM/BitVM) for the Groth16 compiler,
+the [`strata-bridge`](https://github.com/alpenlabs/strata-bridge) repo
+for the whole BitVM bridge transaction graph;
+and finally, the [`strata`](https://github.com/alpenlabs/strata) repo
+for the Strata rollup (the BitVM sidesystem).
