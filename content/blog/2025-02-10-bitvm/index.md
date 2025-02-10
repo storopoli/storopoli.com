@@ -30,7 +30,27 @@ This post has a lot of overlap with my previous post on
 If you want to know more about Zero-Knowledge Proofs (ZKPs),
 then I'd suggest you read that post first.
 
-## Give me a computation and I'll give you an arithmetic circuit
+BitVM is a bridge between Bitcoin and a sidesystem.
+Generally, these bridges are secured by a federated multisig,
+where to bridge-out you need to have a majority of the federation.
+Mathematically, this is a $(\frac{N}{2}+1)$-of-$N$ trust model.
+This is not ideal since it's a "trust me bro" situation.
+BitVM is different, since it can drastically reduce the trust assumptions.
+It is a $1$-of-$N$ trust model, in which as long as you have a live honest operator,
+you can withdraw on-chain.
+
+I'm going to present BitVM in it's main three big ideas:
+
+1. Arithmetic Circuits
+2. Groth16 Bitcoin Script Compiler
+3. Emulating Covenants with Connector Outputs
+
+The only knew idea that BitVM brings to the table is the Groth16 Bitcoin script compiler.
+Arithmetic circuits as basic building blocks of ZK-SNARKs,
+and emulating covenants with connector outputs was already used by the
+[Ark protocol](https://ark-protocol.org/).
+
+## Big Idea 1: Arithmetic Circuits
 
 Suppose you have a function that does some complicated stuff and performs some computation.
 Then, this function can be represented as an [**arithmetic circuit**](https://en.wikipedia.org/wiki/Arithmetic_circuit).
@@ -100,3 +120,9 @@ We already have zero-knowledge in classical cryptography:
 "Hey I know a secret key and here's a signature to prove to you".
 But the real novelty here is that we can prove that I did a computation
 without revealing the computation itself.
+
+## Big Idea 2: Groth16 Bitcoin Script Compiler
+
+## Big Idea 3: Emulating Covenants with Connector Outputs
+
+## Conclusion
