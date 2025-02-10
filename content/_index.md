@@ -20,12 +20,6 @@ zero-knowledge protocols,
 censorship-resistant tools,
 and distributed systems.
 
-In hope of a better future,
-I dedicate most of my waking hours
-to [Bitcoin](https://bitcoin.org)-related projects,
-because ["cypherpunks write code"](https://www.activism.net/cypherpunk/manifesto.html)
-and "fix the money, fix the world".
-
 If you are in a bad day, grab a curated Stoicism piece of advice at
 [`stoicquotes.io`](https://stoicquotes.io).
 
