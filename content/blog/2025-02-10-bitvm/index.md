@@ -368,9 +368,16 @@ It turns out that this Script is kinda big.
 **If you put it in a single transaction,
 it will be around 1GB**.
 Not cool! Even if we are BFF with some miners,
-to not be limited by the transaction standardness requirements,
+to not be limited by the transaction standardness requirements[^transaction-standardness],
 we can't propagate this transaction since it will never fit a block
 which must be at most 4MB.
+
+[^transaction-standardness]:
+    Transaction standardness means that a transaction will be accepted by every node in the network.
+    This requires that the transaction is at most 400kb, and has only one `OP_RETURN` output with at most 80-bytes of data.
+    If you want to do crazy stuff, like `>400kb` or more than one `OP_RETURN` output,
+    you need to call your friendly neighborhood miner and ask them to include directly into their next block,
+    without having to relay through the Bitcoin network (since no node will accept it).
 
 ![Groth16 Bitcoin Script](groth16_block_size.jpg)
 
