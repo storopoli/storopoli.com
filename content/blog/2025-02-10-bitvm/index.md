@@ -273,6 +273,32 @@ We already have zero-knowledge in classical cryptography:
 But the real novelty here is that **we can prove that I did a computation
 without revealing the computation itself**.
 
+To finalize, there are some caveats in using Groth16.
+Yes, we have the **best ZK-SNARK in terms of proof size
+and verification time**.
+However, the setup is what we call a **"trusted setup" that is also non-universal**.
+This means that we need some sort of ceremony to setup the protocol,
+which includes the prover and verifier keys.
+This can be done in a Multi-Party Computation (MPC) style,
+with several parties joining the ceremony.
+Each one of these parties will contribute with some random secret data
+towards the setup of the protocol.
+**As long as one of them throw away their secret data,
+the protocol is secure**[^ceremony].
+This means that no one can prove false statements
+or make a proof for a computation that was not performed.
+Additionally, the setup is done for a single circuit.
+Hence, you can only prove stuff that was done in a simple computation context.
+You can vary the inputs as much as you like, but the circuit will always be the same.
+To get a different circuit using Groth16, you need to perform a new setup.
+
+[^ceremony]:
+    In the infamous Zcash setup ceremony, Peter Todd,
+    one of the participants, "ran all of his computations on a laptop encased
+    in a tin foil-lined cardboard box, while driving across Canada.
+    He then burned his compute node to a crisp with a propane torch".
+    [Source](https://spectrum.ieee.org/the-crazy-security-behind-the-birth-of-zcash)
+
 ## Big Idea 2: Groth16 Bitcoin Script Compiler
 
 - Groth16 ZK-SNARK compiler for Bitcoin Script:
