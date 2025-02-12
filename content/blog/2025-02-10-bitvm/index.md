@@ -381,11 +381,88 @@ which must be at most 4MB.
 
 ![Groth16 Bitcoin Script](groth16_block_size.jpg)
 
-- Groth16 ZK-SNARK compiler for Bitcoin Script:
-  - Script in opcodes ~1GB
-  - Break into sequentially-ordered standard transactions (<400kb, 1,000 stack elements, 400,000 opcodes, etc.)
-  - Pass state from one transaction to the next transaction using bitcommitments (One-time Signatures, OTS, Lamport, Winternitz)
-  - P2TR with big merkle trees in the taproot script spending path (NUMS in the key path)
+The next step stems from the insight that **to find a fault in a Groth16 proof,
+we need to find at least one step of the proof verification execution that it fails**.
+If we find none, then we can be sure that the proof is valid.
+Maybe we could somehow **split this 1GB huge Bitcoin Script into smaller scripts**,
+that could be **published in a block** or even **relayed by nodes** if we can get
+it to fit the standardness requirements[^transaction-standardness].
+
+We have merkle trees in the Taproot upgrade,
+so what if we could split the Groth16 proof verification into a bunch of
+script spending paths (leaves in the Taproot Merkle tree),
+then we just need to find at least one leaf that the proof fails.
+If we cannot find any, then we can be sure that the proof is valid.
+
+But, wait! Bitcoin Script is stateless!
+We cannot pass state from one transaction to the next transaction.
+Is it? Well, this is the final trick needed to fit
+the 1GB Groth16 verifier Bitcoin Script into a bunch of
+standard[^transaction-standardness] transactions.
+We know that Bitcoin Script, despite its limitations, can hash stuff and verify equality.
+Hence, we need to find a primitive that can carry data with some sort of authentication;
+and uses exclusively hash functions.
+
+This is where **hash-based one-time signatures (OTS)** comes into play.
+The first, and most famous, OTS is
+the **[Lamport signature](https://en.wikipedia.org/wiki/Lamport_signature)**,
+which was invented by [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)
+in 1979.
+Suppose that what you're signing is a 256-bit hash $H(m)$ of a message $m$.
+The way Lamport signatures work is that your public key is
+the 256 pairs of hashes: 512 in total.
+The first pair represents all possible `0`s that a 256-bit hash can have;
+and the second pair the same for all possible `1`s.
+To sign $H(m)$, you just reveal a preimage for each pair
+depending on the bit of the $H(m)$.
+Remember that a bit can be only 0 or 1 (a single pair).
+If your bit index `i` is `0` you reveal the preimage for
+the public key's first pair at index `i`, that represents `0`s;
+if it's `1`, you reveal the preimage for
+the second pair at index `i`.
+This is a one-time signature, since you literally reveal a good chunk
+of your private key while signing.
+
+Since the Groth16 proof is based mostly on 256-bit group elements,
+we can **pass the state from one script to the next script
+by hashing the final state of the computation and continuing
+in the next script with the hash as the input**.
+We can avoid tampering since these hashes (the message)
+are signed.
+Also, we only need one Lamport public key since it is fine to reuse
+mostly because the whole batch of transactions will be in the same
+Taproot Merkle Tree of Scripts.
+This technique is called **bitcommitments**.
+
+The image below shows a P2TR address with a Groth16 verifier in it.
+All of the scripts inside the Merkle tree of script spending paths
+are below 400kb, and have a 1,000 stack elements limit.
+So they adhere to standardness requirements[^transaction-standardness].
+The first script is the `Init`: it grabs some inputs from the witness,
+and performs some computations and results in an output
+that will be used in the `Z_1` script.
+How we pass the state from the `Init` script to the `Z_1` script
+is by using Lamport signatures.
+From there we keep performing computations and passing the state
+from `Z_2` until `Z_N`.
+If we get to the last script `Z_N`, then we just lock it with
+the prover's public key so that only him can spend this P2TR address.
+Each `Z_k` for any `k <= N` that uses previous outputs as inputs
+have a Lamport signature verification procedure in Bitcoin script
+that if fails will make the script spendable by anyone.
+
+![Groth16 Verifier in a P2TR Address](bitvm_p2tr.svg)
+
+Remember that all of these scripts are inside a P2TR Merkle tree.
+Hence unlocking only one of them suffices to spend the whole P2TR UTXO.
+**If the prover is honest and has a valid proof, then only he can spend the UTXO.
+However, if the prover is dishonest and has a invalid proof,
+then anyone can spend the UTXO by simply finding at least one
+leaf script that the Lamport signature verification fails**.
+
+I am not putting the specific opcodes here,
+because the goal is to give a high-level overview of
+how we can insert a Groth16 verifier in Bitcoin Script.
 
 ## Big Idea 3: Emulating Covenants with Connector Outputs
 
