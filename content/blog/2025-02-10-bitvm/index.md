@@ -423,6 +423,17 @@ the second pair at index `i`.
 This is a one-time signature, since you literally reveal a good chunk
 of your private key while signing.
 
+Below is a visual representation of the Lamport signature.
+Everything is represented as bits, being either `0` or `1`.
+As you can see, in the top, we have the pair of hashes as public keys,
+`PK1` and `PK2`.
+In the middle, we have the message that we are signing.
+Finally, at the bottom, we have the signature which reveals
+the preimages for the public keys depending on what value of the message
+for each bit in the message.
+
+![Lamport Signature](lamport_sigs.png)
+
 Since the Groth16 proof is based mostly on 256-bit group elements,
 we can **pass the state from one script to the next script
 by hashing the final state of the computation and continuing
