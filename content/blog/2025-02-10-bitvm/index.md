@@ -301,6 +301,79 @@ To get a different circuit using Groth16, you need to perform a new setup.
 
 ## Big Idea 2: Groth16 Bitcoin Script Compiler
 
+The second big idea is to **overcome Bitcoin's Script limitations
+by creating a Groth16 verifier using Bitcoin Script**.
+
+**Bitcoin Script** is VERY limited.
+It is a **stack-based language, and it has a very limited number of opcodes
+that pops and pushes values into the stack; or manipulates the stack**.
+
+Most opcodes deal with verifying signatures since that is the most
+common usecase for Bitcoin Script.
+However, Bitcoin Script can also do some things such as:
+**hashing values and checking equality**.
+Additionally, we also have an **alternate stack, called "alt stack",
+which is kinda a buffer for storing values**.
+
+With respect to math operations we have, hold your breath,
+**_only_ 32-bit addition and subtraction**.
+We don't have multiplication and division,
+modular division, or bit-rotations.
+Heck, we cannot even _concatenate_ two values into a single one.
+This has some historical reasons,
+and the short story is that Satoshi was scared
+of people torpedoing the network by exploding the stack,
+and eventually crashing nodes by using these "dark arts" arithmetic operations.
+The network was in its early days,
+and very fragile.
+Instead of carefully setting guard-rails so that
+people don't do stupid dangerous things,
+he pretty much **disabled[^satoshi-commit] all the "dark arts" arithmetic operations**.
+
+[^satoshi-commit]:
+    Check L94-L109 in `script.cpp` in this
+    [2010 commit](https://github.com/bitcoin/bitcoin/commit/4bd188c4383d6e614e18f79dc337fbabe8464c82) from Satoshi.
+
+Bitcoin Script is different than Ethereum's EVM.
+In the EVM, you can do whatever you want.
+It is (bounded) Turing-complete.
+You just need to make sure that you have enough gas
+to pay for the computation.
+However in Bitcoin, the fees are calculated from the transaction size.
+This is possible because of the very limited expressiveness that Bitcoin Script has.
+All nodes will run your transaction's Script and verify it
+irrespectively of the size of the Script.
+
+Bitcoin, prior to the Taproot upgrade,
+had limitations to a maximum of 1,000 stack elements,
+and 201 opcodes per program.
+With Taproot, we don't have more opcodes limitations,
+but the 1,000 stack elements limitation is still there.
+
+Remember that to **verify a Groth16 proof we need to do some elliptic curve pairings
+and check 3 group elements**?
+This means that, technically, we can have a Groth16 verifier in Bitcoin Script.
+Just like the golden rule of JavaScript: "if something can be built using JavaScript,
+it WILL be built using JavaScript";
+we can tweak it to be the **golden rule of Bitcoin Script:
+"if something can be built using Bitcoin Script,
+it WILL be built using Bitcoin Script"**.
+To achieve a Groth16 verifier in Bitcoin Script,
+we just need to be **able to do 256-bit multiplication
+using only 32-bit addition operations**.
+And without the 201-opcodes limitation,
+that Taproot upgrade, **we can have a Groth16 verifier in Bitcoin Script**.
+
+It turns out that this Script is kinda big.
+**If you put it in a single transaction,
+it will be around 1GB**.
+Not cool! Even if we are BFF with some miners,
+to not be limited by the transaction standardness requirements,
+we can't propagate this transaction since it will never fit a block
+which must be at most 4MB.
+
+![Groth16 Bitcoin Script](groth16_block_size.jpg)
+
 - Groth16 ZK-SNARK compiler for Bitcoin Script:
   - Script in opcodes ~1GB
   - Break into sequentially-ordered standard transactions (<400kb, 1,000 stack elements, 400,000 opcodes, etc.)
