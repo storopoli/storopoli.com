@@ -23,6 +23,16 @@ This post is the written version of my very condensed 45-minute talk
 at [BTC++ 2025 Floripa](https://btcpp.dev/conf/floripa).
 {% end %}
 
+**BitVM is a bridge between Bitcoin and a sidesystem**.
+Generally, these bridges are secured by a federated multisig,
+where to bridge-out you need to have a majority of the federation.
+Mathematically, this is a $(\frac{N}{2}+1)$-of-$N$ trust model.
+This is not ideal since it's a "trust me bro" situation and the "bros"
+are the majority of the bridge.
+BitVM is different, since it can drastically reduce the trust assumptions.
+It is a **$1$-of-$N$ trust model, in which as long as you have a live honest operator,
+you can withdraw on-chain**.
+
 ![BitVM Meme](bitvm.jpg)
 
 This post has a lot of overlaps with my previous post on
@@ -38,16 +48,6 @@ The idea was to give a general overview the concepts,
 while also allowing you to tune your experience by giving you
 a bunch of tangents and rabbit holes to explore if wanted.
 {% end %}
-
-**BitVM is a bridge between Bitcoin and a sidesystem**.
-Generally, these bridges are secured by a federated multisig,
-where to bridge-out you need to have a majority of the federation.
-Mathematically, this is a $(\frac{N}{2}+1)$-of-$N$ trust model.
-This is not ideal since it's a "trust me bro" situation and the "bros"
-are the majority of the bridge.
-BitVM is different, since it can drastically reduce the trust assumptions.
-It is a **$1$-of-$N$ trust model, in which as long as you have a live honest operator,
-you can withdraw on-chain**.
 
 I'm going to present BitVM in it's main three big ideas:
 
