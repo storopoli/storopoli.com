@@ -51,7 +51,7 @@ you can withdraw on-chain**.
 
 I'm going to present BitVM in it's main three big ideas:
 
-1. **Arithmetic Circuits**
+1. **Verified Computation**
 2. **Groth16 Bitcoin Script Compiler**
 3. **Emulating Covenants with Connector Outputs**
 
@@ -60,7 +60,7 @@ Arithmetic circuits are basic building blocks of ZK-SNARKs,
 and emulating covenants with connector outputs was already used by the
 [Ark protocol](https://ark-protocol.org/).
 
-## Big Idea 1: Arithmetic Circuits
+## Big Idea 1: Verified Computation
 
 Suppose you have a function that does some complicated stuff and performs some computation.
 Then, this function can be represented as an [**arithmetic circuit**](https://en.wikipedia.org/wiki/Arithmetic_circuit)[^peano].
