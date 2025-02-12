@@ -58,7 +58,7 @@ I'm going to present BitVM in it's main three big ideas:
 ![Three Big Ideas](3_big_ideas.png)
 
 The only new idea that BitVM brings to the table is the Groth16 Bitcoin script compiler.
-Arithmetic circuits are basic building blocks of ZK-SNARKs,
+Verified computation is the premise of ZK-SNARKs,
 and emulating covenants with connector outputs was already used by the
 [Ark protocol](https://ark-protocol.org/).
 
