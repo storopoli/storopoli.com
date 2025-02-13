@@ -492,6 +492,23 @@ check the [BitVM2 paper](https://bitvm.org/bitvm_bridge.pdf).
 
 ## Big Idea 3: Emulating Covenants with Connector Outputs
 
+The next big idea is to emulate covenants with connector outputs
+and pre-signed transactions (and timelocks).
+This is not new since the [Ark protocol already used connectors](https://ark-protocol.org/intro/connectors/index.html)
+to emulate covenants.
+
+First let's tackle what are covenants.
+**[Covenants](https://bitcoinops.org/en/topics/covenants/)**
+are a category of proposed changes to Bitcoin’s consensus rules that would allow
+a script to prevent an authorized spender from spending to certain other scripts[^timelocks].
+A very useful example is the [`OP_VAULT`](https://jameso.be/vaults.pdf)
+that allows an UTXO to be only spent to a specific destination.
+There are many other proposals like this.
+
+[^timelocks]:
+    In a sense absolute and relative timelocks are a sort of covenant.
+    Hence, Bitcoin already has at least one kind of covenant: timelocks.
+
 - Emulating covenants with connector outputs and pre-signed transactions (and timelocks):
   - Simple case where both Alice and Bob deposit into a P2TR D BTC.
   - This P2TR has a Groth16 verifier that attest that someone has done a (big) computation in an AC.
