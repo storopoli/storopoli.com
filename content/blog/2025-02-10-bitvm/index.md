@@ -35,6 +35,11 @@ you can withdraw on-chain**.
 
 ![BitVM Meme](bitvm.jpg)
 
+I am part of the **[Alpen Labs](https://alpenlabs.io) engineering team
+that is building [Strata: a BitVM-based rollup on Bitcoin](https://stratabtc.org)**.
+Strata is also part of the [BitVM Alliance](https://bitvm.org/):
+a partnership to accelerate the development and implementation of BitVM project.
+
 This post has a lot of overlaps with my previous post on
 ["Some Intuitions on Zero-Knowledge Proofs"](@/blog/2024-06-08-zkp/index.md).
 If you want to know more about Zero-Knowledge Proofs (ZKPs),
@@ -456,7 +461,7 @@ The first script is the `Init`: it grabs some inputs from the witness,
 and performs some computations and results in an output
 that will be used in the `Z_1` script.
 How we pass the state from the `Init` script to the `Z_1` script
-is by using Lamport signatures.
+is by using Lamport signatures[^winternitz].
 From there we keep performing computations and passing the state
 from `Z_2` until `Z_N`.
 If we get to the last script `Z_N`, then we just lock it with
@@ -464,6 +469,10 @@ the prover's public key so that only him can spend this P2TR address.
 Each `Z_k` for any `k <= N` that uses previous outputs as inputs
 have a Lamport signature verification procedure in Bitcoin script
 that if fails will make the script spendable by anyone.
+
+[^winternitz]:
+    Lamport signatures are very inefficient.
+    Teams building BitVM-based bridge generally use [Winternitz signatures](https://asecuritysite.com/encryption/wint) instead.
 
 ![Groth16 Verifier in a P2TR Address](bitvm_p2tr.svg)
 
@@ -477,6 +486,9 @@ leaf script that the Lamport signature verification fails**.
 I am not putting the specific opcodes here,
 because the goal is to give a high-level overview of
 how we can insert a Groth16 verifier in Bitcoin Script.
+If you want to learn more about how a ZK-SNARK verifier can be included
+in a Taproot address,
+check the [BitVM2 paper](https://bitvm.org/bitvm_bridge.pdf).
 
 ## Big Idea 3: Emulating Covenants with Connector Outputs
 
