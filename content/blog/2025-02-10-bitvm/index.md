@@ -30,7 +30,7 @@ Mathematically, this is a $(\frac{N}{2}+1)$-of-$N$ trust model.
 This is not ideal since it's a "trust me bro" situation and the "bros"
 are the majority of the bridge.
 BitVM is different, since it can drastically reduce the trust assumptions.
-It is a **$1$-of-$N$ trust model, in which as long as you have a live honest operator,
+It is a **$1$-of-$N$ trust model, in which as long as you have one live honest operator,
 you can withdraw on-chain**.
 
 ![BitVM Meme](bitvm.jpg)
@@ -184,7 +184,10 @@ This proof $\pi$ has three main properties:
    can convince an honest verifier that it is true,
    except with some negligible probability [^negligible].
 
-   $$ \forall A, \forall x, \forall \pi: \Pr\big[V(A, \pi, x) = \text{accept} \big] < \text{negligible}. $$
+   $$
+    \forall A, \forall x, \forall \pi: \Pr\big[V(A, \pi, x) =
+    \text{accept} \big] < \text{negligible}.
+   $$
 
    Here $\Pr\big[V(A, \pi) = \text{accept} \big]$ denotes
    the probability that the verifier accepts the proof given an adversary $A$,
@@ -206,7 +209,7 @@ But a succinct zero knowledge system also needs an
 interactive oracle proof (IOP).
 One of such schemes is [Groth16](https://alinush.github.io/groth16),
 named after Jens Groth,
-who published the paper describing it in 2016.
+who published the [paper describing it in 2016](https://eprint.iacr.org/2016/260).
 
 **Groth16 uses a mathematical tool called
 [bilinear maps](https://en.wikipedia.org/wiki/Bilinear_map)
