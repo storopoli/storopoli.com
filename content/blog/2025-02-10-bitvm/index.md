@@ -382,8 +382,9 @@ which must be at most 4MB.
 
 [^transaction-standardness]:
     Transaction standardness means that a transaction will be accepted by every node in the network.
-    This requires that the transaction is at most 400kb, and has only one `OP_RETURN` output with at most 80-bytes of data.
-    If you want to do crazy stuff, like `>400kb` or more than one `OP_RETURN` output,
+    This requires that the transaction is at most 400kvb (that's kilo "virtual" bytes),
+    and has only one `OP_RETURN` output with at most 80-bytes of data.
+    If you want to do crazy stuff, like `>400kvb` or more than one `OP_RETURN` output,
     you need to call your friendly neighborhood miner and ask them to include directly into their next block,
     without having to relay through the Bitcoin network (since no node will accept it).
 
