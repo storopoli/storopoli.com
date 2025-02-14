@@ -103,7 +103,7 @@ The tuple $(P, V, S)$ is a **Zero-Knowledge Proof** if the following properties 
 
    Here $\Pr\big[V(S, \pi) = \text{accept} \big]$ denotes the probability that the verifier accepts the proof given a simulator $S$ and a proof $\pi$.
 
-1. **Soundness**: If the statement is true, no cheating prover can convince an honest verifier that it is true,
+1. **Soundness**: If the statement is _false_, no cheating prover can convince an honest verifier that it is true,
    except with some negligible probability [^negligible].
 
    $$ \forall A, \forall x, \forall \pi: \Pr\big[V(A, S, \pi) = \text{accept} \big] < \text{negligible}. $$

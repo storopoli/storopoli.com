@@ -185,7 +185,7 @@ This proof $\pi$ has three main properties:
    denotes the probability that the verifier accepts the proof given
    a proof $\pi$, and inputs $x$.
 
-1. **Soundness**: If the statement is true, no cheating prover
+1. **Soundness**: If the statement is _false_, no cheating prover
    can convince an honest verifier that it is true,
    except with some negligible probability [^negligible].
 
@@ -196,7 +196,7 @@ This proof $\pi$ has three main properties:
 
    Here $\Pr\big[V(A, \pi) = \text{accept} \big]$ denotes
    the probability that the verifier accepts the proof given an adversary $A$,
-   a proof $\pi$, and inputs $x$.
+   a proof $\pi$, and _public_ inputs $x$.
 
 1. **Zero-Knowledge**: If the statement is true,
    the verifier learns nothing about the secret $x$.
