@@ -510,6 +510,20 @@ There are many other proposals like this.
     In a sense absolute and relative timelocks are a sort of covenant.
     Hence, Bitcoin already has at least one kind of covenant: timelocks.
 
+Ok, but we don't have covenants in Bitcoin.
+Hence, we need to emulate some sort of transaction introspection.
+This is where the BitVM bridge comes in:
+the part of the protocol that creates a transaction graph made of pre-signed transactions.
+These pre-signed transactions are signed by every operator in the $N$ operators bridge
+in a way that every operator has his own pre-signed version of the transaction graph
+by all other operators.
+This is important since it allows the 1-of-$N$ trust assumption,
+because any operator can use its pre-signed transaction graph to perform
+a withdraw from the BitVM bridge into Bitcoin.
+
+However, only having pre-signed transactions is not enough to emulate covenants.
+We also need
+
 - Emulating covenants with connector outputs and pre-signed transactions (and timelocks):
   - Simple case where both Alice and Bob deposit into a P2TR D BTC.
   - This P2TR has a Groth16 verifier that attest that someone has done a (big) computation in an AC.
@@ -518,6 +532,48 @@ There are many other proposals like this.
   - C1 Alice gets the D BTC (Alice has done the computation correctly and the proof is valid)
   - C2 Bob gets the D BTC (Alice has NOT done the computation correctly and the proof is invalid)
 - Go over the transaction graph (simplified, not using superblocks, but stake chain).
+
+## What can covenants bring to BitVM?
+
+As I've said above, we don't have covenants yet in Bitcoin[^timelocks].
+Nevertheless, the future is yet to be written
+and we **might have covenants in Bitcoin**.
+If, and that's a big if, we have covenants in Bitcoin, they can bring several benefits to BitVM:
+
+- **The BitVM bridge becomes a defacto Layer 2 for Bitcoin by supporting unilateral trustless withdraws**.
+- **The Groth16 verifier might not need to be chunked and split into multiple transactions or locking scripts,
+  and could fit a single transaction**.
+- **The sidesystem could be a true ZK-validity rollup, and not a ZK-optimistic rollup**.
+  This allows a much stricter security model for the sidesystem.
+
+Let's dive into the details of how covenants can enhance BitVM.
+
+First, with something like **[`OP_CAT`](https://bitcoinops.org/en/topics/op_cat/)**
+and **[`OP_CHECKTEMPLATEVERIFY`](https://bitcoinops.org/en/topics/op_checktemplateverify/)**;
+also known as `OP_CTV`,
+we don't need to have the whole transaction graph pre-signed by every operator.
+We just need to use `OP_CTV` in the transactions to verify important parts of the transactions
+that guarantee the integrity of the transaction with respect to the BitVM bridge.
+Then, anyone can do a **unilateral trustless withdraw**, not only a single BitVM operator.
+This will **turn the BitVM bridge into a fully trustless Bitcoin Layer 2**.
+
+Second, using the **[Great Script Restoration (GSR)](https://brink.dev/blog/2024/08/22/eng-call-great-script-restoration/)**,
+which is a proposal to **bring back all the "dark arts" arithmetic operations as 64-bit arithmetic operations**,
+like multiplication (`OP_MUL`), division (`OP_DIV`), left shift (`OP_LSHIFT`), and right shift (`OP_RSHIFT`);
+we can hugely improve the efficiency of BitVM's Bitcoin Script-native Groth16 verifier.
+It may even **fit into a single standard[^transaction-standardness] transaction**.
+
+Finally, using **both GSR and `OP_CAT`**, we can make the BitVM sidesystem;
+the thing that we are using the bridge to bridge into from Bitcoin,
+to **[become a ZK-validity rollup](https://ethereum.org/en/developers/docs/scaling/zk-rollups/)**.
+This will hugely improve the security model of the BitVM sidesystem,
+which now, not only inherits the reorg resistance of the Layer 1 blocks,
+since any rollup derives (and writes) its state into the Layer 1,
+but also inherits the consensus model of the Layer 1.
+You cannot _opportunistically_ write the rollup state into Layer 1.
+It is now fully verified by the Layer 1 consensus.
+Hence, you don't need constant "eyes" on the rollup writes in Layer 1
+to find frauds, as **the Layer 1 consensus guarantees the validity of the rollup state**.
 
 ## Conclusion
 
