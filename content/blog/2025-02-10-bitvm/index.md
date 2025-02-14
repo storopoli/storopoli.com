@@ -493,8 +493,8 @@ check the [BitVM2 paper](https://bitvm.org/bitvm_bridge.pdf).
 
 ## Big Idea 3: Emulating Covenants with Connector Outputs
 
-The next big idea is to emulate covenants with connector outputs
-and pre-signed transactions (and timelocks).
+The next big idea is to **emulate covenants with connector outputs
+and pre-signed transactions (and timelocks)**.
 This is not new since the [Ark protocol already used connectors](https://ark-protocol.org/intro/connectors/index.html)
 to emulate covenants.
 
@@ -511,27 +511,105 @@ There are many other proposals like this.
     Hence, Bitcoin already has at least one kind of covenant: timelocks.
 
 Ok, but we don't have covenants in Bitcoin.
-Hence, we need to emulate some sort of transaction introspection.
+Hence, we need to **emulate some sort of transaction introspection**.
 This is where the BitVM bridge comes in:
-the part of the protocol that creates a transaction graph made of pre-signed transactions.
-These pre-signed transactions are signed by every operator in the $N$ operators bridge
+the part of the protocol that creates a **transaction graph made of pre-signed transactions**.
+These pre-signed transactions are signed by **every operator in the $N$ operators bridge
 in a way that every operator has his own pre-signed version of the transaction graph
-by all other operators.
-This is important since it allows the 1-of-$N$ trust assumption,
+by all other operators**.
+This is important since it allows the **1-of-$N$ trust assumption**,
 because any operator can use its pre-signed transaction graph to perform
 a withdraw from the BitVM bridge into Bitcoin.
 
 However, only having pre-signed transactions is not enough to emulate covenants.
-We also need
+We also need **connector outputs,
+which are ways to restrict the flow of funds and information in a transaction graph**.
 
-- Emulating covenants with connector outputs and pre-signed transactions (and timelocks):
-  - Simple case where both Alice and Bob deposit into a P2TR D BTC.
-  - This P2TR has a Groth16 verifier that attest that someone has done a (big) computation in an AC.
-  - Alice spends from this P2TR by submitting a witness (the Groth16 proof).
-  - Groth16 verifier will output connector 1 (C1), or connector (C2) depending on the output of the proof verification.
-  - C1 Alice gets the D BTC (Alice has done the computation correctly and the proof is valid)
-  - C2 Bob gets the D BTC (Alice has NOT done the computation correctly and the proof is invalid)
-- Go over the transaction graph (simplified, not using superblocks, but stake chain).
+To illustrate this, let's consider a simple toy transaction graph example.
+In the figure below, we have a transaction graph that has six transactions:
+
+1. **Claim**
+1. **Payout Optimistic**
+1. **Challenge**
+1. **Assert**
+1. **Payout**
+1. **Disprove**
+
+![Transaction Graph](tx-graph.svg)
+
+This represents a "contract" between two parties, Alice, the verifier, and Bob, the prover.
+Alice wants Bob to calculate the [three-quadrillionth digit of $\pi$](https://en.wikipedia.org/wiki/Pi#Modern_quest_for_more_digits)[^pi].
+This can be any computation, but let's go with a nerdy example,
+since these are always good mind seeds to sow over the internet.
+And she's willing to pay $10$ BTC to Bob if he completes the task,
+hence she deposits $10$ BTC into a P2TR address.
+This P2TR address, all the transactions that stems from it,
+are checked and pre-signed by both Alice and Bob.
+
+[^pi]: Currently, the record stands at the two-quadrillionth digit.
+
+Let's follow the flow of transactions.
+The BTC denomitations are either $10$ BTC to demonstrate the flow of capital,
+and $\emptyset$ to demonstrate the flow of information.
+Bob, once ready, can spend Alice's $10$ BTC using the pre-signed Claim transaction.
+It has two outputs:
+
+1. A timelocked $10$ BTC output that can be spent using the Payout Optimistic transaction.
+1. An empty output $\emptyset$ that can be spent using either the Payout Optimistic transaction
+   or the Challenge transaction.
+
+Notice that if Bob is honest and has produced a valid proof,
+he can just spend both outputs using the Payout Optimistic transaction
+and wait the timelock to get his $10$ BTC.
+However, if Bob is dishonest by providing an invalid proof,
+or even no proof at all, and by trying the Payout Optimistic transaction path,
+Alice can say "fuck you" and spend the empty output $\emptyset$ using the Challenge transaction.
+Now the Payout Optimistic transaction is invalid because one of the inputs was spent
+and no miner would be able to include it in a block.
+
+By challenging Bob,
+Alice also needs to provide funds to cover for the cost of
+asserting his proof on-chain; say $0.1$ BTC,
+which is the cost of broadcasting the Assert transaction.
+Now that Bob was challenged, the only viable path is to
+assert his proof on-chain using the Assert followed by the Payout path.
+The Assert transaction carries the $10$ BTC,
+and inside it we have our Groth16 verifier, denoted as $G16$.
+$G16$ will verify the proof provided by Bob,
+using native Bitcoin Script and the big P2TR Merkle tree
+that we've discussed above in Big Idea 2.
+If the proof is valid, then Bob can spend the $10$ BTC
+using the Payout transaction that gives him the $10$ BTC back.
+This has also a timelock to allow Alice to disprove Bob's proof.
+If Alice cannot disprove Bob, he will eventually get his $10$ BTC back
+by the Payout transaction.
+
+However, if at least one of the leaves in the Merkle tree is invalid,
+then Alice can again say "fuck you" and spend the $10$ BTC
+using the Disprove transaction that gives her the $10$ BTC back.
+
+**This is a very clever way to emulate covenant-like behavior using
+a pre-signed transaction graph that has connector outputs
+that control the flows of both money and information**.
+
+The reader can note that it is trivial to extend this
+idea to any verified computation,
+such as "I've got the proof that this withdrawal is valid because of some funds in a sidesystem that were burned".
+And if the proof is valid, then the operator can have the withdrawal money back to
+pay the user[^withdrawal].
+And **if the proof is invalid, the operator then can have
+some sort of collateral BTC slashed** with some small part being burned
+and the **remainder being given to the challenger**.
+Hence, we have **economic incentives** to make sure that **operators behave**
+and, not only produce valid proofs, but also **challenge invalid ones**.
+The whole system also allows for **operators to charge withdrawal fees**
+from the sidesystem's users during the withdrawal process.
+
+[^withdrawal]:
+    In the actual BitVM bridge protocol,
+    the operator outfront the withdrawal money to the user
+    with some fee for the service,
+    and then asks for the BitVM bridge for a refund.
 
 ## What can covenants bring to BitVM?
 
@@ -579,6 +657,42 @@ to find frauds, as **the Layer 1 consensus guarantees the validity of the rollup
 
 The focus of this post is to give a high-level overview of BitVM,
 and building intuitions on how it works.
+By using the 3 big ideas:
+
+1. **Verified Computation**
+2. **Groth16 Bitcoin Script Compiler**
+3. **Emulating Covenants with Connector Outputs**
+
+we can create a very interesting 1-of-$N$ Bitcoin bridge,
+instead of having to resort to outdated majority federated multisig bridges.
+
+This allows all kinds of exciting stuff to be built on top of Bitcoin.
+Bitcoin is already the best money in the world,
+being the only ["sound money"](https://bitcoinmagazine.com/culture/history-bitcoin-sound-money-helps-society).
+However, due to its limited scalability,
+it is not suitable for wide adoption without
+either resorting to Layer 2 solutions,
+or by losing it's sound money properties by reducing the decentralization[^decentralication].
+Additionally, Bitcoin is not expressive enough to build interest applications.
+Things like prediction markets, decentralized exchanges,
+yield farming, Bitcoin-backed loans,
+and more have been brought to Bitcoin and left deep traumas.
+This is due to the fact that, while being possible to build smart contracts
+that are transparent and can be audited in Ethereum & Co.,
+in Bitcoin they came as a "trust me bro" solutions.
+All of these usecases cannot be expressed using Bitcoin Script.
+Hence, you need to fallback to losing custody of funds
+to use these solutions.
+Of course, shit hit the fan, and tons of people and companies lost A LOT of money
+as these "trust me bro" solutions either were hacked or went belly up.
+This might be a new dawn of BiFi (Bitcoin Finance, and fuck DeFi).
+
+[^decentralization]:
+    Decentralization is a key property of Bitcoin, and reducing it would compromise its sound money properties.
+    This is due to the fact that any average Joe can run a node,
+    since the requirements for running a node are minimal: 4MB every 10 minutes.
+    If we increase the block size, or block time, we would increase the cost of running a node,
+    which would reduce decentralization.
 
 Of course, you need a LOT of engineering to implement BitVM.
 If you are curious about the details, you can check out the
