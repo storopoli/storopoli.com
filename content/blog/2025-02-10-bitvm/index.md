@@ -666,14 +666,14 @@ By using the 3 big ideas:
 we can create a very interesting 1-of-$N$ Bitcoin bridge,
 instead of having to resort to outdated majority federated multisig bridges.
 
-This allows all kinds of exciting stuff to be built on top of Bitcoin.
-Bitcoin is already the best money in the world,
+**This allows all kinds of exciting stuff to be built on top of Bitcoin**.
+Bitcoin is already the **best money in the world**,
 being the only ["sound money"](https://bitcoinmagazine.com/culture/history-bitcoin-sound-money-helps-society).
 However, due to its limited scalability,
 it is not suitable for wide adoption without
 either resorting to Layer 2 solutions,
 or by losing it's sound money properties by reducing the decentralization[^decentralication].
-Additionally, Bitcoin is not expressive enough to build interest applications.
+Additionally, Bitcoin is _not_ expressive enough to build interest applications.
 Things like prediction markets, decentralized exchanges,
 yield farming, Bitcoin-backed loans,
 and more have been brought to Bitcoin and left deep traumas.
