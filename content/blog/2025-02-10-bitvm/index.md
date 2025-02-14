@@ -577,14 +577,14 @@ The Assert transaction carries the $10$ BTC,
 and inside it we have our Groth16 verifier, denoted as $G16$.
 $G16$ will verify the proof provided by Bob,
 using native Bitcoin Script and the big P2TR Merkle tree
-that we've discussed above in Big Idea 2.
+that we've discussed above in [Big Idea 2](#big-idea-2-groth16-bitcoin-script-compiler).
 If the proof is valid, then Bob can spend the $10$ BTC
 using the Payout transaction that gives him the $10$ BTC back.
 This has also a timelock to allow Alice to disprove Bob's proof.
 If Alice cannot disprove Bob, he will eventually get his $10$ BTC back
 by the Payout transaction.
 
-However, if at least one of the leaves in the Merkle tree is invalid,
+However, if at least one of the leaves in the big P2TR Merkle tree inside the $G16$ is invalid,
 then Alice can again say "fuck you" and spend the $10$ BTC
 using the Disprove transaction that gives her the $10$ BTC back.
 
@@ -615,10 +615,11 @@ from the sidesystem's users during the withdrawal process.
 
 As I've said above, we don't have covenants yet in Bitcoin[^timelocks].
 Nevertheless, the future is yet to be written
-and we **might have covenants in Bitcoin**.
+and one day we **might have covenants in Bitcoin**.
 If, and that's a big if, we have covenants in Bitcoin, they can bring several benefits to BitVM:
 
-- **The BitVM bridge becomes a defacto Layer 2 for Bitcoin by supporting unilateral trustless withdraws**.
+- **The BitVM bridge becomes a [defacto Layer 2](https://petertodd.org/2024/covenant-dependent-layer-2-review)
+  for Bitcoin by supporting unilateral trustless withdraws**.
 - **The Groth16 verifier might not need to be chunked and split into multiple transactions or locking scripts,
   and could fit a single transaction**.
 - **The sidesystem could be a true ZK-validity rollup, and not a ZK-optimistic rollup**.
@@ -630,10 +631,12 @@ First, with something like **[`OP_CAT`](https://bitcoinops.org/en/topics/op_cat/
 and **[`OP_CHECKTEMPLATEVERIFY`](https://bitcoinops.org/en/topics/op_checktemplateverify/)**;
 also known as `OP_CTV`,
 we don't need to have the whole transaction graph pre-signed by every operator.
-We just need to use `OP_CTV` in the transactions to verify important parts of the transactions
+We just need to use `OP_CTV` with some concatenation using `OP_CAT`
+in the transactions to verify important parts of the transactions
 that guarantee the integrity of the transaction with respect to the BitVM bridge.
 Then, anyone can do a **unilateral trustless withdraw**, not only a single BitVM operator.
-This will **turn the BitVM bridge into a fully trustless Bitcoin Layer 2**.
+This will **turn the BitVM bridge into a
+[fully trustless Bitcoin Layer 2](https://petertodd.org/2024/covenant-dependent-layer-2-review)**.
 
 Second, using the **[Great Script Restoration (GSR)](https://brink.dev/blog/2024/08/22/eng-call-great-script-restoration/)**,
 which is a proposal to **bring back all the "dark arts" arithmetic operations as 64-bit arithmetic operations**,
@@ -657,14 +660,13 @@ to find frauds, as **the Layer 1 consensus guarantees the validity of the rollup
 
 The focus of this post is to give a high-level overview of BitVM,
 and building intuitions on how it works.
-By using the 3 big ideas:
+By using the 3 big ideas
+we can create a very interesting 1-of-$N$ Bitcoin bridge,
+instead of having to resort to outdated majority federated multisig bridges:
 
 1. **Verified Computation**
 2. **Groth16 Bitcoin Script Compiler**
 3. **Emulating Covenants with Connector Outputs**
-
-we can create a very interesting 1-of-$N$ Bitcoin bridge,
-instead of having to resort to outdated majority federated multisig bridges.
 
 **This allows all kinds of exciting stuff to be built on top of Bitcoin**.
 Bitcoin is already the **best money in the world**,
@@ -672,7 +674,7 @@ being the only ["sound money"](https://bitcoinmagazine.com/culture/history-bitco
 However, due to its limited scalability,
 it is not suitable for wide adoption without
 either resorting to Layer 2 solutions,
-or by losing it's sound money properties by reducing the decentralization[^decentralication].
+or by losing it's sound money properties by reducing the decentralization[^decentralization].
 Additionally, Bitcoin is _not_ expressive enough to build interest applications.
 Things like prediction markets, decentralized exchanges,
 yield farming, Bitcoin-backed loans,
