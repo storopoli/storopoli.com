@@ -199,7 +199,7 @@ This proof $\pi$ has three main properties:
    a proof $\pi$, and _public_ inputs $x$.
 
 1. **Zero-Knowledge**: If the statement is true,
-   the verifier learns nothing about the secret $x$.
+   the verifier learns nothing about the secret $w$.
 
 [^negligible]:
     A function $f$ is negligible if for every polynomial $p$,
@@ -350,7 +350,8 @@ to pay for the computation.
 However in Bitcoin, the fees are calculated from the transaction size.
 This is possible because of the very limited expressiveness that Bitcoin Script has.
 All nodes will run your transaction's Script and verify it
-irrespectively of the size of the Script.
+irrespectively of the size of the Script,
+within the relevant size limits, of course.
 
 Bitcoin, prior to the Taproot upgrade,
 had limitations to a maximum of 1,000 stack elements,
