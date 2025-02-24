@@ -22,6 +22,9 @@ and distributed systems.
 
 If you are in a bad day, grab a curated Stoicism piece of advice at
 [`stoicquotes.io`](https://stoicquotes.io).
+I also made a [Sudoku App](https://sudoku.storopoli.com) that is free of spyware for my mother,
+and don't need Google or Apple permissions to install (it is a PWA);
+you can use it as well.
 
 If you have state secrets or any message that you
 want to pass along in the case you are incapacitated,
