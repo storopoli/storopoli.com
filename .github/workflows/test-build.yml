@@ -20,6 +20,6 @@ jobs:
           persist-credentials: false
 
       - name: Zola Build
-        uses: shalzz/zola-deploy-action@v0.19.2
+        uses: shalzz/zola-deploy-action@v0.20.0
         env:
           BUILD_ONLY: true
