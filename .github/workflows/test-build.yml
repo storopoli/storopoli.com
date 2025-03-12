@@ -23,3 +23,9 @@ jobs:
         uses: shalzz/zola-deploy-action@v0.20.0
         env:
           BUILD_ONLY: true
+
+      - name: Zola Check
+        uses: shalzz/zola-deploy-action@v0.20.0
+        env:
+          BUILD_ONLY: true
+          CHECK_LINKS: true
