@@ -230,7 +230,7 @@ LLVM originally stood for **l**ow **l**evel **v**irtual **m**achine.
 Despite its name, LLVM has little to do with traditional virtual machines.
 LLVM can take [intermediate representation (IR)](https://en.wikipedia.org/wiki/Intermediate_representation)
 code and compile it into machine-dependent instructions.
-It has [support and sponsorship](https://foundation.llvm.org/docs/sponsors/)
+It has [support and sponsorship](https://foundation.llvm.org/sponsors)
 from a lot of big-tech corporations,
 such as Apple, Google, IBM, Meta, Arm, Intel, AMD, Nvidia, and so on.
 It is a pretty fast compiler that can do wonders in optimizing IR code to a

@@ -222,7 +222,7 @@ Suppose that the verifier chooses an $x$ at random from a set of $2^{256}$ value
 that is a 256-bit number.
 According to [Wolfram Alpha](https://www.wolframalpha.com/input?i2d=true&i=Power%5B2%2C256%5D),
 the decimal approximation is $\approx 1.16 \times 10^{77}$.
-This is almost the [number of atoms in the observable universe](https://en.wikipedia.org/wiki/Observable_universe#Matter_content%E2%80%94number_of_atoms)!
+This is almost the [number of atoms in the observable universe](https://en.wikipedia.org/wiki/Observable_universe#Matter_content—number_of_atoms)!
 The number of points where evaluations are different is $10^{77} - d$,
 where $d$ is the degree of the polynomial.
 Therefore, we can assume with overwhelming probability that the prover knows the polynomial.

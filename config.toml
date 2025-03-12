@@ -35,6 +35,12 @@ bottom_footnotes = true
 highlight_theme = "css"
 smart_punctuation = true
 
+[link_checker]
+# Skip link checking for external URLs that start with these prefixes
+skip_prefixes = [
+  "https://onlinelibrary.wiley.com/doi", # we get 403 on DOI stuff from Wiley
+  "https://www.gnu.org/licenses",        # GNU does not like GitHub.
+]
 
 [extra]
 # Check out the documentation (or the comments below) to learn how to customise tabi:

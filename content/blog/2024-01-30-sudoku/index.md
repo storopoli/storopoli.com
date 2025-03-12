@@ -94,7 +94,7 @@ This is a great advantage, since you don't have to ask for permissions to Google
 [Tim Apple](https://youtu.be/XHVxm12NbrY).
 
 **In Dioxus making a PWA was really easy**.
-There is a PWA template in the [`examples/` directory in their repository](https://github.com/DioxusLabs/dioxus/tree/master/examples/PWA-example).
+There is a PWA template in the [`examples/` directory in their repository](https://github.com/DioxusLabs/dioxus/tree/main/examples/pwa).
 You just have to follow the instructions in the README and you're done.
 In my case, I only had to change the metadata in the `manifest.json` file
 and add what I wanted to cache in the service worker `.js` file.
