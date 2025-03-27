@@ -218,7 +218,7 @@ who published the [paper describing it in 2016](https://eprint.iacr.org/2016/260
 
 **Groth16 uses a mathematical tool called
 [bilinear maps](https://en.wikipedia.org/wiki/Bilinear_map)
-or [pairing functions](https://alinush.github.io/2022/12/31/pairings-or-bilinear-maps.html)**.
+or [pairing functions](https://alinush.github.io/pairings)**.
 This is generally applied to vector spaces,
 but they can work in elliptic curves (EC) as well.
 It allows us to have VERY succinct proofs.
