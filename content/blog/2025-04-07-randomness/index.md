@@ -16,7 +16,7 @@ This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
 To see the rendered mathematical expressions, you'll need to enable JavaScript.
 {% end %}
 
-TODO: Nice Image.
+![Just sprinkle a little bit of randomness, and voilà!](randomness-meme.jpg)
 
 Sometimes when you deal with complicated computations,
 either because of the input size or the complexity of the computation,
@@ -39,6 +39,12 @@ I was recently skimming over a textbook that I used to use
 in my undergraduate course on probability theory (Mitzenmacher and Upfal's
 "Probability and Computing"[^pdf], see references below),
 and I stumbled upon a very interesting algorithm for calculating the median of a list.
+
+By the way, this textbook has one of the best covers in math textbooks.
+It is Alice in Wonderland dealing with a combinatorial explosion,
+see it below:
+
+{{ resize_image_relative(path="@/blog/2025-04-07-randomness/probability-and-computing.jpg", scale=0.5, alt="Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition" ) }}
 
 [^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
