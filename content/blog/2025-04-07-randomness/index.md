@@ -48,7 +48,7 @@ see it below:
 
 [^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
-The algorithm uses sampling to probabilistically find an **approximate median**,
+The algorithm uses sampling to probabilistically find the **median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
 an upper bound on the on the probability of deviation of a random variable from its mean.
 Since it is a probabilistic algorithm,
