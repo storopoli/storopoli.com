@@ -50,7 +50,7 @@ see it below:
 
 The algorithm uses sampling to probabilistically find the **median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
-an upper bound on the on the probability of deviation of a random variable from its mean.
+an upper bound on the probability of deviation of a random variable from its mean.
 Since it is a probabilistic algorithm,
 it finds the median in $O(n)$ (linear time) with probability
 $1 - n^{-\frac{1}{4}}$ (close to $1$ for large $n$).
@@ -145,7 +145,7 @@ It can fail in three ways:
 2. Too few sampled elements are greater than the true median
 3. The set $C$ becomes too large to sort efficiently
 
-However, the probability of any of these failures occurring is **remarkably small**: less than $n^{-1/4}$.
+However, the probability of any of these failures occurring is **remarkably small**: less than $n^{-\frac{1}{4}}$.
 This means that as the input size grows, the chance of failure becomes increasingly negligible:
 
 - For n = 10,000: failure probability ≤ 0.1
