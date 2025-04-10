@@ -64,9 +64,53 @@ but now the runtime is non-deterministic.
     Note that I am comparing against quicksort since it uses $O(\log n)$ space,
     whereas merge sort would use $O(n)$ space with the worst case is $O(n)$.
 
+The nice thing about the algorithm is that Chebyshev's inequality
+does not makes assumptions about the distribution of the variable,
+just that it has a finite variance.
+This is excellent since we can move away from the lalala-land of
+normal distributions assumptions that everything is a Gaussian bell curve[^bayesian].
+
+[^bayesian]:
+    For my Bayesian rant,
+    see ["Lindley's Paradox, or The consistency of Bayesian Thinking"](@/blog/2023-11-23-lindley_paradox/index.md).
+
 ## Chebyshev's Inequality
 
-TODO
+Chebyshev's inequality provides an upper bound on the probability
+of deviation of a random variable (with finite variance) from its mean.
+
+The inequality is given by:
+
+$$
+P(|X - \mu| \geq k \sigma) \leq \frac{1}{k^2}
+$$
+
+where $X$ is a random variable, $\mu$ is the mean,
+$\sigma$ is the standard deviation, and $k$ is a positive real number.
+
+This is a consequence of the [Markov's inequality](https://en.wikipedia.org/wiki/Markov's_inequality),
+and can be derived using simple algebra.
+The reader that is interested in the proof or more details,
+see the Wikipedia pages linked above.
+
+Because Chebyshev's inequality can be applied to any distribution with finite mean and variance,
+it generally gives looser bounds compared to what we might get if we knew more about the specific distribution.
+Here's a table showing how much of the distribution's values must lie within $k$ standard deviations of the mean:
+
+| $k$        | Min. % within $k$ standard deviations | Max. % beyond $k$ standard deviations |
+|------------|---------------------------------------|---------------------------------------|
+| 1          | 0%                                    | 100%                                  |
+| $\sqrt{2}$ | 50%                                   | 50%                                   |
+| 2          | 75%                                   | 25%                                   |
+| 3          | 88.8889%                              | 11.1111%                              |
+| 4          | 93.75%                                | 6.25%                                 |
+| 5          | 96%                                   | 4%                                    |
+| 10         | 99%                                   | 1%                                    |
+
+For example, while we know that for a normal distribution about 68% of values lie within one standard deviation,
+Chebyshev only tells us that *at least* 0% must lie within one standard deviation!
+This is the price we pay for having a bound that works on any distribution.
+Yet, it is still a very useful bound.
 
 ## Randomized Median
 
