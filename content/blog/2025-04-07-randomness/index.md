@@ -24,23 +24,23 @@ you cannot get an answer in any feasible amount of time,
 no matter how much computational power you have.
 
 When the limits of tractability are reached,
-we can give up deterministic computation and embrace randomness
+we can give up deterministic computation and embrace **randomness**
 to get an answer in a much more reasonable time.
 
 This is the case of [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method),
-which are a class of algorithms that use random sampling
+which are a class of algorithms that use **random sampling**
 to solve mathematical problems.
 And, of course, like everything nice in math and computer science,
-it has the Von Neumann's fingerprints all over it.
+it has the **Von Neumann's fingerprints** all over it.
 Alas, that is a story for another post, that I already covered in
 ["Von Neumann: the Sharpest Mind of the 20th Century"](@/blog/2024-06-22-von-neumann/index.md).
 
 I was recently skimming over a textbook that I used to use
 in my undergraduate course on probability theory (Mitzenmacher and Upfal's
 "Probability and Computing"[^pdf], see references below),
-and I stumbled upon a very interesting algorithm for calculating the median of a list.
+and I stumbled upon a very interesting algorithm for calculating the **median** of a list.
 
-By the way, this textbook has one of the best covers in math textbooks.
+By the way, this textbook has one of the **best covers** in math textbooks.
 It is Alice in Wonderland dealing with a combinatorial explosion,
 see it below:
 
@@ -48,7 +48,7 @@ see it below:
 
 [^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
-The algorithm uses sampling to probabilistically find an approximate median,
+The algorithm uses sampling to probabilistically find an **approximate median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
 an upper bound on the on the probability of deviation of a random variable from its mean.
 Since it is a probabilistic algorithm,
@@ -58,7 +58,7 @@ Note that for any deterministic algorithm to find the median,
 it needs to sort the list, which takes $O(n \log n)$ (linearithmic time)
 on average or $O(n^2)$ (quadratic time) in the worst case[^quicksort].
 You can always iterate and run the algorithm until you get a result,
-but now the runtime is non-deterministic.
+but now the runtime is **non-deterministic**.
 
 [^quicksort]:
     Note that I am comparing against quicksort since it uses $O(\log n)$ space,
@@ -66,8 +66,8 @@ but now the runtime is non-deterministic.
 
 The nice thing about the algorithm is that Chebyshev's inequality
 does not makes assumptions about the distribution of the variable,
-just that it has a finite variance.
-This is excellent since we can move away from the lala-land of
+just that it has a **finite variance**.
+This is excellent since we can move away from the **lala-land** of
 normal distributions assumptions that everything is a Gaussian bell curve[^bayesian].
 
 [^bayesian]:
@@ -94,7 +94,7 @@ The reader that is interested in the proof or more details,
 see the Wikipedia pages linked above.
 
 Because Chebyshev's inequality can be applied to any distribution with finite mean and variance,
-it generally gives looser bounds compared to what we might get if we knew more about the specific distribution.
+it generally gives **looser bounds** compared to what we might get if we knew more about the specific distribution.
 Here's a table showing how much of the distribution's values must lie within $k$ standard deviations of the mean:
 
 | $k$        | Min. % within $k$ standard deviations | Max. % beyond $k$ standard deviations |
@@ -108,9 +108,9 @@ Here's a table showing how much of the distribution's values must lie within $k$
 | 10         | 99%                                   | 1%                                    |
 
 For example, while we know that for a normal distribution about 68% of values lie within one standard deviation,
-Chebyshev only tells us that *at least* 0% must lie within one standard deviation!
+Chebyshev only tells us that **at least** 0% must lie within one standard deviation!
 This is the price we pay for having a bound that works on any distribution.
-Yet, it is still a very useful bound.
+Yet, it is still a **very useful bound**.
 
 ## Randomized Median
 
@@ -138,14 +138,14 @@ which is the set of elements in $S$ that are between $d$ and $u$,
 where $d$ is the lower bound and $u$ is the upper bound of the
 sampled set $R$.
 
-The algorithm's brilliance lies in its probabilistic guarantees.
+The algorithm's brilliance lies in its **probabilistic guarantees**.
 It can fail in three ways:
 
 1. Too few sampled elements are less than the true median
 2. Too few sampled elements are greater than the true median
 3. The set $C$ becomes too large to sort efficiently
 
-However, the probability of any of these failures occurring is remarkably small: less than $n^{-1/4}$.
+However, the probability of any of these failures occurring is **remarkably small**: less than $n^{-1/4}$.
 This means that as the input size grows, the chance of failure becomes increasingly negligible:
 
 - For n = 10,000: failure probability ≤ 0.1
@@ -153,7 +153,7 @@ This means that as the input size grows, the chance of failure becomes increasin
 - For n = 100,000,000: failure probability ≤ 0.01
 
 When the algorithm doesn't fail (which is the vast majority of the time),
-it is guaranteed to find the exact median in linear time.
+it is guaranteed to find the **exact median** in linear time.
 This is achieved by carefully choosing the sample size, $n^{\frac{3}{4}}$, and
 the buffer zone around the median, $\sqrt{n}$, to balance between:
 
@@ -187,7 +187,7 @@ The algorithm provides two important guarantees:
 
 ### Why These Guarantees Work
 
-The key to understanding why this algorithm works lies in analyzing the probability of failure.
+The key to understanding why this algorithm works lies in analyzing the **probability of failure**.
 Let's look at how we bound the probability of having too few samples below the median (event $\mathcal{E}_1$):
 
 1. For each sampled element $i$, define an indicator variable $X_i$ where:
@@ -228,8 +228,8 @@ as each run is independent.
 
 ## Haskell Implementation
 
-I implemented the algorithm in Haskell,
-because I stare at Rust code 8+ hours a day,
+I implemented the algorithm in **Haskell**,
+because I stare at **Rust** code 8+ hours a day,
 and I want programming in a language that
 "if it compiles, it is guaranteed to run".
 The only other language apart from Rust that has this property,
@@ -361,7 +361,7 @@ Otherwise, we sort the set $C$ and find the median.
 ## Results
 
 Here's the result by running the algorithm against a randomly shuffled list of contiguous integers from 1 to 10,000,001
-using the magical number 42 as the seed of our random number generator.
+using the **magical number 42** as the seed of our random number generator.
 As you can see both the exact and randomized median algorithms find the right
 median value:
 
@@ -386,12 +386,12 @@ Speedup factor: 17.26x
 ```
 
 The randomized median algorithm for the case of $n = 10,000,001$
-is at least 17x faster than the exact median calculation.
-That is an order of magnitude improvement over the deterministic median algorithm.
+is at least **17x faster** than the exact median calculation.
+That is an **order of magnitude improvement** over the deterministic median algorithm.
 
 ## Conclusion
 
-I love the inequalities of the Russian school of probability,
+I love the inequalities of the **Russian school of probability**,
 Markov, Chebyshev, etc.,
 since it does not depend on any underlying distributional assumptions.
 Chebyshev's inequality depends on the random variable having a finite mean and variance,
@@ -402,11 +402,11 @@ most of the time for your data.
 To be fair, there are some random variables that can have infinite variance,
 such as the [Cauchy](https://en.wikipedia.org/wiki/Cauchy_distribution)
 or [Pareto](https://en.wikipedia.org/wiki/Pareto_distribution) distributions,
-but these are extremely rare for you to cross paths with.
+but these are **extremely rare** for you to cross paths with.
 
 Another thing to note is that instead of the Chebyshev's inequality,
 we could have used the [Chernoff bound](https://en.wikipedia.org/wiki/Chernoff_bound)
-to get a tighter bound on the probability of failure.
+to get a **tighter bound** on the probability of failure.
 But that is "left as an exercise to the reader".
 
 Finally, if you are intrigued to see how powerful these inequalities
