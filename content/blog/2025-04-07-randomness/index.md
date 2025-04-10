@@ -391,7 +391,29 @@ That is an order of magnitude improvement over the deterministic median algorith
 
 ## Conclusion
 
-TODO
+I love the probabilities of the Russian school of probabily,
+Markov, Chebyshev, etc.,
+since it does not depend on any underlying distributional assumptions.
+Chebyshev's inequality depends on the random variable having a finite mean and variance,
+and Markov's inequality depends on the random variable being non-negative but does not depend on finite variances.
+
+Assuming that the underlying variable has finite variance is a reasonable assumption to make
+most of the time for your data.
+To be fair, there are some random variables that can have infinite variance,
+such as the [Cauchy](https://en.wikipedia.org/wiki/Cauchy_distribution)
+or [Pareto](https://en.wikipedia.org/wiki/Pareto_distribution) distributions,
+but these are extremely rare for you to cross paths.
+
+Another thing to note is that instead of the Chebyshev's inequality,
+we could have used the [Chernoff bound](https://en.wikipedia.org/wiki/Chernoff_bound)
+to get a tighter bound on the probability of failure.
+But that is "left as an exercise to the reader".
+
+Finally, if you are intrigued to see how powerful these inequalities
+can be in probability theory,
+I highly recommed Nassim's Taleb technical book
+["Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications"](https://arxiv.org/abs/2001.10488)
+which is freely available on arXiv.
 
 ## References
 
