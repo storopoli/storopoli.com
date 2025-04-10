@@ -114,21 +114,117 @@ Yet, it is still a very useful bound.
 
 ## Randomized Median
 
+Alright, now let's see in practice how this works.
 Below is the algorithm for finding the median of a list,
-as described in algorithm 3.1 in the textbook:
+as described in algorithm 3.1 in the "Probability and Computing" textbook:
 
 **Input:** A set $S$ of $n$ elements over a totally ordered universe.
 
 **Output:** The median element of $S$, denoted by $m$.
 
-1. Pick a (multi-)set $R$ of $\lceil n^{3/4} \rceil$ elements in $S$, chosen independently and uniformly at random with replacement.
+1. Pick a (multi-)set $R$ of $\lceil n^{\frac{3}{4}} \rceil$ elements in $S$, chosen independently and uniformly at random with replacement.
 2. Sort the set $R$.
-3. Let $d$ be the $\left(\left\lfloor \frac{1}{2}n^{3/4} - \sqrt{n} \right\rfloor\right)$th smallest element in the sorted set $R$.
-4. Let $u$ be the $\left(\left\lfloor \frac{1}{2}n^{3/4} + \sqrt{n} \right\rfloor\right)$th smallest element in the sorted set $R$.
-5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \\{x \in S : d \leq x \leq u\\}$ and the numbers $\ell_d = |\\{x \in S : x < d\\}|$ and $\ell_u = |\\{x \in S : x > u\\}|$.
+3. Let $d$ be the $\bigg(\left\lfloor \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right\rfloor\bigg)$th smallest element in the sorted set $R$.
+4. Let $u$ be the $\bigg(\left\lceil \frac{1}{2}n^{\frac{3}{4}} + \sqrt{n} \right\rceil\bigg)$th smallest element in the sorted set $R$.
+5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\\{x \in S : d \leq x \leq u \big\\}$ and the numbers $\ell_d = \bigg| \big\\{x \in S : x < d \big\\}\bigg|$ and $\ell_u = \bigg| \big\\{x \in S : x > u \big\\}\bigg|$.
 6. If $\ell_d > n/2$ or $\ell_u > n/2$ then FAIL.
-7. If $|C| \leq 4n^{3/4}$ then sort the set $C$, otherwise FAIL.
-8. Output the $(\lfloor n/2 \rfloor - \ell_d + 1)$th element in the sorted order of $C$.
+7. If $\big|C\big| \leq 4n^{\frac{3}{4}}$ then sort the set $C$, otherwise FAIL.
+8. Output the $\big(\lfloor \frac{n}{2} \rfloor - \ell_d + 1\big)$th element in the sorted order of $C$.
+
+As you can see, the algorithm starts by sampling a set of elements from the list,
+sorting them, and then using the sorted elements to find the median.
+How it finds the median is by using the set $C$,
+which is the set of elements in $S$ that are between $d$ and $u$,
+where $d$ is the lower bound and $u$ is the upper bound of the
+sampled set $R$.
+
+The algorithm's brilliance lies in its probabilistic guarantees.
+It can fail in three ways:
+
+1. Too few sampled elements are less than the true median
+2. Too few sampled elements are greater than the true median
+3. The set $C$ becomes too large to sort efficiently
+
+However, the probability of any of these failures occurring is remarkably small: less than $n^{-1/4}$.
+This means that as the input size grows, the chance of failure becomes increasingly negligible:
+
+- For n = 10,000: failure probability ≤ 0.1
+- For n = 1,000,000: failure probability ≤ 0.032
+- For n = 100,000,000: failure probability ≤ 0.01
+
+When the algorithm doesn't fail (which is the vast majority of the time),
+it is guaranteed to find the exact median in linear time.
+This is achieved by carefully choosing the sample size, $n^{\frac{3}{4}}$, and
+the buffer zone around the median, $\sqrt{n}$, to balance between:
+
+1. Having enough samples to make failure unlikely
+2. Keeping the set $C$ small enough to sort quickly
+
+The algorithm provides two important guarantees:
+
+1. **Correctness**: The algorithm is guaranteed to either FAIL or return the true median.
+   This is proven using Chebyshev's inequality in two steps.
+   First, we show that the true median $m$ will be in set $C$ with high probability:
+
+   - Let $Y_1$ be the count of sampled elements ≤ $m$ in $R$
+     - When $Y_1 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_1$
+   - Let $Y_2$ be the count of sampled elements ≥ $m$ in $R$
+     - When $Y_2 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_2$
+   - When $|C| > 4n^{\frac{3}{4}}$, we call this event $\mathcal{E}_3$
+   - By Chebyshev's inequality, each event has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$
+
+   Second, we show that when $m$ is in $C$, we find it:
+
+   - $\ell_d$ counts elements < $d$, so there are exactly $\big\lfloor \frac{n}{2} \big\rfloor - \ell_d$ elements between $d$ and $m$
+   - Therefore, $m$ must be the $\bigg(\big\lfloor \frac{n}{2} \big\rfloor - \ell_d + 1\bigg)$th element in the sorted $C$
+
+1. **Linear Time**: The algorithm runs in $O(n)$ time when it succeeds because:
+
+   - Sampling and sorting $R$ takes $O\left(n^\frac{3}{4} \log n\right)$ time
+   - Comparing all elements to $d$ and $u$ takes $O(n)$ time
+   - Sorting $C$ takes $O\left(n^\frac{3}{4} \log n\right)$ time since $|C| \leq 4n^\frac{3}{4}$
+   - All other operations are constant time
+
+### Why These Guarantees Work
+
+The key to understanding why this algorithm works lies in analyzing the probability of failure.
+Let's look at how we bound the probability of having too few samples below the median (event $\mathcal{E}_1$):
+
+1. For each sampled element $i$, define an indicator variable $X_i$ where:
+   $$
+   X_i = 1 \text{ if the $i$th sample is } \leq \text{ median}
+   $$
+   $$
+   X_i = 0 \text{ otherwise}
+   $$
+
+1. Since we sample with replacement, the $X_i$ are independent. And since there are
+   $\frac{n-1}{2} + 1$ elements ≤ median in $S$, we have:
+   $$
+   P(X_i = 1) = \frac{\frac{n-1}{2} + 1}{n} = \frac{1}{2} + \frac{1}{2n}
+   $$
+
+1. Let $Y_1 = \sum_{i=1}^{n^{3/4}} X_i$ count samples ≤ median. This is a binomial random variable with:
+
+   - Expected value: $E[Y_1] = n^{\frac{3}{4}}\left(\frac{1}{2} + \frac{1}{2n}\right)$
+   - Variance: $Var[Y_1] < \frac{1}{4}n^{\frac{3}{4}}$
+
+1. Using Chebyshev's inequality:
+   $$
+   P \left(Y_1 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right) \leq \frac{Var[Y_1]}{n} < \frac{1}{4}n^{-\frac{1}{4}}
+   $$
+
+This shows that both events $\mathcal{E}_1$ and $\mathcal{E}_2$ have probability at most $\frac{1}{4}n^{-\frac{1}{4}}$,
+and also that $\mathcal{E}_3$ has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$:
+
+$$
+P(\mathcal{E}_1) \leq P(\mathcal{E}_2 + \mathcal{E}_3) \leq \frac{1}{2}n^{-\frac{1}{4}}
+$$
+
+All these events combined demonstrate that the algorithm rarely fails: the probability of having too few samples
+on either side of the median decreases as $n^{-\frac{1}{4}}$, becoming negligible for large $n$.
+If higher reliability is needed, you can simply run the algorithm multiple times,
+as each run is independent.
 
 ## Haskell Implementation
 
