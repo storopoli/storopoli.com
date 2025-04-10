@@ -27,7 +27,7 @@ When the limits of tractability are reached,
 we can give up deterministic computation and embrace randomness
 to get an answer in a much more reasonable time.
 
-This is the case of Monte Carlo methods,
+This is the case of [Monte Carlo methods](https://en.wikipedia.org/wiki/Monte_Carlo_method),
 which are a class of algorithms that use random sampling
 to solve mathematical problems.
 And, of course, like everything nice in math and computer science,
@@ -67,7 +67,7 @@ but now the runtime is non-deterministic.
 The nice thing about the algorithm is that Chebyshev's inequality
 does not makes assumptions about the distribution of the variable,
 just that it has a finite variance.
-This is excellent since we can move away from the lalala-land of
+This is excellent since we can move away from the lala-land of
 normal distributions assumptions that everything is a Gaussian bell curve[^bayesian].
 
 [^bayesian]:
@@ -391,7 +391,7 @@ That is an order of magnitude improvement over the deterministic median algorith
 
 ## Conclusion
 
-I love the probabilities of the Russian school of probability,
+I love the inequalities of the Russian school of probability,
 Markov, Chebyshev, etc.,
 since it does not depend on any underlying distributional assumptions.
 Chebyshev's inequality depends on the random variable having a finite mean and variance,
@@ -402,7 +402,7 @@ most of the time for your data.
 To be fair, there are some random variables that can have infinite variance,
 such as the [Cauchy](https://en.wikipedia.org/wiki/Cauchy_distribution)
 or [Pareto](https://en.wikipedia.org/wiki/Pareto_distribution) distributions,
-but these are extremely rare for you to cross paths.
+but these are extremely rare for you to cross paths with.
 
 Another thing to note is that instead of the Chebyshev's inequality,
 we could have used the [Chernoff bound](https://en.wikipedia.org/wiki/Chernoff_bound)
