@@ -391,7 +391,7 @@ That is an order of magnitude improvement over the deterministic median algorith
 
 ## Conclusion
 
-I love the probabilities of the Russian school of probabily,
+I love the probabilities of the Russian school of probability,
 Markov, Chebyshev, etc.,
 since it does not depend on any underlying distributional assumptions.
 Chebyshev's inequality depends on the random variable having a finite mean and variance,
@@ -411,7 +411,7 @@ But that is "left as an exercise to the reader".
 
 Finally, if you are intrigued to see how powerful these inequalities
 can be in probability theory,
-I highly recommed Nassim's Taleb technical book
+I highly recommend Nassim's Taleb technical book
 ["Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications"](https://arxiv.org/abs/2001.10488)
 which is freely available on arXiv.
 
