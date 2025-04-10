@@ -342,9 +342,13 @@ As before, for the case of an empty list, we return `Nothing`.
 
 For the case of a non-empty list, we first convert the list to an array,
 and then sample `n^(3/4)` elements from the list with replacement.
-We use the `randomRs` function to generate a list of random indices,
-and then take the first `n^(3/4)` elements from the list.
-Then, we sort the sample and convert it to an array.
+We use the [`randomRs`](https://hackage.haskell.org/package/random-1.1/docs/System-Random.html#v:randomR)
+function to generate a list of random indices,
+it generates an infinite list of random values within the specified range
+(in this case, from `0 to n-1`),
+hence sampling with replacement.
+Then, we take the first `n^(3/4)` elements from the list.
+Next, we sort the sample and convert it to an array.
 
 Next, we find the lower and upper bounds of the sample.
 We do this by finding the index of the element at position `n^(3/4)/2 - sqrt(n)`
