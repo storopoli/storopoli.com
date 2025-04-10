@@ -256,7 +256,25 @@ median xs =
         else Just ((sortedArr ! (mid - 1) + sortedArr ! mid) / 2)
 ```
 
-DESCRIBE THE CODE
+First we define a function signature for the median function:
+it takes a list or elements of some type that is an instance of both the `Ord` type class,
+and the `Fractional` type class.
+This is because we must assure the Haskell compiler that the elements of the list can be
+ordered and that we can perform fractional arithmetic on them.
+It returns a `Maybe a` because the median is not defined for empty lists.
+The `Maybe` type is an instance of the `Monad`[^monad] type class,
+which allows us to use the `>>=` operator to chain computations that may fail.
+It can take two values `Nothing` or `Just a`, where `a` is the type of the elements of the list.
+
+[^monad]:
+    Yes M word mentioned.
+    If you want a good introduction to Haskell functors, applicatives, and monads,
+    see ["Functors, Applicatives, And Monads In Pictures"](https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
+
+For the case of an empty list, we return `Nothing`.
+For the case of a non-empty list, we convert the list to an array,
+sort the array, and then find the median,
+returning the median as a `Just` value.
 
 Now, let's implement the randomized median algorithm:
 
@@ -311,7 +329,34 @@ randomizedMedian xs seed =
       )
 ```
 
-DESCRIBE THE CODE
+I've added comments to the code with respect to the algorithm steps.
+First, the function signature is almost the same as the deterministic median function.
+There are two differences:
+
+1. The elements of the list does not need to be a `Fractional` type.
+1. We now take an additional parameter, `seed`,
+   which is the seed for the random number generator.
+   This is needed since we are using a random number generator to sample the elements from the list.
+
+As before, for the case of an empty list, we return `Nothing`.
+
+For the case of a non-empty list, we first convert the list to an array,
+and then sample `n^(3/4)` elements from the list with replacement.
+We use the `randomRs` function to generate a list of random indices,
+and then take the first `n^(3/4)` elements from the list.
+Then, we sort the sample and convert it to an array.
+
+Next, we find the lower and upper bounds of the sample.
+We do this by finding the index of the element at position `n^(3/4)/2 - sqrt(n)`
+and `n^(3/4)/2 + sqrt(n)` in the sorted sample.
+We then take the element at these indices as the lower and upper bounds.
+
+Then, we compute the set $C$ and the counts $\ell_d$ and $\ell_u$.
+We do this by filtering the list with the lower and upper bounds.
+
+Next, we check if the set $C$ is too large to sort efficiently.
+If it is, we return `Nothing`.
+Otherwise, we sort the set $C$ and find the median.
 
 ## Results
 
