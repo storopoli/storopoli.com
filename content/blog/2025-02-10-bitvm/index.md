@@ -21,6 +21,9 @@ To see the rendered content, you'll need to enable JavaScript.
 {% admonition(type="info", icon="info", title="BTC++ Talk") %}
 This post is the written version of my very condensed 45-minute talk
 at [BTC++ 2025 Floripa](https://btcpp.dev/conf/floripa).
+You can watch the talk [here](https://youtu.be/gHoSpAgI7Xk).
+
+{{ youtube(id="gHoSpAgI7Xk") }}
 {% end %}
 
 **BitVM is a bridge between Bitcoin and a sidesystem**.
