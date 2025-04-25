@@ -14,18 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           submodules: true
           persist-credentials: false
 
       - name: Zola Build
-        uses: shalzz/zola-deploy-action@v0.20.0
+        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20.0
         env:
           BUILD_ONLY: true
 
       - name: Zola Check
-        uses: shalzz/zola-deploy-action@v0.20.0
+        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20.0
         env:
           BUILD_ONLY: true
           CHECK_LINKS: true
