@@ -14,12 +14,12 @@ jobs:
     permissions:
       contents: write # Needed to create commits
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Build and deploy
-        uses: shalzz/zola-deploy-action@v0.20.0
+        uses: shalzz/zola-deploy-action@c34a7626cd84c9c90499afeb310070ea838a8d1a # v0.20.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
