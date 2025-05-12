@@ -40,6 +40,8 @@ smart_punctuation = true
 skip_prefixes = [
   "https://onlinelibrary.wiley.com/doi", # we get 403 on DOI stuff from Wiley
   "https://www.gnu.org/licenses",        # GNU does not like GitHub.
+  "https://www.nytimes.com",             # NYTimes does not like GitHub.
+  "https://stackoverflow.com",           # StackOverflow does not like GitHub.
 ]
 
 [extra]
