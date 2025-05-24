@@ -36,9 +36,8 @@ It will always be true (given the 5 axioms of course).
 
 That is how mathematics won my mind.
 Now, how it won my heart is a different story.
-It has to do with the beauty of math's incompleteness.
-And this is what I want to talk about in this post,
-along with some contextual history and some theorem proving in [Agda](https://agda.readthedocs.io/).
+It has to do with the beauty of math's incompleteness
+and self-referential paradoxes.
 
 ## Cantor and multiple infinities
 
