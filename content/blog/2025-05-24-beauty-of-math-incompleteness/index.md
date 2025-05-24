@@ -14,6 +14,9 @@ katex = true
 
 ![A curios mathematician seeing a blackhole of self-referential paradoxes.](self-referential-blackhole.png)
 
+> "Logic is the hygiene that the mathematician practises to keep his ideas healthy and strong."
+> --- Hermann Weyl
+
 I have a very special place for mathematics in my mind and heart.
 
 Mathematics is above any other science.
