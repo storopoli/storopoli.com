@@ -213,7 +213,6 @@ Yes, that is mind-blowing and paradoxically beautiful.
 Cantor called the size of the set of natural numbers $\aleph_0$,
 and conjectured that the set of real numbers is $\aleph_1$.
 This is called the [continuum hypothesis](https://en.wikipedia.org/wiki/Continuum_hypothesis) (CH).
-We will come back to CH later.
 
 ## Russel and the barber paradox
 
@@ -261,9 +260,209 @@ And yet again, we have self-reference creating a paradox.
 Personally, I find Cantor's multiple infinities more beautiful than Russell's paradox.
 But I acknowledge that Russell's paradox is way simpler and more accessible to the general public.
 
+## Gödel and the incompleteness theorem
 
-## Scratch pad
+![Kurt Gödel](kurt-godel.jpg)
 
-Gödel (1940): Proved that CH cannot be disproved from the standard axioms of set theory (ZFC)
-Cohen (1963): Proved that CH cannot be proved from ZFC either
+Fasten your seatbelts, this is going to be a wild ride.
+But first, a little bit of history.
 
+In 1900,
+during the second [International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians) in Paris,
+David Hilbert,
+arguably the most important mathematician of the 20th century,
+gave a list of 23 problems that he thought would be the most important to solve in the century.
+These became known as the [Hilbert's problems](https://en.wikipedia.org/wiki/Hilbert%27s_problems).
+Right there in the second problem, Hilbert asked:
+
+> The compatibility of the arithmetical axioms.
+
+Later, Hilbert recasted his "Second Problem" at the eighth [International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians) in Bologna.
+He posed three questions:
+
+1. Was mathematics complete?
+2. Was mathematics consistent?
+3. Was mathematics decidable?
+
+Hilbert believed that mathematics could be put on a completely secure foundation by answering these questions.
+Gödel would shatter the dream of a complete and consistent mathematics.
+And later, Turing would show that mathematics is not decidable.
+
+Gödel's incompleteness theorems[^godel-incompleteness] are composed of two theorems.
+Let's start with the first incompleteness theorem, which Gödel proved in 1931
+in front of an audience that comprised of no one other than [Von Neumann](@/blog/2024-06-22-von-neumann/index.md),
+who allegedly was so impressed by Gödel's work that he remarked:
+
+> It's all over.
+
+[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [Gödel Without (Too Many) Tears](https://www.logicmatters.net/igt/#A-shorter-book) by the logician Peter Smith.
+
+### The first incompleteness theorem
+
+The First Incompleteness Theorem states:
+
+> For any consistent formal system $F$ that is powerful enough to express basic arithmetic[^peano], there exists a statement $G$ in the language of $F$ such that:
+>
+> 1. $G$ is true (when interpreted as a statement about natural numbers)
+> 2. $G$ cannot be proven within $F$
+> 3. $\neg G$ (not $G$) cannot be proven within $F$ either
+
+[^peano]: Another rabbit hole to dive: [Peano's arithmetic](https://en.wikipedia.org/wiki/Peano_arithmetic).
+
+In other words: truth and provability are not the same thing!
+
+Gödel's genius was realizing he could make mathematical statements talk about mathematical statements.
+
+#### Step 1: Gödel Numbering --- The Encoding Trick
+
+Gödel assigned a unique natural number to every mathematical symbol, expression, and proof.
+Think of it like ASCII encoding for math:
+
+Basic symbols get prime numbers:
+
+- `0` → 2
+- `=` → 3
+- `+` → 5
+- `(` → 7
+- `)` → 11
+- etc.
+
+Gödel used a system based on prime factorization.
+He first assigned a unique natural number to each basic symbol in the formal language of arithmetic with which he was dealing.
+
+To encode an entire formula, which is a sequence of symbols, Gödel used the following system.
+Given a sequence $(x_{1},x_{2},x_{3},...,x_{n})$ of positive integers,
+the Gödel encoding of the sequence is the product of the first $n$ primes raised to their corresponding values in the sequence
+For example, the formula $0 = 0$ might become:
+
+- `0` → 2
+- `=` → 3
+- `0` → 2
+
+Gödel number = $2^2 \times 3^3 \times 5^2 = 4 \times 27 \times 25 = 2,700$
+
+This is called the [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering).
+The key insight is that now statements about formulas become statements about numbers!
+
+#### Step 2: The Predicate "Proves(x, y)"
+
+Using Gödel numbering, we can write an arithmetic predicate that means:
+"$x$ is the Gödel number of a proof of the statement with Gödel number $y$"
+
+This is purely mechanical --- checking if $x$ represents a valid sequence of logical steps ending in $y$.
+
+#### Step 3: The Diagonal Lemma --- The Self-Reference Trick
+
+This is where it gets mind-blowing.
+Gödel proved:
+
+> For any arithmetic property $P(x)$, we can construct a statement $S$ that says:
+> "$P$ holds for my own Gödel number"
+
+It's like writing a sentence that says "This sentence has 25 letters" --- but in arithmetic!
+
+How The Diagonal Lemma works:
+
+1. Define a function $\text{sub}(n, m) =$ "the result of substituting $m$ into formula $n$".
+2. Consider the property: "The formula with Gödel number $x$, when $x$ substituted into it, has property $P$".
+3. Let this property have Gödel number $d$.
+4. Now look at $\text{sub}(d, d)$ --- this is $d$ applied to itself!
+
+This creates a fixed point --- a statement that successfully refers to itself.
+
+#### Step 4: Constructing $G$ --- The Gödel Sentence
+
+Using the diagonal lemma with the property "is not provable", Gödel constructs $G$ such that:
+
+$G \iff \text{"The statement with Gödel number $g$ is not provable"}$
+
+But $g$ is the Gödel number of $G$ itself! So:
+
+$G \iff \text{"$G$ is not provable"}$
+
+Now we reason:
+
+Case 1: Suppose G is provable:
+
+- Then G is false (since G says "G is not provable")
+- So our system proves a false statement
+- The system is inconsistent! ❌
+
+Case 2: Suppose $\neg G$ is provable:
+
+- Then G is true (G really isn't provable)
+- So $\neg G$ is false
+- Again, the system proves something false
+- Inconsistent! ❌
+
+Conclusion: If the system is consistent:
+
+- Neither $G$ nor $\neg G$ is provable
+- But $G$ is true (it correctly states its own unprovability)
+- We have a true but unprovable statement! ✅
+
+This is the self-reference that Gödel uses to prove his first incompleteness theorem.
+
+The deepest insight is that self-reference is unavoidable in any system strong enough to do arithmetic.
+Once you can:
+
+1. Encode statements as numbers
+2. Talk about properties of those numbers
+3. Use diagonalization
+
+You automatically get statements that assert their own unprovability.
+Mathematics contains the seeds of its own incompleteness!
+
+### The second incompleteness theorem
+
+The Second Incompleteness Theorem states:
+
+> If $F$ is a consistent formal system capable of proving basic arithmetic facts, then $F$ cannot prove its own consistency.
+
+This means arithmetic cannot prove that arithmetic doesn't contradict itself!
+It's like a judge who can't certify their own sanity --- the very act of self-certification is suspect.
+
+The Second Theorem is actually a clever consequence of the First. Here's the brilliant insight:
+
+#### Step 1: Formalizing "Consistency"
+
+First, we need to express "$F$ is consistent" in the language of arithmetic.
+Gödel realized:
+
+> "$F$ is consistent" $\iff$ "$F$ does not prove both a statement and its negation"
+
+Using Gödel numbering, this becomes:
+$\text{Consistency}(F) = \text{"There is no statement A such that F proves both A and ¬A"}$
+
+Or equivalently:
+$\text{Consistency}(F) = \text{"F does not prove 0=1"}$ (since from a contradiction, you can prove anything)
+
+#### Step 2: The Key Connection
+
+Remember our Gödel sentence $G$ from the First Theorem:
+
+$G \iff \text{"$G$ is not provable in $F$"}$
+
+Now here's the brilliant move.
+Gödel proved that within $F$ itself:
+
+> $F$ can prove: "If $F$ is consistent, then $G$ is not provable"
+
+Now comes the devastating logic:
+
+1. Assume $F$ can prove its own consistency: $F \vdash \text{Con}(F)$
+2. We know $F$ can prove: $\text{Con}(F) \rightarrow G$
+3. By deduction: $F \vdash G$
+4. But this means $G$ is provable!
+5. Since $G$ says "$G$ is not provable", $G$ must be false
+6. So $F$ proves a false statement - $F$ is inconsistent!
+
+We've shown: If $F$ can prove its own consistency, then $F$ is inconsistent!
+Therefore: If $F$ is consistent, it cannot prove its own consistency
+
+---
+
+That's a lot to digest.
+This is a very deep result that is still being studied today.
+I find this result to be on par with Cantor's multiple infinities in beauty.
+However, Gödel's incompleteness theorems are a much more outstanding and impressive result.
