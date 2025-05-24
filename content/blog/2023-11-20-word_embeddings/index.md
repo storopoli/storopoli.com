@@ -1,5 +1,5 @@
 +++
-title = "Word Embeddings"
+title = "Word embeddings"
 date = "2023-11-19T22:49:51"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["math", "machine learning", "julia"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![Euclid of Alexandria](euclid.jpg)
 

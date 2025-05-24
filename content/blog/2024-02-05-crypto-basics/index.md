@@ -1,5 +1,5 @@
 +++
-title = "Basics of Cryptographic Signatures"
+title = "Basics of cryptographic signatures"
 date = "2024-02-05T18:53:28"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["cryptography", "bitcoin"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![Euclid's one-way function](euclid.webp)
 

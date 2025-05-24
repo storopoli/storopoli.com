@@ -1,5 +1,5 @@
 +++
-title = "htmx: an Oasis in a Desert of Soy"
+title = "htmx: an oasis in a desert of soy"
 date = "2024-01-14T06:13:19"
 author = "Jose Storopoli, PhD"
 
