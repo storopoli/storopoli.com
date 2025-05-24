@@ -315,7 +315,7 @@ In other words: truth and provability are not the same thing!
 
 Gödel's genius was realizing he could make mathematical statements talk about mathematical statements.
 
-#### Step 1: Gödel Numbering --- The Encoding Trick
+#### Step 1: Gödel numbering --- the encoding trick
 
 Gödel assigned a unique natural number to every mathematical symbol, expression, and proof.
 Think of it like ASCII encoding for math:
@@ -346,14 +346,14 @@ Gödel number = $2^2 \times 3^3 \times 5^2 = 4 \times 27 \times 25 = 2,700$
 This is called the [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering).
 The key insight is that now statements about formulas become statements about numbers!
 
-#### Step 2: The Predicate "Proves(x, y)"
+#### Step 2: the predicate "proves(x, y)"
 
 Using Gödel numbering, we can write an arithmetic predicate that means:
 "$x$ is the Gödel number of a proof of the statement with Gödel number $y$"
 
 This is purely mechanical --- checking if $x$ represents a valid sequence of logical steps ending in $y$.
 
-#### Step 3: The Diagonal Lemma --- The Self-Reference Trick
+#### Step 3: the diagonal lemma --- the self-reference trick
 
 This is where it gets mind-blowing.
 Gödel proved:
@@ -372,7 +372,7 @@ How The Diagonal Lemma works:
 
 This creates a fixed point --- a statement that successfully refers to itself.
 
-#### Step 4: Constructing $G$ --- The Gödel Sentence
+#### Step 4: constructing $G$ --- the Gödel sentence
 
 Using the diagonal lemma with the property "is not provable", Gödel constructs $G$ such that:
 
@@ -426,7 +426,7 @@ It's like a judge who can't certify their own sanity --- the very act of self-ce
 
 The Second Theorem is actually a clever consequence of the First. Here's the brilliant insight:
 
-#### Step 1: Formalizing "Consistency"
+#### Step 1: formalizing "consistency"
 
 First, we need to express "$F$ is consistent" in the language of arithmetic.
 Gödel realized:
@@ -439,7 +439,7 @@ $\text{Consistency}(F) = \text{"There is no statement A such that F proves both 
 Or equivalently:
 $\text{Consistency}(F) = \text{"F does not prove 0=1"}$ (since from a contradiction, you can prove anything)
 
-#### Step 2: The Key Connection
+#### Step 2: the key connection
 
 Remember our Gödel sentence $G$ from the First Theorem:
 
