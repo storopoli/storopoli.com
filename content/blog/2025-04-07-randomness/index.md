@@ -1,5 +1,5 @@
 +++
-title = "Randomness in Computation: Sprinkle a little bit of randomness, and voilà!"
+title = "Randomness in computation: sprinkle a little bit of randomness, and voilà!"
 date = "2025-04-07T06:57:00"
 author = "Jose Storopoli, PhD"
 

@@ -1,5 +1,5 @@
 +++
-title = "Seed Phrases and Entropy"
+title = "Seed phrases and entropy"
 date = "2024-02-11T15:59:02"
 author = "Jose Storopoli, PhD"
 

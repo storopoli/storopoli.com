@@ -1,5 +1,5 @@
 +++
-title = "Merkle Trees and the Taproot Protocol"
+title = "Merkle trees and the Taproot protocol"
 date = "2024-11-15T08:44:46"
 author = "Jose Storopoli, PhD"
 

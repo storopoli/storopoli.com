@@ -1,5 +1,5 @@
 +++
-title = "Von Neumann: the Sharpest Mind of the 20th Century"
+title = "Von Neumann: the sharpest mind of the 20th century"
 date = "2024-06-22T05:54:46"
 author = "Jose Storopoli, PhD"
 

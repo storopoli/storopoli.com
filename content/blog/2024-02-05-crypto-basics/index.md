@@ -1,5 +1,5 @@
 +++
-title = "Basics of Cryptographic Signatures"
+title = "Basics of cryptographic signatures"
 date = "2024-02-05T18:53:28"
 author = "Jose Storopoli, PhD"
 

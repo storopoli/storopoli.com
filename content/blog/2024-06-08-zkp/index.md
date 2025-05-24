@@ -1,5 +1,5 @@
 +++
-title = "Some Intuitions on Zero-Knowledge Proofs"
+title = "Some intuitions on zero-knowledge proofs"
 date = "2024-06-08T15:48:33"
 author = "Jose Storopoli, PhD"
 

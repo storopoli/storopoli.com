@@ -1,5 +1,5 @@
 +++
-title = "Shamir's Secret Sharing"
+title = "Shamir's secret sharing"
 date = "2024-04-14T10:37:02"
 author = "Jose Storopoli, PhD"
 

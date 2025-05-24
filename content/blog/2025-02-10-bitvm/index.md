@@ -1,5 +1,5 @@
 +++
-title = "BitVM: How to bridge using 1-of-N trust assumptions"
+title = "BitVM: how to bridge using 1-of-N trust assumptions"
 date = "2025-02-10T04:57:00"
 author = "Jose Storopoli, PhD"
 

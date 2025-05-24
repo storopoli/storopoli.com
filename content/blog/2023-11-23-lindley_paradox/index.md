@@ -1,5 +1,5 @@
 +++
-title = "Lindley's Paradox, or The consistency of Bayesian Thinking"
+title = "Lindley's paradox, or the consistency of Bayesian thinking"
 date = "2023-11-22T07:06:59"
 author = "Jose Storopoli, PhD"
 

@@ -1,5 +1,5 @@
 +++
-title = "Sherlock Holmes Final Letter: A Simple Dead Man's Switch in Rust"
+title = "Sherlock Holmes final letter: a simple dead man's switch in Rust"
 date = "2024-03-23T14:00:16"
 author = "Jose Storopoli, PhD"
 

@@ -1,5 +1,5 @@
 +++
-title = "Word Embeddings"
+title = "Word embeddings"
 date = "2023-11-19T22:49:51"
 author = "Jose Storopoli, PhD"
 
