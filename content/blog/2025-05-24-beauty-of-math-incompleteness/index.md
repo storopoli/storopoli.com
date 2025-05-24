@@ -215,6 +215,52 @@ and conjectured that the set of real numbers is $\aleph_1$.
 This is called the [continuum hypothesis](https://en.wikipedia.org/wiki/Continuum_hypothesis) (CH).
 We will come back to CH later.
 
+## Russel and the barber paradox
+
+![Bertrand Russell](bertrand-russell.jpg)
+
+Now let's fast forward to 1901.
+Set theory was still in its infancy,
+yet it was starting to be accepted by the mathematical community.
+This is where [Bertrand Russell](https://en.wikipedia.org/wiki/Bertrand_Russell)
+after attending the first [World Congress of Philosophy](https://en.wikipedia.org/wiki/World_Congress_of_Philosophy) in Paris in 1900,
+was impressed by the work of Peano who was using set theory to formalize mathematics.
+
+He embarked on a journey to formalize mathematics using set theory.
+However, he stumbled upon a paradox.
+Set theory is very lenient with the definition of sets.
+For example, we can define the set of all sets that are not members of themselves:
+
+$$
+R = \\{ x \mid x \notin x \\}
+$$
+
+Now what happens if we ask the question: is $R$ a member of itself?
+If $R$ is a member of itself, then it is not a member of itself.
+If $R$ is not a member of itself, then it is a member of itself.
+
+To put more simply, Russell gave the simple analogy:
+imagine a barber who shaves all men who do not shave themselves.
+Now, the question is: does the barber shave himself?
+If he does, then he does not shave himself.
+If he does not shave himself, then he does shave himself.
+
+I can even given an even more simple example: the statement "this statement is false" is a paradox.
+If it is true, then it is false.
+If it is false, then it is true.
+
+Or suppose that I go out and shout out loud: "I am lying".
+If I am lying, then I am not lying.
+If I am not lying, then I am lying.
+
+All of these examples boils down to the same thing:
+we cannot have a set of all sets that are not members of themselves.
+
+This is called the [Russell's paradox](https://en.wikipedia.org/wiki/Russell%27s_paradox).
+And yet again, we have self-reference creating a paradox.
+Personally, I find Cantor's multiple infinities more beautiful than Russell's paradox.
+But I acknowledge that Russell's paradox is way simpler and more accessible to the general public.
+
 
 ## Scratch pad
 
