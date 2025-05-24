@@ -10,11 +10,7 @@ tags = ["math"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![Von Neumann's wartime Los Alamos ID badge photo](von_neumann.jpg)
 
