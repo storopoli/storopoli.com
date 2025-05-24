@@ -468,3 +468,100 @@ That's a lot to digest.
 This is a very deep result that is still being studied today.
 I find this result to be on par with Cantor's multiple infinities in beauty.
 However, Gödel's incompleteness theorems are a much more outstanding and impressive result.
+
+## Turing and the halting problem
+
+![Alan Turing](alan-turing.jpg)
+
+Hilbert, after being aware of Gödel's incompleteness theorems,
+was devastated.
+His beautiful dream of a complete and consistent mathematics was shattered.
+But there were still hope in the idea of mathematics being decidable.
+
+Alan Turing, in 1936, while still an undergraduate at King's College, Cambridge,
+published a paper entitled "On Computable Numbers, with an Application to the Entscheidungsproblem".
+That mouthful word, Entscheidungsproblem, is the German for what has become known as the
+["halting problem"](https://en.wikipedia.org/wiki/Halting_problem).
+
+The halting problem is the problem of determining whether a program will halt or run forever.
+Turing showed that the halting problem is undecidable,
+thus shattering the last bastion of hope for a complete, consistent, and decidable mathematics.
+
+### The Turing machine
+
+To tackle the halting problem,
+Turing introduced the concept of the [Turing machine](https://en.wikipedia.org/wiki/Turing_machine).
+A Turing machine is a mathematical model of a computer that can be used to compute anything.
+It is comprised of a tape, a head, and a set of rules.
+The tape is infinite in both directions, and is divided into cells.
+The head can read and write symbols on the tape.
+The rules are a set of instructions that the head can follow.
+He showed that any computable function can be computed by a Turing machine.
+I won't go into much details here,
+since if you are reading this through the internet,
+holding on your hands or standing in front of a "Turing machine",
+is proof enough that Turing machines can compute stuff.
+
+Using the newfound concept of the Turing machine,
+Turing then redefined the concept of the halting problem:
+
+> Given a Turing machine $M$ and input $I$, will $M$ eventually halt (stop) on input $I$, or will it run forever?
+
+To answer this question,
+suppose that you have a function that detects if a Turing machine halts on a given input.
+Here's how the function signature looks like in Haskell notation:
+
+```haskell
+halts :: TuringMachine -> Input -> Bool
+```
+
+This function takes a Turing machine and an input,
+and returns a boolean value indicating whether the Turing machine halts on the input.
+
+Now, let's say that you have a Turing machine $M$ that uses the `halts` function to detect whether a Turing machine halts on a given input.
+However, this machine loops forever if the `halts` function returns `True`,
+or halts if the `halts` function returns `False`.
+This could be expressed in Haskell as:
+
+```haskell
+M :: TuringMachine -> Input -> ()
+M m i = if halts m i then loop else ()
+```
+
+Now, the question is:
+
+> Does $M$ halt on input $M$?
+
+If $M$ halts on input $M$,
+then $M$ loops forever.
+If $M$ loops forever,
+then $M$ halts on input $M$.
+
+We have arrived at a contradiction and the final self-referential paradox in this blog post.
+
+That's how Turing, at the young age of 24,
+proved that mathematics is not decidable.
+
+## Side rant about Turing and computers
+
+Turing was not much interested in computers.
+He was interested in the foundations of mathematics.
+He was interested in the foundations of logic.
+And many other mathematical problems.
+In thinking about how to prove the decidability of mathematics,
+he came up with a platonic machine that could compute anything.
+This machine is now known as the [Turing machine](https://en.wikipedia.org/wiki/Turing_machine).
+It is comprised of a tape, a head, and a set of rules.
+The tape is infinite in both directions.
+The head can read and write symbols on the tape.
+The rules are a set of instructions that the head can follow.
+Now, you know who was into computers?
+John von Neumann.
+When asked after the unveiling of the atomic bomb and the work at Los Alamos,
+what he was doing,
+he said:
+
+> I am working with something way more powerful than the atomic bomb: Computers.
+
+Most computers today use what we call the [Von Neumann architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture),
+and Von Neumann built several computers in the 1940s.
