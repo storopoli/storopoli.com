@@ -17,17 +17,17 @@ katex = true
 > "Logic is the hygiene that the mathematician practises to keep his ideas healthy and strong."
 > --- Hermann Weyl
 
-I have a very special place for mathematics in my mind and heart.
+I have a very special place for **mathematics in my mind and heart**.
 
-Mathematics is above any other science.
-This is because the knowledge we gather in all other sciences are never absolute true.
+Mathematics is above _any other science_.
+This is because the knowledge we gather in all other sciences are never _absolutely true_.
 All other sciences are based on observations and experiments,
-and eventually evidence accrues to a threshold that we can morally declare that something is true.
-Yet, it is not mathematically true, in other words, for any given pile of evidence about a given hypothesis $H$,
+and eventually evidence accrues to a threshold that we can morally declare that something is _true_.
+Yet, it is not _mathematically true_, in other words, for any given pile of evidence about a given hypothesis $H$,
 we have $P(H) < 1$.
-In a pure philosophical sense, we can never be absolutely sure about scientific hypotheses.
+In a pure philosophical sense, we can never be _absolutely sure_ about scientific hypotheses.
 There will always be a certain degree of uncertainty even if we have a lot of evidence in favor of a given hypothesis.
-For mathematical theorems, which is the meat of mathematics, once they are proven, they are absolute true,
+For mathematical theorems, which is the meat of mathematics, once they are proven, they are _absolutely true_,
 i.e. $P(H) = 1$.
 For example, imagine a galaxy very far away, and a million years from now, given the
 [5 axioms of Euclidian geometry](https://en.wikipedia.org/wiki/Euclidean_geometry#Axioms),
@@ -36,15 +36,15 @@ It will always be true (given the 5 axioms of course).
 
 That is how mathematics won my mind.
 Now, how it won my heart is a different story.
-It has to do with the beauty of math's incompleteness
-and self-referential paradoxes.
+It has to do with the beauty of math's _incompleteness_, _inconsistency_, and _undecidability_.
+Which all stems from **self-referential paradoxes**.
 
 ## Cantor and multiple infinities
 
 ![Georg Cantor](georg-cantor.jpg)
 
 Let's go back to 1874, when [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor)
-proved that there are multiple infinities.
+proved that there are **multiple infinities**.
 Yes, that sounds crazy, but it is true.
 
 Cantor is the father of set theory.
@@ -60,7 +60,7 @@ He then realized that the set of natural numbers is the same size
 as the set of the integers $\mathbb{Z}$ and the set of the rational numbers $\mathbb{Q}$.
 To show this, he had to come up with a way to compare the sizes of sets.
 He did this by defining a bijection between the set of natural numbers and the set of integers.
-A bijection is a function that is one-to-one and onto.
+A **bijection** is a function that is one-to-one and onto.
 In other words, it is a function that maps each element of the first set to a unique element of the second set,
 and each element of the second set to a unique element of the first set.
 
@@ -87,7 +87,7 @@ It creates a one-to-one correspondence between the set of natural numbers and th
 | f(5)   | 5            | 3            |
 | f(6)   | 6            | -3           |
 
-Ok that was easy, we just proved that the set of natural numbers and the set of integers have the same size.
+Ok that was easy, we just proved that the **set of natural numbers and the set of integers have the same size**.
 Now let's try to prove the same for the set of rational numbers $\mathbb{Q}$.
 The idea again is to find a bijection between the set of natural numbers and the set of rational numbers.
 We can represent the set of rational numbers as a grid of fractions:
@@ -101,10 +101,10 @@ $$
 \end{array}
 $$
 
-Now, we can't just go row by row or column by column - that would never finish the first row!
+Now, we can't just go row by row or column by column --- that would never finish the first row!
 Instead, Cantor had a brilliant idea: traverse the grid diagonally in a zigzag pattern[^pairing-function].
 
-[^pairing-function]: This is called a [pairing function](https://en.wikipedia.org/wiki/Pairing_function), and specifically the [Cantor pairing function](https://en.wikipedia.org/wiki/Cantor_pairing_function).
+[^pairing-function]: This is called a [**pairing function**](https://en.wikipedia.org/wiki/Pairing_function), and specifically the [**Cantor pairing function**](https://en.wikipedia.org/wiki/Cantor_pairing_function).
 
 $$
 \begin{array}{ccccc}
@@ -130,15 +130,16 @@ But wait! We have a problem --- many fractions represent the same rational numbe
 - $\frac{2}{4} = \frac{1}{2} = 0.5$
 
 To create a true bijection, we need to skip these duplicates.
- We only keep fractions in **lowest terms**,
- where $\text{gcd}(\text{numerator}, \text{denominator}) = 1$.
+We only keep fractions in **lowest terms**,
+where $\text{gcd}(\text{numerator}, \text{denominator}) = 1$.
 
 After removing duplicates:
 $$\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{3}{1}, \frac{1}{3}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \ldots$$
 
-Ok we're almost there. This is truly a bijection.
-However, it is a bijection between $\mathbb{N}$ and the set of positive rationals $\mathbb{Q}^+$.
-To include all of $\mathbb{Q}$, we interleave positive and negative rationals (and zero).
+Ok we're almost there.
+This is truly a bijection.
+However, it is a bijection between $\mathbb{N}$ and the set of _positive rationals_, $\mathbb{Q}^+$.
+To include all of $\mathbb{Q}$, we interleave _positive and negative rationals_ (and zero).
 I won't give the precise mathematical formula here because it is a bit messy,
 however here's an algorithm describing the bijection:
 
@@ -162,10 +163,10 @@ This gives us the following bijection:
 | g(5)   | 5            | 3rd positive: $\frac{2}{1}$ | 2              |
 | g(6)   | 6            | 3rd positive: $\frac{2}{1}$ | -2             |
 
-Q.E.D.! We have a bijection between $\mathbb{N}$ and $\mathbb{Q}$.
+Q.E.D.! We have a **bijection between $\mathbb{N}$ and $\mathbb{Q}$**.
 
 I went over all of these details because this diagonalization argument is a very important insight.
-Any set that can be put in a one-to-one correspondence with the set of natural numbers is called countable.
+Any set that can be put in a one-to-one correspondence with the set of natural numbers is called **countable**.
 Cantor showed that the set of rational numbers is countable.
 
 Let's see what happens when we try to apply the same argument to the set of real numbers $\mathbb{R}$.
@@ -195,27 +196,28 @@ since it differs from the first real number in the list by 1 in the first digit,
 from the second real number in the list by 1 in the second digit,
 and so on.
 
-This is a contradiction, since we assumed that $f$ was a bijection.
+This is a **contradiction**, since we assumed that $f$ was a bijection.
 
-Now, this is where self-reference strikes first in this post,
+Now, this is where **self-reference** strikes first in this post,
 and probably in the history of mathematics.
-When we construct the diagonal number $x$, we're creating something that:
+When we construct the _diagonal number_ $x$, we're creating something that:
 
 1. Refers to the entire supposed list of real numbers.
-2. Defines itself in opposition to that list - "I differ from the 1st number at position 1, from the 2nd at position 2...".
+2. Defines itself in opposition to that list --- "I differ from the 1st number at position 1, from the 2nd at position 2...".
 3. Uses the list to prove the list is incomplete.
 
-Ultimately, this is where Cantor found the first example of a set that is not countable.
+Ultimately, this is where Cantor found the first example of a set that is **not countable**.
 There's no way to pair the set of natural numbers with the set of real numbers between 0 and 1.
-Therefore, the set of real numbers between 0 and 1 is not countable.
+Therefore, the set of real numbers between 0 and 1 is **not countable**.
+This is called the [Cantor's diagonal argument](https://en.wikipedia.org/wiki/Cantor%27s_diagonal_argument).
 
 This is a very important insight.
-It shows that there are different sizes of infinity.
+It shows that there are **different sizes of infinity**.
 Yes, that is mind-blowing and paradoxically beautiful.
 
 Cantor called the size of the set of natural numbers $\aleph_0$,
 and conjectured that the set of real numbers is $\aleph_1$.
-This is called the [continuum hypothesis](https://en.wikipedia.org/wiki/Continuum_hypothesis) (CH).
+This is called the [**continuum hypothesis**](https://en.wikipedia.org/wiki/Continuum_hypothesis) (CH).
 
 ## Russel and the barber paradox
 
@@ -228,38 +230,38 @@ This is where [Bertrand Russell](https://en.wikipedia.org/wiki/Bertrand_Russell)
 after attending the first [World Congress of Philosophy](https://en.wikipedia.org/wiki/World_Congress_of_Philosophy) in Paris in 1900,
 was impressed by the work of Peano who was using set theory to formalize mathematics.
 
-He embarked on a journey to formalize mathematics using set theory.
-However, he stumbled upon a paradox.
+He embarked on a journey to **formalize mathematics using set theory**.
+However, he stumbled upon a **paradox**.
 Set theory is very lenient with the definition of sets.
-For example, we can define the set of all sets that are not members of themselves:
+For example, we can define the set of all sets that are **not members of themselves**:
 
 $$
 R = \\{ x \mid x \notin x \\}
 $$
 
-Now what happens if we ask the question: is $R$ a member of itself?
-If $R$ is a member of itself, then it is not a member of itself.
-If $R$ is not a member of itself, then it is a member of itself.
+Now what happens if we ask the question: **is $R$ a member of itself?**
+If $R$ is a member of itself, then it is _not_ a member of itself.
+If $R$ is _not_ a member of itself, then it is a member of itself.
 
 To put more simply, Russell gave the simple analogy:
 imagine a barber who shaves all men who do not shave themselves.
-Now, the question is: does the barber shave himself?
-If he does, then he does not shave himself.
-If he does not shave himself, then he does shave himself.
+Now, the question is: **does the barber shave himself?**
+If he does, then he does _not_ shave himself.
+If he does _not_ shave himself, then he does shave himself.
 
 I can even given an even more simple example: the statement "this statement is false" is a paradox.
 If it is true, then it is false.
 If it is false, then it is true.
 
 Or suppose that I go out and shout out loud: "I am lying".
-If I am lying, then I am not lying.
-If I am not lying, then I am lying.
+If I am lying, then I am _not_ lying.
+If I am _not_ lying, then I am lying.
 
-All of these examples boils down to the same thing:
-we cannot have a set of all sets that are not members of themselves.
+All of these examples boil down to the same thing:
+we cannot have a set of all sets that are **not members of themselves**.
 
-This is called the [Russell's paradox](https://en.wikipedia.org/wiki/Russell%27s_paradox).
-And yet again, we have self-reference creating a paradox.
+This is called the [**Russell's paradox**](https://en.wikipedia.org/wiki/Russell%27s_paradox).
+And yet again, we have **self-reference** creating a paradox.
 Personally, I find Cantor's multiple infinities more beautiful than Russell's paradox.
 But I acknowledge that Russell's paradox is way simpler and more accessible to the general public.
 
@@ -276,20 +278,20 @@ David Hilbert,
 arguably the most important mathematician of the 20th century,
 gave a list of 23 problems that he thought would be the most important to solve in the century.
 These became known as the [Hilbert's problems](https://en.wikipedia.org/wiki/Hilbert%27s_problems).
-Right there in the second problem, Hilbert asked:
+Right there in the second problem, Hilbert posed the following problem:
 
-> The compatibility of the arithmetical axioms.
+> _The compatibility of the arithmetical axioms._
 
 Later, Hilbert recasted his "Second Problem" at the eighth [International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians) in Bologna.
 He posed three questions:
 
-1. Was mathematics complete?
-2. Was mathematics consistent?
-3. Was mathematics decidable?
+1. **Was mathematics complete?**
+2. **Was mathematics consistent?**
+3. **Was mathematics decidable?**
 
 Hilbert believed that mathematics could be put on a completely secure foundation by answering these questions.
-Gödel would shatter the dream of a complete and consistent mathematics.
-And later, Turing would show that mathematics is not decidable.
+Gödel would shatter the dream of a **complete and consistent mathematics**.
+And later, Turing would show that mathematics is **not decidable**.
 
 Gödel's incompleteness theorems[^godel-incompleteness] are composed of two theorems.
 Let's start with the first incompleteness theorem, which Gödel proved in 1931
@@ -298,7 +300,7 @@ who allegedly was so impressed by Gödel's work that he remarked:
 
 > It's all over.
 
-[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [Gödel Without (Too Many) Tears](https://www.logicmatters.net/igt) by the logician Peter Smith.
+[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [**Gödel Without (Too Many) Tears**](https://www.logicmatters.net/igt) by the logician Peter Smith.
 
 ### The first incompleteness theorem
 
@@ -310,9 +312,9 @@ The First Incompleteness Theorem states:
 > 2. $G$ cannot be proven within $F$
 > 3. $\neg G$ (not $G$) cannot be proven within $F$ either
 
-[^peano]: Another rabbit hole to dive: [Peano's arithmetic](https://en.wikipedia.org/wiki/Peano_arithmetic).
+[^peano]: Another rabbit hole to dive: [**Peano's arithmetic**](https://en.wikipedia.org/wiki/Peano_arithmetic).
 
-In other words: truth and provability are not the same thing!
+In other words: **truth and provability are not the same thing**!
 
 Gödel's genius was realizing he could make mathematical statements talk about mathematical statements.
 
@@ -344,8 +346,8 @@ For example, the formula $0 = 0$ might become:
 
 Gödel number = $2^2 \times 3^3 \times 5^2 = 4 \times 27 \times 25 = 2,700$
 
-This is called the [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B6del_numbering).
-The key insight is that now statements about formulas become statements about numbers!
+This is called the [**Gödel numbering**](https://en.wikipedia.org/wiki/G%C3%B6del_numbering).
+The key insight is that now **statements about formulas become statements about numbers**!
 
 #### Step 2: the predicate "proves(x, y)"
 
@@ -364,14 +366,14 @@ Gödel proved:
 
 It's like writing a sentence that says "This sentence has 25 letters" --- but in arithmetic!
 
-How The Diagonal Lemma works:
+How the **diagonal lemma** works:
 
 1. Define a function $\text{sub}(n, m) =$ "the result of substituting $m$ into formula $n$".
 2. Consider the property: "The formula with Gödel number $x$, when $x$ substituted into it, has property $P$".
 3. Let this property have Gödel number $d$.
-4. Now look at $\text{sub}(d, d)$ --- this is $d$ applied to itself!
+4. Now look at $\text{sub}(d, d)$ --- this is $d$ applied to itself.
 
-This creates a fixed point --- a statement that successfully refers to itself.
+This creates a **fixed point** --- a statement that successfully refers to itself.
 
 #### Step 4: constructing $G$ --- the Gödel sentence
 
@@ -401,20 +403,20 @@ Case 2: Suppose $\neg G$ is provable:
 Conclusion: If the system is consistent:
 
 - Neither $G$ nor $\neg G$ is provable
-- But $G$ is true (it correctly states its own unprovability)
+- But $G$ is true (it correctly states its own _unprovability_)
 - We have a true but unprovable statement! ✅
 
-This is the self-reference that Gödel uses to prove his first incompleteness theorem.
+This is the **self-reference that Gödel uses to prove his first incompleteness theorem**.
 
-The deepest insight is that self-reference is unavoidable in any system strong enough to do arithmetic.
+The deepest insight is that **self-reference is unavoidable in any system strong enough to do arithmetic**.
 Once you can:
 
-1. Encode statements as numbers
-2. Talk about properties of those numbers
-3. Use diagonalization
+1. **Encode statements as numbers**
+2. **Talk about properties of those numbers**
+3. **Use diagonalization**
 
-You automatically get statements that assert their own unprovability.
-Mathematics contains the seeds of its own incompleteness!
+You automatically get statements that assert their own _unprovability_.
+Mathematics contains the **seeds of its own incompleteness**!
 
 ### The second incompleteness theorem
 
@@ -422,10 +424,11 @@ The Second Incompleteness Theorem states:
 
 > If $F$ is a consistent formal system capable of proving basic arithmetic facts, then $F$ cannot prove its own consistency.
 
-This means arithmetic cannot prove that arithmetic doesn't contradict itself!
+This means **arithmetic cannot prove that arithmetic doesn't contradict itself**!
 It's like a judge who can't certify their own sanity --- the very act of self-certification is suspect.
 
-The Second Theorem is actually a clever consequence of the First. Here's the brilliant insight:
+The Second Theorem is actually a clever consequence of the First.
+Here's the brilliant insight:
 
 #### Step 1: formalizing "consistency"
 
@@ -460,8 +463,9 @@ Now comes the devastating logic:
 5. Since $G$ says "$G$ is not provable", $G$ must be false
 6. So $F$ proves a false statement - $F$ is inconsistent!
 
-We've shown: If $F$ can prove its own consistency, then $F$ is inconsistent!
-Therefore: If $F$ is consistent, it cannot prove its own consistency
+We've shown: **If $F$ can prove its own consistency, then $F$ is inconsistent**!
+
+Therefore: **If $F$ is consistent, it cannot prove its own consistency**
 
 ---
 
@@ -476,35 +480,35 @@ However, Gödel's incompleteness theorems are a much more outstanding and impres
 
 Hilbert, after being aware of Gödel's incompleteness theorems,
 was devastated.
-His beautiful dream of a complete and consistent mathematics was shattered.
+His beautiful dream of a complete and consistent mathematics was **shattered**.
 But there were still hope in the idea of mathematics being decidable.
 
 Alan Turing, in 1936, while still an undergraduate at King's College, Cambridge,
 published a paper entitled "On Computable Numbers, with an Application to the Entscheidungsproblem".
-That mouthful word, Entscheidungsproblem, is the German for what has become known as the
-["halting problem"](https://en.wikipedia.org/wiki/Halting_problem).
+That mouthful word, _Entscheidungsproblem_, is the German for what has become known as the
+["**halting problem**"](https://en.wikipedia.org/wiki/Halting_problem).
 
-The halting problem is the problem of determining whether a program will halt or run forever.
-Turing showed that the halting problem is undecidable,
+The halting problem is the **problem of determining whether a program will halt or run forever**.
+Turing showed that the halting problem is **undecidable**,
 thus shattering the last bastion of hope for a complete, consistent, and decidable mathematics.
 
 ### The Turing machine
 
 To tackle the halting problem,
-Turing introduced the concept of the [Turing machine](https://en.wikipedia.org/wiki/Turing_machine).
+Turing introduced the concept of the [**Turing machine**](https://en.wikipedia.org/wiki/Turing_machine).
 A Turing machine is a mathematical model of a computer that can be used to compute anything.
-It is comprised of a tape, a head, and a set of rules.
+It is comprised of a **tape**, a **head**, and a set of **rules**.
 The tape is infinite in both directions, and is divided into cells.
 The head can read and write symbols on the tape.
 The rules are a set of instructions that the head can follow.
-He showed that any computable function can be computed by a Turing machine.
+He showed that any **computable function** can be computed by a Turing machine.
 I won't go into much details here,
 since if you are reading this through the internet,
 holding on your hands or standing in front of a "Turing machine",
 is proof enough that Turing machines can compute stuff.
 
 Using the newfound concept of the Turing machine,
-Turing then redefined the concept of the halting problem:
+Turing then redefined the concept of the **halting problem**:
 
 > Given a Turing machine $M$ and input $I$, will $M$ eventually halt (stop) on input $I$, or will it run forever?
 
@@ -538,22 +542,22 @@ then $M$ loops forever.
 If $M$ loops forever,
 then $M$ halts on input $M$.
 
-We have arrived at a contradiction and the final self-referential paradox in this blog post.
+We have arrived at a **contradiction** and the final **self-referential paradox** in this blog post.
 
 That's how Turing, at the young age of 24,
-proved that mathematics is not decidable.
+proved that **mathematics is _not_ decidable**.
 
 ## Agda proof that the set of real numbers is uncountable
 
-[Agda](https://agda.readthedocs.io/) is a dependently typed programming language.
+[**Agda**](https://agda.readthedocs.io/) is a dependently typed programming language.
 It is often used to prove mathematical theorems.
 But you can also compile it to Haskell using GHC or to JavaScript using a native compiler.
 It is like Haskell on steroids,
-some call it ["Super Haskell"](https://youtu.be/OSDgVxdP20g).
+some call it ["**Super Haskell**"](https://youtu.be/OSDgVxdP20g).
 
-It follows very closely the [Curry-Howard correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence),
-which is a magnificent connection between logic and programming.
-People also called it "proof-as-program" or "programs-as-proofs",
+It follows very closely the [**Curry-Howard correspondence**](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence),
+which is a **magnificent connection between logic and programming**.
+People also called it "**proof-as-program**" or "**programs-as-proofs**",
 since it is a one-to-one correspondence between programs and proofs.
 The basic idea is that you can write a program that proves a theorem,
 and the program will type-check if the theorem is true.
@@ -562,7 +566,7 @@ that allows you to express the properties of the objects you are working with.
 If a type is "inhabited", it means that there exists a term/value of that type,
 which under Curry-Howard corresponds to having a proof of the proposition that the type represents.
 
-So when a type is "inhabited" in Agda, it means:
+So when a type is "_inhabited_" in Agda, it means:
 
 - You can construct a value of that type --- there exists some term `t : T`.
 - The corresponding logical proposition is true/provable.
@@ -630,15 +634,15 @@ Here are some Agda types and their corresponding logical propositions:
    we can use `refl` to prove they are equal. The type `2 + 2 ≡ 4` is inhabited by the proof `refl`,
    which serves as evidence that this equality holds.
 
-To learn Agda, a really nice resource is not only the [Agda documentation](https://agda.readthedocs.io/),
-but also the [Certainty by Construction: Software and Mathematics in Agda](https://leanpub.com/certainty-by-construction)
+To learn Agda, a really nice resource is not only the [**Agda documentation**](https://agda.readthedocs.io/),
+but also the [**Certainty by Construction: Software and Mathematics in Agda**](https://leanpub.com/certainty-by-construction)
 book by Sandy Maguire.
 
 I also suggest this quick introduction to Agda:
 
 {{ youtube(id="OSDgVxdP20g") }}
 
-Now, let's prove that the set of real numbers is uncountable.
+Now, let's prove that the **set of real numbers is _uncountable_**.
 I'm gonna dump the whole Agda code here,
 then explain the parts that are not obvious.
 To run the code (which is the same as proving the code or theorem, since the code is the theorem, a.k.a Curry-Howard correspondence),
@@ -715,7 +719,7 @@ Real : Set
 Real = ℕ → Bool  -- Each position has a digit 0 or 1
 ```
 
-We represent real numbers in the interval (0,1) as infinite sequences of binary digits.
+We represent real numbers in the interval $(0,1)$ as infinite sequences of binary digits.
 This will make the proof easier to follow without losing any generality.
 A real number is a function from natural numbers to booleans, where each position gives us a binary digit.
 
@@ -733,8 +737,8 @@ flip-changes false ()
 
 The `flip` function switches `true` to `false` and vice versa.
 The `flip-changes` proof shows that flipping a boolean always produces a different boolean.
-The `()` pattern means "impossible case" - there's no way `true ≡ false` or `false ≡ true`.
-It is called the [absurd pattern](https://agda.readthedocs.io/en/stable/language/function-definitions.html#absurd-patterns).
+The `()` pattern means "impossible case" --- there's no way `true ≡ false` or `false ≡ true`.
+It is called the [**absurd pattern**](https://agda.readthedocs.io/en/stable/language/function-definitions.html#absurd-patterns).
 
 ### 3. The main theorem
 
@@ -743,7 +747,7 @@ no-enumeration : (f : ℕ → Real) → Σ[ r ∈ Real ] ((n : ℕ) → f n ≢ 
 ```
 
 This says: "For any supposed enumeration `f` of real numbers, there exists a real number `r` that differs from every number in the enumeration."
-This is exactly Cantor's diagonalization argument!
+This is exactly Cantor's **diagonalization argument**!
 
 ### 4. The diagonal construction
 
@@ -752,7 +756,7 @@ diagonal : Real
 diagonal n = flip (f n n)
 ```
 
-We construct our diagonal number by taking the n-th digit of the n-th number in the enumeration and flipping it.
+We construct our diagonal number by taking the $n$-th digit of the $n$-th number in the enumeration and flipping it.
 So `diagonal 0 = flip (f 0 0)`, `diagonal 1 = flip (f 1 1)`, etc.
 
 ### 5. The proof of difference
@@ -776,7 +780,8 @@ same-at-n = cong (λ r → r n) eq
 ```
 
 This uses **congruence** (`cong`) to say: if two functions are equal (`f n ≡ diagonal`),
-then applying them to the same argument (`n`) gives equal results. So `f n n ≡ diagonal n`.
+then applying them to the same argument (`n`) gives equal results.
+So `f n n ≡ diagonal n`.
 
 The `λ r → r n` is a **lambda function** (anonymous function) that takes a function `r` and applies it to the argument `n`.
 It's like saying "given any function `r`, apply it to `n`".
@@ -803,7 +808,7 @@ Now we chain the equalities using **transitivity** (`trans`):
 - We know `diagonal n ≡ flip (f n n)` (from `diagonal-def`)
 - Therefore `f n n ≡ flip (f n n)` (by transitivity)
 
-But this is impossible!
+But this is **impossible**!
 We're saying a boolean equals its own flip.
 
 ```agda
@@ -818,29 +823,6 @@ we can derive the bottom type `⊥`
 (which is uninhabited, so it is false/contradiction).
 
 This elegant proof captures the essence of Cantor's diagonalization:
-we construct a number that systematically differs from every number in any proposed enumeration,
-proving that no such enumeration can exist.
+**we construct a number that systematically differs from every number in any proposed enumeration,
+proving that _no such enumeration can exist_**.
 
-## Side rant about Turing and computers
-
-Turing was not much interested in computers.
-He was interested in the foundations of mathematics.
-He was interested in the foundations of logic.
-And many other mathematical problems.
-In thinking about how to prove the decidability of mathematics,
-he came up with a platonic machine that could compute anything.
-This machine is now known as the [Turing machine](https://en.wikipedia.org/wiki/Turing_machine).
-It is comprised of a tape, a head, and a set of rules.
-The tape is infinite in both directions.
-The head can read and write symbols on the tape.
-The rules are a set of instructions that the head can follow.
-Now, you know who was into computers?
-John von Neumann.
-When asked after the unveiling of the atomic bomb and the work at Los Alamos,
-what he was doing,
-he said:
-
-> I am working with something way more powerful than the atomic bomb: Computers.
-
-Most computers today use what we call the [Von Neumann architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture),
-and Von Neumann built several computers in the 1940s.
