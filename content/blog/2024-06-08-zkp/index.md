@@ -1,5 +1,5 @@
 +++
-title = "Some Intuitions on Zero-Knowledge Proofs"
+title = "Some intuitions on zero-knowledge proofs"
 date = "2024-06-08T15:48:33"
 author = "Jose Storopoli, PhD"
 
@@ -11,12 +11,7 @@ katex = true
 mermaid = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions
-and [Mermaid](https://mermaid.js.org) to render flowcharts.
-
-To see the rendered content, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![Zero-knowledge proofs and the meaning of life](zkp_meme.jpg)
 

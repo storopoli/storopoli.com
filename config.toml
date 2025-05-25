@@ -34,6 +34,8 @@ bottom_footnotes = true
 # To use a Zola built-in theme, CSP needs to allow unsafe-inline for style-src.
 highlight_theme = "css"
 smart_punctuation = true
+# Directory containing custom syntax definitions
+extra_syntaxes_and_themes = ["syntaxes"]
 
 [link_checker]
 # Skip link checking for external URLs that start with these prefixes
@@ -42,6 +44,8 @@ skip_prefixes = [
   "https://www.gnu.org/licenses",        # GNU does not like GitHub.
   "https://www.nytimes.com",             # NYTimes does not like GitHub.
   "https://stackoverflow.com",           # StackOverflow does not like GitHub.
+  "https://crypto.stackexchange.com",    # StackExchange does not like GitHub.
+  "https://bitcoin.stackexchange.com",   # StackExchange does not like GitHub.
 ]
 
 [extra]
@@ -61,7 +65,7 @@ override_serif_with_sans = false
 
 # Enable JavaScript theme toggler to allow users to switch between dark/light mode.
 # If disabled, your site will use the theme specified in the `default_theme` variable.
-theme_switcher = false
+theme_switcher = true
 
 # This setting determines the default theme on load ("light" or "dark").
 # To follow the user's OS theme, leave it empty or unset.
@@ -111,7 +115,7 @@ show_remote_source = true # Defaults to true.
 
 # Add a "copy" button to codeblocks (loads ~700 bytes of JavaScript).
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-copy_button = false
+copy_button = true
 
 # Loads the necessary JavaScript (~400 bytes) to use the "Show source or path" shortcode: https://welpo.github.io/tabi/blog/shortcodes/#show-source-or-path
 # Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
@@ -212,7 +216,7 @@ compact_tags = false
 # How tags are sorted in a Tags listing based on templates/tags/list.html.
 # "name" for alphabetical, "frequency" for descending count of posts.
 # Default: "name".
-tag_sorting = "name"
+tag_sorting = "frequency"
 
 # Show clickable tags above cards.html template (e.g. projects/) to filter the displayed items.
 # Loads JS to filter. If JS is disabled, the buttons are links to the tag's page.

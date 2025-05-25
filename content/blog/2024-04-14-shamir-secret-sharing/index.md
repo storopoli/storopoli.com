@@ -1,5 +1,5 @@
 +++
-title = "Shamir's Secret Sharing"
+title = "Shamir's secret sharing"
 date = "2024-04-14T10:37:02"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["cryptography", "bitcoin"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![The Polynomial king and he can do anything!](polynomial_king.webp)
 

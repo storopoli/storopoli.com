@@ -1,5 +1,5 @@
 +++
-title = "Seed Phrases and Entropy"
+title = "Seed phrases and entropy"
 date = "2024-02-11T15:59:02"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["cryptography", "probability", "bitcoin"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex() }}
 
 ![Password meme](password_strength.png)
 
