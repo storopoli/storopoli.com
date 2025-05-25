@@ -44,6 +44,8 @@ skip_prefixes = [
   "https://www.gnu.org/licenses",        # GNU does not like GitHub.
   "https://www.nytimes.com",             # NYTimes does not like GitHub.
   "https://stackoverflow.com",           # StackOverflow does not like GitHub.
+  "https://crypto.stackexchange.com",    # StackExchange does not like GitHub.
+  "https://bitcoin.stackexchange.com",   # StackExchange does not like GitHub.
 ]
 
 [extra]
