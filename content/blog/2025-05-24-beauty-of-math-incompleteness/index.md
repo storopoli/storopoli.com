@@ -125,6 +125,7 @@ $$
 $$
 
 But wait! We have a problem --- many fractions represent the same rational number:
+
 - $\frac{2}{2} = \frac{1}{1} = 1$
 - $\frac{2}{4} = \frac{1}{2} = 0.5$
 
@@ -376,7 +377,7 @@ This creates a fixed point --- a statement that successfully refers to itself.
 
 Using the diagonal lemma with the property "is not provable", Gödel constructs $G$ such that:
 
-$G \iff \text{"The statement with Gödel number $g$ is not provable"}$
+$G \iff$ "The statement with Gödel number $g$ is not provable"
 
 But $g$ is the Gödel number of $G$ itself! So:
 
@@ -434,10 +435,10 @@ Gödel realized:
 > "$F$ is consistent" $\iff$ "$F$ does not prove both a statement and its negation"
 
 Using Gödel numbering, this becomes:
-$\text{Consistency}(F) = \text{"There is no statement A such that F proves both A and ¬A"}$
+$\text{Consistency}(F)$ = "There is no statement $A$ such that $F$ proves both $A$ and $\neg A$"
 
 Or equivalently:
-$\text{Consistency}(F) = \text{"F does not prove 0=1"}$ (since from a contradiction, you can prove anything)
+$\text{Consistency}(F)$ = "$F$ does not prove $0=1$" (since from a contradiction, you can prove anything)
 
 #### Step 2: the key connection
 
@@ -541,6 +542,284 @@ We have arrived at a contradiction and the final self-referential paradox in thi
 
 That's how Turing, at the young age of 24,
 proved that mathematics is not decidable.
+
+## Agda proof that the set of real numbers is uncountable
+
+[Agda](https://agda.readthedocs.io/) is a dependently typed programming language.
+It is often used to prove mathematical theorems.
+But you can also compile it to Haskell using GHC or to JavaScript using a native compiler.
+It is like Haskell on steroids,
+some call it ["Super Haskell"](https://youtu.be/OSDgVxdP20g).
+
+It follows very closely the [Curry-Howard correspondence](https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence),
+which is a magnificent connection between logic and programming.
+People also called it "proof-as-program" or "programs-as-proofs",
+since it is a one-to-one correspondence between programs and proofs.
+The basic idea is that you can write a program that proves a theorem,
+and the program will type-check if the theorem is true.
+This is done by having a very powerful and expressive type system,
+that allows you to express the properties of the objects you are working with.
+If a type is "inhabited", it means that there exists a term/value of that type,
+which under Curry-Howard corresponds to having a proof of the proposition that the type represents.
+
+So when a type is "inhabited" in Agda, it means:
+
+- You can construct a value of that type --- there exists some term `t : T`.
+- The corresponding logical proposition is true/provable.
+- You have evidence/proof of that proposition.
+
+Here are some Agda types and their corresponding logical propositions:
+
+- `⊥` (bottom type) is uninhabited --- corresponds to `False` (no proof possible).
+- `⊤` (unit type) is inhabited by `tt` --- corresponds to trivially `True`.
+- `A → B` (implication type) is inhabited by a function --- corresponds to `A` implies `B` being provable.
+  This is called the [Function type](https://agda.readthedocs.io/en/stable/language/function-types.html)
+  in Agda.
+  For example, the type of the addition function for natural numbers is:
+
+  ```agda
+  Nat → Nat → Nat
+  ```
+
+- `A × B` (product type) is inhabited by a pair `a , b` --- corresponds to `A` and `B` both being true.
+  For example, the type of a pair of natural numbers is:
+
+  ```agda
+  Nat × Nat
+  ```
+
+- `A ⊎ B` (sum type) is inhabited by `inj₁ a` or `inj₂ b` --- corresponds to `A` or `B` being true.
+   Note that `⊎` is the symbol for disjunction.
+   For example, the type of a natural number or a boolean is:
+
+   ```agda
+   Nat ⊎ Bool
+   ```
+
+- `Σ[ x ∈ A ] B x` (dependent sum type) is inhabited by a pair `a , b` --- corresponds to "there exists `x : A` such that `B x` is true".
+   Note that [`Σ` type](https://agda.readthedocs.io/en/stable/language/built-ins.html#the-type) is the same as the [dependent pair type](https://en.wikipedia.org/wiki/Dependent_type) in type theory.
+   This is more tricky than the product type, because the type of the second component depends on the value of the first component.
+
+   For example, consider a pair where the first component is a boolean and the second component's type depends on that boolean:
+
+   ```agda
+   BoolDependent : Bool → Set
+   BoolDependent true  = ℕ      -- If true, second component is a natural number
+   BoolDependent false = String -- If false, second component is a string
+   
+   -- The dependent sum type:
+   BoolDependentPair : Set
+   BoolDependentPair = Σ[ b ∈ Bool ] BoolDependent b
+   ```
+
+   A value of this type could be `true , 42` (boolean true paired with natural number 42) or `false , "hello"` (boolean false paired with string "hello").
+   The type of the second component depends on the value of the first component.
+
+- `A ≡ B` (equality type) is inhabited by a proof of `A` being equal to `B` --- corresponds to `A` and `B` being the same.
+   Note that `≡` is the symbol for equality.
+
+   For example, we can prove that `2 + 2 ≡ 4`:
+
+   ```agda
+   proof-2+2=4 : 2 + 2 ≡ 4
+   proof-2+2=4 = refl
+   ```
+
+   Here `refl` (reflexivity) is the constructor that proves any term is equal to itself.
+   Since `2 + 2` evaluates to `4` definitionally in Agda,
+   we can use `refl` to prove they are equal. The type `2 + 2 ≡ 4` is inhabited by the proof `refl`,
+   which serves as evidence that this equality holds.
+
+To learn Agda, a really nice resource is not only the [Agda documentation](https://agda.readthedocs.io/),
+but also the [Certainty by Construction: Software and Mathematics in Agda](https://leanpub.com/certainty-by-construction)
+book by Sandy Maguire.
+
+I also suggest this quick introduction to Agda:
+
+{{ youtube(id="OSDgVxdP20g") }}
+
+Now, let's prove that the set of real numbers is uncountable.
+I'm gonna dump the whole Agda code here,
+then explain the parts that are not obvious.
+To run the code (which is the same as proving the code or theorem, since the code is the theorem, a.k.a Curry-Howard correspondence),
+dump the code into a file named `CantorDiagonalReals.agda`.
+You can run the code by installing Agda and running `agda CantorDiagonalReals.agda`.
+Agda will silently compile the code and if nothing is printed,
+it means the code (and the theorem) is correct (or true).
+
+```agda
+module CantorDiagonalReals where
+
+open import Data.Nat using (ℕ; zero; suc)
+open import Data.Bool using (Bool; true; false)
+open import Data.Empty using (⊥)
+open import Data.Product using (Σ; _,_; _×_; Σ-syntax)
+open import Relation.Binary.PropositionalEquality using (_≡_; refl; cong; trans)
+open import Relation.Nullary using (¬_)
+
+-- A real number in (0,1) represented as an infinite sequence of binary digits
+Real : Set
+Real = ℕ → Bool  -- Each position has a digit 0 or 1
+
+
+-- Abbreviation for inequality
+_≢_ : {A : Set} → A → A → Set
+x ≢ y = ¬ (x ≡ y)
+
+-- Helper to flip a bit
+flip : Bool → Bool
+flip true = false
+flip false = true
+
+-- Proof that flip always changes the bit
+flip-changes : (b : Bool) → b ≢ flip b
+flip-changes true ()
+flip-changes false ()
+
+-- The diagonal argument: no enumeration of reals in (0,1) exists
+no-enumeration : (f : ℕ → Real) → Σ[ r ∈ Real ] ((n : ℕ) → f n ≢ r)
+no-enumeration f = diagonal , proof
+  where
+    -- Construct the diagonal number by flipping the nth digit of the nth number
+    diagonal : Real
+    diagonal n = flip (f n n)
+
+    -- Proof that diagonal differs from every f n
+    proof : (n : ℕ) → f n ≢ diagonal
+    proof n eq = contradiction
+      where
+        -- If f n = diagonal, then at position n:
+        -- (f n n) = (diagonal n) = flip (f n n)
+        same-at-n : f n n ≡ diagonal n
+        same-at-n = cong (λ r → r n) eq
+
+        -- But diagonal n = flip (f n n) by definition
+        diagonal-def : diagonal n ≡ flip (f n n)
+        diagonal-def = refl
+
+        -- So f n n = flip (f n n)
+        self-eq-flip : f n n ≡ flip (f n n)
+        self-eq-flip = trans same-at-n diagonal-def
+
+        -- This contradicts the fact that flip always changes the bit
+        contradiction : ⊥
+        contradiction = flip-changes (f n n) self-eq-flip
+```
+
+Let's break down this proof step by step:
+
+### 1. Real number representation
+
+```agda
+Real : Set
+Real = ℕ → Bool  -- Each position has a digit 0 or 1
+```
+
+We represent real numbers in the interval (0,1) as infinite sequences of binary digits.
+This will make the proof easier to follow without losing any generality.
+A real number is a function from natural numbers to booleans, where each position gives us a binary digit.
+
+### 2. The flip function
+
+```agda
+flip : Bool → Bool
+flip true = false
+flip false = true
+
+flip-changes : (b : Bool) → b ≢ flip b
+flip-changes true ()
+flip-changes false ()
+```
+
+The `flip` function switches `true` to `false` and vice versa.
+The `flip-changes` proof shows that flipping a boolean always produces a different boolean.
+The `()` pattern means "impossible case" - there's no way `true ≡ false` or `false ≡ true`.
+It is called the [absurd pattern](https://agda.readthedocs.io/en/stable/language/function-definitions.html#absurd-patterns).
+
+### 3. The main theorem
+
+```agda
+no-enumeration : (f : ℕ → Real) → Σ[ r ∈ Real ] ((n : ℕ) → f n ≢ r)
+```
+
+This says: "For any supposed enumeration `f` of real numbers, there exists a real number `r` that differs from every number in the enumeration."
+This is exactly Cantor's diagonalization argument!
+
+### 4. The diagonal construction
+
+```agda
+diagonal : Real
+diagonal n = flip (f n n)
+```
+
+We construct our diagonal number by taking the n-th digit of the n-th number in the enumeration and flipping it.
+So `diagonal 0 = flip (f 0 0)`, `diagonal 1 = flip (f 1 1)`, etc.
+
+### 5. The proof of difference
+
+```agda
+proof : (n : ℕ) → f n ≢ diagonal
+proof n eq = contradiction
+```
+
+For any number `f n` in our enumeration, we prove it cannot be equal to our diagonal number.
+If they were equal (`eq : f n ≡ diagonal`), we derive a contradiction.
+
+### 6. The contradiction
+
+Now let's examine the contradiction step by step.
+We assume we have an equality `eq : f n ≡ diagonal` and derive a contradiction:
+
+```agda
+same-at-n : f n n ≡ diagonal n
+same-at-n = cong (λ r → r n) eq
+```
+
+This uses **congruence** (`cong`) to say: if two functions are equal (`f n ≡ diagonal`),
+then applying them to the same argument (`n`) gives equal results. So `f n n ≡ diagonal n`.
+
+The `λ r → r n` is a **lambda function** (anonymous function) that takes a function `r` and applies it to the argument `n`.
+It's like saying "given any function `r`, apply it to `n`".
+So `cong (λ r → r n) eq` means: "if `f n ≡ diagonal`,
+then applying the operation "apply to `n`" to both sides gives `f n n ≡ diagonal n`".
+
+```agda
+diagonal-def : diagonal n ≡ flip (f n n)
+diagonal-def = refl
+```
+
+This is just the definition of our diagonal function unfolding.
+Since `diagonal n = flip (f n n)` by definition,
+we can prove this equality with `refl` (reflexivity).
+
+```agda
+self-eq-flip : f n n ≡ flip (f n n)
+self-eq-flip = trans same-at-n diagonal-def
+```
+
+Now we chain the equalities using **transitivity** (`trans`):
+
+- We know `f n n ≡ diagonal n` (from `same-at-n`)
+- We know `diagonal n ≡ flip (f n n)` (from `diagonal-def`)
+- Therefore `f n n ≡ flip (f n n)` (by transitivity)
+
+But this is impossible!
+We're saying a boolean equals its own flip.
+
+```agda
+contradiction : ⊥
+contradiction = flip-changes (f n n) self-eq-flip
+```
+
+Finally, we use our `flip-changes` lemma,
+which proves that `(b : Bool) → b ≢ flip b`.
+Since we have a proof that `f n n ≡ flip (f n n)` (which contradicts `flip-changes`),
+we can derive the bottom type `⊥`
+(which is uninhabited, so it is false/contradiction).
+
+This elegant proof captures the essence of Cantor's diagonalization:
+we construct a number that systematically differs from every number in any proposed enumeration,
+proving that no such enumeration can exist.
 
 ## Side rant about Turing and computers
 
