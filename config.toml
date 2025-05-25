@@ -34,6 +34,8 @@ bottom_footnotes = true
 # To use a Zola built-in theme, CSP needs to allow unsafe-inline for style-src.
 highlight_theme = "css"
 smart_punctuation = true
+# Directory containing custom syntax definitions
+extra_syntaxes_and_themes = ["syntaxes"]
 
 [link_checker]
 # Skip link checking for external URLs that start with these prefixes
