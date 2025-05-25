@@ -826,3 +826,18 @@ This elegant proof captures the essence of Cantor's diagonalization:
 **we construct a number that systematically differs from every number in any proposed enumeration,
 proving that _no such enumeration can exist_**.
 
+## Conclusion
+
+I hope you enjoyed this journey into the beauty of mathematics.
+These self-referential paradoxes underlie the
+absurd dichotomy of truth and provability,
+while also revealing the profound beauty of mathematics' uncomprehensiveness.
+
+I often think that mathematics is the language of the universe.
+Yet, given the incompleteness of mathematics,
+will it ever be able to describe the universe?
+Or will the universe be engulfed by a mist of forever unknowable mysteries?
+
+Like Hilbert, I am left yelling at the void:
+["Wir müssen wissen, wir werden wissen."](https://en.wikipedia.org/wiki/Ignoramus_et_ignorabimus),
+which translates to "We must know, we will know."
