@@ -1,5 +1,5 @@
 +++
-title = "Lindley's Paradox, or The consistency of Bayesian Thinking"
+title = "Lindley's paradox, or the consistency of Bayesian thinking"
 date = "2023-11-22T07:06:59"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["math", "bayesian", "probability", "julia"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex_warning() }}
 
 ![Dennis Lindley](lindley.jpg)
 

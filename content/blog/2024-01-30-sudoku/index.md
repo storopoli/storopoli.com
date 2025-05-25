@@ -1,5 +1,5 @@
 +++
-title = "Fullstack and Progressive Web Apps in Rust: A Tale of a Sudoku Spyware"
+title = "Fullstack and progressive web apps in Rust: a tale of a sudoku spyware"
 date = "2024-01-30T08:57:33"
 author = "Jose Storopoli, PhD"
 

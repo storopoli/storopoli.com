@@ -1,5 +1,5 @@
 +++
-title = "Zero-cost Abstractions"
+title = "Zero-cost abstractions"
 date = "2023-11-28T18:19:36"
 author = "Jose Storopoli, PhD"
 

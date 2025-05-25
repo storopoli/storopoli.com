@@ -1,5 +1,5 @@
 +++
-title = "Randomness in Computation: Sprinkle a little bit of randomness, and voilà!"
+title = "Randomness in computation: sprinkle a little bit of randomness, and voilà!"
 date = "2025-04-07T06:57:00"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["math", "probability", "programming", "haskell"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex_warning() }}
 
 ![Just sprinkle a little bit of randomness, and voilà!](randomness-meme.jpg)
 

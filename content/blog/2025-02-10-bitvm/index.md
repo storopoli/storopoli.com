@@ -1,5 +1,5 @@
 +++
-title = "BitVM: How to bridge using 1-of-N trust assumptions"
+title = "BitVM: how to bridge using 1-of-N trust assumptions"
 date = "2025-02-10T04:57:00"
 author = "Jose Storopoli, PhD"
 
@@ -11,12 +11,9 @@ katex = true
 mermaid = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions
-and [Mermaid](https://mermaid.js.org) to render flowcharts.
+{{ katex_warning() }}
 
-To see the rendered content, you'll need to enable JavaScript.
-{% end %}
+{{ mermaid_warning() }}
 
 {% admonition(type="info", icon="info", title="BTC++ Talk") %}
 This post is the written version of my very condensed 45-minute talk
@@ -504,7 +501,7 @@ to emulate covenants.
 
 First let's tackle what are covenants.
 **[Covenants](https://bitcoinops.org/en/topics/covenants/)**
-are a category of proposed changes to Bitcoin’s consensus rules that would allow
+are a category of proposed changes to Bitcoin's consensus rules that would allow
 a script to prevent an authorized spender from spending to certain other scripts[^timelocks].
 A very useful example is the [`OP_VAULT`](https://jameso.be/vaults.pdf)
 that allows an UTXO to be only spent to a specific destination.

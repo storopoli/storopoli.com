@@ -1,5 +1,5 @@
 +++
-title = "Von Neumann: the Sharpest Mind of the 20th Century"
+title = "Von Neumann: the sharpest mind of the 20th century"
 date = "2024-06-22T05:54:46"
 author = "Jose Storopoli, PhD"
 
@@ -10,11 +10,7 @@ tags = ["math"]
 katex = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions.
-
-To see the rendered mathematical expressions, you'll need to enable JavaScript.
-{% end %}
+{{ katex_warning() }}
 
 ![Von Neumann's wartime Los Alamos ID badge photo](von_neumann.jpg)
 

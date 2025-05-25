@@ -1,5 +1,5 @@
 +++
-title = "Merkle Trees and the Taproot Protocol"
+title = "Merkle trees and the Taproot protocol"
 date = "2024-11-15T08:44:46"
 author = "Jose Storopoli, PhD"
 
@@ -11,12 +11,9 @@ katex = true
 mermaid = true
 +++
 
-{% admonition(type="warning", icon="warning", title="Evil JavaScript") %}
-This post uses [KaTeX](https://katex.org/) to render mathematical expressions
-and [Mermaid](https://mermaid.js.org) to render flowcharts.
+{{ katex_warning() }}
 
-To see the rendered content, you'll need to enable JavaScript.
-{% end %}
+{{ mermaid_warning() }}
 
 {% admonition(type="info", icon="info") %}
 Dedicated to John Peter, since I was tired of having
