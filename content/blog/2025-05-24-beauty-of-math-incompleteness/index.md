@@ -297,7 +297,7 @@ who allegedly was so impressed by Gödel's work that he remarked:
 
 > It's all over.
 
-[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [Gödel Without (Too Many) Tears](https://www.logicmatters.net/igt/#A-shorter-book) by the logician Peter Smith.
+[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [Gödel Without (Too Many) Tears](https://www.logicmatters.net/igt) by the logician Peter Smith.
 
 ### The first incompleteness theorem
 
