@@ -10,7 +10,7 @@ tags = ["cryptography", "bitcoin"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Euclid's one-way function](euclid.webp)
 

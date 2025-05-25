@@ -4,13 +4,13 @@ date = "2025-05-24T12:57:00"
 author = "Jose Storopoli, PhD"
 
 [taxonomies]
-tags = ["math", "programming", "agda"]
+tags = ["math", "agda"]
 
 [extra]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![A curios mathematician seeing a blackhole of self-referential paradoxes.](self-referential-blackhole.png)
 

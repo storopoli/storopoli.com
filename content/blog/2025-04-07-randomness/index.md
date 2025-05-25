@@ -10,7 +10,7 @@ tags = ["math", "probability", "programming", "haskell"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Just sprinkle a little bit of randomness, and voilà!](randomness-meme.jpg)
 

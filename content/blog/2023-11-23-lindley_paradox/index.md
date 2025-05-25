@@ -10,7 +10,7 @@ tags = ["math", "bayesian", "probability", "julia"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Dennis Lindley](lindley.jpg)
 

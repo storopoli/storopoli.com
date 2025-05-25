@@ -10,7 +10,7 @@ tags = ["cryptography", "bitcoin"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![The Polynomial king and he can do anything!](polynomial_king.webp)
 

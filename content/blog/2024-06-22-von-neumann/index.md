@@ -10,7 +10,7 @@ tags = ["math"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Von Neumann's wartime Los Alamos ID badge photo](von_neumann.jpg)
 

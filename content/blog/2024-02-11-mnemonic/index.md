@@ -10,7 +10,7 @@ tags = ["cryptography", "probability", "bitcoin"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Password meme](password_strength.png)
 

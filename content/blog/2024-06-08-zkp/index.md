@@ -11,7 +11,7 @@ katex = true
 mermaid = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Zero-knowledge proofs and the meaning of life](zkp_meme.jpg)
 

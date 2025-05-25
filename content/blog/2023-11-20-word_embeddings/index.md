@@ -10,7 +10,7 @@ tags = ["math", "machine learning", "julia"]
 katex = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
 ![Euclid of Alexandria](euclid.jpg)
 

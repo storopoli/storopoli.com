@@ -11,9 +11,9 @@ katex = true
 mermaid = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
 
-{{ mermaid() }}
+{{ mermaid_warning() }}
 
 {% admonition(type="info", icon="info", title="BTC++ Talk") %}
 This post is the written version of my very condensed 45-minute talk

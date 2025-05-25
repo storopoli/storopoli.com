@@ -11,7 +11,9 @@ katex = true
 mermaid = true
 +++
 
-{{ katex() }}
+{{ katex_warning() }}
+
+{{ mermaid_warning() }}
 
 {% admonition(type="info", icon="info") %}
 Dedicated to John Peter, since I was tired of having
