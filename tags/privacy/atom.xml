@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>privacy</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - privacy</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/privacy/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/privacy/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-03-23T14:00:16+00:00</updated>
+    <id>https://storopoli.com/tags/privacy/atom.xml</id><entry xml:lang="en">
+        <title>Sherlock Holmes final letter: a simple dead man&#x27;s switch in Rust</title>
+        <published>2024-03-23T14:00:16+00:00</published>
+        <updated>2024-03-23T14:00:16+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/dead-man-switch/" type="text/html"/>
+        <id>https://storopoli.com/blog/dead-man-switch/</id>
+        
+            <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;dead-man-switch&#x2F;the_final_problem.png&quot; alt=&quot;Sherlock Holmes fights Moriarty at the Reichenbach Falls&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Got state secrets? Or maybe 50 BTC?
+Don’t trust your government or lawyers?
+And you want to make sure that if you die, your secrets are passed on?
+Don’t worry, I got you covered.
+In this post,
+I’ll introduce you to a &lt;strong&gt;simple no-bullshit dead man’s switch&lt;&#x2F;strong&gt; written in Rust.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dead-man-s-switch&quot;&gt;Dead Man’s Switch&lt;&#x2F;h2&gt;
+&lt;p&gt;According to &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dead_man%27s_switch&quot;&gt;Wikipedia&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A &lt;strong&gt;dead man’s switch&lt;&#x2F;strong&gt; is a switch that is designed to be &lt;strong&gt;activated or
+deactivated if the human operator becomes incapacitated&lt;&#x2F;strong&gt;, such as through death,
+loss of consciousness, or being bodily removed from control.
+Originally applied to switches on a vehicle or machine,
+it has since come to be used to describe other intangible uses,
+as in &lt;strong&gt;computer software&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;A Dead Man’s Switch (DMS) can be handy and common scenarios might be:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Password to your encrypted files&lt;&#x2F;strong&gt;: You gave a trusted person an encrypted
+USB drive and the DMS sends the password to decrypt it.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Bitcoin Multisig&lt;&#x2F;strong&gt;: Sending 1 of 3 keys to a trusted person.
+You hold 1 key, your friend holds another key, and the DMS holds the last key.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Instructions&lt;&#x2F;strong&gt;: Sending instructions on how to access something of value or
+importance.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Goodbye Note&lt;&#x2F;strong&gt;: Sending a goodbye note to loved ones.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;A DMS is specially useful when you don’t trust the government or lawyers to
+handle your affairs after you die.
+It’s also useful when you don’t want to disclose your secrets while you are alive.&lt;&#x2F;p&gt;
+&lt;p&gt;The idea is simple:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;You set up a DMS&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;You need to check in periodically&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;If you don’t check in, the DMS is triggered&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;In this post opening picture, is depicted an image from Conan Doyle’s story
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;The_Final_Problem&quot;&gt;The Final Problem&lt;&#x2F;a&gt;,
+where Sherlock Holmes fights Moriarty at the Reichenbach Falls.
+Eventually, both fall to their deaths.
+I am pretty confident that Sherlock Holmes had a DMS in place to send Watson
+a message.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ve tried finding nice implementations of DMS, but to no avail.
+They all were either unmaintained or plaged with spaghetti code.
+My inspiration to build one came from two sources.
+First, a friend of mine told me that he is using a bunch of badly-written
+shell scripts with some cron jobs to manage his DMS.
+Second, there might be a genuine need for a simple DMS in the privacy community.
+For example, &lt;a href=&quot;https:&#x2F;&#x2F;finalmessage.io&quot;&gt;finalmessage.io&lt;&#x2F;a&gt;,
+despite being closed source, and you have no idea who’s behind it,
+has gathered enough users in a subscription model and they are not accepting new
+users anymore.
+If people are paying for this, they can pay for a Linux server somewhere.
+But they would need a simple DMS to run on it.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-to-use-it&quot;&gt;How to Use It&lt;&#x2F;h2&gt;
+&lt;div class=&quot;admonition danger&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-danger&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;Disclaimer&lt;&#x2F;strong&gt;
+        &lt;p&gt;Use at your own risk. Check the f****(as in &lt;em&gt;friendly&lt;&#x2F;em&gt;) code.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I invite you to check out the code on GitHub at
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;dead-man-switch&quot;&gt;&lt;code&gt;storopoli&#x2F;dead-man-switch&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.
+The license is &lt;a href=&quot;https:&#x2F;&#x2F;www.gnu.org&#x2F;licenses&#x2F;agpl-3.0.html&quot;&gt;AGPL-3.0&lt;&#x2F;a&gt;,
+which means you can use it for free as long as you share your code.
+The package is also available on &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;dead-man-switch&quot;&gt;crates.io&lt;&#x2F;a&gt;,
+Rust’s package manager.&lt;&#x2F;p&gt;
+&lt;p&gt;DMS is very easy to use and deploy.
+There are several alternatives on how to deploy it.
+Here are the two easiest ways:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Building from Source&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;In a fresh Debian&#x2F;Ubuntu server install the following dependencies:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; apt-get install&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;y&lt;&#x2F;span&gt; cargo pkg-config libssl-dev&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Install the DMS:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;cargo&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; install dead-man-switch-tui&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Run the app with:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;dead-man-switch-tui&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Using Nix&lt;&#x2F;strong&gt;. This is the easiest just do
+&lt;code&gt;nix run github:storopoli&#x2F;dead-man-switch&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;dead-man-switch&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+I’ve also released a Web Interface for the dead-man-switch.
+You can easily deploy it using Docker or Docker Compose.
+Check out the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;dead-man-switch&quot;&gt;GitHub repository&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I’ve also launched a &lt;a href=&quot;https:&#x2F;&#x2F;start9.com&quot;&gt;StartOS&lt;&#x2F;a&gt; app with a simple interface
+for configuring and checking in with the Dead Man’s Switch.
+Check out the instructions on the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;dead-man-switch-startos&quot;&gt;&lt;code&gt;dead-man-switch-startos&lt;&#x2F;code&gt; repository&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Once, you successfully run the app, you will see the following output:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;dead-man-switch&#x2F;app_first_run.png&quot; alt=&quot;Initial Screen of Dead Man’s Switch&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;If you read the instructions carefully, all you need to know is detailed in
+these 3 steps:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Edit the Config at &lt;code&gt;&#x2F;root&#x2F;.config&#x2F;deadman&#x2F;config.toml&lt;&#x2F;code&gt; and modify the settings.&lt;&#x2F;li&gt;
+&lt;li&gt;Check-In with &lt;code&gt;c&lt;&#x2F;code&gt; within the warning time.&lt;&#x2F;li&gt;
+&lt;li&gt;Otherwise the Dead Man’s Switch will be triggered and the message with
+optional attachment will be sent.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Upon the first run, the app will create a configuration file at an OS-agnostic
+config file location:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Linux: &lt;code&gt;$XDG_CONFIG_HOME&lt;&#x2F;code&gt;, i.e. &lt;code&gt;$HOME&#x2F;.config|&#x2F;home&#x2F;alice&#x2F;.config&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;macOS: &lt;code&gt;$HOME&#x2F;Library&#x2F;Application Support&lt;&#x2F;code&gt;, i.e. &lt;code&gt;&#x2F;Users&#x2F;Alice&#x2F;Library&#x2F;Application Support&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;Windows: &lt;code&gt;{FOLDERID_RoamingAppData}&lt;&#x2F;code&gt;, i.e. &lt;code&gt;C:\Users\Alice\AppData\Roaming&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In this example, I am running it from a Debian server as the &lt;code&gt;root&lt;&#x2F;code&gt; user.
+Hence, the configuration file is at &lt;code&gt;&#x2F;root&#x2F;.config&#x2F;deadman&#x2F;config.toml&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you open the configuration file, you will see the following content.
+I’ve added some default values for inspiration[^central-park]:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;dead-man-switch&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Please don’t go to bench 137 in Central Park, NY.
+That was just an example.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;pre data-lang=&quot;toml&quot; class=&quot;language-toml z-code&quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;username&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;me@example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;password&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;smtp_server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;smtp.example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;smtp_port&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-toml&quot;&gt;587&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;message&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;I&amp;#39;m probably dead, go to Central Park NY under bench #137 you&amp;#39;ll find an age-encrypted drive. Password is our favorite music in Pascal case.&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;message_warning&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Hey, you haven&amp;#39;t checked in for a while. Are you okay?&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;subject&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;[URGENT] Something Happened to Me!&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;subject_warning&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;[URGENT] You need to check in!&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;to&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;someone@example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;from&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;me@example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;timer_warning&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-toml&quot;&gt;1209600&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;timer_dead_man&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-toml&quot;&gt;604800&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The configs are self-explanatory.
+You might need some help to set up and find a reliable SMTP server.
+One option is to use Gmail.
+Unfortunately, Proton or Tutanota are not supported because they don’t support
+SMTP.
+Just grab the support page of your email provider and search for SMTP settings.
+Plug the values in and you are good to go.&lt;&#x2F;p&gt;
+&lt;p&gt;I want to bring your attention to the &lt;strong&gt;&lt;code&gt;timer_warning&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; and &lt;strong&gt;&lt;code&gt;timer_dead_man&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;
+configs.
+These are very important.&lt;&#x2F;p&gt;
+&lt;p&gt;The way DMS works is by &lt;strong&gt;checking in periodically&lt;&#x2F;strong&gt;.
+If you &lt;strong&gt;&lt;em&gt;don’t&lt;&#x2F;em&gt; check in within the &lt;code&gt;timer_warning&lt;&#x2F;code&gt; time,
+the DMS will send a warning message to your own email&lt;&#x2F;strong&gt;, i.e. the &lt;code&gt;from&lt;&#x2F;code&gt; email declared in
+the config, with the message &lt;code&gt;message_warning&lt;&#x2F;code&gt;
+and subject &lt;code&gt;subject_warning&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you &lt;strong&gt;&lt;em&gt;still don’t check in&lt;&#x2F;em&gt; within the &lt;code&gt;timer_dead_man&lt;&#x2F;code&gt; time,
+the DMS will send the “Dead Man’s” message to the &lt;code&gt;to&lt;&#x2F;code&gt; email declared in the
+config&lt;&#x2F;strong&gt;,
+with the message &lt;code&gt;message&lt;&#x2F;code&gt; and subject &lt;code&gt;subject&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The timers are in &lt;strong&gt;seconds&lt;&#x2F;strong&gt;, and the &lt;strong&gt;default values&lt;&#x2F;strong&gt; are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Warning Timer&lt;&#x2F;strong&gt;: 2 weeks&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Dead Man’s Timer&lt;&#x2F;strong&gt;: 1 week&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Feel free to change these values to your liking.&lt;&#x2F;p&gt;
+&lt;p&gt;You can also add an attachment to the Dead Man’s Message.
+Just add an &lt;code&gt;attachment&lt;&#x2F;code&gt; field to the config file with the &lt;em&gt;absolute&lt;&#x2F;em&gt; path
+to the file.
+For example:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; class=&quot;language-toml z-code&quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;attachment&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&#x2F;root&#x2F;important_file.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A good idea is to make this file encrypted.
+Actually, it’s even better if you encrypted the whole fucking thing.
+You can use &lt;a href=&quot;https:&#x2F;&#x2F;gnupg.org&#x2F;&quot;&gt;PGP&lt;&#x2F;a&gt; or &lt;a href=&quot;https:&#x2F;&#x2F;age-encryption.org&quot;&gt;&lt;code&gt;age&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.
+For example, this is a PGP-encrypted message:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;-----BEGIN PGP MESSAGE-----
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;jA0ECQMKDpTufzWBF+&#x2F;&#x2F;0ukBT&#x2F;vslTBHGlMeri&#x2F;cqpkxO2X7ZY1SYwiYwDqvdFAV
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;FGzPHUaGh8tQiuoh7tj0HJEIqBaktJoDNe3XsszFVSp3eQAAiWUh+t&#x2F;5pTIcQhW9
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;iKJHPUKGhqf9vg0Q4LS0F1RMhLejoeXt&#x2F;TvtHfsHE+kymbvp8p5gNiwoyugEZlta
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;qLd0ZJvMDg5c0&#x2F;Qw81+e6jW0ApwcT7MVf&#x2F;Y0dFKW1epsA1QfGH5rQYUWPJDP+SZR
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;hBd5034eKNKTUZYwAAoR0UJ6eqcnev9z9sTuct3uGPeXnNqK0zDKaP3rV&#x2F;9hnVPN
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;3gwEQEWL2Dl39pjv+x+QdViCirlrjPa0BaHzwveid2N8Ik3QBsxKGkyAXd0w3G+g
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;VAGwKDLUkXUIDytk&#x2F;PI8vRGLUhSmyG29KdeGdEiKde+DG5MUtjC4UyFCWxa5ZX5y
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;WNEg7049bd5Nx3B5WlFmKyWbsHynoziDJU2aq2uvaBLYA48roDN&#x2F;0sEUsuGFpxm3
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;0&#x2F;3vd0kGxMt20HlsVpDRQz75mWJEmzxY2itRJbR84bEyN0ItWE9G5WwQ4mjmU+XL
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;0xYazglNYoAG0FXCxD6EpbDbQZxO&#x2F;OKIaGWI4d2Zs1zcwbcEfZnhsKB5kI4tYJZ2
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;ZTq+Q4xY4sFEoYzmNQbHY+mpgskgmHbRdBAGea+raiAXK&#x2F;wL4Qc9x1bDdNIKNBup
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;lsCRA1Dj&#x2F;5s0Qy64d2cbfWvCvx3R9B0JsHTcFq4DBELSOzSyzC&#x2F;mpCXCAi9K&#x2F;jE5
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;5VAnsnqaTZm+DVpciMTRxuRPD50MDYogTA&#x2F;N+Jer9WmQOgc0e1VrWsho2CgX0Z8I
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;ycF56Wm+lBjTGRMLXexA1Ietm88wg&#x2F;OrY6BE57xpBMVemRc0P0A2g0KC1WkX8J3I
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;fw5IKoiGsd9mvuHNxJ40Rm14iTYV0z9t97GFTmWji5BZtKoQ8vNmy8skgEgEUuHS
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;LtwCU8D5XsHQY2EWsQv23KPyxpbdvl7vGP75xCzRqcWmeCMSyH1qYPsO87sPJ4eL
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Z4ywlr9ULagMgNMK&#x2F;KO7F45yJRCqGKCaYB3cpcEpgUIIlZRCiXZSUifb&#x2F;0EMWNAb
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;DzV&#x2F;otFp8aMrhwGxIEYv1wOmot9OrBRVgLVSNTU9EtJVzISEowbhe+7ZP1jUaAaW
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;WrjvDA==
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;=cfGG
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;-----END PGP MESSAGE-----
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this message there’s a nice Easter Egg for you, my friend.
+The password is the name of the waterfall depicted in this post,
+all together and in PascalCase.&lt;&#x2F;p&gt;
+&lt;p&gt;Upon checking in, the timer will be reset to the Warning Timer,
+even if you are already in the Dead Man’s Timer.&lt;&#x2F;p&gt;
+&lt;p&gt;If both timers run out, the messages will be sent and DMS will exit.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-implementation-details&quot;&gt;The Implementation Details&lt;&#x2F;h2&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;For the stupid smelly nerds that want to go beyond the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;sherlock-project&#x2F;sherlock&#x2F;issues&#x2F;2019&quot;&gt;“JUST MAKE A FUCKING .EXE AND GIVE IT TO ME”&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Before we dive into the code, here are the &lt;strong&gt;dependencies&lt;&#x2F;strong&gt; that I am using.
+I’ve tried to keep them to a minimum, since I want this to be a dead-simple
+program.
+This also helps with reducing the incidence of bugs and narrowing the
+attack surface:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;ratatui.rs&quot;&gt;&lt;code&gt;ratatui&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; for the Terminal User Interface (TUI)&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;serde.rs&quot;&gt;&lt;code&gt;serde&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;toml&quot;&gt;&lt;code&gt;toml&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;,
+and &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;directories-next&quot;&gt;&lt;code&gt;directories-next&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+for managing the TOML configuration file.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;lettre.rs&quot;&gt;&lt;code&gt;lettre&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; to manage email sending,
+and &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;mime_guess&quot;&gt;&lt;code&gt;mime_guess&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; to robustly
+handle optional attachments.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;chrono&quot;&gt;&lt;code&gt;chrono&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; to handle timers and date&#x2F;time
+formatting.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;dead-man-switch&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+The Dead Man’s Switch Web Interface uses &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tokio-rs&#x2F;axum&quot;&gt;&lt;code&gt;axum&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;djc.github.io&#x2F;askama&#x2F;&quot;&gt;&lt;code&gt;askama&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;tower-rs&#x2F;tower&quot;&gt;&lt;code&gt;tower&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;The app is divided into a library and a binary.
+The library is contained in the &lt;code&gt;lib.rs&lt;&#x2F;code&gt; file and the binary in the &lt;code&gt;main.rs&lt;&#x2F;code&gt;,
+both under the &lt;code&gt;src&#x2F;&lt;&#x2F;code&gt; directory.
+Here’s a representation of the structure of &lt;code&gt;src&#x2F;&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;src&#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;├──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; config.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;├──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; email.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;├──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; lib.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;├──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; main.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;├──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; timer.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;└──&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; tui.rs&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;As we can see, it is divided into 4 modules:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;config.rs&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: Handles the configuration file.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;email.rs&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: Handles the email sending.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;timer.rs&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: Handles the timers and timer logic.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;tui.rs&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;: Handles the Terminal User Interface (TUI).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Feel free to dive in any of these files to understand the implementation details.
+I’ve made sure that the code is &lt;em&gt;both&lt;&#x2F;em&gt; &lt;strong&gt;well-tested&lt;&#x2F;strong&gt; and &lt;strong&gt;well-documented&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;contributions-are-welcome&quot;&gt;Contributions are Welcome&lt;&#x2F;h2&gt;
+&lt;p&gt;If you want to contribute to the project, feel free to open a pull request.
+I’ve marked a few issues as &lt;code&gt;good first issue&lt;&#x2F;code&gt; to help you get started.
+Check out the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;dead-man-switch&quot;&gt;GitHub repository&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I’ve built a simple no-bullshit Dead Man’s Switch so that any person can use it.
+Feel free to use it and share it with your friends.
+Let’s hope that we don’t go to a dystopian future where everyone needs to use it.
+Although, I am pretty sure that Sherlock Holmes would have used it no matter what.
+Probably the way he would have used it is by:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Set-up a non-KYC email account that supports SMTP.&lt;&#x2F;li&gt;
+&lt;li&gt;Sign-up for a non-KYC VPS with Bitcoin or Monero.&lt;&#x2F;li&gt;
+&lt;li&gt;Access the VPS via Tor using Tails.&lt;&#x2F;li&gt;
+&lt;li&gt;Change the server’s default SSH port to a random one.&lt;&#x2F;li&gt;
+&lt;li&gt;Disallow password authentication and only allow key-based authentication.&lt;&#x2F;li&gt;
+&lt;li&gt;Encrypt everything in the case the server is seized.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;div class=&quot;admonition tip&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-tip&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;TIP&lt;&#x2F;strong&gt;
+        &lt;p&gt;Sherlock could also use a coreboot non-KYC piece of hardware that
+runs StartOS and the newly launched Dead Man’s Switch StartOS app that already
+uses an onion service for handling the check-ins via Tor.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+</content>
+        </entry>
+</feed>

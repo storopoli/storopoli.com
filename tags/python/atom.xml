@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>python</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - python</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/python/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/python/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-11-28T18:19:36+00:00</updated>
+    <id>https://storopoli.com/tags/python/atom.xml</id><entry xml:lang="en">
+        <title>Zero-cost abstractions</title>
+        <published>2023-11-28T18:19:36+00:00</published>
+        <updated>2023-11-28T18:19:36+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/zero-cost-abstractions/" type="text/html"/>
+        <id>https://storopoli.com/blog/zero-cost-abstractions/</id>
+        
+            <content type="html">&lt;p&gt;In programming language circles there’s a recently trend of discussing a concept
+called &lt;strong&gt;zero-cost abstractions&lt;&#x2F;strong&gt;:
+the ability to use higher-levels abstractions without suffering any loss of performance.&lt;&#x2F;p&gt;
+&lt;p&gt;Zero-cost abstractions allows you to write performant code without having to
+give up a single drop of convenience and expressiveness:&lt;&#x2F;p&gt;
+&lt;p&gt;You want for-loops?
+&lt;em&gt;You can have it&lt;&#x2F;em&gt;.
+Generics?
+&lt;em&gt;Yeah, why not&lt;&#x2F;em&gt;?
+Data structures?
+&lt;em&gt;Sure, keep’em coming&lt;&#x2F;em&gt;.
+Async operations?
+&lt;em&gt;You bet ya&lt;&#x2F;em&gt;!
+Multi-threading?
+&lt;em&gt;Hell yes&lt;&#x2F;em&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;To put more formally,
+I like &lt;a href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;a&#x2F;69178445&quot;&gt;this definition from StackOverflow&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Zero Cost Abstractions means adding higher-level programming concepts, like generics,
+collections and so on do not come with a run-time cost,
+only compile time cost (the code will be slower to compile).
+Any operation on zero-cost abstractions is as fast as you would write out
+matching functionality by hand using lower-level programming concepts like
+for loops, counters, ifs and using raw pointers.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Here’s an analogy:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Imagine that you are going to buy a car.
+The sales person offers you a fancy car praising how easy it is to drive it,
+that you don’t need to think about RPM, clutch and stick shift,
+parking maneuver, fuel type, and other shenanigans.
+You just turn it on and drive.
+However, once you take a look at the car’s data sheet, you are horrified.
+The car is bad in every aspect except easy of use.
+It has dreadful fuel consumption,
+atrocious safety ratings,
+disastrous handling, and so on…&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Believe me, you wouldn’t want to own that car.&lt;&#x2F;p&gt;
+&lt;p&gt;Metaphors aside, that’s &lt;strong&gt;exactly what professional developers and whole teams
+choose to use every day: unacceptable inferior tools&lt;&#x2F;strong&gt;.
+Tools that, not only don’t have &lt;strong&gt;zero-cost abstractions&lt;&#x2F;strong&gt;,
+rather don’t allow you to even have non-zero-cost anything!&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s do some Python bashing in the meantime.
+I know that’s easy to bash Python,
+but that’s not the point.
+If Python wasn’t used so widely in production,
+I would definitely leave it alone.
+Don’t get me wrong, Python is the second-best language for everything.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-curious-case-of-the-python-boolean&quot;&gt;The curious case of the Python boolean&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;non-zero-cost-abstraction.png&quot; alt=&quot;Python WTF?&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I wish this meme was a joke, but it isn’t.
+A boolean is one of the simplest data type taking only two possible values:
+true or false.
+Just grab your nearest Python REPL:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;python&quot; class=&quot;language-python z-code&quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-keyword z-control z-import z-from z-python&quot;&gt;from&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-meta z-import-source z-python&quot;&gt; &lt;span class=&quot;z-meta z-import-path z-python&quot;&gt;&lt;span class=&quot;z-meta z-import-name z-python&quot;&gt;sys&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-keyword z-control z-import z-python&quot;&gt;import&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt; &lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;getsizeof&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-python&quot;&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-variable z-function z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;getsizeof&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-python&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-python&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-python&quot;&gt;True&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-python&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;28&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The function &lt;a href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;sys.html#sys.getsizeof&quot;&gt;&lt;code&gt;sys.getsizeof&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+returns the size of an object in bytes.
+&lt;strong&gt;How the hell Python needs 28 bytes to represent something
+that needs at most 1 byte&lt;&#x2F;strong&gt;?
+Imagine incurring a 28x penalty in memory size requirements for every boolean
+that you use.
+Now multiply this by every operation that your code is going to run in production
+over time.
+Again: &lt;strong&gt;unacceptable&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;That’s because all objects in Python,
+in the sense that everything that you can instantiate,
+i.e. everything that you can put on the left hand-side of the &lt;code&gt;=&lt;&#x2F;code&gt; assignment,
+is a &lt;a href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;c-api&#x2F;structures.html#c.PyObject&quot;&gt;&lt;code&gt;PyObject&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;All Python objects ultimately share a small number of fields at the
+beginning of the object’s representation in memory.
+These are represented by the &lt;code&gt;PyObject&lt;&#x2F;code&gt; and &lt;code&gt;PyVarObject&lt;&#x2F;code&gt; types.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Python is dynamically-typed, which means that you don’t have primitives like
+8-, 16-, 32-bit (un)signed integers and so on.
+Everything is a huge mess allocated in the heap that must carry not only its value,
+but also information about its type.&lt;&#x2F;p&gt;
+&lt;p&gt;Most important, everything that is fast in Python is &lt;em&gt;not Python-based&lt;&#x2F;em&gt;.
+Take a look at the image below,
+I grabbed some popular Python libraries from GitHub,
+namely &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;numpy&#x2F;numpy&quot;&gt;NumPy&lt;&#x2F;a&gt; (linear algebra package)
+and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pytorch&#x2F;pytorch&quot;&gt;PyToch&lt;&#x2F;a&gt; (deep learning package),
+and checked the
+language codebase percentage.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;python-my-ass.jpg&quot; alt=&quot;Python my ass&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Surprise, they are &lt;strong&gt;&lt;em&gt;not&lt;&#x2F;em&gt; Python libraries&lt;&#x2F;strong&gt;.
+They are &lt;strong&gt;C&#x2F;C++ codebases&lt;&#x2F;strong&gt;.
+Even if Python is the main language used in these codebases,
+I still think that this is not the case due to the nature of the Python code:
+&lt;strong&gt;all docstrings are written in Python&lt;&#x2F;strong&gt;.
+If you have a very fast C function in your codebase that takes 50 lines of code,
+followed by a Python wrapper function that calls it using 10 lines of code,
+&lt;em&gt;but&lt;&#x2F;em&gt; with a docstring that is 50 lines of code;
+you have a “Python”-majority codebase.&lt;&#x2F;p&gt;
+&lt;p&gt;In a sense the most efficient Python programmer is a C&#x2F;C++ programmer…&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;, which is also dynamically-typed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; Base.summarysize&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-julia&quot;&gt;true&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And to your surprise,
+Julia is coded in …. Julia!
+Check the image below for the language codebase percentage of
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JuliaLang&#x2F;julia&quot;&gt;Julia&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;LuxDL&#x2F;Lux.jl&quot;&gt;&lt;code&gt;Lux.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; (deep learning package).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;julia.jpg&quot; alt=&quot;Julia: turtles all the way&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, here’s &lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt;, which is not dynamically-,
+but static-typed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;mem&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Size of bool: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt; byte&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo run&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;release&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;   &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Compiling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; size_of_bool v0.1.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Running&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-meta z-group z-expansion z-command z-backticks z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;target&#x2F;release&#x2F;size_of_bool&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; of bool: 1 byte&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;more-zero-costs-abstractions&quot;&gt;More zero-costs abstractions&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s cover two more zero-costs abstractions, both in Julia and in Rust:
+&lt;strong&gt;for-loops&lt;&#x2F;strong&gt; and &lt;strong&gt;enums&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;for-loops&quot;&gt;For-loops&lt;&#x2F;h3&gt;
+&lt;p&gt;A friend and a Julia-advocate once told me that Julia’s master plan is to secretly
+“make everyone aware about &lt;em&gt;compilers&lt;&#x2F;em&gt;”.
+The &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Compiler&quot;&gt;compiler&lt;&#x2F;a&gt;
+is a program that translate source code from a high-level programming language
+to a low-level programming language
+(e.g. assembly language, object code, or machine code) to create an
+executable program.&lt;&#x2F;p&gt;
+&lt;p&gt;Python uses &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&quot;&gt;CPython&lt;&#x2F;a&gt; as the compiler.
+If you search around on why CPython&#x2F;Python is so slow and inefficient,
+you’ll find that the culprits are:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Python is &lt;strong&gt;dynamic-typed language&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Python’s &lt;strong&gt;Global Interpreter Lock (GIL) restricts multi-threading capabilities&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Python is &lt;strong&gt;interpreted&lt;&#x2F;strong&gt;, which means that Python code is executed sequentially:
+line-by-line.&lt;&#x2F;li&gt;
+&lt;li&gt;Python is &lt;strong&gt;garbage-collected&lt;&#x2F;strong&gt;: all memory its tracked,
+and allocated or deallocated which introduces overhead.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;I completely disagree with almost all the above reasons, except the GIL.
+&lt;strong&gt;Python is slow because of its design decisions&lt;&#x2F;strong&gt;,
+more specifically the way CPython works under the hood.
+It is not built for performance in mind.
+Actually, the main objective of Python was to be a
+“language that would be easy to read, write, and maintain”.
+I salute that: Python has remained true to its main objective.&lt;&#x2F;p&gt;
+&lt;p&gt;Now let’s switch to Julia:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Julia is &lt;strong&gt;dynamic-typed language&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Julia is &lt;strong&gt;interpreted&lt;&#x2F;strong&gt;, which means that Julia code is executed sequentially:
+line-by-line.&lt;&#x2F;li&gt;
+&lt;li&gt;Julia is &lt;strong&gt;garbage-collected&lt;&#x2F;strong&gt;: all memory its tracked,
+and allocated or deallocated which introduces overhead.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;I’ve copy-pasted all Python’s arguments for inefficiency, except the GIL.
+And, contrary to Python, &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&#x2F;benchmarks&#x2F;&quot;&gt;Julia is fast&lt;&#x2F;a&gt;!
+Sometimes even faster than C.
+Actually, that was the goal all along since Julia’s inception.
+If you check the &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&#x2F;blog&#x2F;2012&#x2F;02&#x2F;why-we-created-julia&#x2F;&quot;&gt;notorious Julia announcement blog post from 2012&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We want a language that’s open source, with a liberal license.
+We want the speed of C with the dynamism of Ruby.
+We want a language that’s homoiconic, with true macros like Lisp,
+but with obvious, familiar mathematical notation like Matlab.
+We want something as usable for general programming as Python,
+as easy for statistics as R, as natural for string processing as Perl,
+as powerful for linear algebra as Matlab, as good at gluing programs together as the shell.
+Something that is dirt simple to learn,
+yet keeps the most serious hackers happy.
+We want it interactive and we want it compiled.&lt;&#x2F;p&gt;
+&lt;p&gt;(Did we mention it should be as fast as C?)&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;It mentions “speed” twice.
+Not only that, but also specifically says that it should match C’s speed.&lt;&#x2F;p&gt;
+&lt;p&gt;Julia is fast because of its design decisions.
+One of the major reasons why Julia is fast is because of the choice of compiler
+that it uses: &lt;a href=&quot;https:&#x2F;&#x2F;llvm.org&#x2F;&quot;&gt;LLVM&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;LLVM originally stood for &lt;strong&gt;l&lt;&#x2F;strong&gt;ow &lt;strong&gt;l&lt;&#x2F;strong&gt;evel &lt;strong&gt;v&lt;&#x2F;strong&gt;irtual &lt;strong&gt;m&lt;&#x2F;strong&gt;achine.
+Despite its name, LLVM has little to do with traditional virtual machines.
+LLVM can take &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Intermediate_representation&quot;&gt;intermediate representation (IR)&lt;&#x2F;a&gt;
+code and compile it into machine-dependent instructions.
+It has &lt;a href=&quot;https:&#x2F;&#x2F;foundation.llvm.org&#x2F;sponsors&quot;&gt;support and sponsorship&lt;&#x2F;a&gt;
+from a lot of big-tech corporations,
+such as Apple, Google, IBM, Meta, Arm, Intel, AMD, Nvidia, and so on.
+It is a pretty fast compiler that can do wonders in optimizing IR code to a
+plethora of computer architectures.&lt;&#x2F;p&gt;
+&lt;p&gt;In a sense, Julia is a front-end for LLVM.
+It turns your easy-to-read and easy-to-write Julia code into LLVM IR code.
+Take this for-loop example inside a function:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-parameters z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    acc &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-control z-julia&quot;&gt;for&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-control z-julia&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        acc &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;+=&lt;&#x2F;span&gt; i
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;end&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;return&lt;&#x2F;span&gt; acc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Let’s check what Julia generates as LLVM IR code for this function.
+We can do that with the &lt;code&gt;@code_llvm&lt;&#x2F;code&gt; macro.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;code_llvm&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; debuginfo&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;none&lt;&#x2F;span&gt; sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;define i&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_172&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-comment z-line z-number-sign z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-julia&quot;&gt;#&lt;&#x2F;span&gt;0 {&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;top&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  ret i&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can’t easily fool the compiler.
+Julia understands that the answer is 55,
+and the LLVM IR generated code is pretty much just “return 55 as a 64-bit integer”.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s also check the machine-dependent instructions with the &lt;code&gt;@code_native&lt;&#x2F;code&gt; macro.
+I am using an Apple Silicon machine, so these instructions might differ from yours:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;code_native&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; debuginfo&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;none&lt;&#x2F;span&gt; sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .section        __TEXT,__text,regular,pure_instructions
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .build_version macos, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;14&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .globl  _julia_sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10_214&lt;&#x2F;span&gt;               ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; Begin &lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_214&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .p&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2&lt;&#x2F;span&gt;align        &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;_julia_sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10_214&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;                      ; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_214&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .cfi_startproc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;bb&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;.0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;                                ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;top
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        mov     w&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;, &lt;span class=&quot;z-comment z-line z-number-sign z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-julia&quot;&gt;#&lt;&#x2F;span&gt;55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        ret
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .cfi_endproc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;                                        ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; End &lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;.subsections_via_symbols
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The only important instruction for our argument here is the &lt;code&gt;mov w0, #55&lt;&#x2F;code&gt;.
+This means “move the value 55 into the &lt;code&gt;w0&lt;&#x2F;code&gt; register”,
+where &lt;code&gt;w0&lt;&#x2F;code&gt; is one of registers available in ARM-based architectures
+(which Apple Silicon chips are).&lt;&#x2F;p&gt;
+&lt;p&gt;This is a &lt;strong&gt;zero-cost abstraction&lt;&#x2F;strong&gt;!
+I don’t need to give up for-loops, because they might be slow and inefficient;
+like some Python users suggest newcomers.
+I can have the full convenience and expressiveness of for-loops without
+paying performance costs.
+Pretty much the definition of a zero-cost abstraction from above.&lt;&#x2F;p&gt;
+&lt;p&gt;Using LLVM as a compiler backend is not something unique to Julia.
+Rust also uses LLVM under the hood.
+Take for example this simple Rust code:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;i32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; acc &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;for&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-range z-rust&quot;&gt;..&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;10&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;        acc &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;+=&lt;&#x2F;span&gt; i
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    acc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-function z-rust&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We can inspect both LLVM IR code and machine instructions with the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pacak&#x2F;cargo-show-asm&quot;&gt;&lt;code&gt;cargo-show-asm&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo asm&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;llvm&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10::main&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;grep&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;store&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; i32 55, ptr &lt;span class=&quot;z-meta z-group z-expansion z-job z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-variable z-job z-shell&quot;&gt;%&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-readwrite z-shell&quot;&gt;_9&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, align 4&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo asm &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10::main&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;grep&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;mov&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; w8, &lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;55&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;No coincidence that the LLVM IR code is very similar,
+with the difference that integers, by default,
+in Julia are 64 bits and in Rust 32 bits.
+However, the machine code is &lt;strong&gt;identical&lt;&#x2F;strong&gt;:
+“move the value 55 into a &lt;code&gt;w&lt;&#x2F;code&gt; something register”.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;enums&quot;&gt;Enums&lt;&#x2F;h3&gt;
+&lt;p&gt;Another zero-cost abstraction, in Julia and Rust, is &lt;strong&gt;enums&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In Julia all enums, by default have a &lt;code&gt;BaseType&lt;&#x2F;code&gt; of &lt;code&gt;Int32&lt;&#x2F;code&gt;:
+a signed 32-bit integer.
+However, we can override this with type annotations:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-support z-function z-macro z-julia&quot;&gt;enum&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; Thing&lt;span class=&quot;z-keyword z-operator z-colons z-julia&quot;&gt;::&lt;&#x2F;span&gt;Bool One Two
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; Base.summarysize&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;Thing&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-julia&quot;&gt;false&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here we have an enum &lt;code&gt;Thing&lt;&#x2F;code&gt; with two variants: &lt;code&gt;One&lt;&#x2F;code&gt; and &lt;code&gt;Two&lt;&#x2F;code&gt;.
+Since we can safely represent all the possible variant space of &lt;code&gt;Thing&lt;&#x2F;code&gt;
+with a boolean type, we override the &lt;code&gt;BaseType&lt;&#x2F;code&gt; of &lt;code&gt;Thing&lt;&#x2F;code&gt; to be the &lt;code&gt;Bool&lt;&#x2F;code&gt; type.
+Unsurprised, any object of &lt;code&gt;Thing&lt;&#x2F;code&gt; occupies 1 byte in memory.&lt;&#x2F;p&gt;
+&lt;p&gt;We can achieve the same with Rust:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;mem&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;allow&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;dead_code&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-enum z-rust&quot;&gt;enum&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-enum z-rust&quot;&gt;Thing&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    One&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    Two&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Size of Thing: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt; byte&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Thing&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo run&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;release&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;   &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Compiling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; enum_size v0.1.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.09s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Running&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-meta z-group z-expansion z-command z-backticks z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;target&#x2F;release&#x2F;enum_size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; of Thing: 1 byte&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;However, contrary to Julia, Rust compiler automatically detects the enum’s
+variant space size and adjust accordingly.
+So, no need of overrides.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Zero-cost abstractions are a joy to have in a programming language.
+It enables you, as a programmer, to just focus on what’s important:
+write expressive code that is easy to read, maintain, debug, and build upon.&lt;&#x2F;p&gt;
+&lt;p&gt;It is no wonder that zero-cost abstractions is a pervasive feature
+of two of my top-favorite languages:
+&lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        </entry>
+</feed>

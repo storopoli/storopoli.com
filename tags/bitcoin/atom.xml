@@ -1,0 +1,2326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>bitcoin</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - bitcoin</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/bitcoin/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/bitcoin/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-02-10T04:57:00+00:00</updated>
+    <id>https://storopoli.com/tags/bitcoin/atom.xml</id><entry xml:lang="en">
+        <title>BitVM: how to bridge using 1-of-N trust assumptions</title>
+        <published>2025-02-10T04:57:00+00:00</published>
+        <updated>2025-02-10T04:57:00+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/bitvm/" type="text/html"/>
+        <id>https://storopoli.com/blog/bitvm/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;mermaid.js.org&quot;&gt;Mermaid&lt;&#x2F;a&gt; to render flowcharts.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered flowcharts, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;BTC++ Talk&lt;&#x2F;strong&gt;
+        &lt;p&gt;This post is the written version of my very condensed 45-minute talk
+at &lt;a href=&quot;https:&#x2F;&#x2F;btcpp.dev&#x2F;conf&#x2F;floripa&quot;&gt;BTC++ 2025 Floripa&lt;&#x2F;a&gt;.
+You can watch the talk &lt;a href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;gHoSpAgI7Xk&quot;&gt;here&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;style&gt;
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+&lt;&#x2F;style&gt;
+&lt;div class=&quot;embed-container&quot;&gt;
+  &lt;iframe
+    src=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;gHoSpAgI7Xk&quot;
+    frameborder=&quot;0&quot;
+    allowfullscreen
+  &gt;&lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;&lt;strong&gt;BitVM is a bridge between Bitcoin and a sidesystem&lt;&#x2F;strong&gt;.
+Generally, these bridges are secured by a federated multisig,
+where to bridge-out you need to have a majority of the federation.
+Mathematically, this is a $(\frac{N}{2}+1)$-of-$N$ trust model.
+This is not ideal since it’s a “trust me bro” situation and the “bros”
+are the majority of the bridge.
+BitVM is different, since it can drastically reduce the trust assumptions.
+It is a &lt;strong&gt;$1$-of-$N$ trust model, in which as long as you have one live honest operator,
+you can withdraw on-chain&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;bitvm.jpg&quot; alt=&quot;BitVM Meme&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I am part of the &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;alpenlabs.io&quot;&gt;Alpen Labs&lt;&#x2F;a&gt; engineering team
+that is building &lt;a href=&quot;https:&#x2F;&#x2F;stratabtc.org&quot;&gt;Strata: a BitVM-based rollup on Bitcoin&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.
+Strata is also part of the &lt;a href=&quot;https:&#x2F;&#x2F;bitvm.org&#x2F;&quot;&gt;BitVM Alliance&lt;&#x2F;a&gt;:
+a partnership to accelerate the development and implementation of BitVM project.&lt;&#x2F;p&gt;
+&lt;p&gt;This post has a lot of overlaps with my previous post on
+&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;&quot;&gt;“Some Intuitions on Zero-Knowledge Proofs”&lt;&#x2F;a&gt;.
+If you want to know more about Zero-Knowledge Proofs (ZKPs),
+then I’d suggest you read that post first.&lt;&#x2F;p&gt;
+&lt;div class=&quot;admonition tip&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-tip&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;Links and Footnotes&lt;&#x2F;strong&gt;
+        &lt;p&gt;This post is filled with external links and footnotes.
+If you want to dive deeper into any topic that has one of these,
+feel free to do so.
+The idea was to give a general overview the concepts,
+while also allowing you to tune your experience by giving you
+a bunch of tangents and rabbit holes to explore if wanted.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;I’m going to present BitVM in it’s main three big ideas:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Verified Computation&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Groth16 Bitcoin Script Compiler&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Emulating Covenants with Connector Outputs&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;3_big_ideas.png&quot; alt=&quot;Three Big Ideas&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The only new idea that BitVM brings to the table is the Groth16 Bitcoin script compiler.
+Verified computation is the premise of ZK-SNARKs,
+and emulating covenants with connector outputs was already used by the
+&lt;a href=&quot;https:&#x2F;&#x2F;ark-protocol.org&#x2F;&quot;&gt;Ark protocol&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;big-idea-1-verified-computation&quot;&gt;Big Idea 1: Verified Computation&lt;&#x2F;h2&gt;
+&lt;p&gt;Suppose you have a function that does some complicated stuff and performs some computation.
+Then, this function can be represented as an &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Arithmetic_circuit&quot;&gt;&lt;strong&gt;arithmetic circuit&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-peano-1&quot;&gt;&lt;a href=&quot;#fn-peano&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;An arithmetic circuit is a directed acyclic graph (DAG) where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Every indegree-zero node is an input gate that represents a variable $x_i$&lt;&#x2F;li&gt;
+&lt;li&gt;Every node with indegree $&amp;gt;1$ is either:
+&lt;ul&gt;
+&lt;li&gt;an addition gate, $+$, that represents the sum of its children&lt;&#x2F;li&gt;
+&lt;li&gt;a multiplication gate, $\times$, that represents the product of its children&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Here’s an example of an arithmetic circuit that represents the function&lt;&#x2F;p&gt;
+&lt;p&gt;$$f(x_1, x_2) = x_1 \cdot x_2 + x_1$$&lt;&#x2F;p&gt;
+
+
+&lt;noscript&gt;
+    &lt;strong&gt;⚠️ JavaScript is required to render the diagram.&lt;&#x2F;strong&gt;
+&lt;&#x2F;noscript&gt;
+&lt;pre class=&quot;mermaid invertible-image&quot;&gt;
+    flowchart TD
+x1[&quot;x₁&quot;]
+x2[&quot;x₂&quot;]
+mul[&quot;×&quot;]
+add[&quot;\+&quot;]
+
+x1 --&gt; mul
+x2 --&gt; mul
+mul --&gt; add
+x1 --&gt; add
+&lt;&#x2F;pre&gt;
+&lt;p&gt;In the circuit above, the input gates are
+$x_1$ and $x_{2}$,
+the product gate computes $x_1 \cdot x_2$,
+and the sum gate computes the result of the product gate added to $x_1$.
+All of this evaluates to $x_1 \cdot x_2 + x_1$.&lt;&#x2F;p&gt;
+&lt;p&gt;This stems due to the fact that any &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;NP_(complexity)&quot;&gt;NP problem&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-np-complete-1&quot;&gt;&lt;a href=&quot;#fn-np-complete&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;
+can be reduced in polynomial time by a deterministic Turing machine to
+the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Boolean_satisfiability_problem&quot;&gt;Boolean satisfiability problem&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-boolean-funs-1&quot;&gt;&lt;a href=&quot;#fn-boolean-funs&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+This is known as the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cook%E2%80%93Levin_theorem&quot;&gt;Cook-Levin theorem&lt;&#x2F;a&gt;,
+and it is a fundamental result in theoretical computer science.&lt;&#x2F;p&gt;
+&lt;p&gt;In computer science, we have two main classes of problems:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\cal{P}$ problems, which are &lt;strong&gt;easy to solve and verify&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;$\cal{NP}$ problems, which are &lt;strong&gt;hard to solve, but &lt;em&gt;easy&lt;&#x2F;em&gt; to verify&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;$\cal{P}$ stems from polynomial time,
+and contains all decision problems that can be solved by a deterministic Turing machine
+using a polynomial amount of computation time, or polynomial time.
+$\cal{NP}$ stems from non-deterministic polynomial time,
+and is the set of decision problems for which the problem instances,
+where the answer is “yes”, have proofs verifiable in polynomial time by
+a deterministic Turing machine.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;p_np.png&quot; alt=&quot;P vs NP&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;According to the Cook-Levin theorem,
+once you find an algorithm that solves one of the $\cal{NP}$ problems
+in polynomial time, you can use it to solve &lt;strong&gt;&lt;em&gt;any&lt;&#x2F;em&gt; $\cal{NP}$ problem
+in polynomial time&lt;&#x2F;strong&gt;.
+But we haven’t yet found such algorithms for any $\cal{NP}$ problem.
+Heck, we don’t even know if $\cal{P} \ne \cal{NP}$.
+It is highly speculated, but yet still an open question&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-millennium-problems-1&quot;&gt;&lt;a href=&quot;#fn-millennium-problems&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Moving on, &lt;strong&gt;any (finite) arithmetic circuit can be transformed
+into a big (finite) polynomial&lt;&#x2F;strong&gt;,
+by using techniques such as
+&lt;a href=&quot;https:&#x2F;&#x2F;alinush.github.io&#x2F;qap-r1cs&quot;&gt;Rank-1 Constraint System (R1CS), quadratic arithmetic program (QAP)&lt;&#x2F;a&gt;;
+and many others.
+This means that we can map any arithmetic circuit to a polynomial,
+and vice-versa; and one operation in each side of the map,
+can be mapped to a single operation in the other side.&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, we can &lt;strong&gt;cryptographically commit to a polynomial using
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Commitment_scheme#KZG_commitment&quot;&gt;polynomial commitment schemes (PCS)&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.
+This means that we &lt;strong&gt;also commit to a certain arithmetic circuit,
+given that we know the unique polynomial that it represents&lt;&#x2F;strong&gt;.
+This commitment allow us to create &lt;strong&gt;very succinct zero-knowledge proofs
+that some computation was performed given certain inputs&lt;&#x2F;strong&gt;.
+We can represent this with proof as $\pi$
+which takes as public-accessible inputs $x$,
+and private-accessible inputs $w$ (as in witness),
+and outputs $y$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\pi(x; w) = y$$&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s define verifier $V$ that has access to the arithmetic circuit $C$,
+the inputs $x$, and the proof $\pi$.
+Note that $V$ does not have access to the witness $w$, which are private inputs.
+Additionally, $V$ may or may not have access to the output $y$ of the whole computation.
+Also, we’ll define a prover $P$ that has access to everything $V$ has,
+with the addition of the witness $w$.&lt;&#x2F;p&gt;
+&lt;p&gt;This proof $\pi$ has three main properties:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Completeness&lt;&#x2F;strong&gt;: If the statement is true, the verifier will accept the proof.&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \Pr\big[V(\pi, x) = \text{accept} \big] = 1. $$&lt;&#x2F;p&gt;
+&lt;p&gt;Here $\Pr\big[V(\pi(x)) = \text{accept} \big]$
+denotes the probability that the verifier accepts the proof given
+a proof $\pi$, and inputs $x$.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Soundness&lt;&#x2F;strong&gt;: If the statement is &lt;em&gt;false&lt;&#x2F;em&gt;, no cheating prover
+can convince an honest verifier that it is true,
+except with some negligible probability &lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-negligible-1&quot;&gt;&lt;a href=&quot;#fn-negligible&quot;&gt;5&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\forall A, \forall x, \forall \pi: \Pr\big[V(A, \pi, x) =
+\text{accept} \big] &amp;lt; \text{negligible}.
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;Here $\Pr\big[V(A, \pi) = \text{accept} \big]$ denotes
+the probability that the verifier accepts the proof given an adversary $A$,
+a proof $\pi$, and &lt;em&gt;public&lt;&#x2F;em&gt; inputs $x$.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Zero-Knowledge&lt;&#x2F;strong&gt;: If the statement is true,
+the verifier learns nothing about the secret $w$.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;There are many commitment schemes,
+even ones that don’t use polynomials.
+But a succinct zero knowledge system also needs an
+interactive oracle proof (IOP).
+One of such schemes is &lt;a href=&quot;https:&#x2F;&#x2F;alinush.github.io&#x2F;groth16&quot;&gt;Groth16&lt;&#x2F;a&gt;,
+named after Jens Groth,
+who published the &lt;a href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2016&#x2F;260&quot;&gt;paper describing it in 2016&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Groth16 uses a mathematical tool called
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bilinear_map&quot;&gt;bilinear maps&lt;&#x2F;a&gt;
+or &lt;a href=&quot;https:&#x2F;&#x2F;alinush.github.io&#x2F;pairings&quot;&gt;pairing functions&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.
+This is generally applied to vector spaces,
+but they can work in elliptic curves (EC) as well.
+It allows us to have VERY succinct proofs.
+I’m not gonna cover the math behind EC pairings.
+Instead, suffices to know that an EC pairing,
+given three groups $G_1$, $G_2$, and $G_T$ (as in target group),
+is a function $e$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$e: G_1 \times G_2 \rightarrow G_T$$&lt;&#x2F;p&gt;
+&lt;p&gt;In other words, it takes any two elements in $G_1$ and $G_2$;
+and outputs a group element in $G_T$.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Groth16 proofs are very succinct&lt;&#x2F;strong&gt;.
+It consists of 3 group elements
+(2 from $G_1$ and 1 from $G_2$) which amounts &lt;strong&gt;from 128 to 192 bytes&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;As an example suppose that I know how to calculate the 100th million digit of $\pi$.
+I publicly produce a VERY big arithmetic circuit,
+and cryptographically commit to it using a polynomial commitment scheme.
+I proceed by performing the HUGE computation, and sending to you, the prover,
+$x$ and $\pi$: the inputs to this circuit and the proof
+that I’ve performed the computation correctly.
+By verifying the proof, you can convince yourself that I know the
+100th million digit of $\pi$ without gaining any knowledge of this digit at all.&lt;&#x2F;p&gt;
+&lt;p&gt;In fact, to classify as &lt;strong&gt;succinct&lt;&#x2F;strong&gt;, this proving system must
+output proofs that are &lt;strong&gt;at most poly-logarithmic&lt;&#x2F;strong&gt; in the size of the circuit $C$,
+denoted as $|C|$,
+that it was committed and used to perform the computation
+that the prover wants to prove.
+Additionally, the verification time must also be poly-logarithmic in $C$.
+This means that &lt;strong&gt;both the proof size
+and verification time complexity must be at most&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$O(\log^k |C|)$$&lt;&#x2F;p&gt;
+&lt;p&gt;for some constant $k&amp;gt;1$.&lt;&#x2F;p&gt;
+&lt;p&gt;Since Groth16, outputs proofs that are between 128 and 192 bytes,
+and also has a &lt;strong&gt;constant-time verification&lt;&#x2F;strong&gt;,
+due to the face that it is just checking 3 group elements,
+irrespectively of the size of the circuit $C$,
+then &lt;strong&gt;Groth16 is a succinct zero-knowledge proof system&lt;&#x2F;strong&gt;.
+In fact, it is currently the most succinct one that we know so far&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-research-1&quot;&gt;&lt;a href=&quot;#fn-research&quot;&gt;6&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This is something quite marvelous.
+Imagine that you have ANY computation whatsoever,
+and I can prove to you that I’ve done it
+by sending only a very succinct ~200-byte proof
+and you are completely convinced that I did it.
+This is called &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Verifiable_computing&quot;&gt;verifiable computing&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;,
+which crypto-bros call “zero-knowledge”.
+We already have zero-knowledge in classical cryptography:
+“Hey I know a secret key and here’s a signature to prove to you”.
+But the real novelty here is that &lt;strong&gt;we can prove that I did a computation
+without revealing the computation itself&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;To finalize, there are some caveats in using Groth16.
+Yes, we have the &lt;strong&gt;best ZK-SNARK in terms of proof size
+and verification time&lt;&#x2F;strong&gt;.
+However, the setup is what we call a &lt;strong&gt;“trusted setup” that is also non-universal&lt;&#x2F;strong&gt;.
+This means that we need some sort of ceremony to setup the protocol,
+which includes the prover and verifier keys.
+This can be done in a Multi-Party Computation (MPC) style,
+with several parties joining the ceremony.
+Each one of these parties will contribute with some random secret data
+towards the setup of the protocol.
+&lt;strong&gt;As long as one of them throw away their secret data,
+the protocol is secure&lt;&#x2F;strong&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-ceremony-1&quot;&gt;&lt;a href=&quot;#fn-ceremony&quot;&gt;7&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+This means that no one can prove false statements
+or make a proof for a computation that was not performed.
+Additionally, the setup is done for a single circuit.
+Hence, you can only prove stuff that was done in a simple computation context.
+You can vary the inputs as much as you like, but the circuit will always be the same.
+To get a different circuit using Groth16, you need to perform a new setup.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;big-idea-2-groth16-bitcoin-script-compiler&quot;&gt;Big Idea 2: Groth16 Bitcoin Script Compiler&lt;&#x2F;h2&gt;
+&lt;p&gt;The second big idea is to &lt;strong&gt;overcome Bitcoin’s Script limitations
+by creating a Groth16 verifier using Bitcoin Script&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Bitcoin Script&lt;&#x2F;strong&gt; is VERY limited.
+It is a &lt;strong&gt;stack-based language, and it has a very limited number of opcodes
+that pops and pushes values into the stack; or manipulates the stack&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Most opcodes deal with verifying signatures since that is the most
+common usecase for Bitcoin Script.
+However, Bitcoin Script can also do some things such as:
+&lt;strong&gt;hashing values and checking equality&lt;&#x2F;strong&gt;.
+Additionally, we also have an &lt;strong&gt;alternate stack, called “alt stack”,
+which is kinda a buffer for storing values&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;With respect to math operations we have, hold your breath,
+&lt;strong&gt;&lt;em&gt;only&lt;&#x2F;em&gt; 32-bit addition and subtraction&lt;&#x2F;strong&gt;.
+We don’t have multiplication and division,
+modular division, or bit-rotations.
+Heck, we cannot even &lt;em&gt;concatenate&lt;&#x2F;em&gt; two values into a single one.
+This has some historical reasons,
+and the short story is that Satoshi was scared
+of people torpedoing the network by exploding the stack,
+and eventually crashing nodes by using these “dark arts” arithmetic operations.
+The network was in its early days,
+and very fragile.
+Instead of carefully setting guard-rails so that
+people don’t do stupid dangerous things,
+he pretty much &lt;strong&gt;disabled&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-satoshi-commit-1&quot;&gt;&lt;a href=&quot;#fn-satoshi-commit&quot;&gt;8&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; all the “dark arts” arithmetic operations&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Bitcoin Script is different than Ethereum’s EVM.
+In the EVM, you can do whatever you want.
+It is (bounded) Turing-complete.
+You just need to make sure that you have enough gas
+to pay for the computation.
+However in Bitcoin, the fees are calculated from the transaction size.
+This is possible because of the very limited expressiveness that Bitcoin Script has.
+All nodes will run your transaction’s Script and verify it
+irrespectively of the size of the Script,
+within the relevant size limits, of course.&lt;&#x2F;p&gt;
+&lt;p&gt;Bitcoin, prior to the Taproot upgrade,
+had limitations to a maximum of 1,000 stack elements,
+and 201 opcodes per program.
+With Taproot, we don’t have more opcodes limitations,
+but the 1,000 stack elements limitation is still there.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that to &lt;strong&gt;verify a Groth16 proof we need to do some elliptic curve pairings
+and check 3 group elements&lt;&#x2F;strong&gt;?
+This means that, technically, we can have a Groth16 verifier in Bitcoin Script.
+Just like the golden rule of JavaScript: “if something can be built using JavaScript,
+it WILL be built using JavaScript”;
+we can tweak it to be the &lt;strong&gt;golden rule of Bitcoin Script:
+“if something can be built using Bitcoin Script,
+it WILL be built using Bitcoin Script”&lt;&#x2F;strong&gt;.
+To achieve a Groth16 verifier in Bitcoin Script,
+we just need to be &lt;strong&gt;able to do 256-bit multiplication
+using only 32-bit addition operations&lt;&#x2F;strong&gt;.
+And without the 201-opcodes limitation,
+that Taproot upgrade, &lt;strong&gt;we can have a Groth16 verifier in Bitcoin Script&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It turns out that this Script is kinda big.
+&lt;strong&gt;If you put it in a single transaction,
+it will be around 1GB&lt;&#x2F;strong&gt;.
+Not cool! Even if we are BFF with some miners,
+to not be limited by the transaction standardness requirements&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-transaction-standardness-1&quot;&gt;&lt;a href=&quot;#fn-transaction-standardness&quot;&gt;9&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;,
+we can’t propagate this transaction since it will never fit a block
+which must be at most 4MB.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;groth16_block_size.jpg&quot; alt=&quot;Groth16 Bitcoin Script&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;The next step stems from the insight that &lt;strong&gt;to find a fault in a Groth16 proof,
+we need to find at least one step of the proof verification execution that it fails&lt;&#x2F;strong&gt;.
+If we find none, then we can be sure that the proof is valid.
+Maybe we could somehow &lt;strong&gt;split this 1GB huge Bitcoin Script into smaller scripts&lt;&#x2F;strong&gt;,
+that could be &lt;strong&gt;published in a block&lt;&#x2F;strong&gt; or even &lt;strong&gt;relayed by nodes&lt;&#x2F;strong&gt; if we can get
+it to fit the standardness requirements&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-transaction-standardness-2&quot;&gt;&lt;a href=&quot;#fn-transaction-standardness&quot;&gt;9&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;We have merkle trees in the Taproot upgrade,
+so what if we could split the Groth16 proof verification into a bunch of
+script spending paths (leaves in the Taproot Merkle tree),
+then we just need to find at least one leaf that the proof fails.
+If we cannot find any, then we can be sure that the proof is valid.&lt;&#x2F;p&gt;
+&lt;p&gt;But, wait! Bitcoin Script is stateless!
+We cannot pass state from one transaction to the next transaction.
+Is it? Well, this is the final trick needed to fit
+the 1GB Groth16 verifier Bitcoin Script into a bunch of
+standard&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-transaction-standardness-3&quot;&gt;&lt;a href=&quot;#fn-transaction-standardness&quot;&gt;9&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; transactions.
+We know that Bitcoin Script, despite its limitations, can hash stuff and verify equality.
+Hence, we need to find a primitive that can carry data with some sort of authentication;
+and uses exclusively hash functions.&lt;&#x2F;p&gt;
+&lt;p&gt;This is where &lt;strong&gt;hash-based one-time signatures (OTS)&lt;&#x2F;strong&gt; comes into play.
+The first, and most famous, OTS is
+the &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Lamport_signature&quot;&gt;Lamport signature&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;,
+which was invented by &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Leslie_Lamport&quot;&gt;Leslie Lamport&lt;&#x2F;a&gt;
+in 1979.
+Suppose that what you’re signing is a 256-bit hash $H(m)$ of a message $m$.
+The way Lamport signatures work is that your public key is
+the 256 pairs of hashes: 512 in total.
+The first pair represents all possible &lt;code&gt;0&lt;&#x2F;code&gt;s that a 256-bit hash can have;
+and the second pair the same for all possible &lt;code&gt;1&lt;&#x2F;code&gt;s.
+To sign $H(m)$, you just reveal a preimage for each pair
+depending on the bit of the $H(m)$.
+Remember that a bit can be only 0 or 1 (a single pair).
+If your bit index &lt;code&gt;i&lt;&#x2F;code&gt; is &lt;code&gt;0&lt;&#x2F;code&gt; you reveal the preimage for
+the public key’s first pair at index &lt;code&gt;i&lt;&#x2F;code&gt;, that represents &lt;code&gt;0&lt;&#x2F;code&gt;s;
+if it’s &lt;code&gt;1&lt;&#x2F;code&gt;, you reveal the preimage for
+the second pair at index &lt;code&gt;i&lt;&#x2F;code&gt;.
+This is a one-time signature, since you literally reveal a good chunk
+of your private key while signing.&lt;&#x2F;p&gt;
+&lt;p&gt;Below is a visual representation of the Lamport signature.
+Everything is represented as bits, being either &lt;code&gt;0&lt;&#x2F;code&gt; or &lt;code&gt;1&lt;&#x2F;code&gt;.
+As you can see, in the top, we have the pair of hashes as public keys,
+&lt;code&gt;PK1&lt;&#x2F;code&gt; and &lt;code&gt;PK2&lt;&#x2F;code&gt;.
+In the middle, we have the message that we are signing.
+Finally, at the bottom, we have the signature which reveals
+the preimages for the public keys depending on what value of the message
+for each bit in the message.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;lamport_sigs.png&quot; alt=&quot;Lamport Signature&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Since the Groth16 proof is based mostly on 256-bit group elements,
+we can &lt;strong&gt;pass the state from one script to the next script
+by hashing the final state of the computation and continuing
+in the next script with the hash as the input&lt;&#x2F;strong&gt;.
+We can avoid tampering since these hashes (the message)
+are signed.
+Also, we only need one Lamport public key since it is fine to reuse
+mostly because the whole batch of transactions will be in the same
+Taproot Merkle Tree of Scripts.
+This technique is called &lt;strong&gt;bitcommitments&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The image below shows a P2TR address with a Groth16 verifier in it.
+All of the scripts inside the Merkle tree of script spending paths
+are below 400kb, and have a 1,000 stack elements limit.
+So they adhere to standardness requirements&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-transaction-standardness-4&quot;&gt;&lt;a href=&quot;#fn-transaction-standardness&quot;&gt;9&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+The first script is the &lt;code&gt;Init&lt;&#x2F;code&gt;: it grabs some inputs from the witness,
+and performs some computations and results in an output
+that will be used in the &lt;code&gt;Z_1&lt;&#x2F;code&gt; script.
+How we pass the state from the &lt;code&gt;Init&lt;&#x2F;code&gt; script to the &lt;code&gt;Z_1&lt;&#x2F;code&gt; script
+is by using Lamport signatures&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-winternitz-1&quot;&gt;&lt;a href=&quot;#fn-winternitz&quot;&gt;10&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+From there we keep performing computations and passing the state
+from &lt;code&gt;Z_2&lt;&#x2F;code&gt; until &lt;code&gt;Z_N&lt;&#x2F;code&gt;.
+If we get to the last script &lt;code&gt;Z_N&lt;&#x2F;code&gt;, then we just lock it with
+the prover’s public key so that only him can spend this P2TR address.
+Each &lt;code&gt;Z_k&lt;&#x2F;code&gt; for any &lt;code&gt;k &amp;lt;= N&lt;&#x2F;code&gt; that uses previous outputs as inputs
+have a Lamport signature verification procedure in Bitcoin script
+that if fails will make the script spendable by anyone.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;bitvm_p2tr.svg&quot; alt=&quot;Groth16 Verifier in a P2TR Address&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that all of these scripts are inside a P2TR Merkle tree.
+Hence unlocking only one of them suffices to spend the whole P2TR UTXO.
+&lt;strong&gt;If the prover is honest and has a valid proof, then only he can spend the UTXO.
+However, if the prover is dishonest and has a invalid proof,
+then anyone can spend the UTXO by simply finding at least one
+leaf script that the Lamport signature verification fails&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I am not putting the specific opcodes here,
+because the goal is to give a high-level overview of
+how we can insert a Groth16 verifier in Bitcoin Script.
+If you want to learn more about how a ZK-SNARK verifier can be included
+in a Taproot address,
+check the &lt;a href=&quot;https:&#x2F;&#x2F;bitvm.org&#x2F;bitvm_bridge.pdf&quot;&gt;BitVM2 paper&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;big-idea-3-emulating-covenants-with-connector-outputs&quot;&gt;Big Idea 3: Emulating Covenants with Connector Outputs&lt;&#x2F;h2&gt;
+&lt;p&gt;The next big idea is to &lt;strong&gt;emulate covenants with connector outputs
+and pre-signed transactions (and timelocks)&lt;&#x2F;strong&gt;.
+This is not new since the &lt;a href=&quot;https:&#x2F;&#x2F;ark-protocol.org&#x2F;intro&#x2F;connectors&#x2F;index.html&quot;&gt;Ark protocol already used connectors&lt;&#x2F;a&gt;
+to emulate covenants.&lt;&#x2F;p&gt;
+&lt;p&gt;First let’s tackle what are covenants.
+&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bitcoinops.org&#x2F;en&#x2F;topics&#x2F;covenants&#x2F;&quot;&gt;Covenants&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;
+are a category of proposed changes to Bitcoin’s consensus rules that would allow
+a script to prevent an authorized spender from spending to certain other scripts&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-timelocks-1&quot;&gt;&lt;a href=&quot;#fn-timelocks&quot;&gt;11&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+A very useful example is the &lt;a href=&quot;https:&#x2F;&#x2F;jameso.be&#x2F;vaults.pdf&quot;&gt;&lt;code&gt;OP_VAULT&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+that allows an UTXO to be only spent to a specific destination.
+There are many other proposals like this.&lt;&#x2F;p&gt;
+&lt;p&gt;Ok, but we don’t have covenants in Bitcoin.
+Hence, we need to &lt;strong&gt;emulate some sort of transaction introspection&lt;&#x2F;strong&gt;.
+This is where the BitVM bridge comes in:
+the part of the protocol that creates a &lt;strong&gt;transaction graph made of pre-signed transactions&lt;&#x2F;strong&gt;.
+These pre-signed transactions are signed by &lt;strong&gt;every operator in the $N$ operators bridge
+in a way that every operator has his own pre-signed version of the transaction graph
+by all other operators&lt;&#x2F;strong&gt;.
+This is important since it allows the &lt;strong&gt;1-of-$N$ trust assumption&lt;&#x2F;strong&gt;,
+because any operator can use its pre-signed transaction graph to perform
+a withdraw from the BitVM bridge into Bitcoin.&lt;&#x2F;p&gt;
+&lt;p&gt;However, only having pre-signed transactions is not enough to emulate covenants.
+We also need &lt;strong&gt;connector outputs,
+which are ways to restrict the flow of funds and information in a transaction graph&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;To illustrate this, let’s consider a simple toy transaction graph example.
+In the figure below, we have a transaction graph that has six transactions:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Claim&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Payout Optimistic&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Challenge&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Assert&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Payout&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Disprove&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;tx-graph.svg&quot; alt=&quot;Transaction Graph&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This represents a “contract” between two parties, Alice, the verifier, and Bob, the prover.
+Alice wants Bob to calculate the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Pi#Modern_quest_for_more_digits&quot;&gt;three-quadrillionth digit of $\pi$&lt;&#x2F;a&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-pi-1&quot;&gt;&lt;a href=&quot;#fn-pi&quot;&gt;12&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+This can be any computation, but let’s go with a nerdy example,
+since these are always good mind seeds to sow over the internet.
+And she’s willing to pay $10$ BTC to Bob if he completes the task,
+hence she deposits $10$ BTC into a P2TR address.
+This P2TR address, all the transactions that stems from it,
+are checked and pre-signed by both Alice and Bob.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s follow the flow of transactions.
+The BTC denomitations are either $10$ BTC to demonstrate the flow of capital,
+and $\emptyset$ to demonstrate the flow of information.
+Bob, once ready, can spend Alice’s $10$ BTC using the pre-signed Claim transaction.
+It has two outputs:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;A timelocked $10$ BTC output that can be spent using the Payout Optimistic transaction.&lt;&#x2F;li&gt;
+&lt;li&gt;An empty output $\emptyset$ that can be spent using either the Payout Optimistic transaction
+or the Challenge transaction.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Notice that if Bob is honest and has produced a valid proof,
+he can just spend both outputs using the Payout Optimistic transaction
+and wait the timelock to get his $10$ BTC.
+However, if Bob is dishonest by providing an invalid proof,
+or even no proof at all, and by trying the Payout Optimistic transaction path,
+Alice can say “fuck you” and spend the empty output $\emptyset$ using the Challenge transaction.
+Now the Payout Optimistic transaction is invalid because one of the inputs was spent
+and no miner would be able to include it in a block.&lt;&#x2F;p&gt;
+&lt;p&gt;By challenging Bob,
+Alice also needs to provide funds to cover for the cost of
+asserting his proof on-chain; say $0.1$ BTC,
+which is the cost of broadcasting the Assert transaction.
+Now that Bob was challenged, the only viable path is to
+assert his proof on-chain using the Assert followed by the Payout path.
+The Assert transaction carries the $10$ BTC,
+and inside it we have our Groth16 verifier, denoted as $G16$.
+$G16$ will verify the proof provided by Bob,
+using native Bitcoin Script and the big P2TR Merkle tree
+that we’ve discussed above in &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;bitvm&#x2F;#big-idea-2-groth16-bitcoin-script-compiler&quot;&gt;Big Idea 2&lt;&#x2F;a&gt;.
+If the proof is valid, then Bob can spend the $10$ BTC
+using the Payout transaction that gives him the $10$ BTC back.
+This has also a timelock to allow Alice to disprove Bob’s proof.
+If Alice cannot disprove Bob, he will eventually get his $10$ BTC back
+by the Payout transaction.&lt;&#x2F;p&gt;
+&lt;p&gt;However, if at least one of the leaves in the big P2TR Merkle tree inside the $G16$ is invalid,
+then Alice can again say “fuck you” and spend the $10$ BTC
+using the Disprove transaction that gives her the $10$ BTC back.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;This is a very clever way to emulate covenant-like behavior using
+a pre-signed transaction graph that has connector outputs
+that control the flows of both money and information&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The reader can note that it is trivial to extend this
+idea to any verified computation,
+such as “I’ve got the proof that this withdrawal is valid because of some funds in a sidesystem that were burned”.
+And if the proof is valid, then the operator can have the withdrawal money back to
+pay the user&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-withdrawal-1&quot;&gt;&lt;a href=&quot;#fn-withdrawal&quot;&gt;13&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+And &lt;strong&gt;if the proof is invalid, the operator then can have
+some sort of collateral BTC slashed&lt;&#x2F;strong&gt; with some small part being burned
+and the &lt;strong&gt;remainder being given to the challenger&lt;&#x2F;strong&gt;.
+Hence, we have &lt;strong&gt;economic incentives&lt;&#x2F;strong&gt; to make sure that &lt;strong&gt;operators behave&lt;&#x2F;strong&gt;
+and, not only produce valid proofs, but also &lt;strong&gt;challenge invalid ones&lt;&#x2F;strong&gt;.
+The whole system also allows for &lt;strong&gt;operators to charge withdrawal fees&lt;&#x2F;strong&gt;
+from the sidesystem’s users during the withdrawal process.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-can-covenants-bring-to-bitvm&quot;&gt;What can covenants bring to BitVM?&lt;&#x2F;h2&gt;
+&lt;p&gt;As I’ve said above, we don’t have covenants yet in Bitcoin&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-timelocks-2&quot;&gt;&lt;a href=&quot;#fn-timelocks&quot;&gt;11&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+Nevertheless, the future is yet to be written
+and one day we &lt;strong&gt;might have covenants in Bitcoin&lt;&#x2F;strong&gt;.
+If, and that’s a big if, we have covenants in Bitcoin, they can bring several benefits to BitVM:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;The BitVM bridge becomes a &lt;a href=&quot;https:&#x2F;&#x2F;petertodd.org&#x2F;2024&#x2F;covenant-dependent-layer-2-review&quot;&gt;defacto Layer 2&lt;&#x2F;a&gt;
+for Bitcoin by supporting unilateral trustless withdraws&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The Groth16 verifier might not need to be chunked and split into multiple transactions or locking scripts,
+and could fit a single transaction&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;The sidesystem could be a true ZK-validity rollup, and not a ZK-optimistic rollup&lt;&#x2F;strong&gt;.
+This allows a much stricter security model for the sidesystem.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Let’s dive into the details of how covenants can enhance BitVM.&lt;&#x2F;p&gt;
+&lt;p&gt;First, with something like &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bitcoinops.org&#x2F;en&#x2F;topics&#x2F;op_cat&#x2F;&quot;&gt;&lt;code&gt;OP_CAT&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;
+and &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;bitcoinops.org&#x2F;en&#x2F;topics&#x2F;op_checktemplateverify&#x2F;&quot;&gt;&lt;code&gt;OP_CHECKTEMPLATEVERIFY&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;;
+also known as &lt;code&gt;OP_CTV&lt;&#x2F;code&gt;,
+we don’t need to have the whole transaction graph pre-signed by every operator.
+We just need to use &lt;code&gt;OP_CTV&lt;&#x2F;code&gt; with some concatenation using &lt;code&gt;OP_CAT&lt;&#x2F;code&gt;
+in the transactions to verify important parts of the transactions
+that guarantee the integrity of the transaction with respect to the BitVM bridge.
+Then, anyone can do a &lt;strong&gt;unilateral trustless withdraw&lt;&#x2F;strong&gt;, not only a single BitVM operator.
+This will &lt;strong&gt;turn the BitVM bridge into a
+&lt;a href=&quot;https:&#x2F;&#x2F;petertodd.org&#x2F;2024&#x2F;covenant-dependent-layer-2-review&quot;&gt;fully trustless Bitcoin Layer 2&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Second, using the &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;brink.dev&#x2F;blog&#x2F;2024&#x2F;08&#x2F;22&#x2F;eng-call-great-script-restoration&#x2F;&quot;&gt;Great Script Restoration (GSR)&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;,
+which is a proposal to &lt;strong&gt;bring back all the “dark arts” arithmetic operations as 64-bit arithmetic operations&lt;&#x2F;strong&gt;,
+like multiplication (&lt;code&gt;OP_MUL&lt;&#x2F;code&gt;), division (&lt;code&gt;OP_DIV&lt;&#x2F;code&gt;), left shift (&lt;code&gt;OP_LSHIFT&lt;&#x2F;code&gt;), and right shift (&lt;code&gt;OP_RSHIFT&lt;&#x2F;code&gt;);
+we can hugely improve the efficiency of BitVM’s Bitcoin Script-native Groth16 verifier.
+It may even &lt;strong&gt;fit into a single standard&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-transaction-standardness-5&quot;&gt;&lt;a href=&quot;#fn-transaction-standardness&quot;&gt;9&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; transaction&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, using &lt;strong&gt;both GSR and &lt;code&gt;OP_CAT&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt;, we can make the BitVM sidesystem;
+the thing that we are using the bridge to bridge into from Bitcoin,
+to &lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;ethereum.org&#x2F;en&#x2F;developers&#x2F;docs&#x2F;scaling&#x2F;zk-rollups&#x2F;&quot;&gt;become a ZK-validity rollup&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.
+This will hugely improve the security model of the BitVM sidesystem,
+which now, not only inherits the reorg resistance of the Layer 1 blocks,
+since any rollup derives (and writes) its state into the Layer 1,
+but also inherits the consensus model of the Layer 1.
+You cannot &lt;em&gt;opportunistically&lt;&#x2F;em&gt; write the rollup state into Layer 1.
+It is now fully verified by the Layer 1 consensus.
+Hence, you don’t need constant “eyes” on the rollup writes in Layer 1
+to find frauds, as &lt;strong&gt;the Layer 1 consensus guarantees the validity of the rollup state&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;The focus of this post is to give a high-level overview of BitVM,
+and building intuitions on how it works.
+By using the 3 big ideas
+we can create a very interesting 1-of-$N$ Bitcoin bridge,
+instead of having to resort to outdated majority federated multisig bridges:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Verified Computation&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Groth16 Bitcoin Script Compiler&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Emulating Covenants with Connector Outputs&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;&lt;strong&gt;This allows all kinds of exciting stuff to be built on top of Bitcoin&lt;&#x2F;strong&gt;.
+Bitcoin is already the &lt;strong&gt;best money in the world&lt;&#x2F;strong&gt;,
+being the only &lt;a href=&quot;https:&#x2F;&#x2F;bitcoinmagazine.com&#x2F;culture&#x2F;history-bitcoin-sound-money-helps-society&quot;&gt;“sound money”&lt;&#x2F;a&gt;.
+However, due to its limited scalability,
+it is not suitable for wide adoption without
+either resorting to Layer 2 solutions,
+or by losing it’s sound money properties by reducing the decentralization&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-decentralization-1&quot;&gt;&lt;a href=&quot;#fn-decentralization&quot;&gt;14&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+Additionally, Bitcoin is &lt;em&gt;not&lt;&#x2F;em&gt; expressive enough to build interest applications.
+Things like prediction markets, decentralized exchanges,
+yield farming, Bitcoin-backed loans,
+and more have been brought to Bitcoin and left deep traumas.
+This is due to the fact that, while being possible to build smart contracts
+that are transparent and can be audited in Ethereum &amp;amp; Co.,
+in Bitcoin they came as a “trust me bro” solutions.
+All of these usecases cannot be expressed using Bitcoin Script.
+Hence, you need to fallback to losing custody of funds
+to use these solutions.
+Of course, shit hit the fan, and tons of people and companies lost A LOT of money
+as these “trust me bro” solutions either were hacked or went belly up.
+This might be a new dawn of BiFi (Bitcoin Finance, and fuck DeFi).&lt;&#x2F;p&gt;
+&lt;p&gt;Of course, you need a LOT of engineering to implement BitVM.
+If you are curious about the details, you can check out the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;BitVM&#x2F;BitVM&quot;&gt;BitVM repo&lt;&#x2F;a&gt; for the Groth16 compiler,
+the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;alpenlabs&#x2F;strata-bridge&quot;&gt;&lt;code&gt;strata-bridge&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; repo
+for the whole BitVM bridge transaction graph;
+and finally, the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;alpenlabs&#x2F;strata&quot;&gt;&lt;code&gt;strata&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; repo
+for the Strata rollup (the BitVM sidesystem).&lt;&#x2F;p&gt;
+&lt;footer class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-peano&quot;&gt;
+&lt;p&gt;If you want to dig yourself into a very nice rabbit hole,
+check &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Peano_axioms&quot;&gt;Peano arithmetic&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Turing_completeness&quot;&gt;Turing-completeness relations&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-peano-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-np-complete&quot;&gt;
+&lt;p&gt;Actually, it is any NP-complete problem, but without loss of generality, we’ll focus on NP. &lt;a href=&quot;#fr-np-complete-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-boolean-funs&quot;&gt;
+&lt;p&gt;Note that you can represent addition and multiplication as Boolean functions. &lt;a href=&quot;#fr-boolean-funs-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-millennium-problems&quot;&gt;
+&lt;p&gt;If you solve this conjecture either by proving it or disproving it,
+you’ll be up for a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Millennium_Prize_Problems&quot;&gt;1 million USD prize&lt;&#x2F;a&gt;.
+I like to say that it is the hardest way to
+earn 1 million USD. &lt;a href=&quot;#fr-millennium-problems-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-negligible&quot;&gt;
+&lt;p&gt;A function $f$ is negligible if for every polynomial $p$,
+there exists an $N$ such that for all $n &amp;gt; N$,
+$$ f(n) &amp;lt; \frac{1}{p(n)}. $$
+If you want to learn more about negligible functions,
+read Chapter 3, Section 3.1 of the book &lt;a href=&quot;https:&#x2F;&#x2F;doi.org&#x2F;10.1201&#x2F;9781420010756&quot;&gt;Introduction to Modern Cryptography&lt;&#x2F;a&gt; by Katz &amp;amp; Lindell. &lt;a href=&quot;#fr-negligible-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-research&quot;&gt;
+&lt;p&gt;Note that ZK-SNARKs and succinct proving systems in general are a very hot research topic.
+We might find succincter systems in the future. &lt;a href=&quot;#fr-research-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-ceremony&quot;&gt;
+&lt;p&gt;In the infamous Zcash setup ceremony, Peter Todd,
+one of the participants, “ran all of his computations on a laptop encased
+in a tin foil-lined cardboard box, while driving across Canada.
+He then burned his compute node to a crisp with a propane torch”.
+&lt;a href=&quot;https:&#x2F;&#x2F;spectrum.ieee.org&#x2F;the-crazy-security-behind-the-birth-of-zcash&quot;&gt;Source&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-ceremony-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-satoshi-commit&quot;&gt;
+&lt;p&gt;Check L94-L109 in &lt;code&gt;script.cpp&lt;&#x2F;code&gt; in this
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bitcoin&#x2F;commit&#x2F;4bd188c4383d6e614e18f79dc337fbabe8464c82&quot;&gt;2010 commit&lt;&#x2F;a&gt; from Satoshi. &lt;a href=&quot;#fr-satoshi-commit-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-transaction-standardness&quot;&gt;
+&lt;p&gt;Transaction standardness means that a transaction will be accepted by every node in the network.
+This requires that the transaction is at most 400kvb (that’s kilo “virtual” bytes),
+and has only one &lt;code&gt;OP_RETURN&lt;&#x2F;code&gt; output with at most 80-bytes of data.
+If you want to do crazy stuff, like &lt;code&gt;&amp;gt;400kvb&lt;&#x2F;code&gt; or more than one &lt;code&gt;OP_RETURN&lt;&#x2F;code&gt; output,
+you need to call your friendly neighborhood miner and ask them to include directly into their next block,
+without having to relay through the Bitcoin network (since no node will accept it). &lt;a href=&quot;#fr-transaction-standardness-1&quot;&gt;↩&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-transaction-standardness-2&quot;&gt;↩2&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-transaction-standardness-3&quot;&gt;↩3&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-transaction-standardness-4&quot;&gt;↩4&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-transaction-standardness-5&quot;&gt;↩5&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-winternitz&quot;&gt;
+&lt;p&gt;Lamport signatures are very inefficient.
+Teams building BitVM-based bridge generally use &lt;a href=&quot;https:&#x2F;&#x2F;asecuritysite.com&#x2F;encryption&#x2F;wint&quot;&gt;Winternitz signatures&lt;&#x2F;a&gt; instead. &lt;a href=&quot;#fr-winternitz-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-timelocks&quot;&gt;
+&lt;p&gt;In a sense absolute and relative timelocks are a sort of covenant.
+Hence, Bitcoin already has at least one kind of covenant: timelocks. &lt;a href=&quot;#fr-timelocks-1&quot;&gt;↩&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-timelocks-2&quot;&gt;↩2&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-pi&quot;&gt;
+&lt;p&gt;Currently, the record stands at the two-quadrillionth digit. &lt;a href=&quot;#fr-pi-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-withdrawal&quot;&gt;
+&lt;p&gt;In the actual BitVM bridge protocol,
+the operator outfront the withdrawal money to the user
+with some fee for the service,
+and then asks for the BitVM bridge for a refund. &lt;a href=&quot;#fr-withdrawal-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-decentralization&quot;&gt;
+&lt;p&gt;Decentralization is a key property of Bitcoin, and reducing it would compromise its sound money properties.
+This is due to the fact that any average Joe can run a node,
+since the requirements for running a node are minimal: 4MB every 10 minutes.
+If we increase the block size, or block time, we would increase the cost of running a node,
+which would reduce decentralization. &lt;a href=&quot;#fr-decentralization-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;footer&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Merkle trees and the Taproot protocol</title>
+        <published>2024-11-15T08:44:46+00:00</published>
+        <updated>2024-11-15T08:44:46+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/taproot/" type="text/html"/>
+        <id>https://storopoli.com/blog/taproot/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;mermaid.js.org&quot;&gt;Mermaid&lt;&#x2F;a&gt; to render flowcharts.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered flowcharts, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;Dedicated to John Peter, since I was tired of having
+to explain this to him every time we met.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;This post gives an intuition to the &lt;strong&gt;Taproot protocol&lt;&#x2F;strong&gt; in Bitcoin,
+specifically how &lt;strong&gt;Merkle trees&lt;&#x2F;strong&gt; are used to hide the complexity of
+several possible spending conditions.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;taproot&quot;&gt;Taproot&lt;&#x2F;h2&gt;
+&lt;p&gt;Taproot was activated as a soft fork in the Bitcoin network
+on &lt;strong&gt;November 2021&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;strong&gt;design goals of Taproot&lt;&#x2F;strong&gt; are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Increase privacy&lt;&#x2F;strong&gt;: hide the spending conditions
+and also hide the fact that you are using a multisig.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Reduce the amount of data on-chain&lt;&#x2F;strong&gt;:
+you only need to commit to the root of a Merkle tree,
+and not the leaves.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Use Schnorr&lt;&#x2F;strong&gt;: Schnorr signatures are more efficient
+and allow for signature aggregation.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;My focus is on the middle point: how to use Merkle trees to hide the
+complexity of the spending conditions.
+I’m not gonna cover Schnorr signatures here, but you can check
+&lt;a href=&quot;https:&#x2F;&#x2F;conduition.io&#x2F;cryptography&#x2F;schnorr&#x2F;&quot;&gt;conduition’s excellent post on Schnorr signatures&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;So let’s start with Merkle trees.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;merkle-trees&quot;&gt;Merkle Trees&lt;&#x2F;h2&gt;
+&lt;p&gt;A
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Merkle_tree&quot;&gt;&lt;strong&gt;Merkle tree&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;
+is a binary tree where the leaves are the data
+and the internal nodes are the hash of their children.
+The root of the tree is called the &lt;strong&gt;Merkle root&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s an example:&lt;&#x2F;p&gt;
+
+
+&lt;noscript&gt;
+    &lt;strong&gt;⚠️ JavaScript is required to render the diagram.&lt;&#x2F;strong&gt;
+&lt;&#x2F;noscript&gt;
+&lt;pre class=&quot;mermaid invertible-image&quot;&gt;
+    flowchart TD
+root[&quot;root&quot;]
+h01[&quot;H(0 | 1)&quot;]
+h23[&quot;H(2 | 3)&quot;]
+leaf0[&quot;0&quot;]
+leaf1[&quot;1&quot;]
+leaf2[&quot;2&quot;]
+leaf3[&quot;3&quot;]
+
+root --- h01
+root --- h23
+h01 --- leaf0
+h01 --- leaf1
+h23 --- leaf2
+h23 --- leaf3
+&lt;&#x2F;pre&gt;
+&lt;p&gt;In the picture above, the leaves are the numbers 0, 1, 2, and 3.
+Consider these as data that you want to commit to.
+We construct the tree by hashing
+(applying the hash function $H$)
+the leaves and then concatenating the hashes,
+and hashing the result until we reach the root.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;merkle-trees-as-commitment-schemes&quot;&gt;Merkle Trees as Commitment Schemes&lt;&#x2F;h3&gt;
+&lt;p&gt;In cryptography, we have something called a
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Commitment_scheme&quot;&gt;&lt;strong&gt;commitment scheme&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;A commitment scheme allows you to commit to a value without revealing it.
+This property is called &lt;strong&gt;hiding&lt;&#x2F;strong&gt;.
+Commitment schemes are designed so that a party cannot change the value
+or statement after they have committed to it.
+This property is called &lt;strong&gt;binding&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The classical example is a &lt;strong&gt;hash function&lt;&#x2F;strong&gt;.
+Say you have a value $x$ and you want to commit to it.
+You can hash $x$ and send the hash to the other party.
+In the future, you can reveal $x$ and the other party can hash it
+and check if it matches the hash you sent.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a commitment scheme because you cannot know the value of $x$
+by looking at the hash.
+Hence, it is hiding.
+And you cannot change the value of $x$ without changing the hash,
+hence it is binding.&lt;&#x2F;p&gt;
+&lt;p&gt;However, this is a commitment scheme for a single value.
+What if you have multiple values you want to commit to?
+This is where Merkle trees come in.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Merkle trees are commitment schemes&lt;&#x2F;strong&gt;.
+You commit to the root of the tree,
+and you can prove that a leaf is in the tree
+by revealing the path from the leaf to the root.&lt;&#x2F;p&gt;
+&lt;p&gt;It is hiding because you cannot know the value of a leaf by looking at the root.
+And it is binding because you cannot change the value of a leaf
+without changing the root.&lt;&#x2F;p&gt;
+&lt;p&gt;Note that the inclusion proof is logarithmic in the number of leaves,
+hence the complexity of the inclusion proof is $O(\log n)$,
+where $n$ is the number of leaves,
+or the depth of the desired leaf in the tree.
+This makes Merkle trees a very efficient commitment scheme.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;taproot-and-merkle-trees&quot;&gt;Taproot and Merkle Trees&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that we understand Merkle trees, let’s see how they are used in Taproot.
+The anatomy of a &lt;strong&gt;Pay-to-Taproot (P2TR) address&lt;&#x2F;strong&gt;
+is as follows:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Internal key&lt;&#x2F;strong&gt;: the public key of the owner.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Merkle root&lt;&#x2F;strong&gt;: the root of the Merkle tree of spending conditions.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;These are also called the &lt;strong&gt;key path&lt;&#x2F;strong&gt; and the &lt;strong&gt;script path&lt;&#x2F;strong&gt;, respectively.
+You can find more about the Taproot soft fork in the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0341.mediawiki&quot;&gt;BIP 341&lt;&#x2F;a&gt;
+that describes Taproot spending rules.&lt;&#x2F;p&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;Note that there are ways to tweak the internal key
+that I will not cover here for simplicity.
+They are mainly used to disable the key path
+in a verifiable way and force the spending
+to only use script path conditions.
+Again, check
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0341.mediawiki&quot;&gt;BIP 341&lt;&#x2F;a&gt;
+for more details.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Here’s an example of a Taproot address:&lt;&#x2F;p&gt;
+
+
+&lt;noscript&gt;
+    &lt;strong&gt;⚠️ JavaScript is required to render the diagram.&lt;&#x2F;strong&gt;
+&lt;&#x2F;noscript&gt;
+&lt;pre class=&quot;mermaid invertible-image&quot;&gt;
+    flowchart TD
+p2tr[&quot;P2TR&quot;]
+internal[&quot;Internal Key&quot;]
+merkle[&quot;Root of the Merkle Tree&quot;]
+s1[&quot;S1&quot;]
+node[&quot;Node&quot;]
+s2[&quot;S2&quot;]
+s3[&quot;S3&quot;]
+
+p2tr --- internal
+p2tr --- merkle
+merkle --- s1
+merkle --- node
+node --- s2
+node --- s3
+&lt;&#x2F;pre&gt;
+&lt;p&gt;Here we can see that we have the internal key and the root of the Merkle tree.
+The internal key is the key path, and the Merkle tree is the script path.
+If you want to spend from this address, you can either use the internal key
+or any of the spending conditions $S_n$ that are leaves in the Merkle tree.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s focus in the spending conditions $S_n$.
+We have 3 conditions in the example above.
+These are vanilla Pay-to-(Witness)-Script-Hash P2SH scripts,
+so you can have multisig, timelocks,
+etc. in these conditions.
+P2SH scripts are not immediately revealed on-chain,
+you just commit to the hash of the script.
+They are only revealed when you spend from the address,
+where you need to reveal the script and Bitcoin
+consensus will not only check if the script is correct,
+but also that it matches the hash committed.&lt;&#x2F;p&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;Yes, P2SH is a commitment scheme.
+It is hiding because you cannot know the script by looking at the hash.
+And it is binding because you cannot change the script without changing the hash.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;In a Merkle tree,
+it takes $O(\log n)$ space to prove inclusion,
+where $n$ is the depth of the leaf that we want to prove,
+we order the leaves in the tree in such a way that the most likely
+conditions are closer to the root.&lt;&#x2F;p&gt;
+&lt;p&gt;In this case we have $S_1$ as the most likely condition,
+and $S_2$ and $S_3$ as less likely conditions.&lt;&#x2F;p&gt;
+&lt;p&gt;Suppose you want to spend from the address using $S_2$.
+How would you prove that $S_2$ is in the tree?
+Well, you need to reveal the path from $S_2$ to the root.
+This entails revealing the hash of the sibling of $S_2$,
+that is the hash of $S_3$,
+Ok now we got the “Node” in the picture above,
+but we still need to reveal the hash of the sibling of “Node”,
+that is $S_1$.
+This is enough to prove that $S_2$ is in the tree.
+See that we had to reveal the hashes of $S_1$ and $S_3$,
+since $S_2$ has depth $n = 3$ in the tree it took $\lceil O(\log 3) \rceil = 2$
+steps to prove inclusion.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, suppose you want to spend from the address using $S_1$.
+Same thing, you need to reveal the path from $S_1$ to the root.
+This is easily done with just revealing the hash of “Node”.
+So a single operation is enough to prove inclusion.
+This is due to the fact that $S_1$ has depth $n = 2$ in the tree,
+hence it took $\lceil O(\log 2) \rceil = 1$ step to prove inclusion.&lt;&#x2F;p&gt;
+&lt;p&gt;This is the beauty of Merkle trees.&lt;&#x2F;p&gt;
+&lt;p&gt;Contrast this with other script addresses formats such as P2SH.
+In P2SH, you are only tied to a single script.
+You could have a bunch of nested IFs in the script,
+to emulate the same behavior as the Merkle tree,
+but good luck paying the fees for that monstrous script
+when you want to spend from the address.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-is-this-useful&quot;&gt;Why is this useful?&lt;&#x2F;h2&gt;
+&lt;p&gt;I work at &lt;a href=&quot;https:&#x2F;&#x2F;alpenlabs.io&#x2F;&quot;&gt;Alpen Labs&lt;&#x2F;a&gt;,
+where we are developing &lt;a href=&quot;https:&#x2F;&#x2F;stratabtc.org&quot;&gt;Strata&lt;&#x2F;a&gt;,
+a &lt;a href=&quot;https:&#x2F;&#x2F;bitvm.org&#x2F;&quot;&gt;BitVM&lt;&#x2F;a&gt;-based bridge for Bitcoin.
+To put it simply, BitVM is a computing paradigm to express
+Turing-complete Bitcoin contracts.&lt;&#x2F;p&gt;
+&lt;p&gt;BitVM was only possible due to the Taproot soft fork.
+Before we dive into details, just one minor detail
+about Merkle trees in Taproot:
+they can have a maximum depth of 128.
+This means that you can have up to $2^{128}$ spending conditions.
+And each of this spending conditions is a script that follows
+the Bitcoin consensus rules.
+Mostly important of these is that the transaction size
+must be less than 4MB.
+So, you can have a Taproot address
+that encodes a Turing-complete contract with up to $2^{128}$ clauses.
+And each of these clauses can be a complex script up to 4MB in size.
+Hence, we can hide the complexity of a Turing-complete contract
+in a single Taproot address.
+This allows us to encode $2^{128} \cdot 4\text{MB}$ of data
+which is more than the &lt;strong&gt;estimated data content of the surface web&lt;&#x2F;strong&gt;,
+according to &lt;a href=&quot;https:&#x2F;&#x2F;www.wolframalpha.com&#x2F;input?i=2%5E128+*+4mb&quot;&gt;wolframalpha&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;More specifically, we can encode a gigabyte-sized
+&lt;a href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2016&#x2F;260&quot;&gt;Groth16&lt;&#x2F;a&gt; verifier in
+Bitcoin script as a Taproot address
+by splitting the execution of the verifier
+into 4MB chunks and encoding each chunk as a spending condition
+as a leaf in a Taproot Merkle tree.
+And we can pass state between these chunks by using one-time signatures,
+such as &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Lamport_signature&quot;&gt;Lamport Signatures&lt;&#x2F;a&gt;.
+This involves encoding all the elliptic curve operations and pairings
+required by the Groth16 verifier
+along with a way to express Lamport signature verification in Bitcoin script.
+But this is a topic for a future post.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;taproot&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+If you want to know more about how to encode a Groth16 verifier
+using Bitcoin script, check the
+&lt;a href=&quot;https:&#x2F;&#x2F;www.alpenlabs.io&#x2F;blog&#x2F;state-of-snark-verification-with-bitvm2&quot;&gt;Alpen Labs blog&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;further-reading&quot;&gt;Further Reading&lt;&#x2F;h2&gt;
+&lt;p&gt;The idea behind this post is to give an intuition to the Taproot protocol
+and how Merkle trees are used to hide the complexity of the spending conditions.
+There is a bunch of technical details that I left out for simplicity.
+Please go over the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0341.mediawiki&quot;&gt;BIP 341&lt;&#x2F;a&gt;
+to check all the technicalities of Taproot,
+such as the different ways to tweak the internal key,
+tagged hashes, and Taproot annexes.&lt;&#x2F;p&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;I would also recommend &lt;a href=&quot;https:&#x2F;&#x2F;base58.school&#x2F;classes&#x2F;taproot&quot;&gt;base58’s workshop on Taproot&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Merkle trees were introduced by Ralph Merkle in 1979.
+If you want to know more about Merkle trees, check
+&lt;a href=&quot;https:&#x2F;&#x2F;toc.cryptobook.us&#x2F;&quot;&gt;Section 8.9 of Dan Boneh’s textbook “A Graduate Course in Applied Cryptography”&lt;&#x2F;a&gt;.
+They are used in many applications in computer science,
+for example file systems use Merkle trees to verify the integrity of files.
+Another example is the Nix package manager,
+which uses Merkle trees to ensure reproducibility of builds.&lt;&#x2F;p&gt;
+&lt;p&gt;There are many variations of Merkle trees,
+for example Etereum uses a Patricia Merkle tree,
+a combination of a Merkle tree
+and a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Patricia_trie&quot;&gt;Patricia trie&lt;&#x2F;a&gt;,
+which is a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Trie&quot;&gt;“Merkle” trie&lt;&#x2F;a&gt;
+where the keys are hashed.&lt;&#x2F;p&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Some intuitions on zero-knowledge proofs</title>
+        <published>2024-06-08T15:48:33+00:00</published>
+        <updated>2024-06-08T15:48:33+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/zkp/" type="text/html"/>
+        <id>https://storopoli.com/blog/zkp/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;zkp_meme.jpg&quot; alt=&quot;Zero-knowledge proofs and the meaning of life&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Lately, I’ve been diving a little into the world of &lt;strong&gt;Zero-Knowledge Proofs&lt;&#x2F;strong&gt;.
+The idea is to prove that you know something without revealing what you know.
+More specifically, a &lt;strong&gt;Zero-Knowledge Proof&lt;&#x2F;strong&gt; is a cryptographic protocol that allows
+a &lt;strong&gt;prover&lt;&#x2F;strong&gt; to convince a &lt;strong&gt;verifier&lt;&#x2F;strong&gt; that a statement is true without revealing
+any information beyond the validity of the statement.
+In essence, by the end of the protocol, the verifier is convinced that the prover knows the secret,
+and the &lt;strong&gt;verifier hasn’t learned anything (zero-knowledge) about the secret&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Zero-Knowledge Proofs&lt;&#x2F;strong&gt; (ZKPs) are kinda hot right now,
+since a lot of new Bitcoin innovations are being built on top of them.
+It allows for a higher level of privacy and potential scalability improvements
+in the Bitcoin network.&lt;&#x2F;p&gt;
+&lt;p&gt;Zero-knowledge proofs are advantageous in a myriad of application,
+including (refer to &lt;code&gt;Petkus19&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Proving statement on private data&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Person $A$ has more than $X$ in his bank account&lt;&#x2F;li&gt;
+&lt;li&gt;In the last year, a bank did not transact with an entity $Y$&lt;&#x2F;li&gt;
+&lt;li&gt;Matching DNA without revealing full DNA&lt;&#x2F;li&gt;
+&lt;li&gt;One has a credit score higher than $Z$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Anonymous authorization&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Proving that requester $R$ has right to access web-site’s restricted area without revealing its identity (e.g., login, password)&lt;&#x2F;li&gt;
+&lt;li&gt;Prove that one is from the list of allowed countries&#x2F;states without revealing from which one exactly&lt;&#x2F;li&gt;
+&lt;li&gt;Prove that one owns a monthly pass to a subway&#x2F;metro without revealing card’s id&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Anonymous payments&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Payment with full detachment from any kind of identity&lt;&#x2F;li&gt;
+&lt;li&gt;Paying taxes without revealing one’s earnings&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Outsourcing computation&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Outsource an expensive computation and validate that the result is correct without redoing the execution;
+it opens up a category of trustless computing&lt;&#x2F;li&gt;
+&lt;li&gt;Changing a blockchain model from everyone computes the same to one party computes and everyone verifies&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The idea behind this post is to give a general overview of Zero-Knowledge Proofs,
+while providing further resources,
+especially which papers to read,
+to dive deeper into the subject.
+As always, I’ll try to keep it simple and intuitive.
+However, as you might guess, the subject is quite complex,
+and I’ll try to simplify it as much as possible;
+but some mathematical background is necessary.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-are-zkps&quot;&gt;What are ZKPs?&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s formalize the concept of &lt;strong&gt;Zero-Knowledge Proofs&lt;&#x2F;strong&gt;.
+A formal definition of zero-knowledge has to use some computational model,
+and without loss of generality,
+we can use the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Turing_machine&quot;&gt;Turing Machine&lt;&#x2F;a&gt;
+model.
+So let’s create three Turing machines:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$P$ (the &lt;strong&gt;prover&lt;&#x2F;strong&gt;),&lt;&#x2F;li&gt;
+&lt;li&gt;$V$ (the &lt;strong&gt;verifier&lt;&#x2F;strong&gt;),&lt;&#x2F;li&gt;
+&lt;li&gt;and $S$ (the &lt;strong&gt;simulator&lt;&#x2F;strong&gt;).&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Let’s also spicy things up a bit and introduce an &lt;strong&gt;adversary&lt;&#x2F;strong&gt; $A$,
+and assume that it is also a Turing machine.
+&lt;strong&gt;The secret we want to prove knowledge without revealing is $x$&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The prover $P$ wants to prove to the verifier $V$ that it knows the secret $x$.
+They both share a common simulator $S$.
+The adversary $A$ is trying to fool the verifier $V$ into believing that it knows the secret $x$,
+without actually knowing it.&lt;&#x2F;p&gt;
+&lt;p&gt;The prover $P$ generates a proof $\pi = P(S, x)$,
+and sends it to the verifier $V$.
+The verifier $V$ then checks the proof $\pi$,
+and decides whether to accept or reject it.&lt;&#x2F;p&gt;
+&lt;p&gt;The tuple $(P, V, S)$ is a &lt;strong&gt;Zero-Knowledge Proof&lt;&#x2F;strong&gt; if the following properties hold:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Completeness&lt;&#x2F;strong&gt;: If the statement is true, the verifier will accept the proof.&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \Pr\big[V(S, \pi) = \text{accept} \big] = 1. $$&lt;&#x2F;p&gt;
+&lt;p&gt;Here $\Pr\big[V(S, \pi) = \text{accept} \big]$ denotes the probability that the verifier accepts the proof given a simulator $S$ and a proof $\pi$.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Soundness&lt;&#x2F;strong&gt;: If the statement is &lt;em&gt;false&lt;&#x2F;em&gt;, no cheating prover can convince an honest verifier that it is true,
+except with some negligible probability [^negligible].&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \forall A, \forall x, \forall \pi: \Pr\big[V(A, S, \pi) = \text{accept} \big] &amp;lt; \text{negligible}. $$&lt;&#x2F;p&gt;
+&lt;p&gt;Here $\Pr\big[V(A, S, \pi) = \text{accept} \big]$ denotes the probability that the verifier accepts the proof given an adversary $A$, a simulator $S$, and a proof $\pi$.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Zero-Knowledge&lt;&#x2F;strong&gt;: If the statement is true, the verifier learns nothing about the secret $x$.
+A proof is zero-knowledge if there exists a simulator $S$ that can simulate the verifier’s view
+without knowing the secret $x$.&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \forall x: \text{View}_V\big[P(x) \leftrightarrow V(\pi)\big] = S(x, \pi). $$&lt;&#x2F;p&gt;
+&lt;p&gt;Here $\text{View}_V$ is the view of the verifier $V$,
+and $\leftrightarrow$ denotes the interaction between the prover and the verifier.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+A function $f$ is negligible if for every polynomial $p$,
+there exists an $N$ such that for all $n &amp;gt; N$,
+$$ f(n) &amp;lt; \frac{1}{p(n)}. $$
+If you want to learn more about negligible functions,
+read Chapter 3, Section 3.1 of the book &lt;a href=&quot;https:&#x2F;&#x2F;doi.org&#x2F;10.1201&#x2F;9781420010756&quot;&gt;Introduction to Modern Cryptography&lt;&#x2F;a&gt; by Katz &amp;amp; Lindell.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;If you come up from a scheme that satisfies these properties,
+congratulations, you have a &lt;strong&gt;Zero-Knowledge Proof&lt;&#x2F;strong&gt; scheme
+and you can name it whatever you want,
+just like a Pokemon!&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zkps-taxonomy&quot;&gt;ZKPs Taxonomy&lt;&#x2F;h2&gt;
+&lt;p&gt;We can classify &lt;strong&gt;Zero-Knowledge Proofs&lt;&#x2F;strong&gt; into two broad categories:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Interactive Zero-Knowledge Proofs&lt;&#x2F;strong&gt;: In this case, the prover and the verifier interact multiple times.
+The prover sends a proof to the verifier,
+and the verifier sends a challenge to the prover,
+and this interaction continues until the verifier is convinced.
+The Fiat-Shamir Heuristic can transform an interactive ZKP into a non-interactive ZKP.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Non-Interactive Zero-Knowledge Proofs&lt;&#x2F;strong&gt;: In this case, the prover sends a proof to the verifier,
+and the verifier accepts or rejects the proof.
+No further interaction is needed.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Additionally,
+the setup of the &lt;strong&gt;simulator $S$ with respect to the data it uses&lt;&#x2F;strong&gt;
+can be further classified into three categories.
+Generally speaking, the data used by $S$ is some random bits.
+In trusted setups, if the data is compromised,
+the security of the proof is also compromised.
+In other words, anyone with the hold of the data can prove anything to anyone.
+This is bad, and we want to avoid it.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Trusted Setup&lt;&#x2F;strong&gt;: $S$ uses data that must be kept secret.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Trusted but Universal Setup&lt;&#x2F;strong&gt;: $S$ uses data that must be kept private,
+but it only uses for the initial setup.
+Future proofs can be verified without the need for the initial data,
+and can be considered transparent.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Transparent Setup&lt;&#x2F;strong&gt;: $S$ uses no data at all.
+This is the best setup, as it doesn’t require any data to be used by $S$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Some of the most popular Zero-Knowledge Proof systems are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;zk-SNARKs&lt;&#x2F;strong&gt;: Zero-Knowledge Succinct Non-Interactive Argument of Knowledge.
+This is a non-interactive ZKP system with a trusted setup.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Bulletproofs&lt;&#x2F;strong&gt;: A non-interactive ZKP system with a transparent setup.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;zk-STARKs&lt;&#x2F;strong&gt;: Zero-Knowledge Scalable Transparent Argument of Knowledge.
+This is a non-interactive ZKP system with a transparent setup,
+with an additional property of being (plausibly) post-quantum secure.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;zk-snarks&quot;&gt;zk-SNARKs&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;zk-SNARKs&lt;&#x2F;strong&gt; are the most popular Zero-Knowledge Proof system.
+They are used in the Zcash protocol,
+and the defunct Tornado Cash smart contract.
+Ethereum also uses zk-SNARKs in its Layer 2 scaling solution,
+the zk-Rollups.
+&lt;a href=&quot;https:&#x2F;&#x2F;bitvm.org&#x2F;&quot;&gt;BitVM&lt;&#x2F;a&gt; also uses a SNARK-based VM to run smart contracts
+on top of Bitcoin.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s go over the concepts behind zk-SNARKs.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+most of this section is based on [Petkus19].&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;the-first-idea-proving-knowledge-of-a-polynomial&quot;&gt;The first idea: Proving Knowledge of a Polynomial&lt;&#x2F;h3&gt;
+&lt;p&gt;First some polynomial primer.
+&lt;strong&gt;A polynomial $f(x)$ is a function that can be written as&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ f(x) = c_d x^d + \ldots + c_1 x^1 + c_0 x^0 $$&lt;&#x2F;p&gt;
+&lt;p&gt;where $c_d, \ldots, c_1, c_0$ are the coefficients of the polynomial,
+and $d$ is the degree of the polynomial.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fundamental_theorem_of_algebra&quot;&gt;Fundamental Theorem of Algebra&lt;&#x2F;a&gt; states that
+&lt;strong&gt;a polynomial of degree $d$ can have at most $d$ (real-valued-only) roots&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+The “at most” is because we are talking about real-valued-only roots.
+If we consider complex roots, then a polynomial of degree $d$ has exactly $d$ roots.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;This can be extended to the concept that &lt;strong&gt;two non-equal polynomials of degree $d$ can have at most $d$ points of intersection&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The idea of proving knowledge of a polynomial is to show that you know the polynomial,
+without revealing the polynomial itself.&lt;&#x2F;p&gt;
+&lt;p&gt;This simple protocol can be done in four steps,
+note that both the prover and the verifier have knowledge of the polynomial:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verifier chooses a random value for $x$ and evaluates his polynomial locally&lt;&#x2F;li&gt;
+&lt;li&gt;Verifier gives $x$ to the prover and asks to evaluate the polynomial in question&lt;&#x2F;li&gt;
+&lt;li&gt;Prover evaluates his polynomial at $x$ and gives the result to the verifier&lt;&#x2F;li&gt;
+&lt;li&gt;Verifier checks if the local result is equal to the prover’s result,
+and if so then the statement is proven with a high confidence&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;How much is “high confidence”?
+Suppose that the verifier chooses an $x$ at random from a set of $2^{256}$ values,
+that is a 256-bit number.
+According to &lt;a href=&quot;https:&#x2F;&#x2F;www.wolframalpha.com&#x2F;input?i2d=true&amp;amp;i=Power%5B2%2C256%5D&quot;&gt;Wolfram Alpha&lt;&#x2F;a&gt;,
+the decimal approximation is $\approx 1.16 \times 10^{77}$.
+This is almost the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Observable_universe#Matter_content%E2%80%94number_of_atoms&quot;&gt;number of atoms in the observable universe&lt;&#x2F;a&gt;!
+The number of points where evaluations are different is $10^{77} - d$,
+where $d$ is the degree of the polynomial.
+Therefore, we can assume with overwhelming probability that the prover knows the polynomial.
+This is due to the fact that an adversary has $\frac{d}{10^{77}}$ chance of guessing the polynomial[^birthday],
+which we can safely consider negligible.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zkp&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+The &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Birthday_problem&quot;&gt;Birthday paradox&lt;&#x2F;a&gt;
+states that any collision resistance scheme has a probability of $\frac{1}{2}$ of collision,
+hence we take the square root of the number of possible values.
+So, the security of the polynomial proof is $\sqrt{10^{77}} = 10^{38.5}$,
+which is still a huge number.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;the-second-idea-proving-knowledge-of-a-polynomial-without-revealing-the-polynomial&quot;&gt;The second idea: Proving Knowledge of a Polynomial without Revealing the Polynomial&lt;&#x2F;h3&gt;
+&lt;p&gt;The protocol above has some implications,
+mainly that the protocol works only for a certain polynomial,
+and the verifier has to know the polynomial in advance.
+Which is not practical at all since we want to prove knowledge
+of a secret without revealing the secret itself.&lt;&#x2F;p&gt;
+&lt;p&gt;We can do better, we can use the fact,
+also stated in the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fundamental_theorem_of_algebra&quot;&gt;Fundamental Theorem of Algebra&lt;&#x2F;a&gt;,
+that any polynomial can be factored into linear polynomials,
+i.e. a set of degree-1 polynomials representing a line.
+We can represent any valid polynomial as a product of its linear-polynomial factors:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ (x - a_0) (x - a_1) \ldots (x - a_d) = 0 $$&lt;&#x2F;p&gt;
+&lt;p&gt;where $a_0, \ldots, a_{d}$ are the roots of the polynomial.
+If you wanna prove knowledge of a polynomial, it is just a matter of proving knowledge of its roots.
+But how do we do that without disclosing the polynomial itself?
+This can be accomplished by proving that a polynomial $p(x)$ is the multiplication
+of the factors $t(x) = (x - a_0) \ldots (x - a_d)$, called the &lt;strong&gt;target polynomial&lt;&#x2F;strong&gt;,
+and some arbitrary polynomial $h(x)$, called the &lt;strong&gt;residual polynomial&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ p(x) = t(x) \cdot h(x). $$&lt;&#x2F;p&gt;
+&lt;p&gt;The prover can show that exists some polynomial $h(x)$ such that
+$p(x)$ can be made equal to $t(x)$.
+You can find $h(x)$ by simply dividing $p(x)$ by $t(x)$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ h(x) = \frac{p(x)}{t(x)}. $$&lt;&#x2F;p&gt;
+&lt;p&gt;Now we can create a protocol that can work for any polynomial $p(x)$
+with only three steps:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verifier samples a random value $r$, calculates $t = t(r)$ and gives $r$ to the
+prover&lt;&#x2F;li&gt;
+&lt;li&gt;Prover calculates $h(x) = \frac{p(x)}{t(x)}$ and evaluates $p = p(r)$ and $h = h(r)$;
+the resulting values $p$, $h$ are provided to the verifier&lt;&#x2F;li&gt;
+&lt;li&gt;Verifier then checks that $p = t \cdot h$, if so those polynomials are equal,
+meaning that $p(x)$ has $t(x)$ as a cofactor.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Note that the verifier has no clue about the polynomial $p(x)$,
+and can be convinced that the prover knows the polynomial $p(x)$.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, let’s consider two polynomials $p(x)$ and $t(x)$ of degree $3$:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$p(x) = x^3 - 3x^2 + 2x$&lt;&#x2F;li&gt;
+&lt;li&gt;$t(x) = (x - 1) (x - 2)$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;An example protocol interaction in this case could be:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Verifier samples a random value $23$, calculates $t = t(23) = (23 − 1)(23 − 2) = 462$ and
+gives $23$ to the prover&lt;&#x2F;li&gt;
+&lt;li&gt;Prover calculates $h(x) = \frac{p(x)}{t(x)} = x$, evaluates $p = p(23) = 10626$ and $h = h(23) = 23$
+and provides $p$, $h$ to the verifier&lt;&#x2F;li&gt;
+&lt;li&gt;Verifier then checks that $p = t \cdot h$, i.e. $10626 = 462 \cdot 23$,
+which is true, and therefore the statement is proven&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Great! We can prove stuff without revealing the stuff itself!
+Noice!
+We know only need to find a trick to represent
+any sort of computation as a polynomial.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-third-idea-representing-computations-as-polynomials&quot;&gt;The third idea: Representing Computations as Polynomials&lt;&#x2F;h3&gt;
+&lt;p&gt;We can &lt;strong&gt;represent any computation as a polynomial by using &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Arithmetic_circuit&quot;&gt;Arithmetic Circuits&lt;&#x2F;a&gt;&lt;&#x2F;strong&gt;.
+An arithmetic circuit is a directed acyclic graph (DAG) where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Every indegree-zero node is an input gate that represents a variable $x_i$&lt;&#x2F;li&gt;
+&lt;li&gt;Every node with indegree $&amp;gt;1$ is either:
+&lt;ul&gt;
+&lt;li&gt;an addition gate, $+$, that represents the sum of its children&lt;&#x2F;li&gt;
+&lt;li&gt;a multiplication gate, $\times$, that represents the product of its children&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Here’s an example of an arithmetic circuit that represents the polynomial $p(x_1, x_2) = x_2^3 + x_1 x_2^2 + x_2^2 + x_1 x_2$:&lt;&#x2F;p&gt;
+
+
+&lt;noscript&gt;
+    &lt;strong&gt;⚠️ JavaScript is required to render the diagram.&lt;&#x2F;strong&gt;
+&lt;&#x2F;noscript&gt;
+&lt;pre class=&quot;mermaid invertible-image&quot;&gt;
+    flowchart TD
+x1[&quot;x₁&quot;]
+x2[&quot;x₂&quot;]
+one[&quot;1&quot;]
+add1[&quot;\+&quot;]
+add2[&quot;\+&quot;]
+mult[&quot;×&quot;]
+x1 --&gt; add1
+x2 --&gt; add2
+one --&gt; add2
+add2 --&gt; add1
+add1 --&gt; mult
+add2 --&gt; mult
+&lt;&#x2F;pre&gt;
+&lt;p&gt;In the circuit above, the input gates compute (from left to right)
+$x_{1},x_{2}$ and $1$,
+the sum gates compute $x_{1}+x_{2}$
+and $x_{2}+1$,
+and the product gate computes $(x_{1}+x_{2})x_{2}(x_{2}+1)$
+which evaluates to $x_{2}^{3}+x_{1}x_{2}^{2}+x_{2}^{2}+x_{1}x_{2}$.&lt;&#x2F;p&gt;
+&lt;p&gt;The idea is to prove that the output of the circuit is equal to some target polynomial $t(x)$.
+This can be done by proving that the output of the circuit is equal to the target polynomial $t(x)$
+multiplied by some arbitrary polynomial $h(x)$,
+as we did in the previous section.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;remarks&quot;&gt;Remarks&lt;&#x2F;h2&gt;
+&lt;p&gt;This is a very high-level overview of Zero-Knowledge Proofs.
+The subject is quite complex and requires a lot of mathematical background.
+I tried to simplify it as much as possible,
+to give a general intuition of how Zero-Knowledge Proofs work.
+Please check the resources below for more in-depth information.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;resources&quot;&gt;Resources&lt;&#x2F;h2&gt;
+&lt;div class=&quot;admonition info&quot;&gt;
+    &lt;div class=&quot;admonition-icon admonition-icon-info&quot;&gt;&lt;&#x2F;div&gt;
+    &lt;div class=&quot;admonition-content&quot;&gt;
+        &lt;strong class=&quot;admonition-title&quot;&gt;INFO&lt;&#x2F;strong&gt;
+        &lt;p&gt;We have tons of papers on the subject.
+Here are some selected few.&lt;&#x2F;p&gt;
+
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;The whole idea of ZKPs as discussed above in three properties
+(Completeness, Soundness, and Zero-Knowledge)
+was first conceived by &lt;code&gt;SMR85&lt;&#x2F;code&gt;.
+Later &lt;code&gt;Kil92&lt;&#x2F;code&gt; showed that some of the properties’ assumptions can be relaxed,
+more specifically using computational soundness instead of statistical soundness.
+&lt;code&gt;Mic94&lt;&#x2F;code&gt; applied the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Fiat%E2%80%93Shamir_heuristic&quot;&gt;Fiat-Shamir Heuristic&lt;&#x2F;a&gt;
+to &lt;code&gt;Kil92&lt;&#x2F;code&gt;’s contributions to show that you can create any non-interactive ZKP system into
+a non-interactive ZKP system using the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Random_oracle_model&quot;&gt;Random Oracle Model&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Going to the zk-SNARKs side,
+the term was introduced by &lt;code&gt;Bit11&lt;&#x2F;code&gt;
+and the first protocol, the Pinocchio protocol,
+was introduced by &lt;code&gt;Gen12&lt;&#x2F;code&gt; and &lt;code&gt;Par13&lt;&#x2F;code&gt;.
+The Bulletproofs protocol was introduced by &lt;code&gt;Bunz18&lt;&#x2F;code&gt;,
+followed by the Bulletproofs++ protocol by &lt;code&gt;Eagen24&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;zk-STARKs were introduced by &lt;code&gt;Ben-Sasson19&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, if you want an intuitive but very comprehensive explanation of zk-SNARKs,
+then you should read &lt;code&gt;Petkus19&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;a href=&quot;https:&#x2F;&#x2F;rdi.berkeley.edu&#x2F;&quot;&gt;Blockchain Web3 MOOC from Berkeley University&lt;&#x2F;a&gt;
+provides a good introduction to Zero-Knowledge Proofs,
+while being quite accessible to beginners.&lt;&#x2F;p&gt;
+&lt;p&gt;This &lt;a href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;iRQw2RpQAVc&quot;&gt;video from YouTube&lt;&#x2F;a&gt;
+explains the math behind the Arithmetic Circuits
+and how to encode them as polynomials.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;&#x2F;h2&gt;
+&lt;div class=&quot;references&quot;&gt;
+    &lt;p&gt;&lt;code&gt;SMR85&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;epubs.siam.org&#x2F;doi&#x2F;10.1137&#x2F;0218012&quot;&gt;https:&#x2F;&#x2F;epubs.siam.org&#x2F;doi&#x2F;10.1137&#x2F;0218012&lt;&#x2F;a&gt; “Goldwasser, S., Micali, S., &amp;amp; Rackoff, C. (1985). The knowledge complexity of interactive proof systems. SIAM Journal on computing, 18(1), 186-208.”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Kil92&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;dl.acm.org&#x2F;doi&#x2F;abs&#x2F;10.1145&#x2F;129712.129782&quot;&gt;https:&#x2F;&#x2F;dl.acm.org&#x2F;doi&#x2F;abs&#x2F;10.1145&#x2F;129712.129782&lt;&#x2F;a&gt; “Kilian, J. (1992). A note on efficient zero-knowledge proofs and arguments (extended abstract). In Proceedings of the twenty-fourth annual ACM symposium on Theory of computing (pp. 723-732).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Mic94&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;abstract&#x2F;document&#x2F;365746&#x2F;&quot;&gt;https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;abstract&#x2F;document&#x2F;365746&#x2F;&lt;&#x2F;a&gt; “Micali, S. (1994). CS proofs (extended abstract). In Proceedings 35th Annual Symposium on Foundations of Computer Science (pp. 436-445).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Bit11&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2011&#x2F;443&quot;&gt;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2011&#x2F;443&lt;&#x2F;a&gt; “Bitansky, N., Canetti, R., &amp;amp; Goldwasser, S. (2011). From Extractable Collision Resistance to Succinct Non-Interactive Arguments of Knowledge, and Back Again. In Proceedings of the 3rd innovations in theoretical computer science conference (pp. 326-349).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Gen12&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2012&#x2F;215&quot;&gt;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2012&#x2F;215&lt;&#x2F;a&gt; “Gennaro, R., Gentry, C., Parno, B., &amp;amp; Raykova, M. (2013). Quadratic span programs and succinct NIZKs without PCPs. In Advances in Cryptology–EUROCRYPT 2013: 32nd Annual International Conference on the Theory and Applications of Cryptographic Techniques, Athens, Greece, May 26-30, 2013. Proceedings 32 (pp. 626-645).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Par13&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2013&#x2F;279&quot;&gt;https:&#x2F;&#x2F;eprint.iacr.org&#x2F;2013&#x2F;279&lt;&#x2F;a&gt; “Parno, B., Gentry, C., Howell, J., &amp;amp; Raykova, M. (2013). Pinocchio: Nearly practical verifiable computation. In Proceedings of the 2013 IEEE Symposium on Security and Privacy (SP) (pp. 238-252).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Bunz18&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;8418611&quot;&gt;https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;8418611&lt;&#x2F;a&gt; “Bünz, B., Bootle, J., Boneh, D., Poelstra, A., Wuille, P., &amp;amp; Maxwell, G. (2018). Bulletproofs: Short Proofs for Confidential Transactions and More. In Proceedings of the 2018 IEEE Symposium on Security and Privacy (SP) (pp. 315-334).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Eagen24&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-031-58740-5_9&quot;&gt;https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-031-58740-5_9&lt;&#x2F;a&gt; “Bulletproofs++: next generation confidential transactions via reciprocal set membership arguments. In Annual International Conference on the Theory and Applications of Cryptographic Techniques (pp. 249-279).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Ben-Sasson19&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-030-26954-8_23&quot;&gt;https:&#x2F;&#x2F;link.springer.com&#x2F;chapter&#x2F;10.1007&#x2F;978-3-030-26954-8_23&lt;&#x2F;a&gt; “Ben-Sasson, E., Bentov, I., Horesh, Y., &amp;amp; Riabzev, M. (2019). Scalable zero knowledge with no trusted setup. In Advances in Cryptology–CRYPTO 2019: 39th Annual International Cryptology Conference, Santa Barbara, CA, USA, August 18–22, 2019, Proceedings, Part III 39 (pp. 701-732).”&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;Petkus19&lt;&#x2F;code&gt;: &lt;a href=&quot;https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1906.07221&quot;&gt;https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1906.07221&lt;&#x2F;a&gt; “Petkus, M. (2019). Why and How zk-SNARK works. arXiv preprint 1906.07221.”&lt;&#x2F;p&gt;
+
+&lt;&#x2F;div&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Shamir&#x27;s secret sharing</title>
+        <published>2024-04-14T10:37:02+00:00</published>
+        <updated>2024-04-14T10:37:02+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/shamir-secret-sharing/" type="text/html"/>
+        <id>https://storopoli.com/blog/shamir-secret-sharing/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;polynomial_king.webp&quot; alt=&quot;The Polynomial king and he can do anything!&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, we’ll talk about
+&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Shamir%27s_Secret_Sharing&quot;&gt;Shamir’s Secret Sharing&lt;&#x2F;a&gt;
+(SSS)&lt;&#x2F;strong&gt;, a cryptographic algorithm that allows us to &lt;strong&gt;split a secret into multiple parts,
+called shares, in such a way that the secret can only be reconstructed
+if a certain number of shares are combined&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The idea is to give a visual intuition of how the algorithm works,
+and describe the mathematical details behind it.&lt;&#x2F;p&gt;
+&lt;p&gt;The code for all the plots in this post can be found in
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;shamir-secret-sharing&quot;&gt;&lt;code&gt;storopoli&#x2F;shamir-secret-sharing&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;polynomial-interpolation&quot;&gt;Polynomial Interpolation&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;If you have two points you can draw a &lt;em&gt;unique&lt;&#x2F;em&gt; line that passes through them&lt;&#x2F;strong&gt;.
+Suppose that you have the points $(3,3)$ and $(4,4)$.
+Hence, there is only one line that passes through these two points.
+See the plot below.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;line.svg&quot; alt=&quot;A line passing through two points&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;If you have three points you can draw a &lt;em&gt;unique&lt;&#x2F;em&gt; parabola that passes through them&lt;&#x2F;strong&gt;.
+Suppose that you have the points $(-4,16)$, $(1,1)$, and $(4,16)$.
+Hence, there is only one parabola that passes through these three points.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;quadratic.svg&quot; alt=&quot;A parabola passing through three points&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;If you have four points you can draw a &lt;em&gt;unique&lt;&#x2F;em&gt; cubic polynomial that passes through them&lt;&#x2F;strong&gt;.
+Suppose that you have the points $(-2,8)$, $(-1,1)$, $(1,1)$, and $(2,8)$.
+Hence, there is only one cubic polynomial that passes through these four points.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;cubic.svg&quot; alt=&quot;A cubic polynomial passing through four points&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;As you might have guessed, &lt;strong&gt;if you have $n$ points you can draw a &lt;em&gt;unique&lt;&#x2F;em&gt; polynomial of degree $n-1$ that passes through them&lt;&#x2F;strong&gt;.
+This is called &lt;strong&gt;polynomial interpolation&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Steams from the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Lagrange_polynomial&quot;&gt;Lagrange interpolation&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;More formally, say that we have a polynomial $f(x)$ of degree $n$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ f(x) = ax^n + a_{n-1} x^{n-1} + \ldots + a_1 x + a_0 $$&lt;&#x2F;p&gt;
+&lt;p&gt;and we have $n$ points $(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)$.
+Then, there is a unique polynomial $f(x)$ of degree $n-1$ such that $f(x_i) = y_i$ for $i = 1, 2, \ldots, n$.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;shamir-s-secret-sharing&quot;&gt;Shamir’s Secret Sharing&lt;&#x2F;h2&gt;
+&lt;p&gt;Ok now let’s connect this idea to Shamir’s Secret Sharing.
+Suppose you encode a &lt;strong&gt;secret $k$ as a number&lt;&#x2F;strong&gt;.
+Let’s say a private key for a Bitcoin wallet.
+As you’ve already know, a private key is just a &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;$link.page(&amp;#x27;blog&#x2F;2024-02-05-crypto-basics&amp;#x27;)&quot;&gt;very big number&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;You want to split this secret into &lt;strong&gt;$N$ parts&lt;&#x2F;strong&gt;, called &lt;strong&gt;shares&lt;&#x2F;strong&gt;.
+You also want to specify a &lt;strong&gt;threshold $T$&lt;&#x2F;strong&gt; such that the &lt;strong&gt;secret $k$ can only be reconstructed if at &lt;em&gt;least&lt;&#x2F;em&gt; $T$ shares are combined&lt;&#x2F;strong&gt;.
+Here’s how you can use polynomial interpolation to achieve this.&lt;&#x2F;p&gt;
+&lt;p&gt;The idea is to use polynomial interpolation to generate a polynomial $f(x)$ of degree $T-1$ such that $f(0) = k$.
+In other words, the polynomial $f(x)$ when evaluated at $x = 0$ should give you the secret $k$.
+Then, you can &lt;strong&gt;generate $N$ shares by evaluating $f(x)$ at $N$ different points&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s an example with $T = 4$ and $N = 5$.
+Our secret is $k = 5$ and since $T = 4$, we generate a polynomial of degree $T-1 = 3$.
+We’ve chosen the polynomial $f(x) = 2x^3 - 3x^2 + 2x + 5 $.
+Then, we evaluate $f(x)$ at $N = 5$ different points to generate the shares.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;shamir.svg&quot; alt=&quot;Shamir’s Secret Sharing with $N=5$ and $T=4$&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Now this polynomial is &lt;strong&gt;guaranteed to pass through the point $(0, k)$&lt;&#x2F;strong&gt;.
+Hence if you evaluate &lt;strong&gt;$f(0)$ you get the secret $k$&lt;&#x2F;strong&gt;.
+To know the secret, you &lt;strong&gt;need to know the polynomial $f(x)$&lt;&#x2F;strong&gt;.
+And to know the polynomial $f(x)$, you &lt;strong&gt;need to know at least $T$ shares&lt;&#x2F;strong&gt;.
+Otherwise, you &lt;strong&gt;can’t reconstruct the polynomial and hence the secret&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In this setup we generate addresses from the extended public key (xpub) of a Bitcoin wallet that has the private key $k$.
+Then, we split the private key into shares and distribute them to different people.
+Only if at least $T$ people come together, they can reconstruct the private key and spend the funds.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;rotating-shares&quot;&gt;Rotating Shares&lt;&#x2F;h2&gt;
+&lt;p&gt;Note that there’s nothing special about the points&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$(-2, f(-2))$&lt;&#x2F;li&gt;
+&lt;li&gt;$(-1, f(-1))$&lt;&#x2F;li&gt;
+&lt;li&gt;$(\frac{1}{2}, f(\frac{1}{2}))$&lt;&#x2F;li&gt;
+&lt;li&gt;$(1, f(1))$&lt;&#x2F;li&gt;
+&lt;li&gt;$(2, f(2))$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;that we’ve used in the previous example.
+You could have chosen &lt;strong&gt;any other $N$ points and the polynomial would still be the same&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Suppose now that your share buddy has lost his share.
+Then, the participants can get together and &lt;strong&gt;generate a new polynomial evaluation at any point $n \notin \{ -2, -1, \frac{1}{2}, 1, 2 \}$&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This is exactly what the image below shows:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;shamir_alternate_single.svg&quot; alt=&quot;Shamir’s Secret Sharing with $N=5$ and $T=4$&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Here we’ve replaced the point $(-2, f(-2))$ with the point $(3, f(3))$.
+We also assume that the point $(-2, f(-2))$ is lost.
+The &lt;strong&gt;polynomial is still the same&lt;&#x2F;strong&gt;, and the secret can still be reconstructed if at least $T$ shares are combined.&lt;&#x2F;p&gt;
+&lt;p&gt;We can also &lt;strong&gt;rotate all the shares&lt;&#x2F;strong&gt;.
+This is shown in the image below:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;shamir_alternate_multiple.svg&quot; alt=&quot;Shamir’s Secret Sharing with $N=5$ and $T=4$&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Here &lt;strong&gt;all previous points have been replaced by new points&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-polynomial-king&quot;&gt;The Polynomial King&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I am the &lt;a href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;ashTaoGrR2o?t=642&quot;&gt;&lt;del&gt;Lizard&lt;&#x2F;del&gt; Polynomial King, I can do anything!&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Jim Morrison&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;In the end &lt;strong&gt;if you somehow know the polynomial $f(x)$, you can do anything&lt;&#x2F;strong&gt;.
+You can rug-pull all you share buddies and take all the funds.&lt;&#x2F;p&gt;
+&lt;p&gt;There are several ways that a malicious actor could learn the polynomial.
+For example, if the shares are generated in a predictable way, an attacker could guess the polynomial.
+Or, during the reconstruction phase, an attacker could learn the polynomial by observing the shares.
+Additionally, during a distributed share generation, an attacker could disrupt the process and force the participants to reveal their shares.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;shamir-secret-sharing&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Or force them to reuse nonces. Then, “poof”, private keys are gone.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;In this post, &lt;strong&gt;we’ve seen how polynomial interpolation can be used to split a secret into multiple shares&lt;&#x2F;strong&gt;.
+We’ve also seen how the &lt;strong&gt;secret can be reconstructed if a certain number of shares are combined&lt;&#x2F;strong&gt;.
+This is the basic idea behind &lt;strong&gt;Shamir’s Secret Sharing (SSS)&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Note that the devil is in the details.
+A lot of the complexities of SSS come from the &lt;strong&gt;details of how the shares are generated and how the secret is reconstructed&lt;&#x2F;strong&gt;.
+There are &lt;strong&gt;several types of attacks that can be done by a malicious actor&lt;&#x2F;strong&gt;.
+Especially during the share generation and reconstruction phases.&lt;&#x2F;p&gt;
+&lt;p&gt;The intent of this blog post is to show how &lt;strong&gt;elegant, simple and powerful the idea behind SSS is&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Seed phrases and entropy</title>
+        <published>2024-02-11T15:59:02+00:00</published>
+        <updated>2024-02-11T15:59:02+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/mnemonic/" type="text/html"/>
+        <id>https://storopoli.com/blog/mnemonic/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;password_strength.png&quot; alt=&quot;Password meme&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, let’s dive into a topic that is very important for anyone who uses the internet: &lt;strong&gt;passwords&lt;&#x2F;strong&gt;.
+We’ll cover what the hell is &lt;strong&gt;Entropy&lt;&#x2F;strong&gt;,
+good &lt;strong&gt;password practices&lt;&#x2F;strong&gt;,
+and how it relates to &lt;strong&gt;Bitcoin “seed phrases”&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+seed phrases are technically called “mnemonic phrases”,
+but I’ll use the term “seed phrases” for the rest of the post.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;entropy&quot;&gt;Entropy&lt;&#x2F;h2&gt;
+&lt;p&gt;Before we go into passwords,
+I’ll introduce the concept of &lt;strong&gt;&lt;em&gt;Entropy&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Entropy&quot;&gt;Entropy&lt;&#x2F;a&gt;
+is a measure of the &lt;strong&gt;amount of disorder in a system&lt;&#x2F;strong&gt;.
+It has its origins in &lt;strong&gt;Thermodynamics&lt;&#x2F;strong&gt;,
+where it’s used to measure the amount of energy in a system that is not available to do work.&lt;&#x2F;p&gt;
+&lt;p&gt;The etymology of the word “Entropy” is after the Greek word for “transformation”.&lt;&#x2F;p&gt;
+&lt;p&gt;It was given a proper statistical definition by &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Ludwig_Boltzmann&quot;&gt;Ludwig Boltzmann&lt;&#x2F;a&gt; in 1870s.
+while establishing the field of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Statistical_dynamics&quot;&gt;Statistical Dynamics&lt;&#x2F;a&gt;,
+a field of physics that studies the behavior of large collections of particles.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;boltzmann.jpg&quot; alt=&quot;Ludwig Boltzmann&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In the context of Statistical Dynamics,
+&lt;strong&gt;Entropy is a measure of the number of ways a system can be arranged&lt;&#x2F;strong&gt;.
+The more ways a system can be arranged,
+the higher its Entropy.
+Specifically, &lt;strong&gt;Entropy is a logarithmic measure of the number of system states with significant probability of being occupied&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$S = -k \cdot \sum_i p_i \ln p_i$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$S$: Entropy.&lt;&#x2F;li&gt;
+&lt;li&gt;$k$: Boltzmann’s constant, a physical constant that relates temperature to energy.&lt;&#x2F;li&gt;
+&lt;li&gt;$p_i$: probability of the system being in state $i$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In this formula, if all states are equally likely,
+i.e $p_i = \frac{1}{N}$,
+where $N$ is the number of states,
+then the entropy is maximized.
+You can see this since a probability $p$ is a real number between 0 and 1,
+and as $N$ approaches infinity,
+the sum of the logarithms approaches negative infinity.
+Then, multiplying by $-k$ yields positive infinity.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;how-the-hell-physics-came-to-passwords&quot;&gt;How the hell Physics came to Passwords?&lt;&#x2F;h3&gt;
+&lt;p&gt;There’s once a great men called &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Claude_Shannon&quot;&gt;Claude Shannon&lt;&#x2F;a&gt;,
+who single-handedly founded the field of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Information_theory&quot;&gt;&lt;strong&gt;Information Theory&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+invented the concept of a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bit&quot;&gt;&lt;strong&gt;Bit&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+and was the first to think about Boolean algebra in the context of electrical circuits.
+He laid the foundation for the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Digital_Revolution&quot;&gt;&lt;strong&gt;Digital Revolution&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are happy using your smartphone, laptop, or any other digital device,
+in you high speed fiber internet connection,
+through a wireless router to send cats pictures to your friends,
+then you should thank Claude Shannon.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;shannon.jpg&quot; alt=&quot;Claude Shannon&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;He was trying to find a formula to quantify the amount of information in a message.
+He wanted three things:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The measure should be a &lt;strong&gt;function of the probability of the message&lt;&#x2F;strong&gt;.
+Messages that are more likely should have less information.&lt;&#x2F;li&gt;
+&lt;li&gt;The measure should be &lt;strong&gt;additive&lt;&#x2F;strong&gt;.
+The information in a message should be the sum of the information in its parts.&lt;&#x2F;li&gt;
+&lt;li&gt;The measure should be &lt;strong&gt;continuous&lt;&#x2F;strong&gt;.
+Small changes in the message should result in small changes in the measure.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;He pretty much found that the formula for Entropy in statistical mechanics
+was a good measure of information.
+He called it &lt;em&gt;Entropy&lt;&#x2F;em&gt; to honor Boltzmann’s work.
+To differentiate it from the Statistical Dynamics’ Entropy,
+he changed the letter to $H$,
+in honor of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;H-theorem&quot;&gt;Boltzmann’s $H$-theorem&lt;&#x2F;a&gt;.
+So the formula for the Entropy of a message is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​)$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$X$: random discrete variable.&lt;&#x2F;li&gt;
+&lt;li&gt;$H(X)$: Entropy of $X$&lt;&#x2F;li&gt;
+&lt;li&gt;$P(x_i)$: probability of the random variable $X$ taking the value $x_i$.
+Also known as the probability mass function (PMF) of the discrete random variable $X$.&lt;&#x2F;li&gt;
+&lt;li&gt;$\log$: base 2 logarithm, to measure the Entropy in bits.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In information theory,
+the &lt;strong&gt;Entropy of a random variable is the average level of “information”, “surprise”,
+or “uncertainty” inherent to the variable’s possible outcomes&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s take the simple example of a fair coin.
+The Entropy of the random variable $X$ that represents the outcome of a fair coin flip is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​) = -\left(\frac{1}{2} \log \frac{1}{2} + \frac{1}{2} \log \frac{1}{2}\right) = 1 \text{ bit}$$&lt;&#x2F;p&gt;
+&lt;p&gt;So the outcome of a fair coin flip has 1 bit of Entropy.
+This means that the outcome of a fair coin flip has 1 bit of information,
+or 1 bit of uncertainty.
+Once the message is received,
+that the coin flip was heads or tails,
+the receiver has 1 bit of information about the outcome.&lt;&#x2F;p&gt;
+&lt;p&gt;Alternatively, we only need 1 bit to encode the outcome of a fair coin flip.
+Hence, there’s a connection between Entropy, search space, and information.&lt;&#x2F;p&gt;
+&lt;p&gt;Another good example is the outcome of a fair 6-sided die.
+The Entropy of the random variable $X$ that represents the outcome of a fair 6-sided die is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​) = - \sum_{i=1}^6\left(\frac{1}{6} * \log \frac{1}{6} \right) \approx 2.58 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that the outcome of a fair 6-sided die has 2.58 bits of Entropy.
+we need $\operatorname{ceil}(2.58) = 3$ bits to encode the outcome of a fair 6-sided die.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;entropy-and-passwords&quot;&gt;Entropy and Passwords&lt;&#x2F;h3&gt;
+&lt;p&gt;Ok now we come full circle.
+Let’s talk, finally, about passwords.&lt;&#x2F;p&gt;
+&lt;p&gt;In the context of passwords, &lt;strong&gt;Entropy&lt;&#x2F;strong&gt; is a measure of how unpredictable a password is.
+The higher the Entropy, the harder it is to guess the password.
+The Entropy of a password is measured in bits,
+and it’s calculated using the formula:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = L \cdot \log_2(N)$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$H$: Entropy in bits&lt;&#x2F;li&gt;
+&lt;li&gt;$N$: number of possible characters in the password&lt;&#x2F;li&gt;
+&lt;li&gt;$L$: length of the password&lt;&#x2F;li&gt;
+&lt;li&gt;$\log_2$:​ (N) calculates how many bits are needed to represent each character from the set.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;For example,
+if we have a password with 8 characters and each character can be any of the 26 lowercase letters,
+the standard english alphabet,
+the Entropy would be:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = 8 \cdot \log_2(26) \approx 37.6 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that an attacker would need to try $2^{37.6} \approx 2.01 \cdot 10^{11}$ combinations to guess the password.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Technically, we need to divide the number of combinations by 2,
+since we are assuming that the attacker is using a brute-force attack,
+which means that the attacker is trying all possible combinations,
+and the password could be at the beginning or at the end of the search space.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Birthday_problem&quot;&gt;birthday paradox&lt;&#x2F;a&gt;,
+and it assumes that the password is uniformly distributed in the search space.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;If the password were to include uppercase letters, numbers, and symbols
+(let’s assume 95 possible characters in total),
+the Entropy for an 8-character password would be:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = 8 \cdot \log_2(95) \approx 52.6 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that an attacker would need to try $2^{52.6} \approx 6.8 \cdot 10^{15}$ combinations to guess the password.&lt;&#x2F;p&gt;
+&lt;p&gt;This sounds a lot but it’s not that much.&lt;&#x2F;p&gt;
+&lt;p&gt;For the calculations below, we’ll assume that the attacker now your dictionary set,
+i.e. the set of characters you use to create your password,
+and the password length.&lt;&#x2F;p&gt;
+&lt;p&gt;If an attacker get a hold of an NVIDIA RTX 4090,
+MSRP USD 1,599, which can do
+&lt;a href=&quot;https:&#x2F;&#x2F;www.tomshardware.com&#x2F;news&#x2F;rtx-4090-password-cracking-comparison&quot;&gt;300 GH&#x2F;s (300,000,000,000 hashes&#x2F;second)&lt;&#x2F;a&gt;,
+i.e. $3 \cdot 10^{11}$ hashes&#x2F;second,
+it would take:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;8-length lowercase-only password:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;$$\frac{2.01 \cdot 10^{11}}{3 \cdot 10^{11}} \approx 0.67 \text{ seconds}$$&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;8-length password with uppercase letters, numbers, and symbols:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;$$\frac{6.8 \cdot 10^{15}}{3 \cdot 10^{11}} \approx 22114 \text{ seconds} \approx 6.14 \text{ hours}$$&lt;&#x2F;p&gt;
+&lt;p&gt;So, the first password would be cracked in less than a second,
+while the second would take a few hours.
+This with just one 1.5k USD GPU.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bitcoin-seed-phrases&quot;&gt;Bitcoin Seed Phrases&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that we understand Entropy and how it relates to passwords,
+let’s talk about bitcoin seed phrases.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that our private key is a big-fucking number?
+If not, check my &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$link.page(&amp;#x27;blog&#x2F;2024-02-05-crypto-basics&amp;#x27;)&quot;&gt;post on cryptographics basics&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0039.mediawiki&quot;&gt;BIP-39&lt;&#x2F;a&gt;
+specifies how to use easy-to-remember seed phrases to store and recover
+private keys.
+The &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0039&#x2F;english.txt&quot;&gt;wordlist&lt;&#x2F;a&gt;
+adheres to the following principles:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;smart selection of words&lt;&#x2F;strong&gt;:
+the wordlist is created in such a way that it’s enough to type the first four
+letters to unambiguously identify the word.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;similar words avoided&lt;&#x2F;strong&gt;:
+word pairs like “build” and “built”, “woman” and “women”, or “quick” and “quickly”
+not only make remembering the sentence difficult but are also more error
+prone and more difficult to guess.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Here is a simple 7-word seed phrase: &lt;code&gt;brave sadness grocery churn wet mammal tube&lt;&#x2F;code&gt;.
+Surprisingly enough, this badboy here gives you $77$ bits of Entropy,
+while also being easy to remember.
+This is due to the fact that the wordlist has 2048 words,
+so each word gives you $\log_2(2048) = 11$ bits of Entropy.&lt;&#x2F;p&gt;
+&lt;p&gt;There’s a minor caveat to cover here.
+The last word in the seed phrase is a checksum,
+which is used to verify that the phrase is valid.&lt;&#x2F;p&gt;
+&lt;p&gt;So, if you have a 12-word seed phrase,
+you have $11 \cdot 11 = 121$ bits of Entropy.
+And for a 24-word seed phrase,
+you have $23 \cdot 11 = 253$ bits of Entropy.&lt;&#x2F;p&gt;
+&lt;p&gt;The National Institute of Standards and Technology (NIST) recommends a
+&lt;a href=&quot;https:&#x2F;&#x2F;crypto.stackexchange.com&#x2F;a&#x2F;87059&quot;&gt;minimum of 112 bits of Entropy for all things cryptographic&lt;&#x2F;a&gt;.
+And Bitcoin has a &lt;a href=&quot;https:&#x2F;&#x2F;bitcoin.stackexchange.com&#x2F;a&#x2F;118929&quot;&gt;minimum of 128 bits of Entropy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Depending on your threat model,
+&lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;“Assume that your adversary is capable of a trillion guesses per second”&lt;&#x2F;a&gt;,
+it can take a few years to crack a 121-bit Entropy seed phrase:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{121}}{10^{12}} \approx 2.66 \cdot 10^{24} \text{ seconds} \approx 3.08 \cdot 10^{19} \text{ days} \approx 8.43 \cdot 10^{16} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s a lot of years.
+Now for a 253-bit Entropy seed phrase:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{253}}{10^{12}} \approx 1.45 \cdot 10^{64} \text{ seconds} \approx 1.68 \cdot 10^{59} \text{ days} \approx 4.59 \cdot 10^{56} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s another huge number of years.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;seed-phrases-and-passwords&quot;&gt;Seed Phrases and Passwords&lt;&#x2F;h2&gt;
+&lt;p&gt;You can also use a seed phrase as a password.
+The bonus point is that you don’t need to use the last word as a checksum,
+so you get 11 bits of Entropy free, compared to a Bitcoin seed phrase.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember the 7-words badboy seed phrase we generated earlier?
+&lt;code&gt;brave sadness grocery churn wet mammal tube&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It has $66$ bits of Entropy.
+This would take, assuming
+&lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;“that your adversary is capable of a trillion guesses per second”&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{77}}{10^{12}} \approx 1.51 \cdot 10^{11} \text{ seconds} \approx 1.75 \cdot 10^{6} \text{ days} \approx 4.79 \cdot 10^{3} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s why tons of people use seed phrases as passwords.
+Even if you know the dictionary set and the length of the password,
+i.e. the number of words in the seed phrase,
+it would take a lot of years to crack it.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Entropy is a measure of the amount of disorder in a system.
+In the context of passwords, it’s a measure of how unpredictable a password is.
+The higher the Entropy, the harder it is to guess the password.&lt;&#x2F;p&gt;
+&lt;p&gt;Bitcoin seed phrases are a great way to store and recover private keys.
+They are easy to remember and have a high amount of Entropy.
+You can even use a seed phrase as a password.&lt;&#x2F;p&gt;
+&lt;p&gt;Even it your attacker is capable of a trillion guesses per second,
+like the &lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;NSA&lt;&#x2F;a&gt;,
+it would take them a lot of years to crack even a 7-word seed phrase.&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to generate a seed phrase,
+you can use &lt;a href=&quot;https:&#x2F;&#x2F;keepassxc.org&#x2F;&quot;&gt;KeePassXC&lt;&#x2F;a&gt;,
+which is a great open-source &lt;strong&gt;&lt;em&gt;offline&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt; password manager that supports seed phrases.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Technically, KeePassXC uses the &lt;a href=&quot;https:&#x2F;&#x2F;www.eff.org&#x2F;files&#x2F;2016&#x2F;07&#x2F;18&#x2F;eff_large_wordlist.txt&quot;&gt;EFF wordlist&lt;&#x2F;a&gt;,
+which has 7,776 words, so each word gives you $\log_2(7776) \approx 12.9$ bits of Entropy.
+They were created to be easy to use with 6-sided dice.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Basics of cryptographic signatures</title>
+        <published>2024-02-05T18:53:28+00:00</published>
+        <updated>2024-02-05T18:53:28+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/crypto-basics/" type="text/html"/>
+        <id>https://storopoli.com/blog/crypto-basics/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;crypto-basics&#x2F;euclid.webp&quot; alt=&quot;Euclid’s one-way function&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This is the companion post to the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;cryptography-workshop&quot;&gt;cryptography workshop&lt;&#x2F;a&gt;
+that I gave at a local BitDevs.
+Let’s explore the basics of cryptography.
+We’ll go through the following topics:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;One-way functions&lt;&#x2F;li&gt;
+&lt;li&gt;Hash functions&lt;&#x2F;li&gt;
+&lt;li&gt;Public-key cryptography&lt;&#x2F;li&gt;
+&lt;li&gt;DSA&lt;&#x2F;li&gt;
+&lt;li&gt;Schnorr&lt;&#x2F;li&gt;
+&lt;li&gt;Why we don’t reuse nonces?&lt;&#x2F;li&gt;
+&lt;li&gt;Why we can combine Schnorr Signatures and not DSA?&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;one-way-functions&quot;&gt;One-way functions&lt;&#x2F;h2&gt;
+&lt;p&gt;A one-way function is a &lt;strong&gt;function that is easy to compute on every input,
+but hard to invert given the image of a random input&lt;&#x2F;strong&gt;.
+For example, imagine an omelet.
+It’s easy to make an omelet from eggs,
+but it’s hard to make eggs from an omelet.
+In a sense we can say that the function $\text{omelet}$ is a one-way function&lt;&#x2F;p&gt;
+&lt;p&gt;$$\text{omelet}^{-1}(x) = \ldots$$&lt;&#x2F;p&gt;
+&lt;p&gt;That is, we don’t know how to invert the function $\text{omelet}$ to get the original eggs back.
+Or, even better, &lt;strong&gt;the benefit we get from reverting the omelet to eggs is not worth the effort,
+either in time or money&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Not all functions are one-way functions.
+The exponential function, $f(x) = e^x$, is not a one-way function.
+It is easy to undo the exponential function by taking the natural logarithm,&lt;&#x2F;p&gt;
+&lt;p&gt;$$f^{-1}(x) = \ln(x)$$&lt;&#x2F;p&gt;
+&lt;p&gt;To showcase one-way functions, let’s take a look at the following example.
+Let’s play around with some numbers.
+Not any kind of numbers, but very special numbers called &lt;strong&gt;primes&lt;&#x2F;strong&gt;.
+A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.&lt;&#x2F;p&gt;
+&lt;p&gt;If I give you a big number $n$ and ask you to find its prime factors,
+and point a gun at your head,
+you’ll pretty much screwed.
+There’s no known efficient algorithm to factorize a big number into its prime factors.
+You’ll be forced to test all numbers from 2 to $\sqrt{n}$ to see if they divide $n$.&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s a number:&lt;&#x2F;p&gt;
+&lt;p&gt;$$90809$$&lt;&#x2F;p&gt;
+&lt;p&gt;What are its prime factors?
+It’s $1279 \cdot 71$.
+Easy to check, right?
+Hard to find.
+That’s because prime factorization, if you choose a fucking big number, is a one-way function.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;hash-functions&quot;&gt;Hash Functions&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s spice things up.
+There is a special class of one-way functions called &lt;strong&gt;hash functions&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;A hash function is any function that can be used to map data of arbitrary size to fixed-size values&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;But we are most interested in &lt;strong&gt;&lt;em&gt;cryptographic&lt;&#x2F;em&gt; hash functions&lt;&#x2F;strong&gt;,
+which are hash functions that have statistical properties desirable for cryptographic application:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;One-way function&lt;&#x2F;strong&gt;: easy to compute $y = f(x)$, hard as fuck to do the opposite, $x = f^{-1}(y)$.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Deterministic&lt;&#x2F;strong&gt;: given a function that maps elements from set $X$ to set $Y$, $f: X \to Y$,
+for every $x \in X$ there’s &lt;em&gt;at least one&lt;&#x2F;em&gt; $y \in Y$.
+This means that if I give you a certain input, it will always map to the same output.
+It is deterministic.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Collision resistance&lt;&#x2F;strong&gt;: the possible values of $f: X \to Y$ follows a uniform distribution,
+that is, given the size of the set $Y$,
+it is hard to find two $x_1, x_2 \in X$ that have the same $y \in Y$ value.
+This property is really important because if an attacker wants to brute-force the
+hash function, there’s no option than searching uniformly across the whole possible
+space of possible values that the hash function outputs.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;These properties make enable cryptographic hash functions to be used in a wide range of applications,
+including but not limited to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Digital signatures&lt;&#x2F;strong&gt;: Hash functions are used to create a digest of the message to be signed.
+The digital signature is then generated using the hash, rather than the message itself,
+to ensure integrity and non-repudiation.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Password hashing&lt;&#x2F;strong&gt;: Storing passwords as hash values instead of plain text.
+Even if the hash values are exposed,
+the original passwords remain secure due to the pre-image resistance property.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Blockchain and cryptocurrency&lt;&#x2F;strong&gt;: Hash functions are used to maintain the integrity of the blockchain.
+Each block contains the hash of the previous block, creating a secure link.
+Cryptographic hashes also underpin various aspects of cryptocurrency transactions.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Data integrity verification&lt;&#x2F;strong&gt;: Hash functions are used to ensure that files, messages,
+or data blocks have not been altered.
+By comparing hash values computed before and after transmission or storage,
+any changes in the data can be detected.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;We’ll cover just the &lt;strong&gt;digital signatures&lt;&#x2F;strong&gt; part in this post.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;sha-2-and-its-variants&quot;&gt;SHA-2 and its variants&lt;&#x2F;h3&gt;
+&lt;p&gt;The Secure Hash Algorithm 2 (SHA-2) is a set of cryptographic hash functions designed by the National Security Agency (NSA).
+It was first published in 2001.&lt;&#x2F;p&gt;
+&lt;p&gt;It is composed of six hash functions with digests that are 224, 256, 384, 512, 512&#x2F;224, and 512&#x2F;256 bits long:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SHA-224&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SHA-256&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SHA-384&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SHA-512&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SHA-512&#x2F;224&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;SHA-512&#x2F;256&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Amongst these, let’s focus on SHA-256, which is the most widely used while also being notoriously adopted by bitcoin.&lt;&#x2F;p&gt;
+&lt;p&gt;SHA-256 does not have any known vulnerabilities and is considered secure.
+It comprises of 32-bit words and operates on 64-byte blocks.
+The algorithm does 64 rounds of the following operations:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AND&lt;&#x2F;code&gt;: bitwise boolean AND&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;XOR&lt;&#x2F;code&gt;: bitwise boolean XOR&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;OR&lt;&#x2F;code&gt;: bitwise boolean OR&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;ROT&lt;&#x2F;code&gt;: right rotation bit shift&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;ADD&lt;&#x2F;code&gt;: addition modulo $2^{32}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;You can check &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;SHA-2#Pseudocode&quot;&gt;SHA-256 Pseudocode on Wikipedia&lt;&#x2F;a&gt;.
+It really scrambles the input message in a way that is very hard to reverse.&lt;&#x2F;p&gt;
+&lt;p&gt;These operations are non-linear and very difficult to keep track of.
+In other words, you can’t reverse-engineer the hash to find the original message.
+There’s no &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Automatic_differentiation&quot;&gt;“autodiff”&lt;&#x2F;a&gt; for hash functions.&lt;&#x2F;p&gt;
+&lt;p&gt;Since it is a cryptographic hash function,
+if we change just one bit of the input,
+the output will be completely different.
+Check this example:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; echo &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;The quick brown fox jumps over the lazy dog&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;shasum&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;a&lt;&#x2F;span&gt; 256&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;c03905fcdab297513a620ec81ed46ca44ddb62d41cbbd83eb4a5a3592be26a69&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;  -&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; echo &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;The quick brown fox jumps over the lazy dog.&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;shasum&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; -&lt;&#x2F;span&gt;a&lt;&#x2F;span&gt; 256&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;b47cc0f104b62d4c7c30bcd68fd8e67613e287dc4ad8c310ef10cbadea9c4380&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;  -&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here we are only adding a period at the end of the sentence,
+and the hash is completely different.
+This is due to the property of collision resistance that we mentioned earlier.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;fields&quot;&gt;Fields&lt;&#x2F;h2&gt;
+&lt;p&gt;Before we dive into public-key cryptography,
+we need a brief interlude on fields.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Field_(mathematics)&quot;&gt;Fields&lt;&#x2F;a&gt; are sets with two binary operations,
+called addition $+$ and multiplication $\times$&lt;&#x2F;strong&gt;.
+We write&lt;&#x2F;p&gt;
+&lt;p&gt;$$F = (F, +, \times)$$&lt;&#x2F;p&gt;
+&lt;p&gt;to denote a field,
+where $F$ is the set, $+$ is the addition operation,
+and $\times$ is the multiplication operation.&lt;&#x2F;p&gt;
+&lt;p&gt;Addition and multiplication behave similar to the addition and multiplication of real numbers.
+For example, addition is &lt;strong&gt;commutative&lt;&#x2F;strong&gt; and &lt;strong&gt;associative&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;$$a + b = b + a,$$&lt;&#x2F;p&gt;
+&lt;p&gt;and multiplication is &lt;strong&gt;distributive&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;$$a \times (b + c) = a \times b + a \times c.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Also, there are two special elements in the field,
+called the &lt;strong&gt;additive identity&lt;&#x2F;strong&gt; $-a$ and the &lt;strong&gt;multiplicative identity&lt;&#x2F;strong&gt; $a^{-1}$,
+such that&lt;&#x2F;p&gt;
+&lt;p&gt;$$a + (-a) = I,$$&lt;&#x2F;p&gt;
+&lt;p&gt;and&lt;&#x2F;p&gt;
+&lt;p&gt;$$a \times a^{-1} = I,$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $I$ is the identity element.&lt;&#x2F;p&gt;
+&lt;p&gt;Note that this allows us to define &lt;strong&gt;subtraction&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;$$a - b = a + (-b),$$&lt;&#x2F;p&gt;
+&lt;p&gt;and &lt;strong&gt;division&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;$$a \div b = a \times b^{-1}.$$&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;finite-fields&quot;&gt;Finite Fields&lt;&#x2F;h3&gt;
+&lt;p&gt;Now we are ready for finite fields.
+A &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Finite_field&quot;&gt;&lt;em&gt;finite field&lt;&#x2F;em&gt;&lt;&#x2F;a&gt;, also called a Galois field (in honor of Évariste Galois),
+is a &lt;strong&gt;field with a finite number of elements.
+As with any field, a finite field is a set on which the operations of multiplication,
+addition, subtraction and division are defined and satisfy the rules above for fields&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Finite fields is a very rich topic in mathematics,
+and there are many ways to construct them.
+The easiest way to construct a finite field is to take the &lt;strong&gt;integers modulo a prime number $p$&lt;&#x2F;strong&gt;.
+For example $\mathbb{Z}_5$ is a finite field with 5 elements:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbb{Z}_5 = \lbrace 0, 1, 2, 3, 4 \rbrace.$$&lt;&#x2F;p&gt;
+&lt;p&gt;In general, $\mathbb{Z}_n$ is a finite field with $n$ elements:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbb{Z}_n = \lbrace 0, 1, 2, \ldots, n - 1 \rbrace.$$&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;The number of elements in a finite field is called the &lt;em&gt;order&lt;&#x2F;em&gt; of the field&lt;&#x2F;strong&gt;.
+The order of a finite field is &lt;strong&gt;always a prime number $p$&lt;&#x2F;strong&gt;.
+The $\mathbb{Z}_5$ example above is a finite field of order 5.
+However, $\mathbb{Z}_4$ is not a finite field,
+because 4 is not a prime number, but rather a composite number.&lt;&#x2F;p&gt;
+&lt;p&gt;$$4 = 2 \times 2.$$&lt;&#x2F;p&gt;
+&lt;p&gt;And we can write $\mathbb{Z}_4$ as&lt;&#x2F;p&gt;
+&lt;p&gt;$$\mathbb{Z}_4 = 2 \times \mathbb{Z}_2.$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that every element in $a \in \mathbb{Z}_4$ can be written as&lt;&#x2F;p&gt;
+&lt;p&gt;$$a = 2 \times b,$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $b$ is an element in $\mathbb{Z}_2$.&lt;&#x2F;p&gt;
+&lt;p&gt;Hence, not every element of $\mathbb{Z}_4$ is unique, and they are equivalent to the elements in $\mathbb{Z}_2$.&lt;&#x2F;p&gt;
+&lt;p&gt;In general if $n$ is a composite number,
+then $\mathbb{Z}_n$ is not a finite field.
+However, if $n = r \times s$ where $r$ and $s$ are prime numbers,
+and $r &amp;lt; s$,
+then $\mathbb{Z}_n$ is a finite field of order $r$.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;operations-in-finite-fields&quot;&gt;Operations in Finite Fields&lt;&#x2F;h4&gt;
+&lt;p&gt;&lt;strong&gt;Addition&lt;&#x2F;strong&gt; in finite fields is defined as the remainder of the sum of two elements modulo the order of the
+field.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, in $\mathbb{Z}_3$,&lt;&#x2F;p&gt;
+&lt;p&gt;$$1 + 2 = 3 \mod 3 = 0.$$&lt;&#x2F;p&gt;
+&lt;p&gt;We can also define subtraction in finite fields as the remainder of the difference of two elements modulo the order of the field.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, in $\mathbb{Z}_3$,&lt;&#x2F;p&gt;
+&lt;p&gt;$$1 - 2 = -1 \mod 3 = 2.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Multiplication in finite fields can be written as multiple additions.
+For example, in $\mathbb{Z}_3$,&lt;&#x2F;p&gt;
+&lt;p&gt;$$2 \times 2 = 2 + 2 = 4 \mod 3 = 1.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Exponentiation in finite fields can be written as multiple multiplications.
+For example, in $\mathbb{Z}_3$,&lt;&#x2F;p&gt;
+&lt;p&gt;$$2^2 = 2 \times 2 = 4 \mod 3 = 1.$$&lt;&#x2F;p&gt;
+&lt;p&gt;As you can see addition, subtraction, and multiplication becomes linear operations.
+This is very trivial for any finite field.&lt;&#x2F;p&gt;
+&lt;p&gt;However, for division we are pretty much screwed.
+It is really hard to find the multiplicative inverse of an element in a finite field.
+For example, suppose that we have numbers $a,b$ in a very large finite field $\mathbb{Z}_p$,
+such that&lt;&#x2F;p&gt;
+&lt;p&gt;$$c = a \times b \mod p.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Then we can write division as&lt;&#x2F;p&gt;
+&lt;p&gt;$$a = c \div b = c \times b^{-1} \mod p.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now we need to find $b^{-1}$, which is the multiplicative inverse of $b$.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Discrete_logarithm&quot;&gt;&lt;strong&gt;&lt;em&gt;discrete logarithm problem&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.
+Because we need to find $b^{-1}$ such that&lt;&#x2F;p&gt;
+&lt;p&gt;$$b^{-1} = \log_b c \mod p.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Since this number is a discrete number and not a real number,
+that’s why it’s called the discrete logarithm problem.&lt;&#x2F;p&gt;
+&lt;p&gt;Good luck my friend, no efficient method is known for computing them in general.
+You can try brute force, but that’s not efficient.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;why-the-discrete-logarithm-problem-is-hard-as-fuck&quot;&gt;Why the Discrete Logarithm Problem is Hard as Fuck&lt;&#x2F;h4&gt;
+&lt;p&gt;To get a feeling why the discrete logarithm problem is difficult,
+let’s add one more concept to our bag of knowledge.
+Every finite field has &lt;em&gt;&lt;strong&gt;generators&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;,
+also known as &lt;em&gt;&lt;strong&gt;primitive roots&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt;,
+which is also a member of the group,
+such that applying multiplication to this one single element
+makes possible to generate the whole finite field.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s illustrate this with an example.
+Below we have a table of all the results of the following operation&lt;&#x2F;p&gt;
+&lt;p&gt;$$b^x \mod 7$$&lt;&#x2F;p&gt;
+&lt;p&gt;for every possible value of $x$.
+As you’ve guessed right this is the $\mathbb{Z}_7$ finite field.&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^1 \mod 7$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^2 \mod 7$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^3 \mod 7$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^4 \mod 7$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^5 \mod 7$&lt;&#x2F;th&gt;&lt;th style=&quot;text-align: center&quot;&gt;$b^6 \mod 7$&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$3$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$3$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$6$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$5$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$5$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$5$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$4$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$6$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$2$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$3$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td style=&quot;text-align: center&quot;&gt;$6$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$6$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$6$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;td style=&quot;text-align: center&quot;&gt;$1$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;You see that something interesting is happening here.
+For specific values of $b$, such as $b = 3$, and $b = 5$, we are able to &lt;strong&gt;generate the whole finite field&lt;&#x2F;strong&gt;.
+Hence, say that $3$ and $5$ are &lt;em&gt;&lt;strong&gt;generators&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt; or &lt;em&gt;&lt;strong&gt;primitive roots&lt;&#x2F;strong&gt;&lt;&#x2F;em&gt; of $\mathbb{Z}_7$.&lt;&#x2F;p&gt;
+&lt;p&gt;Now suppose I ask you to find $x$ in the following equation&lt;&#x2F;p&gt;
+&lt;p&gt;$$3^x \mod p = 11$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $p$ is a very large prime number.
+Then you don’t have any other option than brute forcing it.
+&lt;strong&gt;You’ll need to try each exponent $x \in \mathbb{Z}_p$ until you find the one that satisfies the equation&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Notice that this operation is very asymmetric.
+It is very easy to compute $3^x \mod p$ for any $x$,
+but it is very hard to find $x$ given $3^x \mod p$.&lt;&#x2F;p&gt;
+&lt;p&gt;Now we are ready to dive into public-key cryptography.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;numerical-example-of-the-discrete-logarithm-problem&quot;&gt;Numerical Example of the Discrete Logarithm Problem&lt;&#x2F;h4&gt;
+&lt;p&gt;Let’s illustrate the discrete logarithm problem with a numerical example.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Choose a prime number $p$&lt;&#x2F;strong&gt;. Let’s pick $p = 17$.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Choose a generator $g$ of the group&lt;&#x2F;strong&gt;.
+For $p = 17$, we can choose $g = 3$ because $3$ is a primitive root of $\mathbb{Z}_{17}$.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Choose an element $x$&lt;&#x2F;strong&gt;.
+Let’s pick $x = 15$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The discrete logarithm problem is to find $x$ given $g^x \mod p$.
+So let’s plug in the numbers; find $x$ in&lt;&#x2F;p&gt;
+&lt;p&gt;$$3^x = 15 \mod 17 $$&lt;&#x2F;p&gt;
+&lt;p&gt;Try to find it.
+Good luck.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;crypto-basics&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;public-key-cryptography&quot;&gt;Public-key cryptography&lt;&#x2F;h2&gt;
+&lt;p&gt;Public-key cryptography, or asymmetric cryptography, is a cryptographic system that uses pairs of keys:
+private and public.
+The public key you can share with anyone,
+but the private key you must keep secret.
+The keys are related mathematically,
+but it is computationally infeasible to derive the private key from the public key.
+In other words, the public key is a one-way function of the private key.&lt;&#x2F;p&gt;
+&lt;p&gt;Before we dive into the details of the public-key cryptography, and signing and verifying messages,
+let me introduce some notation:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$p$: big fucking huge prime number (4096 bits or more)&lt;&#x2F;li&gt;
+&lt;li&gt;$\mathbb{Z}_p$: the finite field of order $p$&lt;&#x2F;li&gt;
+&lt;li&gt;$g$: a generator of $\mathbb{Z}_p$&lt;&#x2F;li&gt;
+&lt;li&gt;$S_k$: secret key, a random integer in the finite field $\mathbb{Z}_p$&lt;&#x2F;li&gt;
+&lt;li&gt;$P_k$: public key derived by $P_k = g^{S_k}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;If you know $S_k$ and $g$ (which is almost always part of the spec),
+then it’s easy to derive the $P_k$.
+However, if you only know $g$ and $P_k$, good luck finding $S_k$.
+It’s the discrete log problem again.
+And as long $p$ is HUGE you are pretty confident that no one will find your secret key
+from your public key.&lt;&#x2F;p&gt;
+&lt;p&gt;Now what we can do with these keys and big prime numbers?
+We’ll we can sign a message with our secret key and everyone can verify the authenticity of
+the message using our public key.
+The message in our case it is commonly a hash function of the “original message”.
+Due to the collision resistance property, we can definitely assert that:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;the message has not been altered&lt;&#x2F;li&gt;
+&lt;li&gt;the message was signed by the owner of the private key&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Fun fact, I once gave a recommendation letter to a very bright student,
+that was only a plain text file signed with my private key.
+I could rest assured that the letter was not altered,
+and the student and other people could verify that I was the author of the letter.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, we’ll dive into the details of the Digital Signature Algorithm (DSA)
+and the Schnorr signature algorithm.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;dsa&quot;&gt;DSA&lt;&#x2F;h2&gt;
+&lt;p&gt;DSA stands for &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Digital_Signature_Algorithm&quot;&gt;Digital Signature Algorithm&lt;&#x2F;a&gt;.
+It was first proposed by the National Institute of Standards and Technology (NIST) in 1991.
+Note that &lt;a href=&quot;https:&#x2F;&#x2F;lwn.net&#x2F;Articles&#x2F;958048&#x2F;&quot;&gt;OpenSSH announced that DSA is scheduled for removal in 2025&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s how you can sign a message using DSA:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Choose two prime numbers $p, q$ such that $p - 1 \mod q = 0$ (e.g., 1279 and 71).&lt;&#x2F;li&gt;
+&lt;li&gt;Choose your private key $S_k$ as a random integer $\in [1, q-1]$.&lt;&#x2F;li&gt;
+&lt;li&gt;Choose a generator $g$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your public key $P_k$: $g^{S_k} \mod p$.&lt;&#x2F;li&gt;
+&lt;li&gt;Choose your nonce $k$: as a random integer $\in [1, q-1]$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your “public nonce” $K$: $(g^k \mod p) \mod q$ (also known as $r$).&lt;&#x2F;li&gt;
+&lt;li&gt;Get your message ($m$) through a cryptographic hash function $H$: $H(m)$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your signature $s$: $(k^{-1} (H(m) + S_k K)) \mod q$.&lt;&#x2F;li&gt;
+&lt;li&gt;Send to your buddy $(p, q, g)$, $P_k$, and $(K, s)$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;And here’s how you can verify the signature:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Compute $w = s^{-1} \mod q$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute $u_1 = H{m} \cdot w \mod q$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute $u_2 = K \cdot w \mod q$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute $K^* = {g^{u_1} P^{u_2}_k \mod p} \mod q$.&lt;&#x2F;li&gt;
+&lt;li&gt;Assert $K = K^*$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;How this works?
+Let’s go through a proof of correctness.
+I added some comments to every operation in parentheses to make it easier to follow.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;$s = k^{-1} \cdot {H + S_k K} \mod q$ ($\mod p$ and $H(m)$ implicit).&lt;&#x2F;li&gt;
+&lt;li&gt;$k = s^{-1} \cdot {H + S_k K} \mod q$ (move $s$ to $k$).&lt;&#x2F;li&gt;
+&lt;li&gt;$k = H \cdot s^{-1} + S_k K \cdot s^{-1} \mod q$ (distribute $s^{-1}$).&lt;&#x2F;li&gt;
+&lt;li&gt;$k = H \cdot w + S_k K \cdot w \mod q$ ($w = s^{-1}$).&lt;&#x2F;li&gt;
+&lt;li&gt;$g^k = g^{H \cdot w + S_k K \cdot w \mod q}$ (put $g$ in both sides).&lt;&#x2F;li&gt;
+&lt;li&gt;$g^k = g^{H \cdot w \mod q} \cdot g^{S_k K \cdot w \mod q}$ (product of the exponents).&lt;&#x2F;li&gt;
+&lt;li&gt;$g^k = g^{H \cdot w \mod q} \cdot P^{K \cdot w \mod q}_k$ ($P_k = g^{S_k}$).&lt;&#x2F;li&gt;
+&lt;li&gt;$g^k = g^{u_1} \cdot P^{u_2}_k$ (replace $u_1$ and $u_2$).&lt;&#x2F;li&gt;
+&lt;li&gt;$K = K^*$ (replace $K$ and $K^*$).&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;There you go.
+This attest that the signature is correct and the message was signed by the owner of the private key.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;schnorr&quot;&gt;Schnorr&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Schnorr_signature&quot;&gt;Schnorr signature algorithm&lt;&#x2F;a&gt;
+is a very similar algorithm to DSA.
+It was proposed by Claus-Peter Schnorr in 1989.
+It is considered to be more secure than DSA and is also more efficient.
+The patent for Schnorr signatures expired in 2008,
+just in time for Satoshi to include it in Bitcoin.
+However, it was probably not included due to the fact that there wasn’t
+good battle-tested software implementations of it at the time.
+However, it was added to Bitcoin in the Taproot upgrade.&lt;&#x2F;p&gt;
+&lt;p&gt;Schnorr is a marvelous algorithm.
+It is so much simpler than DSA.
+Here’s how you sign a message using Schnorr:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Choose a prime number $p$.&lt;&#x2F;li&gt;
+&lt;li&gt;Choose your private key $S_k$ as a random integer $\in [1, p-1]$.&lt;&#x2F;li&gt;
+&lt;li&gt;Choose a generator $g$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your public key $P_k$: $g^{S_k}$.&lt;&#x2F;li&gt;
+&lt;li&gt;Choose your nonce $k$: as a random integer $\in [1, p-1]$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your “public nonce” $K$: $g^k \mod p$ (also known as $r$).&lt;&#x2F;li&gt;
+&lt;li&gt;Get your message ($m$) through a cryptographic hash function $H$ concatenating with $K$: $e = H(K || m)$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute your signature $s$: $k - S_k e$.&lt;&#x2F;li&gt;
+&lt;li&gt;Send to your buddy $(p, g)$, $P_k$, and $(K, s)$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;And here’s how you can verify the signature:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Compute $e = H(K || m)$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute $K^* = g^s P_k^e$.&lt;&#x2F;li&gt;
+&lt;li&gt;Compute $e^* = H(K^* || m)$.&lt;&#x2F;li&gt;
+&lt;li&gt;Assert $e = e^*$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;How this works?
+Let’s go through a proof of correctness.
+As before, I added some comments to every operation in parentheses to make it easier to follow.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;$K^* = g^s P_k^e$ ($\mod p$ implicit).&lt;&#x2F;li&gt;
+&lt;li&gt;$K^* = g^{k - S_k e} g^{S_k e}$ ($s = k - S_k e$ and $P_k = g^{S_k}$).&lt;&#x2F;li&gt;
+&lt;li&gt;$K^* = g^k$ (cancel $S_k e$ in the exponent of $g$).&lt;&#x2F;li&gt;
+&lt;li&gt;$K^* = K$ ($K = g^k$).&lt;&#x2F;li&gt;
+&lt;li&gt;Hence $H(K^* || m) = H(K || m)$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;There you go.
+This attest that the signature is correct and the message was signed by the owner of the private key.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-we-don-t-reuse-nonces&quot;&gt;Why we don’t reuse nonces?&lt;&#x2F;h2&gt;
+&lt;p&gt;Never, ever, reuse a nonce.
+Why?
+First, because nonce is short for “number used once”.
+It is supposed to be used only once.
+Because if you reuse a nonce, then you are pretty much screwed.
+An attacker can derive your private key from two signatures with the same nonce.
+This is called the “nonce reuse attack”.&lt;&#x2F;p&gt;
+&lt;p&gt;Fun fact: this is what happened to the
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;PlayStation_3_homebrew#Private_key_compromised&quot;&gt;PlayStation 3&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s see how we can derive the private key from two signatures with the same nonce.
+Here we are in a context that we have two signatures $s$ and $s^\prime$,
+both using the same nonce $k = k^\prime$.&lt;&#x2F;p&gt;
+&lt;p&gt;First, let’s do the &lt;del&gt;ugly&lt;&#x2F;del&gt; DSA math:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+s^\prime - s &amp;amp;= (k^{\prime {-1}} (H(m_1) + S_k K’)) - (k^{-1} (H(m_2) + S_k K)) \\
+s^\prime - s &amp;amp;= k^{-1} (H(m_1) - H(m_2)) \\
+k &amp;amp;= (H(m_1) - H(m_2)) (s^\prime - s)^{-1}
+\end{aligned}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now remember you know $s$, $s^\prime$, $H(m_1)$, $H(m_2)$ $K$, and $K^\prime$.
+Let’s do the final step and solve for $S_k$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$S_k = K^{-1}  (k s - H(m_1))$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now let’s do the Schnorr math.
+But in Schnorr, everything is simpler.
+Even nonce reuse attacks.&lt;&#x2F;p&gt;
+&lt;p&gt;$$s^\prime - s = (k^\prime - k) - S_k (e^\prime - e)$$&lt;&#x2F;p&gt;
+&lt;p&gt;If $k^\prime = k$ (nonce reuse) then you can easily isolate $S_k$ with simple algebra.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember: you know $s^\prime, s, e, e^\prime$ and $k^\prime - k = 0$.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-we-can-combine-schnorr-signatures-and-not-dsa&quot;&gt;Why we can combine Schnorr Signatures and not DSA?&lt;&#x2F;h2&gt;
+&lt;p&gt;In Bitcoin, we can combine Schnorr signatures and not DSA.
+Why?
+Because Schnorr signatures are linear.
+This means that you can add two Schnorr signatures and get a valid signature for the sum of the messages.
+This is not possible with DSA.
+This is called the “linearity property” of Schnorr signatures.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that in $Z_p$ addition, multiplication, and exponentiation,
+i.e anything with $+, \cdot, -$, are linear operations
+However, division (modular inverse),
+.i.e anything that is $^{-1}$, is not linear.
+That is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$x^{-1} + y^{-1} \ne (x + y)^{-1}.$$&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s a trivial python code that shows that modular inverse is not linear:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;python&quot; class=&quot;language-python z-code&quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-python&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;71&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-statement z-python&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;x&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-python&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;13&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-statement z-python&quot;&gt;;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;y&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-assignment z-python&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;17&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-statement z-python&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-python&quot;&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-variable z-function z-python&quot;&gt;&lt;span class=&quot;z-support z-function z-builtin z-python&quot;&gt;pow&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-python&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-python&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;x&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-python&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-python&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-python&quot;&gt;+&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-python&quot;&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-variable z-function z-python&quot;&gt;&lt;span class=&quot;z-support z-function z-builtin z-python&quot;&gt;pow&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-python&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-python&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;y&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-python&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-python&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;==&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-python&quot;&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-variable z-function z-python&quot;&gt;&lt;span class=&quot;z-support z-function z-builtin z-python&quot;&gt;pow&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-python&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-python&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;x&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-python&quot;&gt;+&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;y&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-arithmetic z-python&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-arguments z-python&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;p&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-python&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-constant z-language z-python&quot;&gt;False&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Let’s revisit the signature step of DSA and Schnorr:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;DSA: $s = k^{-1} (H(m) + S_k K)$&lt;&#x2F;li&gt;
+&lt;li&gt;Schnorr: $s = k - S_k H(K || m)$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;So if you have two Schnorr signatures $s_1$ and $s_2$ for two messages $m_1$ and $m_2$,
+then you can easily compute a valid signature for the sum of the messages $m_1 + m_2$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$s = s_1 + s_2$$&lt;&#x2F;p&gt;
+&lt;p&gt;Also note that we can combine Schnorr public keys:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P^\prime_k + P_k = g^{S^\prime_k} + g^{S_k} = g^{S_k^\prime + S_k}$$&lt;&#x2F;p&gt;
+&lt;p&gt;And the signature $s$ for the sum of the messages $m_1 + m_2$
+can be verified with the public key $P^\prime_k + P_k$.&lt;&#x2F;p&gt;
+&lt;p&gt;This is not possible with DSA.&lt;&#x2F;p&gt;
+&lt;p&gt;Because the signature step in DSA is not linear,
+it has a $k^{-1}$ in it.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;technical-interlude-elliptic-curves&quot;&gt;Technical Interlude: Elliptic Curves&lt;&#x2F;h2&gt;
+&lt;p&gt;Technically speaking, Bitcoin uses the Elliptic Curve Digital Signature Algorithm (ECDSA),
+and the Schnorr signature algorithm is based on the same elliptic curve (EC) as ECDSA.&lt;&#x2F;p&gt;
+&lt;p&gt;And trivially speaking EC public-key cryptography in the end is just a finite field
+on $\mathbb{Z}_p$.
+It has everything that we’ve seen so far:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Addition&lt;&#x2F;li&gt;
+&lt;li&gt;Subtraction&lt;&#x2F;li&gt;
+&lt;li&gt;Multiplication&lt;&#x2F;li&gt;
+&lt;li&gt;Division&lt;&#x2F;li&gt;
+&lt;li&gt;Exponentiation&lt;&#x2F;li&gt;
+&lt;li&gt;Generators&lt;&#x2F;li&gt;
+&lt;li&gt;Discrete Logarithm Problem&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I hope you enjoyed this companion post to the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;cryptography-workshop&quot;&gt;cryptography workshop&lt;&#x2F;a&gt;.
+Remember don’t reuse nonces.&lt;&#x2F;p&gt;
+</content>
+        </entry>
+</feed>
