@@ -2,6 +2,8 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Hakyll
+import Text.Pandoc (Extension (..), HTMLMathMethod (..), ReaderOptions (..), WriterOptions (..), extensionsFromList)
+import Text.Pandoc.Highlighting (Style, pygments, styleToCss)
 
 --------------------------------------------------------------------------------
 -- Haskyll entrypoint.
@@ -18,14 +20,14 @@ main = hakyll $ do
   match (fromList ["about.rst", "contact.markdown"]) $ do
     route $ setExtension "html"
     compile $
-      pandocCompiler
+      pandocCompiler'
         >>= loadAndApplyTemplate "templates/default.html" defaultContext
         >>= relativizeUrls
 
   match "posts/*" $ do
     route $ setExtension "html"
     compile $
-      pandocCompiler
+      pandocCompiler'
         >>= loadAndApplyTemplate "templates/post.html" postCtx
         >>= saveSnapshot "content"
         >>= loadAndApplyTemplate "templates/default.html" postCtx
@@ -51,6 +53,11 @@ main = hakyll $ do
       let feedCtx = postCtx `mappend` bodyField "description"
       posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "content"
       renderAtom myFeedConfiguration feedCtx posts
+
+  create ["css/syntax.css"] $ do
+    route idRoute
+    compile $ do
+      makeItem $ styleToCss pandocCodeStyle
 
   match "index.html" $ do
     route idRoute
@@ -85,3 +92,25 @@ myFeedConfiguration =
       feedAuthorEmail = "jose@storopoli.com",
       feedRoot = "https://storopoli.com"
     }
+-- COMPILERS --
+myWriter :: WriterOptions
+myWriter =
+  defaultHakyllWriterOptions
+    { writerHTMLMathMethod = KaTeX "",
+      writerHighlightStyle = Just pandocCodeStyle
+    }
+
+myReader :: ReaderOptions
+myReader =
+  defaultHakyllReaderOptions
+    { readerExtensions =
+        readerExtensions defaultHakyllReaderOptions
+          <> extensionsFromList [Ext_tex_math_single_backslash]
+    }
+
+-- Custom pandocCompiler with all compilers
+pandocCompiler' :: Compiler (Item String)
+pandocCompiler' =
+  pandocCompilerWith
+    myReader
+    myWriter

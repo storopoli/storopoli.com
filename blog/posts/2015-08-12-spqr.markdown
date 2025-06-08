@@ -18,6 +18,13 @@ eget tellus sodales lobortis. Sed tempor, urna vel pulvinar faucibus, lectus
 urna vehicula ante, at facilisis dolor odio at lorem. Morbi vehicula euismod
 urna, et imperdiet urna ornare vitae.
 
+```rust
+use std::io;
+
+fn main() {
+    println!("Hello, world!");
+}
+```
 Sed tincidunt sollicitudin ultrices. In hac habitasse platea dictumst. Morbi
 ligula lectus, egestas at ultricies nec, fringilla et tellus. Duis urna lorem,
 bibendum a ornare sed, euismod sed nunc. Aliquam tempor massa at velit fringilla

@@ -26,6 +26,11 @@
           pkgs.just
         ];
 
+        haskellDeps = with hPkgs; [
+          hakyll
+          pandoc
+        ];
+
         # Wrap Stack to work with our Nix integration. We don't want to modify
         # stack.yaml so non-Nix users don't notice anything.
         # - no-nix: We don't want Stack's way of integrating Nix.
@@ -46,7 +51,7 @@
         };
       in {
         devShells.default = pkgs.mkShell {
-          buildInputs = myDevTools;
+          buildInputs = myDevTools ++ haskellDeps;
 
           # Make external Nix c libraries like zlib known to GHC, like
           # pkgs.haskell.lib.buildStackProject does
