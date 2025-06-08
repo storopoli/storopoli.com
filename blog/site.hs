@@ -1,9 +1,10 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+--------------------------------------------------------------------------------
 import Hakyll
 import Text.Pandoc (Extension (..), HTMLMathMethod (..), ReaderOptions (..), WriterOptions (..), extensionsFromList)
 import Text.Pandoc.Highlighting (Style, pygments, styleToCss)
+import Text.Pandoc.SideNote (usingSideNotes)
 
 --------------------------------------------------------------------------------
 -- Haskyll entrypoint.
@@ -82,6 +83,7 @@ postCtx =
     `mappend` defaultContext
 
 --------------------------------------------------------------------------------
+
 -- RSS
 myFeedConfiguration :: FeedConfiguration
 myFeedConfiguration =
@@ -92,6 +94,8 @@ myFeedConfiguration =
       feedAuthorEmail = "jose@storopoli.com",
       feedRoot = "https://storopoli.com"
     }
+
+--------------------------------------------------------------------------------
 -- COMPILERS --
 myWriter :: WriterOptions
 myWriter =
@@ -108,9 +112,14 @@ myReader =
           <> extensionsFromList [Ext_tex_math_single_backslash]
     }
 
+-- Syntax Highlighting
+pandocCodeStyle :: Style
+pandocCodeStyle = pygments
+
 -- Custom pandocCompiler with all compilers
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
-  pandocCompilerWith
+  pandocCompilerWithTransform
     myReader
     myWriter
+    usingSideNotes

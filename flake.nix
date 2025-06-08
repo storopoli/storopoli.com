@@ -29,6 +29,8 @@
         haskellDeps = with hPkgs; [
           hakyll
           pandoc
+          pandoc-types
+          pandoc-sidenote
         ];
 
         # Wrap Stack to work with our Nix integration. We don't want to modify

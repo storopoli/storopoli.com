@@ -9,7 +9,8 @@ packages:
 # Dependency packages to be pulled from upstream that are not in the snapshot.
 # These entries can reference officially published versions as well as
 # forks / in-progress versions pinned to a git hash. For example:
-# extra-deps: []
+extra-deps:
+  - pandoc-sidenote-0.23.0.0@sha256:11b3a4d28fb3d40e38fbd671589aa65da7493c0dfec52fd32f2dd34eed82e021,1643
 
 # Override default flag values for project packages and extra-deps
 # flags: {}

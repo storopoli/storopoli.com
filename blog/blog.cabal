@@ -9,6 +9,7 @@ executable site
                   , hakyll >= 4.16 && < 5
                   , pandoc >= 3.6 && < 4
                   , pandoc-types >= 1.2 && < 2
+                  , pandoc-sidenote >= 0.23
   ghc-options:      -Wall
                     -Wcompat
                     -Widentities
