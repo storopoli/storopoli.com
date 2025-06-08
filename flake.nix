@@ -8,6 +8,11 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        # Build the Haskell site generator executable from the blog subdirectory
+        siteBuilder = hPkgs.callCabal2nix "blog" ./blog {
+          # Add any Haskell dependencies here if needed
+        };
+
         # need to match Stackage LTS version from stack.yaml snapshot
         hPkgs = pkgs.haskell.packages."ghc984";
 
@@ -52,6 +57,34 @@
           '';
         };
       in {
+        packages.default = pkgs.stdenv.mkDerivation {
+          name = "website";
+          buildInputs = [ siteBuilder ];
+          src = pkgs.nix-gitignore.gitignoreSourcePure [
+            ./.gitignore
+            ".git"
+            ".github"
+          ] ./.;
+
+          LANG = "en_US.UTF-8";
+          LOCALE_ARCHIVE =
+            pkgs.lib.optionalString (pkgs.buildPlatform.libc == "glibc")
+            "${pkgs.glibcLocales}/lib/locale/locale-archive";
+
+          buildPhase = ''
+            # Copy the ssg directory to root for build context
+            cp -r blog/* .
+
+            # Run the site generator to build the website
+            ${siteBuilder}/bin/site build
+          '';
+
+          installPhase = ''
+            mkdir -p "$out"
+            cp -r _site/. "$out/"
+          '';
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = myDevTools ++ haskellDeps;
 
