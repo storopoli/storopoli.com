@@ -1,0 +1,36 @@
+snapshot: lts-23.0
+
+# Nix is already handling stack for us, disable the false positive
+notify-if-nix-on-path: false
+
+packages:
+  - blog
+
+# Dependency packages to be pulled from upstream that are not in the snapshot.
+# These entries can reference officially published versions as well as
+# forks / in-progress versions pinned to a git hash. For example:
+# extra-deps: []
+
+# Override default flag values for project packages and extra-deps
+# flags: {}
+
+# Extra package databases containing global packages
+# extra-package-dbs: []
+
+# Control whether we use the GHC we find on the path
+# system-ghc: true
+#
+# Require a specific version of Stack, using version ranges
+# require-stack-version: -any # Default
+# require-stack-version: ">=3.5"
+#
+# Override the architecture used by Stack, especially useful on Windows
+# arch: i386
+# arch: x86_64
+#
+# Extra directories used by Stack for building
+# extra-include-dirs: [/path/to/dir]
+# extra-lib-dirs: [/path/to/dir]
+#
+# Allow a newer minor version of GHC than the snapshot specifies
+# compiler-check: newer-minor
