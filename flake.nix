@@ -76,6 +76,7 @@
           pandoc-sidenote
           text
           process
+          filepath
           pkgs.pandoc
         ];
 
@@ -128,7 +129,7 @@
 
           installPhase = ''
             mkdir -p "$out"
-            cp -r _site/. "$out/"
+            cp -a _site/. "$out/"
           '';
         };
       in {

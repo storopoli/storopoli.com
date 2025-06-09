@@ -9,12 +9,13 @@
 --------------------------------------------------------------------------------
 
 import Control.Monad ((<=<))
-import Data.List (foldl')
+import Data.List (foldl', isPrefixOf, isSuffixOf)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
 import GHC.IO.Handle (BufferMode (NoBuffering), Handle, hSetBuffering)
 import Hakyll
+import System.FilePath (takeFileName)
 import System.Process (runInteractiveCommand)
 import Text.Pandoc (Block (..), Extension (..), HTMLMathMethod (..), Inline (..), MathType (..), Pandoc, ReaderOptions (..), WriterOptions (..), extensionsFromList)
 import Text.Pandoc.Builder (HasMeta (..), Many, simpleTable)
@@ -26,7 +27,7 @@ import Text.Pandoc.Walk (walk, walkM)
 --------------------------------------------------------------------------------
 -- Haskyll entrypoint.
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith configuration $ do
   -- Static assets
   match
     ( "images/**"
@@ -126,6 +127,20 @@ postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
     `mappend` defaultContext
+
+--------------------------------------------------------------------------------
+-- Configuration
+configuration :: Configuration
+configuration = defaultConfiguration {ignoreFile = ignoreFile'}
+  where
+    ignoreFile' path
+      | "." `isPrefixOf` fileName = False -- give my .well-known stuff
+      | "#" `isPrefixOf` fileName = True
+      | "~" `isSuffixOf` fileName = True
+      | ".swp" `isSuffixOf` fileName = True
+      | otherwise = False
+      where
+        fileName = takeFileName path
 
 --------------------------------------------------------------------------------
 
