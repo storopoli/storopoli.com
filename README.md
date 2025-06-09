@@ -4,34 +4,48 @@
 
 This is my personal site at [storopoli.com](https://storopoli.com).
 
-It is built with [Rust](https://www.rust-lang.org/),
-[Zola](https://www.getzola.org/),
-and the [tabi](https://welpo.github.io/tabi) theme.
+It is built with [Haskell](https://www.haskell.org/),
+[Hakyll](https://jaspervdj.be/hakyll/),
+and the [TufteCSS](https://edwardtufte.github.io/tufte-css/) theme,
+in honor of the great statistician and visual displayer of information
+[Edward Tufte](https://www.edwardtufte.com).
 
-To run the site locally, you need to have Zola installed,
-and run the following command;
+My whole setup is [Nix](https://nixos.org/)-based.
+So you just need to install [Nix](https://nixos.org/download.html)
+and run the following command:
 
 ```sh
-zola serve
+nix develop . --command just build
 ```
 
 ## JavaScript
 
 By default, all JavaScript[^javascript] is disabled.
 
-## Math Support
+## Citations
 
-Math support can be enabled by setting the frontmatter with:
+Citations are done using [BibTeX](https://www.bibtex.org/)
+which is handled by [Pandoc](https://pandoc.org/)
+under the hood.
+Just update the [`blog/bib/bibliography.bib`] file
+and reference them in posts using the Pandoc citation syntax:
 
-```toml
-[extra]
-katex = true
+```md
+This is a valid claim [@referenceYYYY].
 ```
 
-This will load [KaTeX](https://katex.org/)
+I was heavily inspired by [Tony Zorman's BibTeX integration](https://tony-zorman.com/posts/hakyll-and-bibtex.html).
+
+## Math Support
+
+Math support is all rendered during static site compilation
+by [KaTeX](https://katex.org/)
 under the hood, and anything between `$` and `$$`
 will be rendered as inline or equation math
-using JavaScript.
+with no JavaScript.
+Hooray!
+Again [Tony Zorman's KaTeX integration](https://tony-zorman.com/posts/katex-with-hakyll.html)
+for the rescue.
 
 Check all the supported functions in [KaTeX documentation](https://katex.org/docs/supported).
 
