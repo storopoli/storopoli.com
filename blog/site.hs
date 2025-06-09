@@ -52,12 +52,17 @@ main = hakyll $ do
   match "bib/bibliography.bib" $ compile biblioCompiler
 
   -- Non-posts markdown
-  match (fromList ["about.rst", "contact.markdown"]) $ do
-    route $ setExtension "html"
-    compile $
-      pandocCompiler'
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
-        >>= relativizeUrls
+  match
+    ( "about.md"
+        .||. "contact.md"
+        .||. "404.md"
+    )
+    $ do
+      route $ setExtension "html"
+      compile $
+        pandocCompiler'
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext
+          >>= relativizeUrls
 
   -- Posts markdown
   match "posts/*.md" $ do
