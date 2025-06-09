@@ -26,6 +26,39 @@ fn main() {
 }
 ```
 
+
+```agda
+no-enumeration : (f : ℕ → Real) → Σ[ r ∈ Real ] ((n : ℕ) → f n ≢ r)
+
+flip : Bool → Bool
+flip true = false
+flip false = true
+
+flip-changes : (b : Bool) → b ≢ flip b
+flip-changes true ()
+flip-changes false ()
+```
+
+$$
+\mathbb{N} = 1
+$$
+
+$$
+\bold{v} = \begin{bmatrix} 1 \\\ 2 \\\ 3 \end{bmatrix}
+$$
+
+$$
+\int_{49,225.5}^{98,451} \frac{1}{\sqrt{2 \pi \sigma^2}}
+e^{- \frac{\left( \frac{x - \mu}{\sigma} \right)^2}{2}} dx
+$$
+
+$$
+f(n) = \begin{cases}
+    -\frac{n}{2} & \text{if } n \text{ is even} \\\\
+    \frac{n+1}{2} & \text{if } n \text{ is odd}
+\end{cases}
+$$
+
 [^foo]: Foo
 
 Sed tincidunt sollicitudin ultrices. In hac habitasse platea dictumst. Morbi

@@ -1,18 +1,43 @@
+{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE ImportQualifiedPost #-}
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ViewPatterns #-}
 
 --------------------------------------------------------------------------------
+
+import Control.Monad ((<=<))
+import Data.List (foldl')
+import Data.Text (Text)
+import Data.Text qualified as T
+import Data.Text.IO qualified as T
+import GHC.IO.Handle (BufferMode (NoBuffering), Handle, hSetBuffering)
 import Hakyll
-import Text.Pandoc (Extension (..), HTMLMathMethod (..), ReaderOptions (..), WriterOptions (..), extensionsFromList)
+import System.Process (runInteractiveCommand)
+import Text.Pandoc (Extension (..), HTMLMathMethod (..), Inline (..), MathType (..), Pandoc, ReaderOptions (..), WriterOptions (..), extensionsFromList)
 import Text.Pandoc.Highlighting (Style, pygments, styleToCss)
 import Text.Pandoc.SideNote (usingSideNotes)
+import Text.Pandoc.Walk (walkM)
 
 --------------------------------------------------------------------------------
 -- Haskyll entrypoint.
 main :: IO ()
 main = hakyll $ do
-  match "images/*" $ do
-    route idRoute
-    compile copyFileCompiler
+  match
+    ( "images/**"
+        .||. "fonts/**"
+        .||. "robots.txt"
+        .||. "favicon.svg"
+        .||. ".well-known/**"
+        .||. "CNAME"
+        .||. "publickey.txt"
+        .||. "pp.jpg"
+    )
+    $ do
+      route idRoute
+      compile copyFileCompiler
 
   match "css/*" $ do
     route idRoute
@@ -116,10 +141,56 @@ myReader =
 pandocCodeStyle :: Style
 pandocCodeStyle = pygments
 
+-- KaTeX server side rendering
+hlKaTeX :: Pandoc -> Compiler Pandoc
+hlKaTeX pandoc = recompilingUnsafeCompiler do
+  (hin, hout, _, _) <- runInteractiveCommand "deno run scripts/math.ts"
+  hSetBuffering hin NoBuffering
+  hSetBuffering hout NoBuffering
+
+  (`walkM` pandoc) \case
+    Math mathType (T.unwords . T.lines . T.strip -> text) -> do
+      let math :: Text =
+            foldl'
+              (\str (repl, with) -> T.replace repl with str)
+              case mathType of
+                DisplayMath {-s-} -> ":DISPLAY " <> text
+                InlineMath {-s-} -> text
+              macros
+      T.hPutStrLn hin math
+      RawInline "html" <$> getResponse hout
+    block -> pure block
+  where
+    -- KaTeX might sent the input back as multiple lines if it involves a
+    -- matrix of coordinates. The big assumption here is that it does so only
+    -- when matrices—or other such constructs—are involved, and not when it
+    -- sends back "normal" HTML.
+    getResponse :: Handle -> IO Text
+    getResponse handle = go ""
+      where
+        go :: Text -> IO Text
+        go !str = do
+          more <- (str <>) <$> T.hGetLine handle
+          if ">" `T.isSuffixOf` more -- end of HTML snippet
+            then pure more
+            else go more
+
+    -- I know that one could supply macros to KaTeX directly, but where is the
+    -- fun in that‽
+    macros :: [(Text, Text)]
+    macros =
+      [ ("≔", "\\mathrel{\\vcenter{:}}="),
+        ("\\defeq", "\\mathrel{\\vcenter{:}}="),
+        ("\\to", "\\longrightarrow"),
+        ("\\mapsto", "\\longmapsto"),
+        ("\\cat", "\\mathcal"),
+        ("\\kVect", "\\mathsf{Vect}_{\\mathtt{k}}")
+      ]
+
 -- Custom pandocCompiler with all compilers
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
-  pandocCompilerWithTransform
+  pandocCompilerWithTransformM
     myReader
     myWriter
-    usingSideNotes
+    (pure . usingSideNotes <=< hlKaTeX)

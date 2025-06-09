@@ -10,6 +10,8 @@ executable site
                   , pandoc >= 3.6 && < 4
                   , pandoc-types >= 1.2 && < 2
                   , pandoc-sidenote >= 0.23
+                  , text >= 2.1.1
+                  , process >= 1.6.25
   ghc-options:      -Wall
                     -Wcompat
                     -Widentities

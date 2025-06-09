@@ -29,6 +29,7 @@
           stack-wrapped
           pkgs.zlib # External C library needed by some Haskell packages
           pkgs.just
+          pkgs.deno # KaTeX rendering of maths—see blog/scripts/math.ts
         ];
 
         haskellDeps = with hPkgs; [
@@ -36,6 +37,8 @@
           pandoc
           pandoc-types
           pandoc-sidenote
+          text
+          process
         ];
 
         # Wrap Stack to work with our Nix integration. We don't want to modify
