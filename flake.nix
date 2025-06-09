@@ -30,6 +30,7 @@
           pkgs.zlib # External C library needed by some Haskell packages
           pkgs.just
           pkgs.deno # KaTeX rendering of maths—see blog/scripts/math.ts
+          pkgs.pandoc
         ];
 
         haskellDeps = with hPkgs; [

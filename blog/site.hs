@@ -16,15 +16,18 @@ import Data.Text.IO qualified as T
 import GHC.IO.Handle (BufferMode (NoBuffering), Handle, hSetBuffering)
 import Hakyll
 import System.Process (runInteractiveCommand)
-import Text.Pandoc (Extension (..), HTMLMathMethod (..), Inline (..), MathType (..), Pandoc, ReaderOptions (..), WriterOptions (..), extensionsFromList)
+import Text.Pandoc (Block (..), Extension (..), HTMLMathMethod (..), Inline (..), MathType (..), Pandoc, ReaderOptions (..), WriterOptions (..), extensionsFromList)
+import Text.Pandoc.Builder (HasMeta (..), Many, simpleTable)
+import Text.Pandoc.Builder qualified as Many (singleton, toList)
 import Text.Pandoc.Highlighting (Style, pygments, styleToCss)
 import Text.Pandoc.SideNote (usingSideNotes)
-import Text.Pandoc.Walk (walkM)
+import Text.Pandoc.Walk (walk, walkM)
 
 --------------------------------------------------------------------------------
 -- Haskyll entrypoint.
 main :: IO ()
 main = hakyll $ do
+  -- Static assets
   match
     ( "images/**"
         .||. "fonts/**"
@@ -39,10 +42,16 @@ main = hakyll $ do
       route idRoute
       compile copyFileCompiler
 
+  -- CSS compression
   match "css/*" $ do
     route idRoute
     compile compressCssCompiler
 
+  -- Bibliography
+  match "bib/style.csl" $ compile cslCompiler
+  match "bib/bibliography.bib" $ compile biblioCompiler
+
+  -- Non-posts markdown
   match (fromList ["about.rst", "contact.markdown"]) $ do
     route $ setExtension "html"
     compile $
@@ -50,6 +59,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" defaultContext
         >>= relativizeUrls
 
+  -- Posts markdown
   match "posts/*" $ do
     route $ setExtension "html"
     compile $
@@ -59,6 +69,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" postCtx
         >>= relativizeUrls
 
+  -- Archive
   create ["archive.html"] $ do
     route idRoute
     compile $ do
@@ -73,6 +84,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" archiveCtx
         >>= relativizeUrls
 
+  -- Atom/RSS Feed
   create ["atom.xml"] $ do
     route idRoute
     compile $ do
@@ -80,11 +92,13 @@ main = hakyll $ do
       posts <- fmap (take 10) . recentFirst =<< loadAllSnapshots "posts/*" "content"
       renderAtom myFeedConfiguration feedCtx posts
 
+  -- Syntax Highlighting
   create ["css/syntax.css"] $ do
     route idRoute
     compile $ do
       makeItem $ styleToCss pandocCodeStyle
 
+  -- Root index.html
   match "index.html" $ do
     route idRoute
     compile $ do
@@ -98,6 +112,7 @@ main = hakyll $ do
         >>= loadAndApplyTemplate "templates/default.html" indexCtx
         >>= relativizeUrls
 
+  -- Templates
   match "templates/*" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
@@ -122,6 +137,8 @@ myFeedConfiguration =
 
 --------------------------------------------------------------------------------
 -- COMPILERS --
+
+-- Custom Writer Options
 myWriter :: WriterOptions
 myWriter =
   defaultHakyllWriterOptions
@@ -129,6 +146,7 @@ myWriter =
       writerHighlightStyle = Just pandocCodeStyle
     }
 
+-- Custom Reader Options
 myReader :: ReaderOptions
 myReader =
   defaultHakyllReaderOptions
@@ -136,6 +154,25 @@ myReader =
         readerExtensions defaultHakyllReaderOptions
           <> extensionsFromList [Ext_tex_math_single_backslash]
     }
+
+-- Custom pandoc compiler render functions that work with Item Pandoc
+myRenderPandocWithTransformM ::
+  ReaderOptions ->
+  WriterOptions ->
+  (Item Pandoc -> Compiler (Item Pandoc)) ->
+  Item String ->
+  Compiler (Item String)
+myRenderPandocWithTransformM ropt wopt f i =
+  writePandocWith wopt <$> (f =<< readPandocWith ropt i)
+
+-- Custom pandoc compiler writer functions that work with Item Pandoc
+myPandocCompilerWithTransformM ::
+  ReaderOptions ->
+  WriterOptions ->
+  (Item Pandoc -> Compiler (Item Pandoc)) ->
+  Compiler (Item String)
+myPandocCompilerWithTransformM ropt wopt f =
+  getResourceBody >>= myRenderPandocWithTransformM ropt wopt f
 
 -- Syntax Highlighting
 pandocCodeStyle :: Style
@@ -187,10 +224,37 @@ hlKaTeX pandoc = recompilingUnsafeCompiler do
         ("\\kVect", "\\mathsf{Vect}_{\\mathtt{k}}")
       ]
 
+-- Bibliography processing
+processBib :: Item Pandoc -> Compiler (Item Pandoc)
+processBib pandoc = do
+  csl <- load "bib/style.csl"
+  bib <- load "bib/bibliography.bib"
+  -- We do want to link citations.
+  p <- withItemBody (pure . setMeta "link-citations" True) pandoc
+  fmap tableiseBib <$> processPandocBiblio csl bib p
+
+-- | Align all citations in a table.
+tableiseBib :: Pandoc -> Pandoc
+tableiseBib = walk \case
+  -- Citations start with a <div id="refs" …>
+  Div a@("refs", _, _) body ->
+    -- No header needed, we just want to fill in the body contents.
+    Div a (Many.toList (simpleTable [] (map citToRow body)))
+  body -> body
+  where
+    citToRow :: Block -> [Many Block]
+    citToRow =
+      map Many.singleton . \case
+        Div attr [Para [s1, s2]] ->
+          [Div attr [Plain [s1]], Plain [Space], Plain [s2]]
+        _ -> error "citToRow: unexpected citation format."
+
 -- Custom pandocCompiler with all compilers
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
-  pandocCompilerWithTransformM
+  myPandocCompilerWithTransformM
     myReader
     myWriter
-    (pure . usingSideNotes <=< hlKaTeX)
+    ( traverse (pure . usingSideNotes <=< hlKaTeX)
+        <=< processBib
+    )
