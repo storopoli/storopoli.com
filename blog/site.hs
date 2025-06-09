@@ -181,7 +181,7 @@ pandocCodeStyle = pygments
 -- KaTeX server side rendering
 hlKaTeX :: Pandoc -> Compiler Pandoc
 hlKaTeX pandoc = recompilingUnsafeCompiler do
-  (hin, hout, _, _) <- runInteractiveCommand "deno run --cached-only scripts/math.ts"
+  (hin, hout, _, _) <- runInteractiveCommand "deno run --import-map=import_map.json --no-remote scripts/math.ts"
   hSetBuffering hin NoBuffering
   hSetBuffering hout NoBuffering
 

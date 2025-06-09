@@ -30,16 +30,23 @@
         vendorDir = pkgs.stdenv.mkDerivation {
           name = "deno-vendor";
           inherit src;
-          buildInputs = [ pkgs.deno ];
+          nativeBuildInputs = [ pkgs.deno ];
+
+          # Set HOME to a writable directory for deno cache
+          preBuild = ''
+            export HOME=$TMPDIR
+          '';
+
           buildPhase = ''
             cd blog
             deno cache --vendor scripts/math.ts
           '';
+
           installPhase = ''
             mkdir -p $out
-            cp -r vendor $out/ 2>/dev/null || echo "No vendor directory created"
-            cp -r .deno_cache $out/ 2>/dev/null || echo "No .deno_cache directory"
+            cp -r vendor $out/
           '';
+
           # This makes it a fixed-output derivation, allowing network access
           outputHashMode = "recursive";
           outputHashAlgo = "sha256";
@@ -100,19 +107,22 @@
             pkgs.lib.optionalString (pkgs.buildPlatform.libc == "glibc")
             "${pkgs.glibcLocales}/lib/locale/locale-archive";
           buildPhase = ''
-            # Copy vendor directory from the vendor derivation
             cd blog
-            cp -r ${vendorDir}/vendor ./ || echo "No vendor to copy"
 
-            # Set up deno cache directory in a writable location
-            mkdir -p .cache/deno
-            export DENO_DIR=$PWD/.cache/deno
+            # Copy vendor directory from the vendor derivation
+            cp -r ${vendorDir}/vendor ./
 
-            # Debug: test deno with vendor
-            echo "Testing deno with vendor:"
-            echo "\\sin(x)" | deno run scripts/math.ts || echo "Deno test failed"
+            # Create import map for deno to use vendored dependencies
+            cat > import_map.json << EOF
+            {
+              "imports": {
+                "https://deno.land/std@0.224.0/": "./vendor/deno.land/std@0.224.0/",
+                "https://cdn.jsdelivr.net/npm/katex@0.16.11/": "./vendor/cdn.jsdelivr.net/npm/katex@0.16.11/"
+              }
+            }
+            EOF
 
-            # Run the site generator (deno will use the vendor directory automatically)
+            # Run the site generator
             ${siteBuilder}/bin/site build --verbose
           '';
 
