@@ -60,7 +60,7 @@ main = hakyll $ do
         >>= relativizeUrls
 
   -- Posts markdown
-  match "posts/*" $ do
+  match "posts/*.md" $ do
     route $ setExtension "html"
     compile $
       pandocCompiler'
@@ -181,7 +181,7 @@ pandocCodeStyle = pygments
 -- KaTeX server side rendering
 hlKaTeX :: Pandoc -> Compiler Pandoc
 hlKaTeX pandoc = recompilingUnsafeCompiler do
-  (hin, hout, _, _) <- runInteractiveCommand "deno run scripts/math.ts"
+  (hin, hout, _, _) <- runInteractiveCommand "deno run --cached-only scripts/math.ts"
   hSetBuffering hin NoBuffering
   hSetBuffering hout NoBuffering
 

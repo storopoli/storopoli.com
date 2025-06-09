@@ -8,13 +8,43 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        # need to match Stackage LTS version from stack.yaml snapshot
+        hPkgs = pkgs.haskell.packages."ghc984";
+
+        # Shared source for both derivations
+        src = pkgs.nix-gitignore.gitignoreSourcePure [
+          ./.gitignore
+          ".git"
+          ".github"
+        ] (builtins.path {
+          path = ./.;
+          name = "source";
+        });
+
         # Build the Haskell site generator executable from the blog subdirectory
         siteBuilder = hPkgs.callCabal2nix "blog" ./blog {
           # Add any Haskell dependencies here if needed
         };
 
-        # need to match Stackage LTS version from stack.yaml snapshot
-        hPkgs = pkgs.haskell.packages."ghc984";
+        # Vendor deno dependencies
+        vendorDir = pkgs.stdenv.mkDerivation {
+          name = "deno-vendor";
+          inherit src;
+          buildInputs = [ pkgs.deno ];
+          buildPhase = ''
+            cd blog
+            deno cache --vendor scripts/math.ts
+          '';
+          installPhase = ''
+            mkdir -p $out
+            cp -r vendor $out/ 2>/dev/null || echo "No vendor directory created"
+            cp -r .deno_cache $out/ 2>/dev/null || echo "No .deno_cache directory"
+          '';
+          # This makes it a fixed-output derivation, allowing network access
+          outputHashMode = "recursive";
+          outputHashAlgo = "sha256";
+          outputHash = "sha256-sbqPST20JuaZJKX8yjfS5di5GiE+BjbEW3rEhsHY2p4=";
+        };
 
         myDevTools = [
           hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
@@ -27,19 +57,19 @@
           hPkgs.retrie # Haskell refactoring tool
           hPkgs.cabal-install
           stack-wrapped
-          pkgs.zlib # External C library needed by some Haskell packages
           pkgs.just
           pkgs.deno # KaTeX rendering of maths—see blog/scripts/math.ts
-          pkgs.pandoc
         ];
 
         haskellDeps = with hPkgs; [
+          pkgs.zlib # External C library needed by some Haskell packages
           hakyll
           pandoc
           pandoc-types
           pandoc-sidenote
           text
           process
+          pkgs.pandoc
         ];
 
         # Wrap Stack to work with our Nix integration. We don't want to modify
@@ -60,33 +90,47 @@
               "
           '';
         };
-      in {
-        packages.default = pkgs.stdenv.mkDerivation {
+        website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [ siteBuilder ];
-          src = pkgs.nix-gitignore.gitignoreSourcePure [
-            ./.gitignore
-            ".git"
-            ".github"
-          ] ./.;
+          buildInputs = [ siteBuilder pkgs.deno ] ++ haskellDeps;
+          inherit src;
 
           LANG = "en_US.UTF-8";
           LOCALE_ARCHIVE =
             pkgs.lib.optionalString (pkgs.buildPlatform.libc == "glibc")
             "${pkgs.glibcLocales}/lib/locale/locale-archive";
-
           buildPhase = ''
-            # Copy the ssg directory to root for build context
-            cp -r blog/* .
+            # Copy vendor directory from the vendor derivation
+            cd blog
+            cp -r ${vendorDir}/vendor ./ || echo "No vendor to copy"
 
-            # Run the site generator to build the website
-            ${siteBuilder}/bin/site build
+            # Set up deno cache directory in a writable location
+            mkdir -p .cache/deno
+            export DENO_DIR=$PWD/.cache/deno
+
+            # Debug: test deno with vendor
+            echo "Testing deno with vendor:"
+            echo "\\sin(x)" | deno run scripts/math.ts || echo "Deno test failed"
+
+            # Run the site generator (deno will use the vendor directory automatically)
+            ${siteBuilder}/bin/site build --verbose
           '';
 
           installPhase = ''
             mkdir -p "$out"
             cp -r _site/. "$out/"
           '';
+        };
+      in {
+
+        packages = {
+          inherit siteBuilder website vendorDir;
+          default = website;
+        };
+
+        apps.default = flake-utils.lib.mkApp {
+          drv = siteBuilder;
+          exePath = "/bin/site";
         };
 
         devShells.default = pkgs.mkShell {
