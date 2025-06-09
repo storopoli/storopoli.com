@@ -9,3 +9,7 @@ result
 
 # Fucking macOS
 .DS_Store
+
+# deno artifacts for the KaTeX self-contained
+blog/vendor
+blog/import_map.json
