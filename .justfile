@@ -18,8 +18,9 @@ build: install deno
 
 # Clean the site
 [working-directory: 'blog']
-clean:
-  @stack exec site build
+clean: install
+  @stack exec site clean
+  @stack clean --full
 
 # Preview the site
 [working-directory: 'blog']
