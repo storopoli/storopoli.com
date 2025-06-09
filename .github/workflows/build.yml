@@ -27,9 +27,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3 # v17
 
-      - name: Cache Nix artifacts
-        uses: DeterminateSystems/flakehub-cache-action@146f476c94460cb634f9ade79470fcbc3f7e5b36 # v1
-
       - name: Build
         run: nix build -L
 
