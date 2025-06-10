@@ -1,18 +1,12 @@
-+++
-title = "Shamir's secret sharing"
-date = "2024-04-14T10:37:02"
-author = "Jose Storopoli, PhD"
+---
+title: Shamir's secret sharing
+date: 2024-04-14
+author: Jose Storopoli
+description: How to share secrets and do threshold cryptography.
+tags: [math, cryptography, bitcoin]
+---
 
-[taxonomies]
-tags = ["cryptography", "bitcoin"]
-
-[extra]
-katex = true
-+++
-
-{{ katex_warning() }}
-
-![The Polynomial king and he can do anything!](polynomial_king.webp)
+![The Polynomial king and he can do anything!](/images/polynomial_king.webp)
 
 In this post, we'll talk about
 **[Shamir's Secret Sharing](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing)
@@ -33,25 +27,24 @@ Suppose that you have the points $(3,3)$ and $(4,4)$.
 Hence, there is only one line that passes through these two points.
 See the plot below.
 
-![A line passing through two points](line.svg)
+![A line passing through two points](/images/shamir-line.svg)
 
 **If you have three points you can draw a _unique_ parabola that passes through them**.
 Suppose that you have the points $(-4,16)$, $(1,1)$, and $(4,16)$.
 Hence, there is only one parabola that passes through these three points.
 
-![A parabola passing through three points](quadratic.svg)
+![A parabola passing through three points](/images/shamir-quadratic.svg)
 
 **If you have four points you can draw a _unique_ cubic polynomial that passes through them**.
 Suppose that you have the points $(-2,8)$, $(-1,1)$, $(1,1)$, and $(2,8)$.
 Hence, there is only one cubic polynomial that passes through these four points.
 
-![A cubic polynomial passing through four points](cubic.svg)
+![A cubic polynomial passing through four points](/images/shamir-cubic.svg)
 
 As you might have guessed, **if you have $n$ points you can draw a _unique_ polynomial of degree $n-1$ that passes through them**.
-This is called **polynomial interpolation**.
+This is called **polynomial interpolation**[^interpolation].
 
-> [](<$block.attrs('info')>)
-> Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
+[^interpolation]: Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
 
 More formally, say that we have a polynomial $f(x)$ of degree $n$:
 
@@ -65,7 +58,7 @@ Then, there is a unique polynomial $f(x)$ of degree $n-1$ such that $f(x_i) = y_
 Ok now let's connect this idea to Shamir's Secret Sharing.
 Suppose you encode a **secret $k$ as a number**.
 Let's say a private key for a Bitcoin wallet.
-As you've already know, a private key is just a [very big number](<$link.page('blog/2024-02-05-crypto-basics')>).
+As you've already know, a private key is just a [very big number](/posts/2024-02-05-crypto-basics.html).
 
 You want to split this secret into **$N$ parts**, called **shares**.
 You also want to specify a **threshold $T$** such that the **secret $k$ can only be reconstructed if at _least_ $T$ shares are combined**.
@@ -77,10 +70,10 @@ Then, you can **generate $N$ shares by evaluating $f(x)$ at $N$ different points
 
 Here's an example with $T = 4$ and $N = 5$.
 Our secret is $k = 5$ and since $T = 4$, we generate a polynomial of degree $T-1 = 3$.
-We've chosen the polynomial $f(x) = 2x^3 - 3x^2 + 2x + 5 $.
+We've chosen the polynomial $f(x) = 2x^3 - 3x^2 + 2x + 5$.
 Then, we evaluate $f(x)$ at $N = 5$ different points to generate the shares.
 
-![Shamir's Secret Sharing with $N=5$ and $T=4$](shamir.svg)
+![Shamir's Secret Sharing with $N=5$ and $T=4$](/images/shamir.svg)
 
 Now this polynomial is **guaranteed to pass through the point $(0, k)$**.
 Hence if you evaluate **$f(0)$ you get the secret $k$**.
@@ -110,7 +103,7 @@ Then, the participants can get together and **generate a new polynomial evaluati
 
 This is exactly what the image below shows:
 
-![Shamir's Secret Sharing with $N=5$ and $T=4$](shamir_alternate_single.svg)
+![Shamir's Secret Sharing with $N=5$ and $T=4$](/images/shamir-alternate_single.svg)
 
 Here we've replaced the point $(-2, f(-2))$ with the point $(3, f(3))$.
 We also assume that the point $(-2, f(-2))$ is lost.
@@ -119,7 +112,7 @@ The **polynomial is still the same**, and the secret can still be reconstructed 
 We can also **rotate all the shares**.
 This is shown in the image below:
 
-![Shamir's Secret Sharing with $N=5$ and $T=4$](shamir_alternate_multiple.svg)
+![Shamir's Secret Sharing with $N=5$ and $T=4$](/images/shamir-alternate_multiple.svg)
 
 Here **all previous points have been replaced by new points**.
 
@@ -135,10 +128,10 @@ You can rug-pull all you share buddies and take all the funds.
 There are several ways that a malicious actor could learn the polynomial.
 For example, if the shares are generated in a predictable way, an attacker could guess the polynomial.
 Or, during the reconstruction phase, an attacker could learn the polynomial by observing the shares.
-Additionally, during a distributed share generation, an attacker could disrupt the process and force the participants to reveal their shares.
+Additionally, during a distributed share generation, an attacker could disrupt the process
+and force the participants to reveal their shares[^nonces].
 
-> [](<$block.attrs('info')>)
-> Or force them to reuse nonces. Then, "poof", private keys are gone.
+[^nonces]: Or force them to reuse nonces. Then, "poof", private keys are gone.
 
 ## Conclusion
 
