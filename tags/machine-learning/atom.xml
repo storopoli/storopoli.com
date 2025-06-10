@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>machine learning</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - machine learning</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/machine-learning/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/machine-learning/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2023-11-19T22:49:51+00:00</updated>
+    <id>https://storopoli.com/tags/machine-learning/atom.xml</id><entry xml:lang="en">
+        <title>Word embeddings</title>
+        <published>2023-11-19T22:49:51+00:00</published>
+        <updated>2023-11-19T22:49:51+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/word-embeddings/" type="text/html"/>
+        <id>https://storopoli.com/blog/word-embeddings/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;word-embeddings&#x2F;euclid.jpg&quot; alt=&quot;Euclid of Alexandria&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I wish I could go back in time and tell my younger self
+that you can make a machine understand human language with trigonometry.
+That would definitely have made me more aware and interested in the
+subject during my school years.
+I would have looked at triangles, circles, sines, cosines, and tangents
+in a whole different way.
+Alas, better late than never.&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, we’ll learn how to represent words using word embeddings,
+and how to use basic trigonometry to play around with them.
+Of course, we’ll use &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;word-embeddings&quot;&gt;Word Embeddings&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Word_embedding&quot;&gt;Word embeddings&lt;&#x2F;a&gt; is a way to
+represent words as a real-valued vector that encodes the meaning of the word
+in such a way that words that are closer in the vector space are expected
+to be similar in meaning&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Ok, let’s unwrap the above definition.
+First, a &lt;strong&gt;real-valued vector&lt;&#x2F;strong&gt; is any vector which its elements belong to the real
+numbers.
+Generally we denote vectors with a bold lower-case letter,
+and we denote its elements (also called components) using square brackets.
+Hence, a vector $\bold{v}$ that has 3 elements, $1$, $2$, and $3$,
+can be written as&lt;&#x2F;p&gt;
+&lt;p&gt;$$\bold{v} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix}$$&lt;&#x2F;p&gt;
+&lt;p&gt;Next, what “close” means for vectors?
+We can use distance functions to get a measurable value.
+The most famous and commonly used distance function is the &lt;strong&gt;Euclidean distance&lt;&#x2F;strong&gt;,
+in honor of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Euclid&quot;&gt;Euclid&lt;&#x2F;a&gt;, the “father of geometry”,
+and the guy pictured in the image at the top of this post.
+The Euclidean distance is defined in trigonometry for 2-D and 3-D spaces.
+However, it can be generalized to any dimension $n &amp;gt; 1$ by using vectors.&lt;&#x2F;p&gt;
+&lt;p&gt;Since every word is represented by an $n$-dimensional vector,
+we can use distances to compute a metric that represent similarity between vectors.
+And, more interesting, we can add and subtract words
+(or any other linear combination of one or more words) to generate new words.&lt;&#x2F;p&gt;
+&lt;p&gt;Before we jump to code and examples, a quick note about how word embeddings
+are constructed.
+They are trained like a regular machine learning algorithm,
+where the cost function measures the difference between
+some vector distance between the vectors and a “semantic distance”.
+The goal is to iteratively find good vector values that minimize the cost.
+So, if a vector is close to another vector measured by a distance function,
+but far apart measured by some semantic distance on the words that these
+vectors represent, then the cost function will be higher.
+The algorithm cannot change the semantic distance, it is treated as a fixed value.
+However, it can change the vector elements’ values so that the vector distance function
+closely resembles the semantic distance function.
+Lastly, generally the dimensionality of the vectors used in word embeddings
+are high, $n &amp;gt; 50$, since it needs a proper amount of dimensions in order to
+represent all the semantic information of words with vectors.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;pre-trained-word-embeddings&quot;&gt;Pre-Trained Word Embeddings&lt;&#x2F;h2&gt;
+&lt;p&gt;Generally we don’t train our own word embeddings from scratch,
+we use pre-trained ones.
+Here is a list of some of the most popular ones:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;code.google.com&#x2F;archive&#x2F;p&#x2F;word2vec&#x2F;&quot;&gt;Word2Vec&lt;&#x2F;a&gt;:
+One of the first public available word embeddings,
+made by Google in 2013.
+Only supports English.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;nlp.stanford.edu&#x2F;projects&#x2F;glove&#x2F;&quot;&gt;GloVe&lt;&#x2F;a&gt;:
+made by Stanford in 2014.
+Only supports English.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;fasttext.cc&#x2F;&quot;&gt;FastText&lt;&#x2F;a&gt;:
+From Facebook, released in 2016.
+Supports hundreds of languages.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;julia-code&quot;&gt;Julia Code&lt;&#x2F;h2&gt;
+&lt;p&gt;We will use the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JuliaText&#x2F;Embeddings.jl&quot;&gt;&lt;code&gt;Embeddings.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+package to easily load word embeddings as vectors,
+and the &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JuliaStats&#x2F;Distances.jl&quot;&gt;&lt;code&gt;Distances.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+package for the convenience of several distance functions.
+This is a nice example of the Julia package ecosystem composability,
+where one package can define types, another can define functions,
+and another can define custom behavior of these functions on types that
+are defined in other packages.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;using&lt;&#x2F;span&gt; Embeddings
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;using&lt;&#x2F;span&gt; Distances
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Let’s load the &lt;a href=&quot;https:&#x2F;&#x2F;nlp.stanford.edu&#x2F;projects&#x2F;glove&#x2F;&quot;&gt;GloVe&lt;&#x2F;a&gt;
+word embeddings.
+First, let’s check what we have in store to choose from
+GloVe’s English language embeddings:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; language_files&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;GloVe{&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;en&lt;&#x2F;span&gt;}&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;20&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;element Vector{String}&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.50d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.100d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.200d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.42B.300d&#x2F;glove.42B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.840B.300d&#x2F;glove.840B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.25d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.50d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.100d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.200d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.50d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.100d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.200d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.6B&#x2F;glove.6B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.42B.300d&#x2F;glove.42B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.840B.300d&#x2F;glove.840B.300d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.25d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.50d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.100d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;glove.twitter.27B&#x2F;glove.twitter.27B.200d.txt&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I’ll use the &lt;code&gt;&quot;glove.6B&#x2F;glove.6B.50d.txt&quot;&lt;&#x2F;code&gt;.
+This means that it was trained with 6 billion tokens,
+and it provides embeddings with 50-dimensional vectors.
+The &lt;code&gt;load_embeddings&lt;&#x2F;code&gt; function takes an optional second positional
+argument as an &lt;code&gt;Int&lt;&#x2F;code&gt; to choose from which index of the &lt;code&gt;language_files&lt;&#x2F;code&gt; to use.
+Finally, I just want the words “king”, “queen”, “man”, “woman”;
+so I am passing these words as a &lt;code&gt;Set&lt;&#x2F;code&gt; to the &lt;code&gt;keep_words&lt;&#x2F;code&gt; keyword argument:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;const&lt;&#x2F;span&gt; glove &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; load_embeddings&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;GloVe{&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;en&lt;&#x2F;span&gt;}, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;; keep_words&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;Set&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;king&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;queen&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;man&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;woman&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Embeddings.EmbeddingTable{Matrix{Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;32&lt;&#x2F;span&gt;}, Vector{String}}&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;32&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.094386&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.50451&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.18153&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.37854&lt;&#x2F;span&gt;; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.43007&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.68607&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.64827&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1.8233&lt;&#x2F;span&gt;; … ; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.53135&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.64426&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.48764&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.0092753&lt;&#x2F;span&gt;; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.11725&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.51042&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.10467&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.60284&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;man&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;king&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;woman&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-string z-julia&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-julia&quot;&gt;queen&lt;span class=&quot;z-punctuation z-definition z-string z-end z-julia&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Watch out with the order that we get back.
+If you see the output of &lt;code&gt;load_embeddings&lt;&#x2F;code&gt;,
+the order is &lt;code&gt;&quot;man&quot;, &quot;king&quot;, &quot;woman&quot;, &quot;queen&quot;]&lt;&#x2F;code&gt;
+Let’s see how a word is represented:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; queen &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; glove.embeddings&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;4&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;50&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;element Vector{Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;32&lt;&#x2F;span&gt;}&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.37854&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1.8233&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1.2648&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  ⋮
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2.2839&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.0092753&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.60284&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;They are 50-dimensional vectors of &lt;code&gt;Float32&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, here’s the fun part:
+let’s add words and check the similarity between the
+result and some other word.
+A classical example is to start with the word “king”,
+subtract the word “men”,
+add the word “woman”,
+and check the distance of the result to the word “queen”:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; man &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; glove.embeddings&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; king &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; glove.embeddings&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; woman &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; glove.embeddings&lt;span class=&quot;z-meta z-sequence z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-begin z-julia&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;3&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-sequence z-end z-julia&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; cosine_dist&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;king &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; man &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;+&lt;&#x2F;span&gt; woman, queen&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.13904202&lt;&#x2F;span&gt;f&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is less than 1&#x2F;4 of the distance of “woman” to “king”:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; cosine_dist&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;woman, king&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.58866215&lt;&#x2F;span&gt;f&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Feel free to play around with others words.
+If you want suggestions, another classical example is:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;cosine_dist&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;Madrid &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; Spain &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;+&lt;&#x2F;span&gt; France, Paris&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I think that by allying interesting applications to abstract math topics
+like trigonometry is the vital missing piece in STEM education.
+I wish every new kid that is learning math could have the opportunity to contemplate
+how new and exciting technologies have some amazing simple math under the hood.
+If you liked this post, you would probably like &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Linear_algebra&quot;&gt;linear algebra&lt;&#x2F;a&gt;.
+I would highly recommend &lt;a href=&quot;https:&#x2F;&#x2F;math.mit.edu&#x2F;~gs&#x2F;&quot;&gt;Gilbert Strang’s books&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&quot;&gt;3blue1brown series on linear algebra&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        </entry>
+</feed>

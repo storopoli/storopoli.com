@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>probability</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - probability</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/probability/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/probability/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-04-07T06:57:00+00:00</updated>
+    <id>https://storopoli.com/tags/probability/atom.xml</id><entry xml:lang="en">
+        <title>Randomness in computation: sprinkle a little bit of randomness, and voilà!</title>
+        <published>2025-04-07T06:57:00+00:00</published>
+        <updated>2025-04-07T06:57:00+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/randomness/" type="text/html"/>
+        <id>https://storopoli.com/blog/randomness/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;randomness&#x2F;randomness-meme.jpg&quot; alt=&quot;Just sprinkle a little bit of randomness, and voilà!&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes when you deal with complicated computations,
+either because of the input size or the complexity of the computation,
+you cannot get an answer in any feasible amount of time,
+no matter how much computational power you have.&lt;&#x2F;p&gt;
+&lt;p&gt;When the limits of tractability are reached,
+we can give up deterministic computation and embrace &lt;strong&gt;randomness&lt;&#x2F;strong&gt;
+to get an answer in a much more reasonable time.&lt;&#x2F;p&gt;
+&lt;p&gt;This is the case of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Monte_Carlo_method&quot;&gt;Monte Carlo methods&lt;&#x2F;a&gt;,
+which are a class of algorithms that use &lt;strong&gt;random sampling&lt;&#x2F;strong&gt;
+to solve mathematical problems.
+And, of course, like everything nice in math and computer science,
+it has the &lt;strong&gt;Von Neumann’s fingerprints&lt;&#x2F;strong&gt; all over it.
+Alas, that is a story for another post, that I already covered in
+&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;von-neumann&#x2F;&quot;&gt;“Von Neumann: the Sharpest Mind of the 20th Century”&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I was recently skimming over a textbook that I used to use
+in my undergraduate course on probability theory (Mitzenmacher and Upfal’s
+“Probability and Computing”&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-pdf-1&quot;&gt;&lt;a href=&quot;#fn-pdf&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, see references below),
+and I stumbled upon a very interesting algorithm for calculating the &lt;strong&gt;median&lt;&#x2F;strong&gt; of a list.&lt;&#x2F;p&gt;
+&lt;p&gt;By the way, this textbook has one of the &lt;strong&gt;best covers&lt;&#x2F;strong&gt; in math textbooks.
+It is Alice in Wonderland dealing with a combinatorial explosion,
+see it below:&lt;&#x2F;p&gt;
+
+
+&lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;storopoli.com&amp;#x2F;processed_images&amp;#x2F;probability-and-computing.c46dbbb24f491e7b.jpg&quot; alt=&quot;Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition&quot; &#x2F;&gt;
+&lt;p&gt;The algorithm uses sampling to probabilistically find the &lt;strong&gt;median&lt;&#x2F;strong&gt;,
+and uses &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Chebyshev&amp;#x27;s_inequality&quot;&gt;Chebyshev’s inequality&lt;&#x2F;a&gt;,
+an upper bound on the probability of deviation of a random variable from its mean.
+Since it is a probabilistic algorithm,
+it finds the median in $O(n)$ (linear time) with probability
+$1 - n^{-\frac{1}{4}}$ (close to $1$ for large $n$).
+Note that for any deterministic algorithm to find the median,
+it needs to sort the list, which takes $O(n \log n)$ (linearithmic time)
+on average or $O(n^2)$ (quadratic time) in the worst case&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-quicksort-1&quot;&gt;&lt;a href=&quot;#fn-quicksort&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+You can always iterate and run the algorithm until you get a result,
+but now the runtime is &lt;strong&gt;non-deterministic&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The nice thing about the algorithm is that Chebyshev’s inequality
+does not makes assumptions about the distribution of the variable,
+just that it has a &lt;strong&gt;finite variance&lt;&#x2F;strong&gt;.
+This is excellent since we can move away from the &lt;strong&gt;lala-land&lt;&#x2F;strong&gt; of
+normal distributions assumptions that everything is a Gaussian bell curve&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-bayesian-1&quot;&gt;&lt;a href=&quot;#fn-bayesian&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;chebyshev-s-inequality&quot;&gt;Chebyshev’s Inequality&lt;&#x2F;h2&gt;
+&lt;p&gt;Chebyshev’s inequality provides an upper bound on the probability
+of deviation of a random variable (with finite variance) from its mean.&lt;&#x2F;p&gt;
+&lt;p&gt;The inequality is given by:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+P(|X - \mu| \geq k \sigma) \leq \frac{1}{k^2}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $X$ is a random variable, $\mu$ is the mean,
+$\sigma$ is the standard deviation, and $k$ is a positive real number.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a consequence of the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Markov&amp;#x27;s_inequality&quot;&gt;Markov’s inequality&lt;&#x2F;a&gt;,
+and can be derived using simple algebra.
+The reader that is interested in the proof or more details,
+see the Wikipedia pages linked above.&lt;&#x2F;p&gt;
+&lt;p&gt;Because Chebyshev’s inequality can be applied to any distribution with finite mean and variance,
+it generally gives &lt;strong&gt;looser bounds&lt;&#x2F;strong&gt; compared to what we might get if we knew more about the specific distribution.
+Here’s a table showing how much of the distribution’s values must lie within $k$ standard deviations of the mean:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;$k$&lt;&#x2F;th&gt;&lt;th&gt;Min. % within $k$ standard deviations&lt;&#x2F;th&gt;&lt;th&gt;Max. % beyond $k$ standard deviations&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;0%&lt;&#x2F;td&gt;&lt;td&gt;100%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;$\sqrt{2}$&lt;&#x2F;td&gt;&lt;td&gt;50%&lt;&#x2F;td&gt;&lt;td&gt;50%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;75%&lt;&#x2F;td&gt;&lt;td&gt;25%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;88.8889%&lt;&#x2F;td&gt;&lt;td&gt;11.1111%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;93.75%&lt;&#x2F;td&gt;&lt;td&gt;6.25%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;96%&lt;&#x2F;td&gt;&lt;td&gt;4%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;10&lt;&#x2F;td&gt;&lt;td&gt;99%&lt;&#x2F;td&gt;&lt;td&gt;1%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;For example, while we know that for a normal distribution about 68% of values lie within one standard deviation,
+Chebyshev only tells us that &lt;strong&gt;at least&lt;&#x2F;strong&gt; 0% must lie within one standard deviation!
+This is the price we pay for having a bound that works on any distribution.
+Yet, it is still a &lt;strong&gt;very useful bound&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;randomized-median&quot;&gt;Randomized Median&lt;&#x2F;h2&gt;
+&lt;p&gt;Alright, now let’s see in practice how this works.
+Below is the algorithm for finding the median of a list,
+as described in algorithm 3.1 in the “Probability and Computing” textbook:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;&#x2F;strong&gt; A set $S$ of $n$ elements over a totally ordered universe.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Output:&lt;&#x2F;strong&gt; The median element of $S$, denoted by $m$.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Pick a (multi-)set $R$ of $\lceil n^{\frac{3}{4}} \rceil$ elements in $S$, chosen independently and uniformly at random with replacement.&lt;&#x2F;li&gt;
+&lt;li&gt;Sort the set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;Let $d$ be the $\bigg(\left\lfloor \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right\rfloor\bigg)$th smallest element in the sorted set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;Let $u$ be the $\bigg(\left\lceil \frac{1}{2}n^{\frac{3}{4}} + \sqrt{n} \right\rceil\bigg)$th smallest element in the sorted set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\{x \in S : d \leq x \leq u \big\}$ and the numbers $\ell_d = \bigg| \big\{x \in S : x &amp;lt; d \big\}\bigg|$ and $\ell_u = \bigg| \big\{x \in S : x &amp;gt; u \big\}\bigg|$.&lt;&#x2F;li&gt;
+&lt;li&gt;If $\ell_d &amp;gt; n&#x2F;2$ or $\ell_u &amp;gt; n&#x2F;2$ then FAIL.&lt;&#x2F;li&gt;
+&lt;li&gt;If $\big|C\big| \leq 4n^{\frac{3}{4}}$ then sort the set $C$, otherwise FAIL.&lt;&#x2F;li&gt;
+&lt;li&gt;Output the $\big(\lfloor \frac{n}{2} \rfloor - \ell_d + 1\big)$th element in the sorted order of $C$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;As you can see, the algorithm starts by sampling a set of elements from the list,
+sorting them, and then using the sorted elements to find the median.
+How it finds the median is by using the set $C$,
+which is the set of elements in $S$ that are between $d$ and $u$,
+where $d$ is the lower bound and $u$ is the upper bound of the
+sampled set $R$.&lt;&#x2F;p&gt;
+&lt;p&gt;The algorithm’s brilliance lies in its &lt;strong&gt;probabilistic guarantees&lt;&#x2F;strong&gt;.
+It can fail in three ways:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Too few sampled elements are less than the true median&lt;&#x2F;li&gt;
+&lt;li&gt;Too few sampled elements are greater than the true median&lt;&#x2F;li&gt;
+&lt;li&gt;The set $C$ becomes too large to sort efficiently&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;However, the probability of any of these failures occurring is &lt;strong&gt;remarkably small&lt;&#x2F;strong&gt;: less than $n^{-\frac{1}{4}}$.
+This means that as the input size grows, the chance of failure becomes increasingly negligible:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;For n = 10,000: failure probability ≤ 0.1&lt;&#x2F;li&gt;
+&lt;li&gt;For n = 1,000,000: failure probability ≤ 0.032&lt;&#x2F;li&gt;
+&lt;li&gt;For n = 100,000,000: failure probability ≤ 0.01&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;When the algorithm doesn’t fail (which is the vast majority of the time),
+it is guaranteed to find the &lt;strong&gt;exact median&lt;&#x2F;strong&gt; in linear time.
+This is achieved by carefully choosing the sample size, $n^{\frac{3}{4}}$, and
+the buffer zone around the median, $\sqrt{n}$, to balance between:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Having enough samples to make failure unlikely&lt;&#x2F;li&gt;
+&lt;li&gt;Keeping the set $C$ small enough to sort quickly&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The algorithm provides two important guarantees:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Correctness&lt;&#x2F;strong&gt;: The algorithm is guaranteed to either FAIL or return the true median.
+This is proven using Chebyshev’s inequality in two steps.
+First, we show that the true median $m$ will be in set $C$ with high probability:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Let $Y_1$ be the count of sampled elements ≤ $m$ in $R$
+&lt;ul&gt;
+&lt;li&gt;When $Y_1 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_1$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Let $Y_2$ be the count of sampled elements ≥ $m$ in $R$
+&lt;ul&gt;
+&lt;li&gt;When $Y_2 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_2$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;When $|C| &amp;gt; 4n^{\frac{3}{4}}$, we call this event $\mathcal{E}_3$&lt;&#x2F;li&gt;
+&lt;li&gt;By Chebyshev’s inequality, each event has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Second, we show that when $m$ is in $C$, we find it:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\ell_d$ counts elements &amp;lt; $d$, so there are exactly $\big\lfloor \frac{n}{2} \big\rfloor - \ell_d$ elements between $d$ and $m$&lt;&#x2F;li&gt;
+&lt;li&gt;Therefore, $m$ must be the $\bigg(\big\lfloor \frac{n}{2} \big\rfloor - \ell_d + 1\bigg)$th element in the sorted $C$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Linear Time&lt;&#x2F;strong&gt;: The algorithm runs in $O(n)$ time when it succeeds because:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sampling and sorting $R$ takes $O\left(n^\frac{3}{4} \log n\right)$ time&lt;&#x2F;li&gt;
+&lt;li&gt;Comparing all elements to $d$ and $u$ takes $O(n)$ time&lt;&#x2F;li&gt;
+&lt;li&gt;Sorting $C$ takes $O\left(n^\frac{3}{4} \log n\right)$ time since $|C| \leq 4n^\frac{3}{4}$&lt;&#x2F;li&gt;
+&lt;li&gt;All other operations are constant time&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;why-these-guarantees-work&quot;&gt;Why These Guarantees Work&lt;&#x2F;h3&gt;
+&lt;p&gt;The key to understanding why this algorithm works lies in analyzing the &lt;strong&gt;probability of failure&lt;&#x2F;strong&gt;.
+Let’s look at how we bound the probability of having too few samples below the median (event $\mathcal{E}_1$):&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;For each sampled element $i$, define an indicator variable $X_i$ where:
+$$
+X_i = 1 \text{ if the $i$th sample is } \leq \text{ median}
+$$
+$$
+X_i = 0 \text{ otherwise}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Since we sample with replacement, the $X_i$ are independent. And since there are
+$\frac{n-1}{2} + 1$ elements ≤ median in $S$, we have:
+$$
+P(X_i = 1) = \frac{\frac{n-1}{2} + 1}{n} = \frac{1}{2} + \frac{1}{2n}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Let $Y_1 = \sum_{i=1}^{n^{3&#x2F;4}} X_i$ count samples ≤ median. This is a binomial random variable with:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Expected value: $E[Y_1] = n^{\frac{3}{4}}\left(\frac{1}{2} + \frac{1}{2n}\right)$&lt;&#x2F;li&gt;
+&lt;li&gt;Variance: $Var[Y_1] &amp;lt; \frac{1}{4}n^{\frac{3}{4}}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Chebyshev’s inequality:
+$$
+P \left(Y_1 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right) \leq \frac{Var[Y_1]}{n} &amp;lt; \frac{1}{4}n^{-\frac{1}{4}}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;This shows that both events $\mathcal{E}_1$ and $\mathcal{E}_2$ have probability at most $\frac{1}{4}n^{-\frac{1}{4}}$,
+and also that $\mathcal{E}_3$ has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+P(\mathcal{E}_1) \leq P(\mathcal{E}_2 + \mathcal{E}_3) \leq \frac{1}{2}n^{-\frac{1}{4}}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;All these events combined demonstrate that the algorithm rarely fails: the probability of having too few samples
+on either side of the median decreases as $n^{-\frac{1}{4}}$, becoming negligible for large $n$.
+If higher reliability is needed, you can simply run the algorithm multiple times,
+as each run is independent.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;haskell-implementation&quot;&gt;Haskell Implementation&lt;&#x2F;h2&gt;
+&lt;p&gt;I implemented the algorithm in &lt;strong&gt;Haskell&lt;&#x2F;strong&gt;,
+because I stare at &lt;strong&gt;Rust&lt;&#x2F;strong&gt; code 8+ hours a day,
+and I want programming in a language that
+“if it compiles, it is guaranteed to run”.
+The only other language apart from Rust that has this property,
+and some might say that it is the only language that has this property,
+is Haskell.&lt;&#x2F;p&gt;
+&lt;p&gt;The code can be found on GitHub at &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;randomized-median&quot;&gt;&lt;code&gt;storopoli&#x2F;randomized-median&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;So let’s first go over the vanilla, classical, deterministic median algorithm:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;span class=&quot;z-entity z-name z-function z-haskell&quot;&gt;median&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-double-colon z-haskell&quot;&gt;::&lt;&#x2F;span&gt; (&lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Ord&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;, &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Fractional&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-other z-big-arrow z-haskell&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; [&lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;] &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Maybe&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;&#x2F;span&gt;median &lt;span class=&quot;z-constant z-language z-empty-list z-haskell&quot;&gt;[]&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;median xs &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; First convert list to array for O(1) random access
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Sort the array elements
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sorted &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort (elems arr)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) sorted
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      mid &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-function z-infix z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;div&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;   &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; odd n
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; (sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; mid)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; ((sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; (mid &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;+&lt;&#x2F;span&gt; sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; mid) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;First we define a function signature for the median function:
+it takes a list or elements of some type that is an instance of both the &lt;code&gt;Ord&lt;&#x2F;code&gt; type class,
+and the &lt;code&gt;Fractional&lt;&#x2F;code&gt; type class.
+This is because we must assure the Haskell compiler that the elements of the list can be
+ordered and that we can perform fractional arithmetic on them.
+It returns a &lt;code&gt;Maybe a&lt;&#x2F;code&gt; because the median is not defined for empty lists.
+The &lt;code&gt;Maybe&lt;&#x2F;code&gt; type is an instance of the &lt;code&gt;Monad&lt;&#x2F;code&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-monad-1&quot;&gt;&lt;a href=&quot;#fn-monad&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; type class,
+which allows us to use the &lt;code&gt;&amp;gt;&amp;gt;=&lt;&#x2F;code&gt; operator to chain computations that may fail.
+It can take two values &lt;code&gt;Nothing&lt;&#x2F;code&gt; or &lt;code&gt;Just a&lt;&#x2F;code&gt;, where &lt;code&gt;a&lt;&#x2F;code&gt; is the type of the elements of the list.&lt;&#x2F;p&gt;
+&lt;p&gt;For the case of an empty list, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.
+For the case of a non-empty list, we convert the list to an array,
+sort the array, and then find the median,
+returning the median as a &lt;code&gt;Just&lt;&#x2F;code&gt; value.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, let’s implement the randomized median algorithm:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;span class=&quot;z-entity z-name z-function z-haskell&quot;&gt;randomizedMedian&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-double-colon z-haskell&quot;&gt;::&lt;&#x2F;span&gt; (&lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Ord&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-other z-big-arrow z-haskell&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; [&lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;] &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Int&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Maybe&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;&#x2F;span&gt;randomizedMedian &lt;span class=&quot;z-constant z-language z-empty-list z-haskell&quot;&gt;[]&lt;&#x2F;span&gt; _ &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;randomizedMedian xs seed &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 1: Sample n^(3&#x2F;4) elements with replacement
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sampleSize &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; ceiling (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      gen &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; mkStdGen seed
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      indices &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; take sampleSize &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; randomRs (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) gen
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 2: Sort the sample
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sample &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort [arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;|&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;-&lt;&#x2F;span&gt; indices]
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; length sample &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 3: Find d (the lower bound element)
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; floor (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; sqrt (fromIntegral n))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      d &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; dIndex
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; error &lt;span class=&quot;z-string z-quoted z-double z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Invalid d index&lt;span class=&quot;z-punctuation z-definition z-string z-end z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 4: Find u (the upper bound element)
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; floor (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;+&lt;&#x2F;span&gt; sqrt (fromIntegral n))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      u &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; uIndex
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; error &lt;span class=&quot;z-string z-quoted z-double z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Invalid u index&lt;span class=&quot;z-punctuation z-definition z-string z-end z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 5: Compute set C and counts
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      ld &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; d) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      lu &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; u) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;\&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; d &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;=&lt;&#x2F;span&gt; x &amp;amp;&amp;amp; x &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;=&lt;&#x2F;span&gt; u) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 6 &amp;amp; 7: Check failure conditions
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-function z-infix z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;div&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;   &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; ( &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; ((ld &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; lu &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; halfN) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; (length c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt; * sampleSize)) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; null c
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;            ( &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; ld
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;               &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length c
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                    &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 8: Output the median
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; (c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!!&lt;&#x2F;span&gt; targetIndex)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                    &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;            )
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      )
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I’ve added comments to the code with respect to the algorithm steps.
+First, the function signature is almost the same as the deterministic median function.
+There are two differences:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The elements of the list does not need to be a &lt;code&gt;Fractional&lt;&#x2F;code&gt; type.&lt;&#x2F;li&gt;
+&lt;li&gt;We now take an additional parameter, &lt;code&gt;seed&lt;&#x2F;code&gt;,
+which is the seed for the random number generator.
+This is needed since we are using a random number generator to sample the elements from the list.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;As before, for the case of an empty list, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;For the case of a non-empty list, we first convert the list to an array,
+and then sample &lt;code&gt;n^(3&#x2F;4)&lt;&#x2F;code&gt; elements from the list with replacement.
+We use the &lt;a href=&quot;https:&#x2F;&#x2F;hackage.haskell.org&#x2F;package&#x2F;random-1.1&#x2F;docs&#x2F;System-Random.html#v:randomR&quot;&gt;&lt;code&gt;randomRs&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+function to generate a list of random indices,
+it generates an infinite list of random values within the specified range
+(in this case, from &lt;code&gt;0 to n-1&lt;&#x2F;code&gt;),
+hence sampling with replacement.
+Then, we take the first &lt;code&gt;n^(3&#x2F;4)&lt;&#x2F;code&gt; elements from the list.
+Next, we sort the sample and convert it to an array.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, we find the lower and upper bounds of the sample.
+We do this by finding the index of the element at position &lt;code&gt;n^(3&#x2F;4)&#x2F;2 - sqrt(n)&lt;&#x2F;code&gt;
+and &lt;code&gt;n^(3&#x2F;4)&#x2F;2 + sqrt(n)&lt;&#x2F;code&gt; in the sorted sample.
+We then take the element at these indices as the lower and upper bounds.&lt;&#x2F;p&gt;
+&lt;p&gt;Then, we compute the set $C$ and the counts $\ell_d$ and $\ell_u$.
+We do this by filtering the list with the lower and upper bounds.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, we check if the set $C$ is too large to sort efficiently.
+If it is, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.
+Otherwise, we sort the set $C$ and find the median.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s the result by running the algorithm against a randomly shuffled list of contiguous integers from 1 to 10,000,001
+using the &lt;strong&gt;magical number 42&lt;&#x2F;strong&gt; as the seed of our random number generator.
+As you can see both the exact and randomized median algorithms find the right
+median value:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \frac{10,000,001}{2} = 5,000,001 $$&lt;&#x2F;p&gt;
+&lt;p&gt;since $10,000,001$ is odd, the median is the element at position $\frac{10,000,001}{2} = 5,000,001$.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-shell&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-unquoted z-shell&quot;&gt;===========================&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Testing&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; with 10_000_001 shuffled elements&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Exact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; median calculation:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Result:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 5000001.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 18.906611 seconds&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Randomized&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; approximate median calculation:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Result:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 5000001.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 1.095511 seconds&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Error&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; percentage: 0.0000&lt;span class=&quot;z-meta z-group z-expansion z-job z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-variable z-job z-shell&quot;&gt;%&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Speedup&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; factor: 17.26x&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The randomized median algorithm for the case of $n = 10,000,001$
+is at least &lt;strong&gt;17x faster&lt;&#x2F;strong&gt; than the exact median calculation.
+That is an &lt;strong&gt;order of magnitude improvement&lt;&#x2F;strong&gt; over the deterministic median algorithm.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I love the inequalities of the &lt;strong&gt;Russian school of probability&lt;&#x2F;strong&gt;,
+Markov, Chebyshev, etc.,
+since it does not depend on any underlying distributional assumptions.
+Chebyshev’s inequality depends on the random variable having a finite mean and variance,
+and Markov’s inequality depends on the random variable being non-negative but does not depend on finite variances.&lt;&#x2F;p&gt;
+&lt;p&gt;Assuming that the underlying variable has finite variance is a reasonable assumption to make
+most of the time for your data.
+To be fair, there are some random variables that can have infinite variance,
+such as the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cauchy_distribution&quot;&gt;Cauchy&lt;&#x2F;a&gt;
+or &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Pareto_distribution&quot;&gt;Pareto&lt;&#x2F;a&gt; distributions,
+but these are &lt;strong&gt;extremely rare&lt;&#x2F;strong&gt; for you to cross paths with.&lt;&#x2F;p&gt;
+&lt;p&gt;Another thing to note is that instead of the Chebyshev’s inequality,
+we could have used the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Chernoff_bound&quot;&gt;Chernoff bound&lt;&#x2F;a&gt;
+to get a &lt;strong&gt;tighter bound&lt;&#x2F;strong&gt; on the probability of failure.
+But that is “left as an exercise to the reader”.&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, if you are intrigued to see how powerful these inequalities
+can be in probability theory,
+I highly recommend Nassim’s Taleb technical book
+&lt;a href=&quot;https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2001.10488&quot;&gt;“Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications”&lt;&#x2F;a&gt;
+which is freely available on arXiv.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Michael Mitzenmacher and Eli Upfal, “Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition”, ISBN: 978-1107154889&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;footer class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-pdf&quot;&gt;
+&lt;p&gt;The PDF is freely available &lt;a href=&quot;http:&#x2F;&#x2F;lib.ysu.am&#x2F;open_books&#x2F;413311.pdf&quot;&gt;here&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-pdf-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-quicksort&quot;&gt;
+&lt;p&gt;Note that I am comparing against quicksort since it uses $O(\log n)$ space,
+whereas merge sort would use $O(n)$ space with the worst case is $O(n)$. &lt;a href=&quot;#fr-quicksort-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-bayesian&quot;&gt;
+&lt;p&gt;For my Bayesian rant,
+see &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;lindley-paradox&#x2F;&quot;&gt;“Lindley’s Paradox, or The consistency of Bayesian Thinking”&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-bayesian-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-monad&quot;&gt;
+&lt;p&gt;Yes M word mentioned.
+If you want a good introduction to Haskell functors, applicatives, and monads,
+see &lt;a href=&quot;https:&#x2F;&#x2F;www.adit.io&#x2F;posts&#x2F;2013-04-17-functors,_applicatives,_and_monads_in_pictures.html&quot;&gt;“Functors, Applicatives, And Monads In Pictures”&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-monad-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;footer&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Seed phrases and entropy</title>
+        <published>2024-02-11T15:59:02+00:00</published>
+        <updated>2024-02-11T15:59:02+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/mnemonic/" type="text/html"/>
+        <id>https://storopoli.com/blog/mnemonic/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;password_strength.png&quot; alt=&quot;Password meme&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In this post, let’s dive into a topic that is very important for anyone who uses the internet: &lt;strong&gt;passwords&lt;&#x2F;strong&gt;.
+We’ll cover what the hell is &lt;strong&gt;Entropy&lt;&#x2F;strong&gt;,
+good &lt;strong&gt;password practices&lt;&#x2F;strong&gt;,
+and how it relates to &lt;strong&gt;Bitcoin “seed phrases”&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+seed phrases are technically called “mnemonic phrases”,
+but I’ll use the term “seed phrases” for the rest of the post.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;entropy&quot;&gt;Entropy&lt;&#x2F;h2&gt;
+&lt;p&gt;Before we go into passwords,
+I’ll introduce the concept of &lt;strong&gt;&lt;em&gt;Entropy&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Entropy&quot;&gt;Entropy&lt;&#x2F;a&gt;
+is a measure of the &lt;strong&gt;amount of disorder in a system&lt;&#x2F;strong&gt;.
+It has its origins in &lt;strong&gt;Thermodynamics&lt;&#x2F;strong&gt;,
+where it’s used to measure the amount of energy in a system that is not available to do work.&lt;&#x2F;p&gt;
+&lt;p&gt;The etymology of the word “Entropy” is after the Greek word for “transformation”.&lt;&#x2F;p&gt;
+&lt;p&gt;It was given a proper statistical definition by &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Ludwig_Boltzmann&quot;&gt;Ludwig Boltzmann&lt;&#x2F;a&gt; in 1870s.
+while establishing the field of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Statistical_dynamics&quot;&gt;Statistical Dynamics&lt;&#x2F;a&gt;,
+a field of physics that studies the behavior of large collections of particles.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;boltzmann.jpg&quot; alt=&quot;Ludwig Boltzmann&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;In the context of Statistical Dynamics,
+&lt;strong&gt;Entropy is a measure of the number of ways a system can be arranged&lt;&#x2F;strong&gt;.
+The more ways a system can be arranged,
+the higher its Entropy.
+Specifically, &lt;strong&gt;Entropy is a logarithmic measure of the number of system states with significant probability of being occupied&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$S = -k \cdot \sum_i p_i \ln p_i$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$S$: Entropy.&lt;&#x2F;li&gt;
+&lt;li&gt;$k$: Boltzmann’s constant, a physical constant that relates temperature to energy.&lt;&#x2F;li&gt;
+&lt;li&gt;$p_i$: probability of the system being in state $i$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In this formula, if all states are equally likely,
+i.e $p_i = \frac{1}{N}$,
+where $N$ is the number of states,
+then the entropy is maximized.
+You can see this since a probability $p$ is a real number between 0 and 1,
+and as $N$ approaches infinity,
+the sum of the logarithms approaches negative infinity.
+Then, multiplying by $-k$ yields positive infinity.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;how-the-hell-physics-came-to-passwords&quot;&gt;How the hell Physics came to Passwords?&lt;&#x2F;h3&gt;
+&lt;p&gt;There’s once a great men called &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Claude_Shannon&quot;&gt;Claude Shannon&lt;&#x2F;a&gt;,
+who single-handedly founded the field of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Information_theory&quot;&gt;&lt;strong&gt;Information Theory&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+invented the concept of a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bit&quot;&gt;&lt;strong&gt;Bit&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+and was the first to think about Boolean algebra in the context of electrical circuits.
+He laid the foundation for the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Digital_Revolution&quot;&gt;&lt;strong&gt;Digital Revolution&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are happy using your smartphone, laptop, or any other digital device,
+in you high speed fiber internet connection,
+through a wireless router to send cats pictures to your friends,
+then you should thank Claude Shannon.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;shannon.jpg&quot; alt=&quot;Claude Shannon&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;He was trying to find a formula to quantify the amount of information in a message.
+He wanted three things:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The measure should be a &lt;strong&gt;function of the probability of the message&lt;&#x2F;strong&gt;.
+Messages that are more likely should have less information.&lt;&#x2F;li&gt;
+&lt;li&gt;The measure should be &lt;strong&gt;additive&lt;&#x2F;strong&gt;.
+The information in a message should be the sum of the information in its parts.&lt;&#x2F;li&gt;
+&lt;li&gt;The measure should be &lt;strong&gt;continuous&lt;&#x2F;strong&gt;.
+Small changes in the message should result in small changes in the measure.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;He pretty much found that the formula for Entropy in statistical mechanics
+was a good measure of information.
+He called it &lt;em&gt;Entropy&lt;&#x2F;em&gt; to honor Boltzmann’s work.
+To differentiate it from the Statistical Dynamics’ Entropy,
+he changed the letter to $H$,
+in honor of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;H-theorem&quot;&gt;Boltzmann’s $H$-theorem&lt;&#x2F;a&gt;.
+So the formula for the Entropy of a message is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​)$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$X$: random discrete variable.&lt;&#x2F;li&gt;
+&lt;li&gt;$H(X)$: Entropy of $X$&lt;&#x2F;li&gt;
+&lt;li&gt;$P(x_i)$: probability of the random variable $X$ taking the value $x_i$.
+Also known as the probability mass function (PMF) of the discrete random variable $X$.&lt;&#x2F;li&gt;
+&lt;li&gt;$\log$: base 2 logarithm, to measure the Entropy in bits.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In information theory,
+the &lt;strong&gt;Entropy of a random variable is the average level of “information”, “surprise”,
+or “uncertainty” inherent to the variable’s possible outcomes&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s take the simple example of a fair coin.
+The Entropy of the random variable $X$ that represents the outcome of a fair coin flip is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​) = -\left(\frac{1}{2} \log \frac{1}{2} + \frac{1}{2} \log \frac{1}{2}\right) = 1 \text{ bit}$$&lt;&#x2F;p&gt;
+&lt;p&gt;So the outcome of a fair coin flip has 1 bit of Entropy.
+This means that the outcome of a fair coin flip has 1 bit of information,
+or 1 bit of uncertainty.
+Once the message is received,
+that the coin flip was heads or tails,
+the receiver has 1 bit of information about the outcome.&lt;&#x2F;p&gt;
+&lt;p&gt;Alternatively, we only need 1 bit to encode the outcome of a fair coin flip.
+Hence, there’s a connection between Entropy, search space, and information.&lt;&#x2F;p&gt;
+&lt;p&gt;Another good example is the outcome of a fair 6-sided die.
+The Entropy of the random variable $X$ that represents the outcome of a fair 6-sided die is:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H(X) = −\Sigma_{x \in X} P(x_i​) \log ​P(x_i​) = - \sum_{i=1}^6\left(\frac{1}{6} * \log \frac{1}{6} \right) \approx 2.58 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that the outcome of a fair 6-sided die has 2.58 bits of Entropy.
+we need $\operatorname{ceil}(2.58) = 3$ bits to encode the outcome of a fair 6-sided die.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;entropy-and-passwords&quot;&gt;Entropy and Passwords&lt;&#x2F;h3&gt;
+&lt;p&gt;Ok now we come full circle.
+Let’s talk, finally, about passwords.&lt;&#x2F;p&gt;
+&lt;p&gt;In the context of passwords, &lt;strong&gt;Entropy&lt;&#x2F;strong&gt; is a measure of how unpredictable a password is.
+The higher the Entropy, the harder it is to guess the password.
+The Entropy of a password is measured in bits,
+and it’s calculated using the formula:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = L \cdot \log_2(N)$$&lt;&#x2F;p&gt;
+&lt;p&gt;Where:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$H$: Entropy in bits&lt;&#x2F;li&gt;
+&lt;li&gt;$N$: number of possible characters in the password&lt;&#x2F;li&gt;
+&lt;li&gt;$L$: length of the password&lt;&#x2F;li&gt;
+&lt;li&gt;$\log_2$:​ (N) calculates how many bits are needed to represent each character from the set.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;For example,
+if we have a password with 8 characters and each character can be any of the 26 lowercase letters,
+the standard english alphabet,
+the Entropy would be:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = 8 \cdot \log_2(26) \approx 37.6 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that an attacker would need to try $2^{37.6} \approx 2.01 \cdot 10^{11}$ combinations to guess the password.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Technically, we need to divide the number of combinations by 2,
+since we are assuming that the attacker is using a brute-force attack,
+which means that the attacker is trying all possible combinations,
+and the password could be at the beginning or at the end of the search space.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Birthday_problem&quot;&gt;birthday paradox&lt;&#x2F;a&gt;,
+and it assumes that the password is uniformly distributed in the search space.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;If the password were to include uppercase letters, numbers, and symbols
+(let’s assume 95 possible characters in total),
+the Entropy for an 8-character password would be:&lt;&#x2F;p&gt;
+&lt;p&gt;$$H = 8 \cdot \log_2(95) \approx 52.6 \text{ bits}$$&lt;&#x2F;p&gt;
+&lt;p&gt;This means that an attacker would need to try $2^{52.6} \approx 6.8 \cdot 10^{15}$ combinations to guess the password.&lt;&#x2F;p&gt;
+&lt;p&gt;This sounds a lot but it’s not that much.&lt;&#x2F;p&gt;
+&lt;p&gt;For the calculations below, we’ll assume that the attacker now your dictionary set,
+i.e. the set of characters you use to create your password,
+and the password length.&lt;&#x2F;p&gt;
+&lt;p&gt;If an attacker get a hold of an NVIDIA RTX 4090,
+MSRP USD 1,599, which can do
+&lt;a href=&quot;https:&#x2F;&#x2F;www.tomshardware.com&#x2F;news&#x2F;rtx-4090-password-cracking-comparison&quot;&gt;300 GH&#x2F;s (300,000,000,000 hashes&#x2F;second)&lt;&#x2F;a&gt;,
+i.e. $3 \cdot 10^{11}$ hashes&#x2F;second,
+it would take:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;8-length lowercase-only password:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;$$\frac{2.01 \cdot 10^{11}}{3 \cdot 10^{11}} \approx 0.67 \text{ seconds}$$&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;8-length password with uppercase letters, numbers, and symbols:&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;$$\frac{6.8 \cdot 10^{15}}{3 \cdot 10^{11}} \approx 22114 \text{ seconds} \approx 6.14 \text{ hours}$$&lt;&#x2F;p&gt;
+&lt;p&gt;So, the first password would be cracked in less than a second,
+while the second would take a few hours.
+This with just one 1.5k USD GPU.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bitcoin-seed-phrases&quot;&gt;Bitcoin Seed Phrases&lt;&#x2F;h2&gt;
+&lt;p&gt;Now that we understand Entropy and how it relates to passwords,
+let’s talk about bitcoin seed phrases.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember that our private key is a big-fucking number?
+If not, check my &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$link.page(&amp;#x27;blog&#x2F;2024-02-05-crypto-basics&amp;#x27;)&quot;&gt;post on cryptographics basics&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0039.mediawiki&quot;&gt;BIP-39&lt;&#x2F;a&gt;
+specifies how to use easy-to-remember seed phrases to store and recover
+private keys.
+The &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;bitcoin&#x2F;bips&#x2F;blob&#x2F;master&#x2F;bip-0039&#x2F;english.txt&quot;&gt;wordlist&lt;&#x2F;a&gt;
+adheres to the following principles:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;smart selection of words&lt;&#x2F;strong&gt;:
+the wordlist is created in such a way that it’s enough to type the first four
+letters to unambiguously identify the word.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;similar words avoided&lt;&#x2F;strong&gt;:
+word pairs like “build” and “built”, “woman” and “women”, or “quick” and “quickly”
+not only make remembering the sentence difficult but are also more error
+prone and more difficult to guess.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Here is a simple 7-word seed phrase: &lt;code&gt;brave sadness grocery churn wet mammal tube&lt;&#x2F;code&gt;.
+Surprisingly enough, this badboy here gives you $77$ bits of Entropy,
+while also being easy to remember.
+This is due to the fact that the wordlist has 2048 words,
+so each word gives you $\log_2(2048) = 11$ bits of Entropy.&lt;&#x2F;p&gt;
+&lt;p&gt;There’s a minor caveat to cover here.
+The last word in the seed phrase is a checksum,
+which is used to verify that the phrase is valid.&lt;&#x2F;p&gt;
+&lt;p&gt;So, if you have a 12-word seed phrase,
+you have $11 \cdot 11 = 121$ bits of Entropy.
+And for a 24-word seed phrase,
+you have $23 \cdot 11 = 253$ bits of Entropy.&lt;&#x2F;p&gt;
+&lt;p&gt;The National Institute of Standards and Technology (NIST) recommends a
+&lt;a href=&quot;https:&#x2F;&#x2F;crypto.stackexchange.com&#x2F;a&#x2F;87059&quot;&gt;minimum of 112 bits of Entropy for all things cryptographic&lt;&#x2F;a&gt;.
+And Bitcoin has a &lt;a href=&quot;https:&#x2F;&#x2F;bitcoin.stackexchange.com&#x2F;a&#x2F;118929&quot;&gt;minimum of 128 bits of Entropy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Depending on your threat model,
+&lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;“Assume that your adversary is capable of a trillion guesses per second”&lt;&#x2F;a&gt;,
+it can take a few years to crack a 121-bit Entropy seed phrase:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{121}}{10^{12}} \approx 2.66 \cdot 10^{24} \text{ seconds} \approx 3.08 \cdot 10^{19} \text{ days} \approx 8.43 \cdot 10^{16} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s a lot of years.
+Now for a 253-bit Entropy seed phrase:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{253}}{10^{12}} \approx 1.45 \cdot 10^{64} \text{ seconds} \approx 1.68 \cdot 10^{59} \text{ days} \approx 4.59 \cdot 10^{56} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s another huge number of years.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;seed-phrases-and-passwords&quot;&gt;Seed Phrases and Passwords&lt;&#x2F;h2&gt;
+&lt;p&gt;You can also use a seed phrase as a password.
+The bonus point is that you don’t need to use the last word as a checksum,
+so you get 11 bits of Entropy free, compared to a Bitcoin seed phrase.&lt;&#x2F;p&gt;
+&lt;p&gt;Remember the 7-words badboy seed phrase we generated earlier?
+&lt;code&gt;brave sadness grocery churn wet mammal tube&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It has $66$ bits of Entropy.
+This would take, assuming
+&lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;“that your adversary is capable of a trillion guesses per second”&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$\frac{2^{77}}{10^{12}} \approx 1.51 \cdot 10^{11} \text{ seconds} \approx 1.75 \cdot 10^{6} \text{ days} \approx 4.79 \cdot 10^{3} \text{ years}$$&lt;&#x2F;p&gt;
+&lt;p&gt;That’s why tons of people use seed phrases as passwords.
+Even if you know the dictionary set and the length of the password,
+i.e. the number of words in the seed phrase,
+it would take a lot of years to crack it.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Entropy is a measure of the amount of disorder in a system.
+In the context of passwords, it’s a measure of how unpredictable a password is.
+The higher the Entropy, the harder it is to guess the password.&lt;&#x2F;p&gt;
+&lt;p&gt;Bitcoin seed phrases are a great way to store and recover private keys.
+They are easy to remember and have a high amount of Entropy.
+You can even use a seed phrase as a password.&lt;&#x2F;p&gt;
+&lt;p&gt;Even it your attacker is capable of a trillion guesses per second,
+like the &lt;a href=&quot;https:&#x2F;&#x2F;www.nytimes.com&#x2F;2013&#x2F;08&#x2F;18&#x2F;magazine&#x2F;laura-poitras-snowden.html&quot;&gt;NSA&lt;&#x2F;a&gt;,
+it would take them a lot of years to crack even a 7-word seed phrase.&lt;&#x2F;p&gt;
+&lt;p&gt;If you want to generate a seed phrase,
+you can use &lt;a href=&quot;https:&#x2F;&#x2F;keepassxc.org&#x2F;&quot;&gt;KeePassXC&lt;&#x2F;a&gt;,
+which is a great open-source &lt;strong&gt;&lt;em&gt;offline&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt; password manager that supports seed phrases.&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;mnemonic&#x2F;$block.attrs(&amp;#x27;info&amp;#x27;)&quot;&gt;&lt;&#x2F;a&gt;
+Technically, KeePassXC uses the &lt;a href=&quot;https:&#x2F;&#x2F;www.eff.org&#x2F;files&#x2F;2016&#x2F;07&#x2F;18&#x2F;eff_large_wordlist.txt&quot;&gt;EFF wordlist&lt;&#x2F;a&gt;,
+which has 7,776 words, so each word gives you $\log_2(7776) \approx 12.9$ bits of Entropy.
+They were created to be easy to use with 6-sided dice.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Lindley&#x27;s paradox, or the consistency of Bayesian thinking</title>
+        <published>2023-11-22T07:06:59+00:00</published>
+        <updated>2023-11-22T07:06:59+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/lindley-paradox/" type="text/html"/>
+        <id>https://storopoli.com/blog/lindley-paradox/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;lindley-paradox&#x2F;lindley.jpg&quot; alt=&quot;Dennis Lindley&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dennis_Lindley&quot;&gt;Dennis Lindley&lt;&#x2F;a&gt;,
+one of my many heroes,
+was an English statistician,
+decision theorist and leading advocate of Bayesian statistics.
+He published a pivotal book,
+&lt;a href=&quot;https:&#x2F;&#x2F;onlinelibrary.wiley.com&#x2F;doi&#x2F;book&#x2F;10.1002&#x2F;9781118650158&quot;&gt;Understanding Uncertainty&lt;&#x2F;a&gt;,
+that changed my view on what is and how to handle uncertainty in a
+coherent way.
+He is responsible for one of my favorites quotes:
+“Inside every non-Bayesian there is a Bayesian struggling to get out”;
+and one of my favorite heuristics around prior probabilities:
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cromwell%27s_rule&quot;&gt;Cromwell’s Rule&lt;&#x2F;a&gt;.
+Lindley predicted in 1975 that “Bayesian methods will indeed become pervasive,
+enabled by the development of powerful computing facilities” (Lindley, 1975).
+You can find more about all of Lindley’s achievements in his &lt;a href=&quot;https:&#x2F;&#x2F;www.theguardian.com&#x2F;science&#x2F;2014&#x2F;mar&#x2F;16&#x2F;dennis-lindley&quot;&gt;obituary&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;lindley-s-paradox&quot;&gt;Lindley’s Paradox&lt;&#x2F;h2&gt;
+&lt;p&gt;Lindley’s paradox is a counterintuitive situation in statistics
+in which the Bayesian and frequentist approaches to a hypothesis testing problem
+give different results for certain choices of the prior distribution.&lt;&#x2F;p&gt;
+&lt;p&gt;More formally, the paradox is as follows.
+We have some parameter $\theta$ that we are interested in.
+Then, we proceed with an experiment to test two competing hypotheses:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;$H_0$ (also known as &lt;em&gt;null hypothesis&lt;&#x2F;em&gt;):
+there is no “effect”, or, more specifically,
+$\theta = 0$.&lt;&#x2F;li&gt;
+&lt;li&gt;$H_a$ (also known as &lt;em&gt;alternative hypothesis&lt;&#x2F;em&gt;):
+there is an “effect”, or, more specifically,
+$\theta \ne 0$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The paradox occurs when two conditions are met:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The result of the experiment is &lt;em&gt;significant&lt;&#x2F;em&gt; by a frequentist test of $H_0$,
+which indicates sufficient evidence to reject $H_0$, at a certain threshold of
+probability.&lt;&#x2F;li&gt;
+&lt;li&gt;The posterior probability (Bayesian approach) of $H_0 \mid \theta$
+(null hypothesis given $\theta$) is high,
+which indicates strong evidence that $H_0$ should be favored over $H_a$,
+that is, to &lt;em&gt;not&lt;&#x2F;em&gt; reject $H_0$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;These results can occur at the same time when $H_0$ is very specific,
+$H_a$ more diffuse,
+and the prior distribution does not strongly favor one or the other.
+These conditions are pervasive across science
+and common in traditional null-hypothesis significance testing approaches.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a duel of frequentist versus Bayesian approaches,
+and one of the many in which Bayesian emerges as the most coherent.
+Let’s give a example and go over the analytical result with a ton of math,
+but also a computational result with &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;example&quot;&gt;Example&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s the setup for the example.
+In a certain city 49,581 boys and 48,870 girls have been
+born over a certain time period.
+The observed proportion of male births is thus
+$\frac{49,581}{98,451} \approx 0.5036$.&lt;&#x2F;p&gt;
+&lt;p&gt;We assume that the birth of a child is independent with a certain probability
+$\theta$.
+Since our data is a sequence of $n$ independent &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bernoulli_trial&quot;&gt;Bernoulli trials&lt;&#x2F;a&gt;,
+i.e., $n$ independent random experiments with exactly two possible outcomes:
+“success” and “failure”,
+in which the probability of success is the same every time the
+experiment is conducted.
+We can safely assume that it follows a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Binomial_distribution&quot;&gt;binomial distribution&lt;&#x2F;a&gt;
+with parameters:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$n$: the number of “trials” (or the total number of births).&lt;&#x2F;li&gt;
+&lt;li&gt;$\theta$: the probability of male births.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;We then set up our two competing hypotheses:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;$H_0$: $\theta = 0.5$.&lt;&#x2F;li&gt;
+&lt;li&gt;$H_a$: $\theta \ne 0.5$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;analytical-solution&quot;&gt;Analytical Solution&lt;&#x2F;h3&gt;
+&lt;p&gt;This is a toy-problem and, like most toy problems,
+we can solve it analytically for both the frequentist and the Bayesian approaches.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;analytical-solutions-frequentist-approach&quot;&gt;Analytical Solutions – Frequentist Approach&lt;&#x2F;h4&gt;
+&lt;p&gt;The frequentist approach to testing $H_0$ is to compute a $p$-value,
+the probability of observing births of boys at least as large as 49,581
+assuming $H_0$ is true.
+Because the number of births is very large,
+we can use a normal approximation for the
+binomial-distributed number of male births.
+Let’s define $X$ as the total number of male births,
+then $X$ follows a normal distribution:&lt;&#x2F;p&gt;
+&lt;p&gt;$$X \sim \text{Normal}(\mu, \sigma)$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $\mu$ is the mean parameter,
+$n \theta$ in our case,
+and $\sigma$ is the standard deviation parameter,
+$\sqrt{n \theta (1 - \theta)}$.
+We need to calculate the conditional probability of
+$X \geq \frac{49,581}{98,451} \approx 0.5036$
+given $\mu = n \theta = 98,451 \cdot \frac{1}{2} = 49,225.5$
+and&lt;&#x2F;p&gt;
+&lt;p&gt;$\sigma = \sqrt{n \theta (1 - \theta)} =
+\sqrt{98,451 \cdot \frac{1}{2} \cdot (1 - \frac{1}{2})}$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P(X \ge 0.5036 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75})$$&lt;&#x2F;p&gt;
+&lt;p&gt;This is basically a
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cumulative_distribution_function&quot;&gt;cumulative distribution function (CDF)&lt;&#x2F;a&gt;
+of $X$ on the interval $[49,225.5; 98,451]$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\int_{49,225.5}^{98,451} \frac{1}{\sqrt{2 \pi \sigma^2}}
+e^{- \frac{\left( \frac{x - \mu}{\sigma} \right)^2}{2}} dx
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;After inserting the values and doing some arithmetic,
+our answer is approximately $0.0117$.
+Note that this is a one-sided test,
+since it is symmetrical,
+the two-sided test would be
+$0.0117 \cdot 2 = 0.0235$.
+Since we don’t deviate from the Fisher’s canon,
+this is well below the 5% threshold.
+Hooray! We rejected the null hypothesis!
+Quick! Grab a frequentist celebratory cigar!
+But, wait. Let’s check the Bayesian approach.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;analytical-solutions-bayesian-approach&quot;&gt;Analytical Solutions – Bayesian Approach&lt;&#x2F;h4&gt;
+&lt;p&gt;For the Bayesian approach, we need to set prior probabilities on both hypotheses.
+Since we do not favor one from another, let’s set equal prior probabilities:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P(H_0) = P(H_a) = \frac{1}{2}$$&lt;&#x2F;p&gt;
+&lt;p&gt;Additionally, all parameters of interest need a prior distribution.
+So, let’s put a prior distribution on $\theta$.
+We could be fancy here, but let’s not.
+We’ll use a uniform distribution on $[0, 1]$.&lt;&#x2F;p&gt;
+&lt;p&gt;We have everything we need to compute the posterior probability of $H_0$ given
+$\theta$.
+For this, we’ll use &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bayes%27_theorem&quot;&gt;Bayes theorem&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P(A \mid B) = \frac{P(B \mid A) P(A)}{P(B)}$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now again let’s plug in all the values:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P(H_0 \mid \theta) = \frac{P(\theta \mid H_0) P(H_0)}{P(\theta)}$$&lt;&#x2F;p&gt;
+&lt;p&gt;Note that by the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Probability_axioms&quot;&gt;axioms of probability&lt;&#x2F;a&gt;
+and by the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Chain_rule_(probability)&quot;&gt;product rule of probability&lt;&#x2F;a&gt;
+we can decompose $P(\theta)$ into:&lt;&#x2F;p&gt;
+&lt;p&gt;$$P(\theta) = P(\theta \mid H_0) P(H_0) + P(\theta \mid H_a) P(H_a)$$&lt;&#x2F;p&gt;
+&lt;p&gt;Again, we’ll use the normal approximation:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\begin{aligned}
+&amp;amp;P \left( \theta = 0.5 \mid \mu = 49,225.5, \sigma = \sqrt{24.612.75} \right) \\
+&amp;amp;= \frac{
+\frac{1}{
+\sqrt{2 \pi \sigma^2}
+}
+e^{- \left( \frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5
+}
+{
+\frac{1}{\sqrt{2 \pi \sigma^2}}
+e^{ \left( -\frac{(\mu - \mu \cdot 0.5)}{2 \sigma} \right)^2} \cdot 0.5 +
+\int_0^1 \frac {1}{\sqrt{2 \pi \sigma^2} }
+e^{- \left( \frac{\mu - \mu \cdot \theta)}{2 \sigma} \right)^2}
+d \theta \cdot 0.5
+} \\
+&amp;amp;= 0.9505
+\end{aligned}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;The likelihood of the alternative hypothesis,
+$P(\theta \mid H_a)$,
+is just the CDF of all possible values of $\theta \ne 0.5$.&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+P(H_0 \mid \text{data}) = P \left( \theta = 0.5 \mid \mu = 49,225.5,
+sigma = \sqrt{24.612.75} \right) &amp;gt; 0.95
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;And we fail to reject the null hypothesis, in frequentist terms.
+However, we can also say in Bayesian terms, that we strongly favor $H_0$
+over $H_a$.&lt;&#x2F;p&gt;
+&lt;p&gt;Quick! Grab the Bayesian celebratory cigar!
+The null is back on the game!&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;computational-solutional&quot;&gt;Computational Solutional&lt;&#x2F;h3&gt;
+&lt;p&gt;For the computational solution, we’ll use &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;
+and the following packages:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JuliaStats&#x2F;HypothesisTests.jl&quot;&gt;&lt;code&gt;HypothesisTest.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;turinglang.org&#x2F;&quot;&gt;&lt;code&gt;Turing.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h4 id=&quot;computational-solutions-frequentist-approach&quot;&gt;Computational Solutions – Frequentist Approach&lt;&#x2F;h4&gt;
+&lt;p&gt;We can perform a &lt;a href=&quot;https:&#x2F;&#x2F;juliastats.org&#x2F;HypothesisTests.jl&#x2F;stable&#x2F;nonparametric&#x2F;#Binomial-test&quot;&gt;&lt;code&gt;BinomialTest&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+with &lt;code&gt;HypothesisTest.jl&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;using&lt;&#x2F;span&gt; HypothesisTests
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; BinomialTest&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;49_225&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;98_451&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5036&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Binomial test
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Population details&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    parameter of interest&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;   Probability of success
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    value under h_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;         &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5036&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    point estimate&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;          &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.499995&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;95&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt; confidence interval&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4969&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5031&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Test summary&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    outcome with &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;95&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt; confidence&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt; reject h_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    two&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;sided p&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;value&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;           &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.0239&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Details&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    number of observations&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;98451&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;    number of successes&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;49225&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is the two-sided test,
+and I had to round $49,225.5$ to $49,225$
+since &lt;code&gt;BinomialTest&lt;&#x2F;code&gt; do not support real numbers.
+But the results match with the analytical solution,
+we still reject the null.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;computational-solutions-bayesian-approach&quot;&gt;Computational Solutions – Bayesian Approach&lt;&#x2F;h4&gt;
+&lt;p&gt;Now, for the Bayesian computational approach,
+I’m going to use a generative modeling approach,
+and one of my favorites probabilistic programming languages,
+&lt;code&gt;Turing.jl&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;using&lt;&#x2F;span&gt; Turing
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;model&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;birth_rate&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-parameters z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;           θ &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;~&lt;&#x2F;span&gt; Uniform&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;           total_births &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;98_451&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;           male_births &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;~&lt;&#x2F;span&gt; Binomial&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;total_births, θ&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;       &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; model &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; birth_rate&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;; male_births &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;49_225&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; chain &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; sample&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;model, NUTS&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1_000&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.8&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, MCMCThreads&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1_000&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;4&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Chains MCMC chain &lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1000&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;×&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;13&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;×&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;4&lt;&#x2F;span&gt; Array{Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;3&lt;&#x2F;span&gt;}&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Iterations        &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1001&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2000&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Number of chains  &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;4&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Samples per chain &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1000&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Wall duration     &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.2&lt;&#x2F;span&gt; seconds
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Compute duration  &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.19&lt;&#x2F;span&gt; seconds
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;parameters        &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; θ
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;internals         &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Summary Statistics
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  parameters      mean       std      mcse    ess_bulk    ess_tail      rhat   ess_per_sec
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;      Symbol   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;     Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;     Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;       Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;           θ    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4999&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.0016&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.0000&lt;&#x2F;span&gt;   &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1422.2028&lt;&#x2F;span&gt;   &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2198.1987&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1.0057&lt;&#x2F;span&gt;     &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;7368.9267&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;Quantiles
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  parameters      &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2.5&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;     &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;25.0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;     &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;50.0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;     &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;75.0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;     &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;97.5&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;      Symbol   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;           θ    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4969&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4988&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4999&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5011&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5031&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We can see from the output of the quantiles that the 95% quantile for $\theta$ is
+the interval $(0.4969, 0.5031)$.
+Although it overlaps zero, that is not the equivalent of a hypothesis test.
+For that, we’ll use the
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;highest_posterior_density_interval&quot;&gt;highest posterior density interval (HPDI)&lt;&#x2F;a&gt;,
+which is defined as “choosing the narrowest interval” that
+captures a certain posterior density threshold value.
+In this case, we’ll use a threshold interval of 95%,
+i.e. an $\alpha = 0.05$:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; hpd&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;chain; alpha&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.05&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;HPD
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  parameters     lower     upper
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;      Symbol   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;   Float&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;           θ    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.4970&lt;&#x2F;span&gt;    &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0.5031&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We see that we fail to reject the null,
+$\theta = 0.5$ at $\alpha = 0.05$ which is in accordance with the analytical
+solution.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-the-frequentist-and-bayesian-approaches-disagree&quot;&gt;Why the Frequentist and Bayesian Approaches Disagree&lt;&#x2F;h2&gt;
+&lt;p&gt;Why do the approaches disagree?
+What is going on under the hood?&lt;&#x2F;p&gt;
+&lt;p&gt;The answer is disappointing.
+The main problem is that the frequentist approach only allows fixed significance
+levels with respect to sample size.
+Whereas the Bayesian approach is consistent and robust to sample size variations.&lt;&#x2F;p&gt;
+&lt;p&gt;Taken to extreme, in some cases, due to huge sample sizes,
+the $p$-value is pretty much a &lt;em&gt;proxy&lt;&#x2F;em&gt; for sample size
+and have little to no utility on hypothesis testing.
+This is known as $p$-hacking.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;&#x2F;h2&gt;
+&lt;div class=&quot;references&quot;&gt;
+    &lt;p&gt;Lindley, Dennis V. “The future of statistics: A Bayesian 21st century”.
+&lt;em&gt;Advances in Applied Probability&lt;&#x2F;em&gt; 7 (1975): 106-115.&lt;&#x2F;p&gt;
+
+&lt;&#x2F;div&gt;
+</content>
+        </entry>
+</feed>

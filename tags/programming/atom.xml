@@ -1,0 +1,1118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>programming</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - programming</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/programming/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/programming/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-04-07T06:57:00+00:00</updated>
+    <id>https://storopoli.com/tags/programming/atom.xml</id><entry xml:lang="en">
+        <title>Randomness in computation: sprinkle a little bit of randomness, and voilà!</title>
+        <published>2025-04-07T06:57:00+00:00</published>
+        <updated>2025-04-07T06:57:00+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/randomness/" type="text/html"/>
+        <id>https://storopoli.com/blog/randomness/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;randomness&#x2F;randomness-meme.jpg&quot; alt=&quot;Just sprinkle a little bit of randomness, and voilà!&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Sometimes when you deal with complicated computations,
+either because of the input size or the complexity of the computation,
+you cannot get an answer in any feasible amount of time,
+no matter how much computational power you have.&lt;&#x2F;p&gt;
+&lt;p&gt;When the limits of tractability are reached,
+we can give up deterministic computation and embrace &lt;strong&gt;randomness&lt;&#x2F;strong&gt;
+to get an answer in a much more reasonable time.&lt;&#x2F;p&gt;
+&lt;p&gt;This is the case of &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Monte_Carlo_method&quot;&gt;Monte Carlo methods&lt;&#x2F;a&gt;,
+which are a class of algorithms that use &lt;strong&gt;random sampling&lt;&#x2F;strong&gt;
+to solve mathematical problems.
+And, of course, like everything nice in math and computer science,
+it has the &lt;strong&gt;Von Neumann’s fingerprints&lt;&#x2F;strong&gt; all over it.
+Alas, that is a story for another post, that I already covered in
+&lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;von-neumann&#x2F;&quot;&gt;“Von Neumann: the Sharpest Mind of the 20th Century”&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I was recently skimming over a textbook that I used to use
+in my undergraduate course on probability theory (Mitzenmacher and Upfal’s
+“Probability and Computing”&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-pdf-1&quot;&gt;&lt;a href=&quot;#fn-pdf&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, see references below),
+and I stumbled upon a very interesting algorithm for calculating the &lt;strong&gt;median&lt;&#x2F;strong&gt; of a list.&lt;&#x2F;p&gt;
+&lt;p&gt;By the way, this textbook has one of the &lt;strong&gt;best covers&lt;&#x2F;strong&gt; in math textbooks.
+It is Alice in Wonderland dealing with a combinatorial explosion,
+see it below:&lt;&#x2F;p&gt;
+
+
+&lt;img src=&quot;https:&amp;#x2F;&amp;#x2F;storopoli.com&amp;#x2F;processed_images&amp;#x2F;probability-and-computing.c46dbbb24f491e7b.jpg&quot; alt=&quot;Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition&quot; &#x2F;&gt;
+&lt;p&gt;The algorithm uses sampling to probabilistically find the &lt;strong&gt;median&lt;&#x2F;strong&gt;,
+and uses &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Chebyshev&amp;#x27;s_inequality&quot;&gt;Chebyshev’s inequality&lt;&#x2F;a&gt;,
+an upper bound on the probability of deviation of a random variable from its mean.
+Since it is a probabilistic algorithm,
+it finds the median in $O(n)$ (linear time) with probability
+$1 - n^{-\frac{1}{4}}$ (close to $1$ for large $n$).
+Note that for any deterministic algorithm to find the median,
+it needs to sort the list, which takes $O(n \log n)$ (linearithmic time)
+on average or $O(n^2)$ (quadratic time) in the worst case&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-quicksort-1&quot;&gt;&lt;a href=&quot;#fn-quicksort&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.
+You can always iterate and run the algorithm until you get a result,
+but now the runtime is &lt;strong&gt;non-deterministic&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The nice thing about the algorithm is that Chebyshev’s inequality
+does not makes assumptions about the distribution of the variable,
+just that it has a &lt;strong&gt;finite variance&lt;&#x2F;strong&gt;.
+This is excellent since we can move away from the &lt;strong&gt;lala-land&lt;&#x2F;strong&gt; of
+normal distributions assumptions that everything is a Gaussian bell curve&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-bayesian-1&quot;&gt;&lt;a href=&quot;#fn-bayesian&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;chebyshev-s-inequality&quot;&gt;Chebyshev’s Inequality&lt;&#x2F;h2&gt;
+&lt;p&gt;Chebyshev’s inequality provides an upper bound on the probability
+of deviation of a random variable (with finite variance) from its mean.&lt;&#x2F;p&gt;
+&lt;p&gt;The inequality is given by:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+P(|X - \mu| \geq k \sigma) \leq \frac{1}{k^2}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;where $X$ is a random variable, $\mu$ is the mean,
+$\sigma$ is the standard deviation, and $k$ is a positive real number.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a consequence of the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Markov&amp;#x27;s_inequality&quot;&gt;Markov’s inequality&lt;&#x2F;a&gt;,
+and can be derived using simple algebra.
+The reader that is interested in the proof or more details,
+see the Wikipedia pages linked above.&lt;&#x2F;p&gt;
+&lt;p&gt;Because Chebyshev’s inequality can be applied to any distribution with finite mean and variance,
+it generally gives &lt;strong&gt;looser bounds&lt;&#x2F;strong&gt; compared to what we might get if we knew more about the specific distribution.
+Here’s a table showing how much of the distribution’s values must lie within $k$ standard deviations of the mean:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;$k$&lt;&#x2F;th&gt;&lt;th&gt;Min. % within $k$ standard deviations&lt;&#x2F;th&gt;&lt;th&gt;Max. % beyond $k$ standard deviations&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;0%&lt;&#x2F;td&gt;&lt;td&gt;100%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;$\sqrt{2}$&lt;&#x2F;td&gt;&lt;td&gt;50%&lt;&#x2F;td&gt;&lt;td&gt;50%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;75%&lt;&#x2F;td&gt;&lt;td&gt;25%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;88.8889%&lt;&#x2F;td&gt;&lt;td&gt;11.1111%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;93.75%&lt;&#x2F;td&gt;&lt;td&gt;6.25%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;96%&lt;&#x2F;td&gt;&lt;td&gt;4%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;10&lt;&#x2F;td&gt;&lt;td&gt;99%&lt;&#x2F;td&gt;&lt;td&gt;1%&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;For example, while we know that for a normal distribution about 68% of values lie within one standard deviation,
+Chebyshev only tells us that &lt;strong&gt;at least&lt;&#x2F;strong&gt; 0% must lie within one standard deviation!
+This is the price we pay for having a bound that works on any distribution.
+Yet, it is still a &lt;strong&gt;very useful bound&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;randomized-median&quot;&gt;Randomized Median&lt;&#x2F;h2&gt;
+&lt;p&gt;Alright, now let’s see in practice how this works.
+Below is the algorithm for finding the median of a list,
+as described in algorithm 3.1 in the “Probability and Computing” textbook:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;&#x2F;strong&gt; A set $S$ of $n$ elements over a totally ordered universe.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Output:&lt;&#x2F;strong&gt; The median element of $S$, denoted by $m$.&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Pick a (multi-)set $R$ of $\lceil n^{\frac{3}{4}} \rceil$ elements in $S$, chosen independently and uniformly at random with replacement.&lt;&#x2F;li&gt;
+&lt;li&gt;Sort the set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;Let $d$ be the $\bigg(\left\lfloor \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right\rfloor\bigg)$th smallest element in the sorted set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;Let $u$ be the $\bigg(\left\lceil \frac{1}{2}n^{\frac{3}{4}} + \sqrt{n} \right\rceil\bigg)$th smallest element in the sorted set $R$.&lt;&#x2F;li&gt;
+&lt;li&gt;By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\{x \in S : d \leq x \leq u \big\}$ and the numbers $\ell_d = \bigg| \big\{x \in S : x &amp;lt; d \big\}\bigg|$ and $\ell_u = \bigg| \big\{x \in S : x &amp;gt; u \big\}\bigg|$.&lt;&#x2F;li&gt;
+&lt;li&gt;If $\ell_d &amp;gt; n&#x2F;2$ or $\ell_u &amp;gt; n&#x2F;2$ then FAIL.&lt;&#x2F;li&gt;
+&lt;li&gt;If $\big|C\big| \leq 4n^{\frac{3}{4}}$ then sort the set $C$, otherwise FAIL.&lt;&#x2F;li&gt;
+&lt;li&gt;Output the $\big(\lfloor \frac{n}{2} \rfloor - \ell_d + 1\big)$th element in the sorted order of $C$.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;As you can see, the algorithm starts by sampling a set of elements from the list,
+sorting them, and then using the sorted elements to find the median.
+How it finds the median is by using the set $C$,
+which is the set of elements in $S$ that are between $d$ and $u$,
+where $d$ is the lower bound and $u$ is the upper bound of the
+sampled set $R$.&lt;&#x2F;p&gt;
+&lt;p&gt;The algorithm’s brilliance lies in its &lt;strong&gt;probabilistic guarantees&lt;&#x2F;strong&gt;.
+It can fail in three ways:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Too few sampled elements are less than the true median&lt;&#x2F;li&gt;
+&lt;li&gt;Too few sampled elements are greater than the true median&lt;&#x2F;li&gt;
+&lt;li&gt;The set $C$ becomes too large to sort efficiently&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;However, the probability of any of these failures occurring is &lt;strong&gt;remarkably small&lt;&#x2F;strong&gt;: less than $n^{-\frac{1}{4}}$.
+This means that as the input size grows, the chance of failure becomes increasingly negligible:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;For n = 10,000: failure probability ≤ 0.1&lt;&#x2F;li&gt;
+&lt;li&gt;For n = 1,000,000: failure probability ≤ 0.032&lt;&#x2F;li&gt;
+&lt;li&gt;For n = 100,000,000: failure probability ≤ 0.01&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;When the algorithm doesn’t fail (which is the vast majority of the time),
+it is guaranteed to find the &lt;strong&gt;exact median&lt;&#x2F;strong&gt; in linear time.
+This is achieved by carefully choosing the sample size, $n^{\frac{3}{4}}$, and
+the buffer zone around the median, $\sqrt{n}$, to balance between:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Having enough samples to make failure unlikely&lt;&#x2F;li&gt;
+&lt;li&gt;Keeping the set $C$ small enough to sort quickly&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The algorithm provides two important guarantees:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Correctness&lt;&#x2F;strong&gt;: The algorithm is guaranteed to either FAIL or return the true median.
+This is proven using Chebyshev’s inequality in two steps.
+First, we show that the true median $m$ will be in set $C$ with high probability:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Let $Y_1$ be the count of sampled elements ≤ $m$ in $R$
+&lt;ul&gt;
+&lt;li&gt;When $Y_1 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_1$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;Let $Y_2$ be the count of sampled elements ≥ $m$ in $R$
+&lt;ul&gt;
+&lt;li&gt;When $Y_2 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_2$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;When $|C| &amp;gt; 4n^{\frac{3}{4}}$, we call this event $\mathcal{E}_3$&lt;&#x2F;li&gt;
+&lt;li&gt;By Chebyshev’s inequality, each event has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Second, we show that when $m$ is in $C$, we find it:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\ell_d$ counts elements &amp;lt; $d$, so there are exactly $\big\lfloor \frac{n}{2} \big\rfloor - \ell_d$ elements between $d$ and $m$&lt;&#x2F;li&gt;
+&lt;li&gt;Therefore, $m$ must be the $\bigg(\big\lfloor \frac{n}{2} \big\rfloor - \ell_d + 1\bigg)$th element in the sorted $C$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Linear Time&lt;&#x2F;strong&gt;: The algorithm runs in $O(n)$ time when it succeeds because:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Sampling and sorting $R$ takes $O\left(n^\frac{3}{4} \log n\right)$ time&lt;&#x2F;li&gt;
+&lt;li&gt;Comparing all elements to $d$ and $u$ takes $O(n)$ time&lt;&#x2F;li&gt;
+&lt;li&gt;Sorting $C$ takes $O\left(n^\frac{3}{4} \log n\right)$ time since $|C| \leq 4n^\frac{3}{4}$&lt;&#x2F;li&gt;
+&lt;li&gt;All other operations are constant time&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h3 id=&quot;why-these-guarantees-work&quot;&gt;Why These Guarantees Work&lt;&#x2F;h3&gt;
+&lt;p&gt;The key to understanding why this algorithm works lies in analyzing the &lt;strong&gt;probability of failure&lt;&#x2F;strong&gt;.
+Let’s look at how we bound the probability of having too few samples below the median (event $\mathcal{E}_1$):&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;For each sampled element $i$, define an indicator variable $X_i$ where:
+$$
+X_i = 1 \text{ if the $i$th sample is } \leq \text{ median}
+$$
+$$
+X_i = 0 \text{ otherwise}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Since we sample with replacement, the $X_i$ are independent. And since there are
+$\frac{n-1}{2} + 1$ elements ≤ median in $S$, we have:
+$$
+P(X_i = 1) = \frac{\frac{n-1}{2} + 1}{n} = \frac{1}{2} + \frac{1}{2n}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Let $Y_1 = \sum_{i=1}^{n^{3&#x2F;4}} X_i$ count samples ≤ median. This is a binomial random variable with:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Expected value: $E[Y_1] = n^{\frac{3}{4}}\left(\frac{1}{2} + \frac{1}{2n}\right)$&lt;&#x2F;li&gt;
+&lt;li&gt;Variance: $Var[Y_1] &amp;lt; \frac{1}{4}n^{\frac{3}{4}}$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;Using Chebyshev’s inequality:
+$$
+P \left(Y_1 &amp;lt; \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right) \leq \frac{Var[Y_1]}{n} &amp;lt; \frac{1}{4}n^{-\frac{1}{4}}
+$$&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;This shows that both events $\mathcal{E}_1$ and $\mathcal{E}_2$ have probability at most $\frac{1}{4}n^{-\frac{1}{4}}$,
+and also that $\mathcal{E}_3$ has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+P(\mathcal{E}_1) \leq P(\mathcal{E}_2 + \mathcal{E}_3) \leq \frac{1}{2}n^{-\frac{1}{4}}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;All these events combined demonstrate that the algorithm rarely fails: the probability of having too few samples
+on either side of the median decreases as $n^{-\frac{1}{4}}$, becoming negligible for large $n$.
+If higher reliability is needed, you can simply run the algorithm multiple times,
+as each run is independent.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;haskell-implementation&quot;&gt;Haskell Implementation&lt;&#x2F;h2&gt;
+&lt;p&gt;I implemented the algorithm in &lt;strong&gt;Haskell&lt;&#x2F;strong&gt;,
+because I stare at &lt;strong&gt;Rust&lt;&#x2F;strong&gt; code 8+ hours a day,
+and I want programming in a language that
+“if it compiles, it is guaranteed to run”.
+The only other language apart from Rust that has this property,
+and some might say that it is the only language that has this property,
+is Haskell.&lt;&#x2F;p&gt;
+&lt;p&gt;The code can be found on GitHub at &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;storopoli&#x2F;randomized-median&quot;&gt;&lt;code&gt;storopoli&#x2F;randomized-median&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;So let’s first go over the vanilla, classical, deterministic median algorithm:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;span class=&quot;z-entity z-name z-function z-haskell&quot;&gt;median&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-double-colon z-haskell&quot;&gt;::&lt;&#x2F;span&gt; (&lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Ord&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;, &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Fractional&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-other z-big-arrow z-haskell&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; [&lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;] &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Maybe&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;&#x2F;span&gt;median &lt;span class=&quot;z-constant z-language z-empty-list z-haskell&quot;&gt;[]&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;median xs &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; First convert list to array for O(1) random access
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Sort the array elements
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sorted &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort (elems arr)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) sorted
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      mid &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-function z-infix z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;div&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;   &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; odd n
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; (sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; mid)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; ((sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; (mid &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;+&lt;&#x2F;span&gt; sortedArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; mid) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;First we define a function signature for the median function:
+it takes a list or elements of some type that is an instance of both the &lt;code&gt;Ord&lt;&#x2F;code&gt; type class,
+and the &lt;code&gt;Fractional&lt;&#x2F;code&gt; type class.
+This is because we must assure the Haskell compiler that the elements of the list can be
+ordered and that we can perform fractional arithmetic on them.
+It returns a &lt;code&gt;Maybe a&lt;&#x2F;code&gt; because the median is not defined for empty lists.
+The &lt;code&gt;Maybe&lt;&#x2F;code&gt; type is an instance of the &lt;code&gt;Monad&lt;&#x2F;code&gt;&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-monad-1&quot;&gt;&lt;a href=&quot;#fn-monad&quot;&gt;4&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; type class,
+which allows us to use the &lt;code&gt;&amp;gt;&amp;gt;=&lt;&#x2F;code&gt; operator to chain computations that may fail.
+It can take two values &lt;code&gt;Nothing&lt;&#x2F;code&gt; or &lt;code&gt;Just a&lt;&#x2F;code&gt;, where &lt;code&gt;a&lt;&#x2F;code&gt; is the type of the elements of the list.&lt;&#x2F;p&gt;
+&lt;p&gt;For the case of an empty list, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.
+For the case of a non-empty list, we convert the list to an array,
+sort the array, and then find the median,
+returning the median as a &lt;code&gt;Just&lt;&#x2F;code&gt; value.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, let’s implement the randomized median algorithm:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;span class=&quot;z-entity z-name z-function z-haskell&quot;&gt;randomizedMedian&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-double-colon z-haskell&quot;&gt;::&lt;&#x2F;span&gt; (&lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Ord&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-other z-big-arrow z-haskell&quot;&gt;=&amp;gt;&lt;&#x2F;span&gt; [&lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;] &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Int&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Maybe&lt;&#x2F;span&gt; &lt;span class=&quot;z-variable z-other z-generic-type z-haskell&quot;&gt;a&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;&#x2F;span&gt;randomizedMedian &lt;span class=&quot;z-constant z-language z-empty-list z-haskell&quot;&gt;[]&lt;&#x2F;span&gt; _ &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;randomizedMedian xs seed &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;  &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 1: Sample n^(3&#x2F;4) elements with replacement
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sampleSize &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; ceiling (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      gen &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; mkStdGen seed
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      indices &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; take sampleSize &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; randomRs (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) gen
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 2: Sort the sample
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sample &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort [arr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;|&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;-&lt;&#x2F;span&gt; indices]
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; listArray (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-comma z-haskell&quot;&gt;,&lt;&#x2F;span&gt; length sample &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;1&lt;&#x2F;span&gt;) sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 3: Find d (the lower bound element)
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; floor (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; sqrt (fromIntegral n))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      d &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; dIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; dIndex
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; error &lt;span class=&quot;z-string z-quoted z-double z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Invalid d index&lt;span class=&quot;z-punctuation z-definition z-string z-end z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 4: Find u (the upper bound element)
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; floor (fromIntegral n ** (&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;3&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt;) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&#x2F;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;+&lt;&#x2F;span&gt; sqrt (fromIntegral n))
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      u &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;        &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; uIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length sample
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; sampleArr &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!&lt;&#x2F;span&gt; uIndex
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; error &lt;span class=&quot;z-string z-quoted z-double z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Invalid u index&lt;span class=&quot;z-punctuation z-definition z-string z-end z-haskell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 5: Compute set C and counts
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      ld &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; d) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      lu &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; length &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; u) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; sort &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;$&lt;&#x2F;span&gt; filter (&lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;\&lt;&#x2F;span&gt;x &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; d &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;=&lt;&#x2F;span&gt; x &amp;amp;&amp;amp; x &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;=&lt;&#x2F;span&gt; u) xs
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 6 &amp;amp; 7: Check failure conditions
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; n &lt;span class=&quot;z-keyword z-operator z-function z-infix z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;div&lt;span class=&quot;z-punctuation z-definition z-entity z-haskell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;   &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; ( &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; ((ld &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; lu &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; halfN) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; (length c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;4&lt;&#x2F;span&gt; * sampleSize)) &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;||&lt;&#x2F;span&gt; null c
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;          &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;            ( &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;let&lt;&#x2F;span&gt; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; halfN &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&lt;&#x2F;span&gt; ld
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;               &lt;span class=&quot;z-keyword z-other z-haskell&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-haskell&quot;&gt;0&lt;&#x2F;span&gt; &amp;amp;&amp;amp; targetIndex &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;&amp;lt;&lt;&#x2F;span&gt; length c
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                    &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-comment z-line z-double-dash z-haskell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-haskell&quot;&gt;--&lt;&#x2F;span&gt; Step 8: Output the median
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Just&lt;&#x2F;span&gt; (c &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;!!&lt;&#x2F;span&gt; targetIndex)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                    &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;                      &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Nothing&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;            )
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;      )
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;I’ve added comments to the code with respect to the algorithm steps.
+First, the function signature is almost the same as the deterministic median function.
+There are two differences:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;The elements of the list does not need to be a &lt;code&gt;Fractional&lt;&#x2F;code&gt; type.&lt;&#x2F;li&gt;
+&lt;li&gt;We now take an additional parameter, &lt;code&gt;seed&lt;&#x2F;code&gt;,
+which is the seed for the random number generator.
+This is needed since we are using a random number generator to sample the elements from the list.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;As before, for the case of an empty list, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;For the case of a non-empty list, we first convert the list to an array,
+and then sample &lt;code&gt;n^(3&#x2F;4)&lt;&#x2F;code&gt; elements from the list with replacement.
+We use the &lt;a href=&quot;https:&#x2F;&#x2F;hackage.haskell.org&#x2F;package&#x2F;random-1.1&#x2F;docs&#x2F;System-Random.html#v:randomR&quot;&gt;&lt;code&gt;randomRs&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+function to generate a list of random indices,
+it generates an infinite list of random values within the specified range
+(in this case, from &lt;code&gt;0 to n-1&lt;&#x2F;code&gt;),
+hence sampling with replacement.
+Then, we take the first &lt;code&gt;n^(3&#x2F;4)&lt;&#x2F;code&gt; elements from the list.
+Next, we sort the sample and convert it to an array.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, we find the lower and upper bounds of the sample.
+We do this by finding the index of the element at position &lt;code&gt;n^(3&#x2F;4)&#x2F;2 - sqrt(n)&lt;&#x2F;code&gt;
+and &lt;code&gt;n^(3&#x2F;4)&#x2F;2 + sqrt(n)&lt;&#x2F;code&gt; in the sorted sample.
+We then take the element at these indices as the lower and upper bounds.&lt;&#x2F;p&gt;
+&lt;p&gt;Then, we compute the set $C$ and the counts $\ell_d$ and $\ell_u$.
+We do this by filtering the list with the lower and upper bounds.&lt;&#x2F;p&gt;
+&lt;p&gt;Next, we check if the set $C$ is too large to sort efficiently.
+If it is, we return &lt;code&gt;Nothing&lt;&#x2F;code&gt;.
+Otherwise, we sort the set $C$ and find the median.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;&#x2F;h2&gt;
+&lt;p&gt;Here’s the result by running the algorithm against a randomly shuffled list of contiguous integers from 1 to 10,000,001
+using the &lt;strong&gt;magical number 42&lt;&#x2F;strong&gt; as the seed of our random number generator.
+As you can see both the exact and randomized median algorithms find the right
+median value:&lt;&#x2F;p&gt;
+&lt;p&gt;$$ \frac{10,000,001}{2} = 5,000,001 $$&lt;&#x2F;p&gt;
+&lt;p&gt;since $10,000,001$ is odd, the median is the element at position $\frac{10,000,001}{2} = 5,000,001$.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-shell&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-unquoted z-shell&quot;&gt;===========================&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Testing&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; with 10_000_001 shuffled elements&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Exact&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; median calculation:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Result:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 5000001.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 18.906611 seconds&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Randomized&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; approximate median calculation:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Result:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 5000001.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Time:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 1.095511 seconds&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Error&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; percentage: 0.0000&lt;span class=&quot;z-meta z-group z-expansion z-job z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-variable z-job z-shell&quot;&gt;%&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Speedup&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; factor: 17.26x&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The randomized median algorithm for the case of $n = 10,000,001$
+is at least &lt;strong&gt;17x faster&lt;&#x2F;strong&gt; than the exact median calculation.
+That is an &lt;strong&gt;order of magnitude improvement&lt;&#x2F;strong&gt; over the deterministic median algorithm.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I love the inequalities of the &lt;strong&gt;Russian school of probability&lt;&#x2F;strong&gt;,
+Markov, Chebyshev, etc.,
+since it does not depend on any underlying distributional assumptions.
+Chebyshev’s inequality depends on the random variable having a finite mean and variance,
+and Markov’s inequality depends on the random variable being non-negative but does not depend on finite variances.&lt;&#x2F;p&gt;
+&lt;p&gt;Assuming that the underlying variable has finite variance is a reasonable assumption to make
+most of the time for your data.
+To be fair, there are some random variables that can have infinite variance,
+such as the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cauchy_distribution&quot;&gt;Cauchy&lt;&#x2F;a&gt;
+or &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Pareto_distribution&quot;&gt;Pareto&lt;&#x2F;a&gt; distributions,
+but these are &lt;strong&gt;extremely rare&lt;&#x2F;strong&gt; for you to cross paths with.&lt;&#x2F;p&gt;
+&lt;p&gt;Another thing to note is that instead of the Chebyshev’s inequality,
+we could have used the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Chernoff_bound&quot;&gt;Chernoff bound&lt;&#x2F;a&gt;
+to get a &lt;strong&gt;tighter bound&lt;&#x2F;strong&gt; on the probability of failure.
+But that is “left as an exercise to the reader”.&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, if you are intrigued to see how powerful these inequalities
+can be in probability theory,
+I highly recommend Nassim’s Taleb technical book
+&lt;a href=&quot;https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2001.10488&quot;&gt;“Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications”&lt;&#x2F;a&gt;
+which is freely available on arXiv.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;references&quot;&gt;References&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Michael Mitzenmacher and Eli Upfal, “Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition”, ISBN: 978-1107154889&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;footer class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-pdf&quot;&gt;
+&lt;p&gt;The PDF is freely available &lt;a href=&quot;http:&#x2F;&#x2F;lib.ysu.am&#x2F;open_books&#x2F;413311.pdf&quot;&gt;here&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-pdf-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-quicksort&quot;&gt;
+&lt;p&gt;Note that I am comparing against quicksort since it uses $O(\log n)$ space,
+whereas merge sort would use $O(n)$ space with the worst case is $O(n)$. &lt;a href=&quot;#fr-quicksort-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-bayesian&quot;&gt;
+&lt;p&gt;For my Bayesian rant,
+see &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;lindley-paradox&#x2F;&quot;&gt;“Lindley’s Paradox, or The consistency of Bayesian Thinking”&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-bayesian-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-monad&quot;&gt;
+&lt;p&gt;Yes M word mentioned.
+If you want a good introduction to Haskell functors, applicatives, and monads,
+see &lt;a href=&quot;https:&#x2F;&#x2F;www.adit.io&#x2F;posts&#x2F;2013-04-17-functors,_applicatives,_and_monads_in_pictures.html&quot;&gt;“Functors, Applicatives, And Monads In Pictures”&lt;&#x2F;a&gt; &lt;a href=&quot;#fr-monad-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;footer&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>The road less travelled</title>
+        <published>2024-11-10T10:02:30+00:00</published>
+        <updated>2024-11-10T10:02:30+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/road-less-travelled/" type="text/html"/>
+        <id>https://storopoli.com/blog/road-less-travelled/</id>
+        
+            <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;road-less-travelled&#x2F;road_less_travelled.jpg&quot; alt=&quot;The Road Less Travelled&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Recently, I’ve moved my blog from Go and Hugo towards
+&lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt; and
+&lt;a href=&quot;https:&#x2F;&#x2F;getzola.org&quot;&gt;Zola&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;That made me revisit one of my favorites ideas: &lt;strong&gt;the road less travelled&lt;&#x2F;strong&gt;.
+It is a metaphor for taking the unconventional path,
+which can lead to a more fulfilling life.&lt;&#x2F;p&gt;
+&lt;p&gt;What unusual roads have I taken that fulfilled me?
+Well, I can think of a few:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Avoiding JavaScript like the devil avoids the cross&lt;&#x2F;li&gt;
+&lt;li&gt;Being a polyglot programmer, and getting used with managing memory and pointers.
+This means C, Rust, and Zig.&lt;&#x2F;li&gt;
+&lt;li&gt;Learning the fundamentals concepts that underlie computer science,
+math, and cryptography.&lt;&#x2F;li&gt;
+&lt;li&gt;Mastering and customizing my tools as needed.
+That’s why I use vim and the terminal for almost everything,
+instead of GUIs and VS Code.&lt;&#x2F;li&gt;
+&lt;li&gt;Writing a blog instead of posting on social media.&lt;&#x2F;li&gt;
+&lt;li&gt;Reading books instead of watching TV shows.&lt;&#x2F;li&gt;
+&lt;li&gt;Being a minimalist and a stoic.&lt;&#x2F;li&gt;
+&lt;li&gt;Being a privacy advocate and one of the early adopters of Signal,
+instead of WhatsApp or Telegram.&lt;&#x2F;li&gt;
+&lt;li&gt;Leaving the warm cradle of academia to work as a software engineer in startups.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;hercules-at-the-crossroads&quot;&gt;Hercules at the Crossroads&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;road-less-travelled&#x2F;hercules_at_the_crossroads.jpeg&quot; alt=&quot;Hercules at the Crossroads&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Before diving into some of these roads,
+I’ll share the tale of Hercules at the Crossroads.
+This comes to us from the ancient Greek mythology,
+and it was a story that Socrates used to tell,
+reported by Xenophon in his Memorabilia.&lt;&#x2F;p&gt;
+&lt;p&gt;When Hercules, the son of Zeus, was young and unknown,
+he was walking along a road when he came to a crossroads.
+He was met by two female figures.&lt;&#x2F;p&gt;
+&lt;p&gt;The first was dressed in jewelry and was beautiful and alluring.
+The second was dressed in a simple robe and was plain.
+The first figure promised Hercules a life of pleasure and ease,
+she swore that if he followed her, all of his desires would be fulfilled
+and he would never taste unhappiness, suffering, or fear.
+The second figure promised Hercules a life of struggle and hardship,
+swearing that if he followed her, he would become the greatest hero of all time,
+and no rewards except those that came as a result of hard work;
+a journey fit for a god.&lt;&#x2F;p&gt;
+&lt;p&gt;These two figures were the goddesses of Vice (&lt;em&gt;Kakía&lt;&#x2F;em&gt;) and Virtue (&lt;em&gt;Areté&lt;&#x2F;em&gt;).
+And they represent the moral dilemma that all of us face at some point in our lives.
+Will you take the easy path, the one that promises pleasure and comfort,
+or will you take the hard path, the one that promises struggle and greatness?&lt;&#x2F;p&gt;
+&lt;p&gt;This is the essence of the road less travelled.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;avoiding-javascript&quot;&gt;Avoiding JavaScript&lt;&#x2F;h2&gt;
+&lt;p&gt;I can go on and on about JavaScript.
+I think it is great for what it was designed for:
+making web components interactive in a &lt;strong&gt;browser&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;However, when it escapes its boundaries, it can wreck havoc.
+This is because JavaScript is a mess.
+It was designed to be very lenient and forgiving,
+since we don’t want the browser to crash when a script fails.
+That’s bad UX for poor old grandma Lucrecia when she’s browsing
+cat memes on her 10-year-old laptop with Internet Explorer and Windows Vista.&lt;&#x2F;p&gt;
+&lt;p&gt;It has a bunch of undefined behaviors and quirks that can lead to bugs.
+It is also very unintuitive and has a lot of gotchas.
+Just see the meme below:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;road-less-travelled&#x2F;javascript_meme.png&quot; alt=&quot;JavaScript meme&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This is exactly what you not want when coding your whole business logic.
+Imagine getting pwned and losing all your customer data or even your funds
+due to a JavaScript gotcha that you didn’t know about.&lt;&#x2F;p&gt;
+&lt;p&gt;Another issue is that JavaScript is slow and memory-hungry.
+In contexts where performance is critical, and especially in startups,
+where the cloud bill is a concern, you don’t want to be running
+fucking JavaScript on the server.&lt;&#x2F;p&gt;
+&lt;p&gt;So yeah, don’t use JavaScript outside of making flashy buttons and forms
+in a browser window.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;being-a-polyglot-programmer&quot;&gt;Being a Polyglot Programmer&lt;&#x2F;h2&gt;
+&lt;p&gt;This is kinda easy to justify.
+If you only know how to use a hammer, everything looks like a nail.
+In a sense, you would want to learn multiple tools and languages,
+even if you just use the stupid hammer for everything.
+&lt;strong&gt;It will make you a better programmer&lt;&#x2F;strong&gt;
+due to the fact that you will be exposed to different paradigms,
+thinking styles, and problem-solving strategies.&lt;&#x2F;p&gt;
+&lt;p&gt;As a bonus, you should learn at least a “systems language”,
+like C, Rust, or Zig, to understand how the computer works;
+and you should also learn a functional language,
+like Haskell, to understand how to reason about programs.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;learning-the-fundamentals&quot;&gt;Learning the Fundamentals&lt;&#x2F;h2&gt;
+&lt;p&gt;Let me tell you a secret.
+There’s a type of knowledge that will always be true,
+given certain assumptions.
+Imagine that, you can always be right!
+Even if a judge somewhere wakes up on the wrong side of the bed.
+That knowledge is called &lt;strong&gt;mathematics&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The Euclidean geometry that you learned in high school?
+Yes, it is true and will always be true:
+here and in the Andromeda galaxy;
+today and in a million years.
+So you better learn it!&lt;&#x2F;p&gt;
+&lt;p&gt;For computer science, this argument is almost the same.
+Except that the assumptions are more lenient.
+Assuming that computers are made of transistors and logic gates,
+follow a Von Neumann-ish architecture,
+and an Instruction Set Architecture (ISA) that is Turing-complete,
+then your computer science knowledge will always be true.&lt;&#x2F;p&gt;
+&lt;p&gt;There’s a nice tale about when &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;road-less-travelled&#x2F;$link.page(&amp;#x27;blog&#x2F;2024-06-22-von-neumann&amp;#x27;)&quot;&gt;Von Neumann&lt;&#x2F;a&gt;
+was asked, soon after the atomic bomb was dropped on Hiroshima,
+what he was working on, and if he was working on a new weapon.
+He kindly replied “No, I am working on something even more powerful:
+computers”.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;writing-a-blog&quot;&gt;Writing a Blog&lt;&#x2F;h2&gt;
+&lt;p&gt;In a world where everyone is gladly giving away their privacy
+and data for free (and sometimes even paying for) to
+proprietary social media platforms,
+choose an open and interoperable standard like RSS.
+This can be easily accomplished with a blog.&lt;&#x2F;p&gt;
+&lt;p&gt;Also, writing is a great to organize your thoughts,
+and to share your knowledge with the world.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;reading-books&quot;&gt;Reading Books&lt;&#x2F;h2&gt;
+&lt;p&gt;Do I need to say more?&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;leaving-the-warm-cradle-of-academia&quot;&gt;Leaving the Warm Cradle of Academia&lt;&#x2F;h2&gt;
+&lt;p&gt;I really wanted to like Academia.
+It foster all the principles that I hold dear:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;The pursuit of knowledge.&lt;&#x2F;li&gt;
+&lt;li&gt;The sharing of knowledge.&lt;&#x2F;li&gt;
+&lt;li&gt;The freedom to think and to express your thoughts.&lt;&#x2F;li&gt;
+&lt;li&gt;The noble task of teaching and mentoring.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;However, it also has its dark side:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dogmatism.&lt;&#x2F;li&gt;
+&lt;li&gt;Mediocrity.&lt;&#x2F;li&gt;
+&lt;li&gt;Inertia.&lt;&#x2F;li&gt;
+&lt;li&gt;Corruption.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Instead, unexpectedly, I found in some startups the same principles that I hold dear.
+Especially the ones that are focused on technology and innovation.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Drop the JavaScript.
+Learn Math and Computer Science.
+Own your tools otherwise they will own you.
+Read a fucking book.
+Organize your thoughts and share your knowledge.
+Search for places where you feel like the dumbest person in the room.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Find your road less travelled&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>Zero-cost abstractions</title>
+        <published>2023-11-28T18:19:36+00:00</published>
+        <updated>2023-11-28T18:19:36+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/zero-cost-abstractions/" type="text/html"/>
+        <id>https://storopoli.com/blog/zero-cost-abstractions/</id>
+        
+            <content type="html">&lt;p&gt;In programming language circles there’s a recently trend of discussing a concept
+called &lt;strong&gt;zero-cost abstractions&lt;&#x2F;strong&gt;:
+the ability to use higher-levels abstractions without suffering any loss of performance.&lt;&#x2F;p&gt;
+&lt;p&gt;Zero-cost abstractions allows you to write performant code without having to
+give up a single drop of convenience and expressiveness:&lt;&#x2F;p&gt;
+&lt;p&gt;You want for-loops?
+&lt;em&gt;You can have it&lt;&#x2F;em&gt;.
+Generics?
+&lt;em&gt;Yeah, why not&lt;&#x2F;em&gt;?
+Data structures?
+&lt;em&gt;Sure, keep’em coming&lt;&#x2F;em&gt;.
+Async operations?
+&lt;em&gt;You bet ya&lt;&#x2F;em&gt;!
+Multi-threading?
+&lt;em&gt;Hell yes&lt;&#x2F;em&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;To put more formally,
+I like &lt;a href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;a&#x2F;69178445&quot;&gt;this definition from StackOverflow&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Zero Cost Abstractions means adding higher-level programming concepts, like generics,
+collections and so on do not come with a run-time cost,
+only compile time cost (the code will be slower to compile).
+Any operation on zero-cost abstractions is as fast as you would write out
+matching functionality by hand using lower-level programming concepts like
+for loops, counters, ifs and using raw pointers.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Here’s an analogy:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Imagine that you are going to buy a car.
+The sales person offers you a fancy car praising how easy it is to drive it,
+that you don’t need to think about RPM, clutch and stick shift,
+parking maneuver, fuel type, and other shenanigans.
+You just turn it on and drive.
+However, once you take a look at the car’s data sheet, you are horrified.
+The car is bad in every aspect except easy of use.
+It has dreadful fuel consumption,
+atrocious safety ratings,
+disastrous handling, and so on…&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Believe me, you wouldn’t want to own that car.&lt;&#x2F;p&gt;
+&lt;p&gt;Metaphors aside, that’s &lt;strong&gt;exactly what professional developers and whole teams
+choose to use every day: unacceptable inferior tools&lt;&#x2F;strong&gt;.
+Tools that, not only don’t have &lt;strong&gt;zero-cost abstractions&lt;&#x2F;strong&gt;,
+rather don’t allow you to even have non-zero-cost anything!&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s do some Python bashing in the meantime.
+I know that’s easy to bash Python,
+but that’s not the point.
+If Python wasn’t used so widely in production,
+I would definitely leave it alone.
+Don’t get me wrong, Python is the second-best language for everything.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-curious-case-of-the-python-boolean&quot;&gt;The curious case of the Python boolean&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;non-zero-cost-abstraction.png&quot; alt=&quot;Python WTF?&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;I wish this meme was a joke, but it isn’t.
+A boolean is one of the simplest data type taking only two possible values:
+true or false.
+Just grab your nearest Python REPL:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;python&quot; class=&quot;language-python z-code&quot;&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-keyword z-control z-import z-from z-python&quot;&gt;from&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-meta z-import-source z-python&quot;&gt; &lt;span class=&quot;z-meta z-import-path z-python&quot;&gt;&lt;span class=&quot;z-meta z-import-name z-python&quot;&gt;sys&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;span class=&quot;z-keyword z-control z-import z-python&quot;&gt;import&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-statement z-import z-python&quot;&gt; &lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;getsizeof&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-comparison z-python&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-python&quot;&gt;&lt;span class=&quot;z-meta z-qualified-name z-python&quot;&gt;&lt;span class=&quot;z-variable z-function z-python&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-python&quot;&gt;getsizeof&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-python&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-python&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-python&quot;&gt;True&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-python&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-python&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-python&quot;&gt;28&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The function &lt;a href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;library&#x2F;sys.html#sys.getsizeof&quot;&gt;&lt;code&gt;sys.getsizeof&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;
+returns the size of an object in bytes.
+&lt;strong&gt;How the hell Python needs 28 bytes to represent something
+that needs at most 1 byte&lt;&#x2F;strong&gt;?
+Imagine incurring a 28x penalty in memory size requirements for every boolean
+that you use.
+Now multiply this by every operation that your code is going to run in production
+over time.
+Again: &lt;strong&gt;unacceptable&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;That’s because all objects in Python,
+in the sense that everything that you can instantiate,
+i.e. everything that you can put on the left hand-side of the &lt;code&gt;=&lt;&#x2F;code&gt; assignment,
+is a &lt;a href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;c-api&#x2F;structures.html#c.PyObject&quot;&gt;&lt;code&gt;PyObject&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;All Python objects ultimately share a small number of fields at the
+beginning of the object’s representation in memory.
+These are represented by the &lt;code&gt;PyObject&lt;&#x2F;code&gt; and &lt;code&gt;PyVarObject&lt;&#x2F;code&gt; types.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Python is dynamically-typed, which means that you don’t have primitives like
+8-, 16-, 32-bit (un)signed integers and so on.
+Everything is a huge mess allocated in the heap that must carry not only its value,
+but also information about its type.&lt;&#x2F;p&gt;
+&lt;p&gt;Most important, everything that is fast in Python is &lt;em&gt;not Python-based&lt;&#x2F;em&gt;.
+Take a look at the image below,
+I grabbed some popular Python libraries from GitHub,
+namely &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;numpy&#x2F;numpy&quot;&gt;NumPy&lt;&#x2F;a&gt; (linear algebra package)
+and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pytorch&#x2F;pytorch&quot;&gt;PyToch&lt;&#x2F;a&gt; (deep learning package),
+and checked the
+language codebase percentage.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;python-my-ass.jpg&quot; alt=&quot;Python my ass&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Surprise, they are &lt;strong&gt;&lt;em&gt;not&lt;&#x2F;em&gt; Python libraries&lt;&#x2F;strong&gt;.
+They are &lt;strong&gt;C&#x2F;C++ codebases&lt;&#x2F;strong&gt;.
+Even if Python is the main language used in these codebases,
+I still think that this is not the case due to the nature of the Python code:
+&lt;strong&gt;all docstrings are written in Python&lt;&#x2F;strong&gt;.
+If you have a very fast C function in your codebase that takes 50 lines of code,
+followed by a Python wrapper function that calls it using 10 lines of code,
+&lt;em&gt;but&lt;&#x2F;em&gt; with a docstring that is 50 lines of code;
+you have a “Python”-majority codebase.&lt;&#x2F;p&gt;
+&lt;p&gt;In a sense the most efficient Python programmer is a C&#x2F;C++ programmer…&lt;&#x2F;p&gt;
+&lt;p&gt;Here’s &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;, which is also dynamically-typed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; Base.summarysize&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-julia&quot;&gt;true&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And to your surprise,
+Julia is coded in …. Julia!
+Check the image below for the language codebase percentage of
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;JuliaLang&#x2F;julia&quot;&gt;Julia&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;LuxDL&#x2F;Lux.jl&quot;&gt;&lt;code&gt;Lux.jl&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; (deep learning package).&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;zero-cost-abstractions&#x2F;julia.jpg&quot; alt=&quot;Julia: turtles all the way&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Finally, here’s &lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt;, which is not dynamically-,
+but static-typed:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;mem&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Size of bool: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt; byte&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-storage z-type z-rust&quot;&gt;bool&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo run&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;release&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;   &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Compiling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; size_of_bool v0.1.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Running&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-meta z-group z-expansion z-command z-backticks z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;target&#x2F;release&#x2F;size_of_bool&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; of bool: 1 byte&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;more-zero-costs-abstractions&quot;&gt;More zero-costs abstractions&lt;&#x2F;h2&gt;
+&lt;p&gt;Let’s cover two more zero-costs abstractions, both in Julia and in Rust:
+&lt;strong&gt;for-loops&lt;&#x2F;strong&gt; and &lt;strong&gt;enums&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;for-loops&quot;&gt;For-loops&lt;&#x2F;h3&gt;
+&lt;p&gt;A friend and a Julia-advocate once told me that Julia’s master plan is to secretly
+“make everyone aware about &lt;em&gt;compilers&lt;&#x2F;em&gt;”.
+The &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Compiler&quot;&gt;compiler&lt;&#x2F;a&gt;
+is a program that translate source code from a high-level programming language
+to a low-level programming language
+(e.g. assembly language, object code, or machine code) to create an
+executable program.&lt;&#x2F;p&gt;
+&lt;p&gt;Python uses &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;python&#x2F;cpython&quot;&gt;CPython&lt;&#x2F;a&gt; as the compiler.
+If you search around on why CPython&#x2F;Python is so slow and inefficient,
+you’ll find that the culprits are:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Python is &lt;strong&gt;dynamic-typed language&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Python’s &lt;strong&gt;Global Interpreter Lock (GIL) restricts multi-threading capabilities&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Python is &lt;strong&gt;interpreted&lt;&#x2F;strong&gt;, which means that Python code is executed sequentially:
+line-by-line.&lt;&#x2F;li&gt;
+&lt;li&gt;Python is &lt;strong&gt;garbage-collected&lt;&#x2F;strong&gt;: all memory its tracked,
+and allocated or deallocated which introduces overhead.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;I completely disagree with almost all the above reasons, except the GIL.
+&lt;strong&gt;Python is slow because of its design decisions&lt;&#x2F;strong&gt;,
+more specifically the way CPython works under the hood.
+It is not built for performance in mind.
+Actually, the main objective of Python was to be a
+“language that would be easy to read, write, and maintain”.
+I salute that: Python has remained true to its main objective.&lt;&#x2F;p&gt;
+&lt;p&gt;Now let’s switch to Julia:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Julia is &lt;strong&gt;dynamic-typed language&lt;&#x2F;strong&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;Julia is &lt;strong&gt;interpreted&lt;&#x2F;strong&gt;, which means that Julia code is executed sequentially:
+line-by-line.&lt;&#x2F;li&gt;
+&lt;li&gt;Julia is &lt;strong&gt;garbage-collected&lt;&#x2F;strong&gt;: all memory its tracked,
+and allocated or deallocated which introduces overhead.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;I’ve copy-pasted all Python’s arguments for inefficiency, except the GIL.
+And, contrary to Python, &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&#x2F;benchmarks&#x2F;&quot;&gt;Julia is fast&lt;&#x2F;a&gt;!
+Sometimes even faster than C.
+Actually, that was the goal all along since Julia’s inception.
+If you check the &lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&#x2F;blog&#x2F;2012&#x2F;02&#x2F;why-we-created-julia&#x2F;&quot;&gt;notorious Julia announcement blog post from 2012&lt;&#x2F;a&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;We want a language that’s open source, with a liberal license.
+We want the speed of C with the dynamism of Ruby.
+We want a language that’s homoiconic, with true macros like Lisp,
+but with obvious, familiar mathematical notation like Matlab.
+We want something as usable for general programming as Python,
+as easy for statistics as R, as natural for string processing as Perl,
+as powerful for linear algebra as Matlab, as good at gluing programs together as the shell.
+Something that is dirt simple to learn,
+yet keeps the most serious hackers happy.
+We want it interactive and we want it compiled.&lt;&#x2F;p&gt;
+&lt;p&gt;(Did we mention it should be as fast as C?)&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;It mentions “speed” twice.
+Not only that, but also specifically says that it should match C’s speed.&lt;&#x2F;p&gt;
+&lt;p&gt;Julia is fast because of its design decisions.
+One of the major reasons why Julia is fast is because of the choice of compiler
+that it uses: &lt;a href=&quot;https:&#x2F;&#x2F;llvm.org&#x2F;&quot;&gt;LLVM&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;LLVM originally stood for &lt;strong&gt;l&lt;&#x2F;strong&gt;ow &lt;strong&gt;l&lt;&#x2F;strong&gt;evel &lt;strong&gt;v&lt;&#x2F;strong&gt;irtual &lt;strong&gt;m&lt;&#x2F;strong&gt;achine.
+Despite its name, LLVM has little to do with traditional virtual machines.
+LLVM can take &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Intermediate_representation&quot;&gt;intermediate representation (IR)&lt;&#x2F;a&gt;
+code and compile it into machine-dependent instructions.
+It has &lt;a href=&quot;https:&#x2F;&#x2F;foundation.llvm.org&#x2F;sponsors&quot;&gt;support and sponsorship&lt;&#x2F;a&gt;
+from a lot of big-tech corporations,
+such as Apple, Google, IBM, Meta, Arm, Intel, AMD, Nvidia, and so on.
+It is a pretty fast compiler that can do wonders in optimizing IR code to a
+plethora of computer architectures.&lt;&#x2F;p&gt;
+&lt;p&gt;In a sense, Julia is a front-end for LLVM.
+It turns your easy-to-read and easy-to-write Julia code into LLVM IR code.
+Take this for-loop example inside a function:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-parameters z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    acc &lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-control z-julia&quot;&gt;for&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-control z-julia&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        acc &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;+=&lt;&#x2F;span&gt; i
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;end&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;    &lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;return&lt;&#x2F;span&gt; acc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-other z-julia&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Let’s check what Julia generates as LLVM IR code for this function.
+We can do that with the &lt;code&gt;@code_llvm&lt;&#x2F;code&gt; macro.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;code_llvm&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; debuginfo&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;none&lt;&#x2F;span&gt; sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;define i&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_172&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-comment z-line z-number-sign z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-julia&quot;&gt;#&lt;&#x2F;span&gt;0 {&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;top&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;  ret i&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;64&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;You can’t easily fool the compiler.
+Julia understands that the answer is 55,
+and the LLVM IR generated code is pretty much just “return 55 as a 64-bit integer”.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s also check the machine-dependent instructions with the &lt;code&gt;@code_native&lt;&#x2F;code&gt; macro.
+I am using an Apple Silicon machine, so these instructions might differ from yours:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;code_native&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; debuginfo&lt;span class=&quot;z-keyword z-operator z-assignment z-julia&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-other z-symbol z-julia&quot;&gt;none&lt;&#x2F;span&gt; sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-arguments z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .section        __TEXT,__text,regular,pure_instructions
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .build_version macos, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;14&lt;&#x2F;span&gt;, &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;        .globl  _julia_sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10_214&lt;&#x2F;span&gt;               ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; Begin &lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_214&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .p&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2&lt;&#x2F;span&gt;align        &lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;2&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;_julia_sum_&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;10_214&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;                      ; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-meta z-generic-name z-julia&quot;&gt;julia_sum_10_214&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .cfi_startproc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;bb&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;.0&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-colon z-julia&quot;&gt;:&lt;&#x2F;span&gt;                                ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;%&lt;&#x2F;span&gt;top
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        mov     w&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;0&lt;&#x2F;span&gt;, &lt;span class=&quot;z-comment z-line z-number-sign z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-julia&quot;&gt;#&lt;&#x2F;span&gt;55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        ret
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;        .cfi_endproc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;                                        ; &lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;-&lt;&#x2F;span&gt; End &lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-keyword z-declaration z-function z-julia&quot;&gt;function&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;&lt;span class=&quot;z-meta z-function z-julia&quot;&gt;.subsections_via_symbols
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The only important instruction for our argument here is the &lt;code&gt;mov w0, #55&lt;&#x2F;code&gt;.
+This means “move the value 55 into the &lt;code&gt;w0&lt;&#x2F;code&gt; register”,
+where &lt;code&gt;w0&lt;&#x2F;code&gt; is one of registers available in ARM-based architectures
+(which Apple Silicon chips are).&lt;&#x2F;p&gt;
+&lt;p&gt;This is a &lt;strong&gt;zero-cost abstraction&lt;&#x2F;strong&gt;!
+I don’t need to give up for-loops, because they might be slow and inefficient;
+like some Python users suggest newcomers.
+I can have the full convenience and expressiveness of for-loops without
+paying performance costs.
+Pretty much the definition of a zero-cost abstraction from above.&lt;&#x2F;p&gt;
+&lt;p&gt;Using LLVM as a compiler backend is not something unique to Julia.
+Rust also uses LLVM under the hood.
+Take for example this simple Rust code:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;pub&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;span class=&quot;z-meta z-function z-return-type z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;i32&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-storage z-type z-rust&quot;&gt;let&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-modifier z-rust&quot;&gt;mut&lt;&#x2F;span&gt; acc &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;0&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-keyword z-control z-rust&quot;&gt;for&lt;&#x2F;span&gt; i &lt;span class=&quot;z-keyword z-operator z-rust&quot;&gt;in&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;1&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-range z-rust&quot;&gt;..&lt;&#x2F;span&gt;&lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;=&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-numeric z-integer z-decimal z-rust&quot;&gt;10&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;        acc &lt;span class=&quot;z-keyword z-operator z-assignment z-rust&quot;&gt;+=&lt;&#x2F;span&gt; i
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    acc
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-support z-function z-rust&quot;&gt;sum_10&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We can inspect both LLVM IR code and machine instructions with the
+&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pacak&#x2F;cargo-show-asm&quot;&gt;&lt;code&gt;cargo-show-asm&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; crate:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo asm&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;llvm&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10::main&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;grep&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;  &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;store&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; i32 55, ptr &lt;span class=&quot;z-meta z-group z-expansion z-job z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-variable z-job z-shell&quot;&gt;%&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-other z-readwrite z-shell&quot;&gt;_9&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;, align 4&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo asm &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;sum_10::main&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-logical z-pipe z-shell&quot;&gt;|&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;grep&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 55&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.00s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;        &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;mov&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; w8, &lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-begin z-shell&quot;&gt;#&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;55&lt;&#x2F;span&gt;&lt;span class=&quot;z-comment z-line z-number-sign z-shell&quot;&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;No coincidence that the LLVM IR code is very similar,
+with the difference that integers, by default,
+in Julia are 64 bits and in Rust 32 bits.
+However, the machine code is &lt;strong&gt;identical&lt;&#x2F;strong&gt;:
+“move the value 55 into a &lt;code&gt;w&lt;&#x2F;code&gt; something register”.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;enums&quot;&gt;Enums&lt;&#x2F;h3&gt;
+&lt;p&gt;Another zero-cost abstraction, in Julia and Rust, is &lt;strong&gt;enums&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;In Julia all enums, by default have a &lt;code&gt;BaseType&lt;&#x2F;code&gt; of &lt;code&gt;Int32&lt;&#x2F;code&gt;:
+a signed 32-bit integer.
+However, we can override this with type annotations:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;julia&quot; class=&quot;language-julia z-code&quot;&gt;&lt;code class=&quot;language-julia&quot; data-lang=&quot;julia&quot;&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-function-call z-macro z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-macro z-julia&quot;&gt;@&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-macro z-julia&quot;&gt;&lt;span class=&quot;z-support z-function z-macro z-julia&quot;&gt;enum&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; Thing&lt;span class=&quot;z-keyword z-operator z-colons z-julia&quot;&gt;::&lt;&#x2F;span&gt;Bool One Two
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;julia&lt;span class=&quot;z-keyword z-operator z-julia&quot;&gt;&amp;gt;&lt;&#x2F;span&gt; Base.summarysize&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;Thing&lt;span class=&quot;z-meta z-group z-julia&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-julia&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-constant z-language z-julia&quot;&gt;false&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-julia&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-julia&quot;&gt;&lt;span class=&quot;z-constant z-numeric z-julia&quot;&gt;1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here we have an enum &lt;code&gt;Thing&lt;&#x2F;code&gt; with two variants: &lt;code&gt;One&lt;&#x2F;code&gt; and &lt;code&gt;Two&lt;&#x2F;code&gt;.
+Since we can safely represent all the possible variant space of &lt;code&gt;Thing&lt;&#x2F;code&gt;
+with a boolean type, we override the &lt;code&gt;BaseType&lt;&#x2F;code&gt; of &lt;code&gt;Thing&lt;&#x2F;code&gt; to be the &lt;code&gt;Bool&lt;&#x2F;code&gt; type.
+Unsurprised, any object of &lt;code&gt;Thing&lt;&#x2F;code&gt; occupies 1 byte in memory.&lt;&#x2F;p&gt;
+&lt;p&gt;We can achieve the same with Rust:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-slash z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-comment z-rust&quot;&gt;&#x2F;&#x2F;&lt;&#x2F;span&gt; main.rs
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-keyword z-other z-rust&quot;&gt;use&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;std&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;mem&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-annotation z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-annotation z-rust&quot;&gt;#&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-variable z-annotation z-rust&quot;&gt;allow&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;dead_code&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-annotation z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-enum z-rust&quot;&gt;enum&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-enum z-rust&quot;&gt;Thing&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    One&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    Two&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-enum z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-storage z-type z-function z-rust&quot;&gt;fn&lt;&#x2F;span&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-function z-rust&quot;&gt;main&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-parameters z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-parameters z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt; &lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-begin z-rust&quot;&gt;{&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;    &lt;span class=&quot;z-support z-macro z-rust&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Size of Thing: &lt;span class=&quot;z-constant z-other z-placeholder z-rust&quot;&gt;{}&lt;&#x2F;span&gt; byte&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-separator z-rust&quot;&gt;,&lt;&#x2F;span&gt; &lt;span class=&quot;z-meta z-path z-rust&quot;&gt;mem&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-path z-rust&quot;&gt;size_of&lt;span class=&quot;z-punctuation z-accessor z-rust&quot;&gt;::&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-generic z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-generic z-begin z-rust&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;Thing&lt;span class=&quot;z-punctuation z-definition z-generic z-end z-rust&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-meta z-function z-rust&quot;&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-block z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-block z-end z-rust&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; cargo run&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt; --&lt;&#x2F;span&gt;release&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;   &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Compiling&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; enum_size v0.1.0&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;    &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Finished&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; release &lt;span class=&quot;z-keyword z-control z-regexp z-set z-begin z-shell&quot;&gt;[&lt;&#x2F;span&gt;optimized&lt;span class=&quot;z-keyword z-control z-regexp z-set z-end z-shell&quot;&gt;]&lt;&#x2F;span&gt; target(s&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;&#x2F;span&gt;) &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;in&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; 0.09s&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;     &lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Running&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-meta z-group z-expansion z-command z-backticks z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;target&#x2F;release&#x2F;enum_size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-shell&quot;&gt;`&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;Size&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; of Thing: 1 byte&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;However, contrary to Julia, Rust compiler automatically detects the enum’s
+variant space size and adjust accordingly.
+So, no need of overrides.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;Zero-cost abstractions are a joy to have in a programming language.
+It enables you, as a programmer, to just focus on what’s important:
+write expressive code that is easy to read, maintain, debug, and build upon.&lt;&#x2F;p&gt;
+&lt;p&gt;It is no wonder that zero-cost abstractions is a pervasive feature
+of two of my top-favorite languages:
+&lt;a href=&quot;https:&#x2F;&#x2F;julialang.org&quot;&gt;Julia&lt;&#x2F;a&gt;
+and &lt;a href=&quot;https:&#x2F;&#x2F;rust-lang.org&quot;&gt;Rust&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        </entry><entry xml:lang="en">
+        <title>What is soydev? And why do I hate it</title>
+        <published>2023-11-13T07:06:59+00:00</published>
+        <updated>2023-11-13T07:06:59+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/soydev/" type="text/html"/>
+        <id>https://storopoli.com/blog/soydev/</id>
+        
+            <content type="html">&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;soydev&#x2F;soydev.jpg&quot; alt=&quot;Soydev meme&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s dive into the &lt;strong&gt;concept of “soydev”&lt;&#x2F;strong&gt;,
+a term often used pejoratively to describe developers with
+a superficial understanding of technology.
+I provide my definition of what soydev is,
+why is bad, and how it came to be.
+To counteract soydev inclinations,
+I propose an abstract approach centered on timeless concepts, protocols,
+and first principles, fostering a mindset of exploration,
+resilience in the face of failure, and an insatiable hunger for knowledge.&lt;&#x2F;p&gt;
+&lt;p&gt;While we’ll start with a look at the soydev stereotype,
+our journey will lead us to a wider reflection on the importance of depth in
+technological understanding.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;definition&quot;&gt;Definition&lt;&#x2F;h2&gt;
+&lt;p&gt;First, let’s tackle the definition of &lt;em&gt;soydev&lt;&#x2F;em&gt;.
+&lt;a href=&quot;https:&#x2F;&#x2F;www.urbandictionary.com&#x2F;define.php?term=Soydev&quot;&gt;Urban Dictionary&lt;&#x2F;a&gt;
+provides two interesting definitions:&lt;&#x2F;p&gt;
+&lt;p&gt;Urban Dictionary definition 1:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Soydev is a “programmer” that works at a bigh tech company and
+only knows JavaScript and HTML.
+They love IDEs like Visual Studio Code and inefficient frameworks
+that slow their code down.
+They represent the majority of “programmers” today and
+if their numbers continue growing,
+not one person on earth will know how a computer works by the year 2050
+when all the gigachad 1980s C and Unix programmers are gone.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Urban Dictionary definition 2:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Soydev is a type of most abundant Software Developer.
+The Software he&#x2F;she makes is always inefficient and
+uses more CPU and RAM than it should.
+This person always prefers hard work to smart work,
+Has little or no knowledge of existing solutions of a problem,
+Comes up with very complex solution for a simple problem and
+has fear of native and fast programming languages like C, C++ and Rust&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;These definitions give a glimpse of what a soydev is.
+However, they are loaded with pejorative language,
+and also are based on non-timeless technologies and tools.
+I, much prefer to rely on concepts and principles that are timeless.
+Hence, I will provide my own definition of soydev:&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;strong&gt;Soydev is someone who only has a superficial conception of technology
+and computers that is restricted to repeating patterns learned
+from popular workflows on the internet;
+but who doesn’t dedicate time or effort to learning concepts in a deeper way.&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Although soydev is a term with specific connotations,
+it opens the door to a larger conversation about the depth of our engagement
+with technology.
+This superficiality is not unique to soydevs
+but is a symptom of a broader trend in our relationship with technology.&lt;&#x2F;p&gt;
+&lt;p&gt;Most of us start our journey in a skill by having the superficial conception of it.
+However, some are not satisfied with this superficial conception,
+and strive to understand what lies beyond the surface.&lt;&#x2F;p&gt;
+&lt;p&gt;Understanding concepts from first principles allows us to achieve a deep graceful
+kind of mastery that when seems almost effortless to others.
+Deep down lies a lot of effort and time spent in learning and practicing.
+Innumerable hours of deep thinking and reflecting on
+why things are the way they are, and how they could be different if you
+tried to implement them from scratch yourself.&lt;&#x2F;p&gt;
+&lt;p&gt;There is also an inherently rare mixture of curiosity and creativity in the
+process of profoundly learning and understanding concepts in this way.
+You start not only to ask the “Why?” questions but also the “What if?” questions.
+I feel that this posture on understanding concepts paves the way for joyful mastery.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Richard_Feynman&quot;&gt;Richard Feynman&lt;&#x2F;a&gt;
+once said “What I cannot create, I do not understand”.
+You cannot create anything that you don’t know the underlying concepts.
+Therefore, by allying creativity and discovery with deep knowledge,
+Feynman’s argument was that in order for you truly master something,
+you’ll need to be able to recreate it from scratch.&lt;&#x2F;p&gt;
+&lt;p&gt;If you are struggling with my abstractions, I can provide some concrete examples.
+A soydev might be someone who:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Instead of using a simple text editor like vim&#x2F;emacs&#x2F;nano,
+prefers a totally bloated IDE like VSCode to write even basic things in plaintext.
+Or cannot SSH into a remote server without a GUI.&lt;&#x2F;li&gt;
+&lt;li&gt;Instead of choosing a native solution like HTML for a simple web page section,
+prefers to overengineer with a JavaScript framework that has a lot of dependencies,
+and takes 3 seconds to render in the browser.&lt;&#x2F;li&gt;
+&lt;li&gt;Prefers to use black box abstractions instead of learning about basic tech
+primitives and protocols that would get the job done.&lt;&#x2F;li&gt;
+&lt;li&gt;Has no idea what about most concepts that are at the core of computing like
+bit, byte, heap, stack, garbage collector, async, parallel, CPU cycles,
+cache miss, L1&#x2F;L2&#x2F;L3 cache etc.&lt;&#x2F;li&gt;
+&lt;li&gt;Don’t understand the math, or what is going on under the hood when
+using machine learning libraries.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;why-soydev-is-bad&quot;&gt;Why soydev is bad&lt;&#x2F;h2&gt;
+&lt;p&gt;First, let’s understand that being a soydev is not necessarily bad,
+but is highly limited on his ability and curiosity.
+A soydev will never be able to achieve the same level of mastery
+as someone who is willing to go deep and learn concepts from first principles.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, on the other hand,
+soydev is bad because it perpetuates a mindset of superficiality.
+The path of technology innovation is guided by curiosity and creativity.
+And paved with hard work and deep understanding.
+Imagine if all the great minds in technology took the easy path of mindless
+tooling and problem-solving?
+We would be in a stagnant and infertile scenario,
+where everyone would use the same technology and tools without
+questioning or thinking about the problems that they are trying to solve.&lt;&#x2F;p&gt;
+&lt;p&gt;Hence, the culture of soydev is bad for the future of technology,
+where most new developers will be highly limited in their ability to innovate.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;why-soydev-is-on-the-rise&quot;&gt;Why soydev is on the rise&lt;&#x2F;h2&gt;
+&lt;p&gt;I think that soydev culture is highly correlated with
+the increase of technology and
+decrease of barriers to access such technology.
+We live in an age that not only technology is everywhere,
+but also to interact with it is quite effortless.&lt;&#x2F;p&gt;
+&lt;p&gt;My computational statistician mind is always aware of cognitive
+and statistical bias.
+Whenever I see a correlation across time,
+I always take a step back and try to think about the assumptions
+and conceptual models behind it.&lt;&#x2F;p&gt;
+&lt;p&gt;Does the increase in technology usage and importance in daily life
+results in more people using technology from a professional point-of-view?
+Yes.
+Does the increase in people professionally using technology
+results in an increase of tooling and conceptual abstractions
+that allows superficial interactions without need to deeply understand
+the concepts behind such technology?
+I do think that this is true as well.&lt;&#x2F;p&gt;
+&lt;p&gt;These assumptions cover the constituents of the rise of soydev
+from a “demand” viewpoint.
+Nevertheless, there is also the analogous “supply” viewpoint.
+If these trends in demand are not met by trends in supply,
+we would not see the establishment of the soydev phenomenon.
+There is an emerging trend to standardize all the available tech
+into commodities.&lt;&#x2F;p&gt;
+&lt;p&gt;While commoditization of technological solutions has inherent advantages,
+such as scalability and lower opportunity costs,
+it has some disadvantages.
+The main disadvantage is the abrupt decrease of technological innovations.
+If we have strong standardization that are enforced by market and social forces,
+then why care to innovate?
+Why bring new solutions or new ways to solve problems if it will not be adopted
+and are doomed to oblivion?
+Why decide to try to do things different if there is such a high maintenance
+cost, especially when training and expanding human resources capable of
+dealing with such non-standard solutions?&lt;&#x2F;p&gt;
+&lt;p&gt;In this context, technological innovation can only be undertaken
+by big corporations that, not only have big budgets,
+but also big influence to push its innovations as industry standards.&lt;&#x2F;p&gt;
+&lt;p&gt;Don’t get me wrong: I do think that industry standards are important.
+However, I much prefer a protocol standard than product standards.
+First, protocol standards are generally not tied to a single company or brand.
+Second, protocol standards have a higher propensity to expose its underlying
+concepts to developers.
+Think about TCP&#x2F;IP versus your favorite front-end framework:
+Which one would result in deeper understanding of the underlying concepts?&lt;&#x2F;p&gt;
+&lt;p&gt;The rise of soydevs mirrors a societal shift towards immediate gratification and
+away from the pursuit of deep knowledge.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-to-stop-being-a-soydev&quot;&gt;How to stop being a soydev&lt;&#x2F;h2&gt;
+&lt;p&gt;Despite these unstoppable trends I do think that it is possible to use
+tools and shallow abstractions without being a soydev.
+Or, to stop being a soydev and advance towards deep understanding
+of what constitutes your craft.
+Moving beyond the ‘soydev’ mindset is about embracing the richness that
+comes from a deep understanding of technology.
+Here is a short, not by any means exhaustive list of things that you can start doing:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Stop thinking about what is latest and greatest&lt;&#x2F;strong&gt;.
+The tools are not important as the problems they are solving.
+Understand what is the need that the tool tries to address,
+and the major concepts on how it works.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Focus on concepts, protocols and first principles&lt;&#x2F;strong&gt;.
+Forget about frameworks, languages, editors, apps, etc.
+Focus on what probably won’t change in the next decade in technology.
+It is easy (and less uncertain) to think concepts and problems,
+than in tools and solutions.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Set aside some weekly time to explore new ideas&lt;&#x2F;strong&gt;.
+Time block it, make it a calendar event.
+Try to find a time slot that you can be free of distraction and worries.
+Free all of your working memory when you are starting a “new idea” session.
+Think about what problem is this idea trying to solve.
+Also don’t be stuck to just using the “problem-solving” lens.
+Most concepts that are worth knowing in computer science and programming
+don’t have a clear problem tied to them.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Tinker. Play around&lt;&#x2F;strong&gt;. Break something down and see if you can build from scratch.
+Remember Feynman’s “What I cannot create, I do not understand”.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Failure is almost certain&lt;&#x2F;strong&gt;. Yes, you will definitely fail.
+I say to a lot of junior devs, interns, and students that the only advantage
+that I have compared to them is that I’ve failed more times that they have tried.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Stay curious and hungry for knowledge&lt;&#x2F;strong&gt;.
+I am always impressed on how children are so curious.
+I feel sad that almost no one retains their childhood curiosity as an adult
+(Maybe that’s why I love to interact with children).
+Also, I am amazed by how deprived of will to learn some are.
+That is an idea that for me, it is hard to grasp,
+since I feel the exactly opposite.
+Often I have to hold myself not diving into certain areas, ideas or concepts
+because I cannot afford the time to learn them.
+However, I am always tempted by them.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+</content>
+        </entry>
+</feed>

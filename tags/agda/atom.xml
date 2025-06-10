@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="https://storopoli.com/feed_style.xsl" type="text/xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <tabi:metadata xmlns:tabi="https://github.com/welpo/tabi">
+        <tabi:base_url>https:&#x2F;&#x2F;storopoli.com</tabi:base_url>
+        <tabi:separator>
+            •
+        </tabi:separator>
+        <tabi:about_feeds>This is a web feed, also known as an Atom feed. Subscribe by copying the URL from the address bar into your newsreader. Visit About Feeds to learn more and get started. It&#x27;s free.</tabi:about_feeds>
+        <tabi:visit_the_site>Visit website</tabi:visit_the_site>
+        <tabi:recent_posts>Recent posts</tabi:recent_posts>
+        <tabi:last_updated_on>Updated on $DATE</tabi:last_updated_on>
+        <tabi:default_theme></tabi:default_theme>
+        <tabi:post_listing_date>date</tabi:post_listing_date>
+        <tabi:current_section>agda</tabi:current_section>
+    </tabi:metadata><link rel="extra-stylesheet" href="https://storopoli.com/skins/teal.css?h=bd19e558a52d678a50de" /><title>Jose Storopoli, PhD - agda</title>
+        <subtitle>Personal website of Jose Storopoli, PhD</subtitle>
+    <link href="https://storopoli.com/tags/agda/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://storopoli.com/tags/agda/" rel="alternate" type="text/html"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-05-24T12:57:00+00:00</updated>
+    <id>https://storopoli.com/tags/agda/atom.xml</id><entry xml:lang="en">
+        <title>The beauty of math&#x27;s incompleteness or how self-references can beautifully screw things up</title>
+        <published>2025-05-24T12:57:00+00:00</published>
+        <updated>2025-05-24T12:57:00+00:00</updated>
+        <author>
+            <name>Jose Storopoli, PhD</name>
+        </author>
+        <link rel="alternate" href="https://storopoli.com/blog/beauty-of-math-incompleteness/" type="text/html"/>
+        <id>https://storopoli.com/blog/beauty-of-math-incompleteness/</id>
+        
+            <content type="html">&lt;noscript&gt;
+    &lt;div class=&quot;admonition warning&quot;&gt;
+        &lt;div class=&quot;admonition-icon admonition-icon-warning&quot;&gt;
+        &lt;&#x2F;div&gt;
+        &lt;div class=&quot;admonition-content&quot;&gt;
+            &lt;strong class=&quot;admonition-title&quot;&gt;
+                Evil JavaScript
+            &lt;&#x2F;strong&gt;
+            &lt;p&gt;
+                This post uses &lt;a href=&quot;https:&#x2F;&#x2F;katex.org&#x2F;&quot;&gt;KaTeX&lt;&#x2F;a&gt; to render mathematical expressions.
+            &lt;&#x2F;p&gt;
+            &lt;p&gt;
+                To see the rendered mathematical expressions, you’ll need to enable JavaScript.
+            &lt;&#x2F;p&gt;
+        &lt;&#x2F;div&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;noscript&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;beauty-of-math-incompleteness&#x2F;self-referential-blackhole.png&quot; alt=&quot;A curios mathematician seeing a blackhole of self-referential paradoxes.&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“Logic is the hygiene that the mathematician practises to keep his ideas healthy and strong.”&lt;&#x2F;p&gt;
+&lt;p&gt;— Hermann Weyl&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;I have a very special place for &lt;strong&gt;mathematics in my mind and heart&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Mathematics is above &lt;em&gt;any other science&lt;&#x2F;em&gt;.
+This is because the knowledge we gather in all other sciences are never &lt;em&gt;absolutely true&lt;&#x2F;em&gt;.
+All other sciences are based on observations and experiments,
+and eventually evidence accrues to a threshold that we can morally declare that something is &lt;em&gt;true&lt;&#x2F;em&gt;.
+Yet, it is not &lt;em&gt;mathematically true&lt;&#x2F;em&gt;, in other words, for any given pile of evidence about a given hypothesis $H$,
+we have $P(H) &amp;lt; 1$.
+In a pure philosophical sense, we can never be &lt;em&gt;absolutely sure&lt;&#x2F;em&gt; about scientific hypotheses.
+There will always be a certain degree of uncertainty even if we have a lot of evidence in favor of a given hypothesis.
+For mathematical theorems, which is the meat of mathematics, once they are proven, they are &lt;em&gt;absolutely true&lt;&#x2F;em&gt;,
+i.e. $P(H) = 1$.
+For example, imagine a galaxy very far away, and a million years from now, given the
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Euclidean_geometry#Axioms&quot;&gt;5 axioms of Euclidian geometry&lt;&#x2F;a&gt;,
+the theorem that the sum of the angles of a triangle is 180 degrees will still be true.
+It will always be true (given the 5 axioms of course).&lt;&#x2F;p&gt;
+&lt;p&gt;That is how mathematics won my mind.
+Now, how it won my heart is a different story.
+It has to do with the beauty of math’s &lt;em&gt;incompleteness&lt;&#x2F;em&gt;, &lt;em&gt;inconsistency&lt;&#x2F;em&gt;, and &lt;em&gt;undecidability&lt;&#x2F;em&gt;.
+Which all stems from &lt;strong&gt;self-referential paradoxes&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;cantor-and-multiple-infinities&quot;&gt;Cantor and multiple infinities&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;beauty-of-math-incompleteness&#x2F;georg-cantor.jpg&quot; alt=&quot;Georg Cantor&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s go back to 1874, when &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Georg_Cantor&quot;&gt;Georg Cantor&lt;&#x2F;a&gt;
+proved that there are &lt;strong&gt;multiple infinities&lt;&#x2F;strong&gt;.
+Yes, that sounds crazy, but it is true.&lt;&#x2F;p&gt;
+&lt;p&gt;Cantor is the father of set theory.
+Before him, the concept of a set was just a collection of objects and they were all finite collections.
+This dates back to Aristotle, and no one imagined that there was interesting things to say about sets.
+In order to put set theory on a solid footing, Cantor had to define what a set is.
+For finite sets, this was kinda trivial.
+However, for infinite sets, this is where things started to get interesting.&lt;&#x2F;p&gt;
+&lt;p&gt;Cantor started exploring the properties of infinite sets.
+First, he analyzed the properties of the set of natural numbers $\mathbb{N}$.
+He then realized that the set of natural numbers is the same size
+as the set of the integers $\mathbb{Z}$ and the set of the rational numbers $\mathbb{Q}$.
+To show this, he had to come up with a way to compare the sizes of sets.
+He did this by defining a bijection between the set of natural numbers and the set of integers.
+A &lt;strong&gt;bijection&lt;&#x2F;strong&gt; is a function that is one-to-one and onto.
+In other words, it is a function that maps each element of the first set to a unique element of the second set,
+and each element of the second set to a unique element of the first set.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, the function&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+f(n) = \begin{cases}
+-\frac{n}{2} &amp;amp; \text{if } n \text{ is even} \\
+\frac{n+1}{2} &amp;amp; \text{if } n \text{ is odd}
+\end{cases}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;is a bijection between the set of natural numbers and the set of integers.&lt;&#x2F;p&gt;
+&lt;p&gt;It creates a one-to-one correspondence between the set of natural numbers and the set of integers:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;$f(n)$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{N}$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{Z}$&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;f(0)&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(1)&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(2)&lt;&#x2F;td&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;-1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(3)&lt;&#x2F;td&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(4)&lt;&#x2F;td&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;-2&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(5)&lt;&#x2F;td&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(6)&lt;&#x2F;td&gt;&lt;td&gt;6&lt;&#x2F;td&gt;&lt;td&gt;-3&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Ok that was easy, we just proved that the &lt;strong&gt;set of natural numbers and the set of integers have the same size&lt;&#x2F;strong&gt;.
+Now let’s try to prove the same for the set of rational numbers $\mathbb{Q}$.
+The idea again is to find a bijection between the set of natural numbers and the set of rational numbers.
+We can represent the set of rational numbers as a grid of fractions:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\begin{array}{cccc}
+\frac{1}{1} &amp;amp; \quad \frac{1}{2} &amp;amp; \quad \frac{1}{3} &amp;amp; \quad \cdots \\\\
+\frac{2}{1} &amp;amp; \quad \frac{2}{2} &amp;amp; \quad \frac{2}{3} &amp;amp; \quad \cdots \\\\
+\frac{3}{1} &amp;amp; \quad \frac{3}{2} &amp;amp; \quad \frac{3}{3} &amp;amp; \quad \cdots \\\\
+\vdots &amp;amp; \quad \vdots &amp;amp; \quad \vdots &amp;amp; \quad \ddots \\\\
+\end{array}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now, we can’t just go row by row or column by column — that would never finish the first row!
+Instead, Cantor had a brilliant idea: traverse the grid diagonally in a zigzag pattern&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-pairing-function-1&quot;&gt;&lt;a href=&quot;#fn-pairing-function&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+\begin{array}{ccccc}
+\frac{1}{1} &amp;amp; \rightarrow &amp;amp; \frac{1}{2} &amp;amp; \quad &amp;amp; \frac{1}{3} &amp;amp; \rightarrow &amp;amp; \frac{1}{4} &amp;amp; \cdots \\
+&amp;amp; \swarrow &amp;amp; &amp;amp; \nearrow &amp;amp; &amp;amp; \swarrow &amp;amp; \\
+\frac{2}{1} &amp;amp; &amp;amp; \frac{2}{2} &amp;amp; &amp;amp; \frac{2}{3} &amp;amp; &amp;amp; \frac{2}{4} &amp;amp; \cdots \\
+\downarrow &amp;amp; \nearrow &amp;amp; &amp;amp; \swarrow &amp;amp; &amp;amp; &amp;amp; \\
+\frac{3}{1} &amp;amp; &amp;amp; \frac{3}{2} &amp;amp; &amp;amp; \frac{3}{3} &amp;amp; &amp;amp; \frac{3}{4} &amp;amp; \cdots \\
+&amp;amp; \swarrow &amp;amp; &amp;amp; \nearrow &amp;amp; &amp;amp; &amp;amp; \\
+\frac{4}{1} &amp;amp; &amp;amp; \frac{4}{2} &amp;amp; &amp;amp; \frac{4}{3} &amp;amp; &amp;amp; \frac{4}{4} &amp;amp; \cdots \\
+\vdots &amp;amp; &amp;amp; \vdots &amp;amp; &amp;amp; \vdots &amp;amp; &amp;amp; \vdots &amp;amp; \ddots \\
+\end{array}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;This gives us the sequence:
+$$
+\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{3}{1}, \frac{2}{2}, \frac{1}{3}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \ldots
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;But wait! We have a problem — many fractions represent the same rational number:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;$\frac{2}{2} = \frac{1}{1} = 1$&lt;&#x2F;li&gt;
+&lt;li&gt;$\frac{2}{4} = \frac{1}{2} = 0.5$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;To create a true bijection, we need to skip these duplicates.
+We only keep fractions in &lt;strong&gt;lowest terms&lt;&#x2F;strong&gt;,
+where $\text{gcd}(\text{numerator}, \text{denominator}) = 1$.&lt;&#x2F;p&gt;
+&lt;p&gt;After removing duplicates:
+$$\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{3}{1}, \frac{1}{3}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \ldots$$&lt;&#x2F;p&gt;
+&lt;p&gt;Ok we’re almost there.
+This is truly a bijection.
+However, it is a bijection between $\mathbb{N}$ and the set of &lt;em&gt;positive rationals&lt;&#x2F;em&gt;, $\mathbb{Q}^+$.
+To include all of $\mathbb{Q}$, we interleave &lt;em&gt;positive and negative rationals&lt;&#x2F;em&gt; (and zero).
+I won’t give the precise mathematical formula here because it is a bit messy,
+however here’s an algorithm describing the bijection:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Start with $n$&lt;&#x2F;li&gt;
+&lt;li&gt;If $n = 0$, return $0$&lt;&#x2F;li&gt;
+&lt;li&gt;Otherwise:
+&lt;ul&gt;
+&lt;li&gt;Let $k = \frac{n+1}{2}$ if $n$ is odd, $k = \frac{n}{2}$ if $n$ is even&lt;&#x2F;li&gt;
+&lt;li&gt;Find the $k$-th positive rational in our enumeration, call it $r$&lt;&#x2F;li&gt;
+&lt;li&gt;If $n$ is odd, return $r$&lt;&#x2F;li&gt;
+&lt;li&gt;If $n$ is even, return $-r$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;This gives us the following bijection:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;$g(n)$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{N}$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{Q}^+$ enumeration&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{Q}$&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;g(0)&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;-&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(1)&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;1st positive: $\frac{1}{1}$&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(2)&lt;&#x2F;td&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;1st positive: $\frac{1}{1}$&lt;&#x2F;td&gt;&lt;td&gt;-1&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(3)&lt;&#x2F;td&gt;&lt;td&gt;3&lt;&#x2F;td&gt;&lt;td&gt;2nd positive: $\frac{1}{2}$&lt;&#x2F;td&gt;&lt;td&gt;$\frac{1}{2}$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(4)&lt;&#x2F;td&gt;&lt;td&gt;4&lt;&#x2F;td&gt;&lt;td&gt;2nd positive: $\frac{1}{2}$&lt;&#x2F;td&gt;&lt;td&gt;$-\frac{1}{2}$&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(5)&lt;&#x2F;td&gt;&lt;td&gt;5&lt;&#x2F;td&gt;&lt;td&gt;3rd positive: $\frac{2}{1}$&lt;&#x2F;td&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;g(6)&lt;&#x2F;td&gt;&lt;td&gt;6&lt;&#x2F;td&gt;&lt;td&gt;3rd positive: $\frac{2}{1}$&lt;&#x2F;td&gt;&lt;td&gt;-2&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Q.E.D.! We have a &lt;strong&gt;bijection between $\mathbb{N}$ and $\mathbb{Q}$&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I went over all of these details because this diagonalization argument is a very important insight.
+Any set that can be put in a one-to-one correspondence with the set of natural numbers is called &lt;strong&gt;countable&lt;&#x2F;strong&gt;.
+Cantor showed that the set of rational numbers is countable.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s see what happens when we try to apply the same argument to the set of real numbers $\mathbb{R}$.
+For the sake of simplicity, let’s consider the set of real numbers between 0 and 1, $\mathbb{R}_{(0,1)}$.&lt;&#x2F;p&gt;
+&lt;p&gt;Let’s assume that we have a bijection $f$ between $\mathbb{N}$ and $\mathbb{R}_{(0,1)}$.
+This would give us the following table:&lt;&#x2F;p&gt;
+&lt;table&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;$f(n)$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{N}$&lt;&#x2F;th&gt;&lt;th&gt;$\mathbb{R}_{(0,1)}$&lt;&#x2F;th&gt;&lt;&#x2F;tr&gt;&lt;&#x2F;thead&gt;&lt;tbody&gt;
+&lt;tr&gt;&lt;td&gt;f(0)&lt;&#x2F;td&gt;&lt;td&gt;0&lt;&#x2F;td&gt;&lt;td&gt;0.011…&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(1)&lt;&#x2F;td&gt;&lt;td&gt;1&lt;&#x2F;td&gt;&lt;td&gt;0.111…&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;f(2)&lt;&#x2F;td&gt;&lt;td&gt;2&lt;&#x2F;td&gt;&lt;td&gt;0.112…&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;tr&gt;&lt;td&gt;…&lt;&#x2F;td&gt;&lt;td&gt;…&lt;&#x2F;td&gt;&lt;td&gt;…&lt;&#x2F;td&gt;&lt;&#x2F;tr&gt;
+&lt;&#x2F;tbody&gt;&lt;&#x2F;table&gt;
+&lt;p&gt;Note that the real number $f(n)$ is the $n$-th real number in the list.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, let’s construct a new real number $x$ that is not in the list.
+We will do this by constructing a real number that is different from the $n$-th real number in the list for all $n$.
+We just add 1 to the $n$-th digit of the $n$-th real number in the list.
+For example, for the first real number in the list, we add 1 to the first digit,
+for the second real number in the list, we add 1 to the second digit,
+and so on.&lt;&#x2F;p&gt;
+&lt;p&gt;This gives us the following real number: $0.123\ldots$
+By construction, this real number is not in the list,
+since it differs from the first real number in the list by 1 in the first digit,
+from the second real number in the list by 1 in the second digit,
+and so on.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a &lt;strong&gt;contradiction&lt;&#x2F;strong&gt;, since we assumed that $f$ was a bijection.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, this is where &lt;strong&gt;self-reference&lt;&#x2F;strong&gt; strikes first in this post,
+and probably in the history of mathematics.
+When we construct the &lt;em&gt;diagonal number&lt;&#x2F;em&gt; $x$, we’re creating something that:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Refers to the entire supposed list of real numbers.&lt;&#x2F;li&gt;
+&lt;li&gt;Defines itself in opposition to that list — “I differ from the 1st number at position 1, from the 2nd at position 2…”.&lt;&#x2F;li&gt;
+&lt;li&gt;Uses the list to prove the list is incomplete.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Ultimately, this is where Cantor found the first example of a set that is &lt;strong&gt;not countable&lt;&#x2F;strong&gt;.
+There’s no way to pair the set of natural numbers with the set of real numbers between 0 and 1.
+Therefore, the set of real numbers between 0 and 1 is &lt;strong&gt;not countable&lt;&#x2F;strong&gt;.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cantor%27s_diagonal_argument&quot;&gt;Cantor’s diagonal argument&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a very important insight.
+It shows that there are &lt;strong&gt;different sizes of infinity&lt;&#x2F;strong&gt;.
+Yes, that is mind-blowing and paradoxically beautiful.&lt;&#x2F;p&gt;
+&lt;p&gt;Cantor called the size of the set of natural numbers $\aleph_0$,
+and conjectured that the set of real numbers is $\aleph_1$.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Continuum_hypothesis&quot;&gt;&lt;strong&gt;continuum hypothesis&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt; (CH).&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;russell-and-the-barber-paradox&quot;&gt;Russell and the barber paradox&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;beauty-of-math-incompleteness&#x2F;bertrand-russell.jpg&quot; alt=&quot;Bertrand Russell&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Now let’s fast forward to 1901.
+Set theory was still in its infancy,
+yet it was starting to be accepted by the mathematical community.
+This is where &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Bertrand_Russell&quot;&gt;Bertrand Russell&lt;&#x2F;a&gt;
+after attending the first &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;World_Congress_of_Philosophy&quot;&gt;World Congress of Philosophy&lt;&#x2F;a&gt; in Paris in 1900,
+was impressed by the work of Peano who was using set theory to formalize mathematics.&lt;&#x2F;p&gt;
+&lt;p&gt;He embarked on a journey to &lt;strong&gt;formalize mathematics using set theory&lt;&#x2F;strong&gt;.
+However, he stumbled upon a &lt;strong&gt;paradox&lt;&#x2F;strong&gt;.
+Set theory is very lenient with the definition of sets.
+For example, we can define the set of all sets that are &lt;strong&gt;not members of themselves&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;p&gt;$$
+R = \{ x \mid x \notin x \}
+$$&lt;&#x2F;p&gt;
+&lt;p&gt;Now what happens if we ask the question: &lt;strong&gt;is $R$ a member of itself?&lt;&#x2F;strong&gt;
+If $R$ is a member of itself, then it is &lt;em&gt;not&lt;&#x2F;em&gt; a member of itself.
+If $R$ is &lt;em&gt;not&lt;&#x2F;em&gt; a member of itself, then it is a member of itself.&lt;&#x2F;p&gt;
+&lt;p&gt;To put more simply, Russell gave the simple analogy:
+imagine a barber who shaves all men who do not shave themselves.
+Now, the question is: &lt;strong&gt;does the barber shave himself?&lt;&#x2F;strong&gt;
+If he does, then he does &lt;em&gt;not&lt;&#x2F;em&gt; shave himself.
+If he does &lt;em&gt;not&lt;&#x2F;em&gt; shave himself, then he does shave himself.&lt;&#x2F;p&gt;
+&lt;p&gt;I can even given an even more simple example: the statement “this statement is false” is a paradox.
+If it is true, then it is false.
+If it is false, then it is true.&lt;&#x2F;p&gt;
+&lt;p&gt;Or suppose that I go out and shout out loud: “I am lying”.
+If I am lying, then I am &lt;em&gt;not&lt;&#x2F;em&gt; lying.
+If I am &lt;em&gt;not&lt;&#x2F;em&gt; lying, then I am lying.&lt;&#x2F;p&gt;
+&lt;p&gt;All of these examples boil down to the same thing:
+we cannot have a set of all sets that are &lt;strong&gt;not members of themselves&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Russell%27s_paradox&quot;&gt;&lt;strong&gt;Russell’s paradox&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.
+And yet again, we have &lt;strong&gt;self-reference&lt;&#x2F;strong&gt; creating a paradox.
+Personally, I find Cantor’s multiple infinities more beautiful than Russell’s paradox.
+But I acknowledge that Russell’s paradox is way simpler and more accessible to the general public.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;godel-and-the-incompleteness-theorem&quot;&gt;Gödel and the incompleteness theorem&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;beauty-of-math-incompleteness&#x2F;kurt-godel.jpg&quot; alt=&quot;Kurt Gödel&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Fasten your seatbelts, this is going to be a wild ride.
+But first, a little bit of history.&lt;&#x2F;p&gt;
+&lt;p&gt;In 1900,
+during the second &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;International_Congress_of_Mathematicians&quot;&gt;International Congress of Mathematicians&lt;&#x2F;a&gt; in Paris,
+David Hilbert,
+arguably the most important mathematician of the 20th century,
+gave a list of 23 problems that he thought would be the most important to solve in the century.
+These became known as the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Hilbert%27s_problems&quot;&gt;Hilbert’s problems&lt;&#x2F;a&gt;.
+Right there in the second problem, Hilbert posed the following problem:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;The compatibility of the arithmetical axioms.&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Later, Hilbert recasted his “Second Problem” at the eighth &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;International_Congress_of_Mathematicians&quot;&gt;International Congress of Mathematicians&lt;&#x2F;a&gt; in Bologna.
+He posed three questions:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Was mathematics complete?&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Was mathematics consistent?&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Was mathematics decidable?&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;Hilbert believed that mathematics could be put on a completely secure foundation by answering these questions.
+Gödel would shatter the dream of a &lt;strong&gt;complete and consistent mathematics&lt;&#x2F;strong&gt;.
+And later, Turing would show that mathematics is &lt;strong&gt;not decidable&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Gödel’s incompleteness theorems&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-godel-incompleteness-1&quot;&gt;&lt;a href=&quot;#fn-godel-incompleteness&quot;&gt;2&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt; are composed of two theorems.
+Let’s start with the first incompleteness theorem, which Gödel proved in 1931
+in front of an audience that comprised of no one other than &lt;a href=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;von-neumann&#x2F;&quot;&gt;Von Neumann&lt;&#x2F;a&gt;,
+who allegedly was so impressed by Gödel’s work that he remarked:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It’s all over.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h3 id=&quot;the-first-incompleteness-theorem&quot;&gt;The first incompleteness theorem&lt;&#x2F;h3&gt;
+&lt;p&gt;The First Incompleteness Theorem states:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For any consistent formal system $F$ that is powerful enough to express basic arithmetic&lt;sup class=&quot;footnote-reference&quot; id=&quot;fr-peano-1&quot;&gt;&lt;a href=&quot;#fn-peano&quot;&gt;3&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;, there exists a statement $G$ in the language of $F$ such that:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;$G$ is true (when interpreted as a statement about natural numbers)&lt;&#x2F;li&gt;
+&lt;li&gt;$G$ cannot be proven within $F$&lt;&#x2F;li&gt;
+&lt;li&gt;$\neg G$ (not $G$) cannot be proven within $F$ either&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;In other words: &lt;strong&gt;truth and provability are not the same thing&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;Gödel’s genius was realizing he could make mathematical statements talk about mathematical statements.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-1-godel-numbering-the-encoding-trick&quot;&gt;Step 1: Gödel numbering — the encoding trick&lt;&#x2F;h4&gt;
+&lt;p&gt;Gödel assigned a unique natural number to every mathematical symbol, expression, and proof.
+Think of it like ASCII encoding for math:&lt;&#x2F;p&gt;
+&lt;p&gt;Basic symbols get prime numbers:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;0&lt;&#x2F;code&gt; → 2&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;=&lt;&#x2F;code&gt; → 3&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;+&lt;&#x2F;code&gt; → 5&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;(&lt;&#x2F;code&gt; → 7&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;)&lt;&#x2F;code&gt; → 11&lt;&#x2F;li&gt;
+&lt;li&gt;etc.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Gödel used a system based on prime factorization.
+He first assigned a unique natural number to each basic symbol in the formal language of arithmetic with which he was dealing.&lt;&#x2F;p&gt;
+&lt;p&gt;To encode an entire formula, which is a sequence of symbols, Gödel used the following system.
+Given a sequence $(x_{1},x_{2},x_{3},…,x_{n})$ of positive integers,
+the Gödel encoding of the sequence is the product of the first $n$ primes raised to their corresponding values in the sequence
+For example, the formula $0 = 0$ might become:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;0&lt;&#x2F;code&gt; → 2&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;=&lt;&#x2F;code&gt; → 3&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;0&lt;&#x2F;code&gt; → 2&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Gödel number = $2^2 \times 3^3 \times 5^2 = 4 \times 27 \times 25 = 2,700$&lt;&#x2F;p&gt;
+&lt;p&gt;This is called the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;G%C3%B6del_numbering&quot;&gt;&lt;strong&gt;Gödel numbering&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.
+The key insight is that now &lt;strong&gt;statements about formulas become statements about numbers&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-2-the-predicate-proves-x-y&quot;&gt;Step 2: the predicate “proves(x, y)”&lt;&#x2F;h4&gt;
+&lt;p&gt;Using Gödel numbering, we can write an arithmetic predicate that means:
+“$x$ is the Gödel number of a proof of the statement with Gödel number $y$”&lt;&#x2F;p&gt;
+&lt;p&gt;This is purely mechanical — checking if $x$ represents a valid sequence of logical steps ending in $y$.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-3-the-diagonal-lemma-the-self-reference-trick&quot;&gt;Step 3: the diagonal lemma — the self-reference trick&lt;&#x2F;h4&gt;
+&lt;p&gt;This is where it gets mind-blowing.
+Gödel proved:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;For any arithmetic property $P(x)$, we can construct a statement $S$ that says:
+“$P$ holds for my own Gödel number”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;It’s like writing a sentence that says “This sentence has 25 letters” — but in arithmetic!&lt;&#x2F;p&gt;
+&lt;p&gt;How the &lt;strong&gt;diagonal lemma&lt;&#x2F;strong&gt; works:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Define a function $\text{sub}(n, m) =$ “the result of substituting $m$ into formula $n$”.&lt;&#x2F;li&gt;
+&lt;li&gt;Consider the property: “The formula with Gödel number $x$, when $x$ substituted into it, has property $P$”.&lt;&#x2F;li&gt;
+&lt;li&gt;Let this property have Gödel number $d$.&lt;&#x2F;li&gt;
+&lt;li&gt;Now look at $\text{sub}(d, d)$ — this is $d$ applied to itself.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;This creates a &lt;strong&gt;fixed point&lt;&#x2F;strong&gt; — a statement that successfully refers to itself.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-4-constructing-g-the-godel-sentence&quot;&gt;Step 4: constructing $G$ — the Gödel sentence&lt;&#x2F;h4&gt;
+&lt;p&gt;Using the diagonal lemma with the property “is not provable”, Gödel constructs $G$ such that:&lt;&#x2F;p&gt;
+&lt;p&gt;$G \iff$ “The statement with Gödel number $g$ is not provable”&lt;&#x2F;p&gt;
+&lt;p&gt;But $g$ is the Gödel number of $G$ itself! So:&lt;&#x2F;p&gt;
+&lt;p&gt;$G \iff \text{“$G$ is not provable”}$&lt;&#x2F;p&gt;
+&lt;p&gt;Now we reason:&lt;&#x2F;p&gt;
+&lt;p&gt;Case 1: Suppose G is provable:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Then G is false (since G says “G is not provable”)&lt;&#x2F;li&gt;
+&lt;li&gt;So our system proves a false statement&lt;&#x2F;li&gt;
+&lt;li&gt;The system is inconsistent! ❌&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Case 2: Suppose $\neg G$ is provable:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Then G is true (G really isn’t provable)&lt;&#x2F;li&gt;
+&lt;li&gt;So $\neg G$ is false&lt;&#x2F;li&gt;
+&lt;li&gt;Again, the system proves something false&lt;&#x2F;li&gt;
+&lt;li&gt;Inconsistent! ❌&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Conclusion: If the system is consistent:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Neither $G$ nor $\neg G$ is provable&lt;&#x2F;li&gt;
+&lt;li&gt;But $G$ is true (it correctly states its own &lt;em&gt;unprovability&lt;&#x2F;em&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;We have a true but unprovable statement! ✅&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This is the &lt;strong&gt;self-reference that Gödel uses to prove his first incompleteness theorem&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The deepest insight is that &lt;strong&gt;self-reference is unavoidable in any system strong enough to do arithmetic&lt;&#x2F;strong&gt;.
+Once you can:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Encode statements as numbers&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Talk about properties of those numbers&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Use diagonalization&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;You automatically get statements that assert their own &lt;em&gt;unprovability&lt;&#x2F;em&gt;.
+Mathematics contains the &lt;strong&gt;seeds of its own incompleteness&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-second-incompleteness-theorem&quot;&gt;The second incompleteness theorem&lt;&#x2F;h3&gt;
+&lt;p&gt;The Second Incompleteness Theorem states:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If $F$ is a consistent formal system capable of proving basic arithmetic facts, then $F$ cannot prove its own consistency.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;This means &lt;strong&gt;arithmetic cannot prove that arithmetic doesn’t contradict itself&lt;&#x2F;strong&gt;!
+It’s like a judge who can’t certify their own sanity — the very act of self-certification is suspect.&lt;&#x2F;p&gt;
+&lt;p&gt;The Second Theorem is actually a clever consequence of the First.
+Here’s the brilliant insight:&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-1-formalizing-consistency&quot;&gt;Step 1: formalizing “consistency”&lt;&#x2F;h4&gt;
+&lt;p&gt;First, we need to express “$F$ is consistent” in the language of arithmetic.
+Gödel realized:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;“$F$ is consistent” $\iff$ “$F$ does not prove both a statement and its negation”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Using Gödel numbering, this becomes:
+$\text{Consistency}(F)$ = “There is no statement $A$ such that $F$ proves both $A$ and $\neg A$”&lt;&#x2F;p&gt;
+&lt;p&gt;Or equivalently:
+$\text{Consistency}(F)$ = “$F$ does not prove $0=1$” (since from a contradiction, you can prove anything)&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;step-2-the-key-connection&quot;&gt;Step 2: the key connection&lt;&#x2F;h4&gt;
+&lt;p&gt;Remember our Gödel sentence $G$ from the First Theorem:&lt;&#x2F;p&gt;
+&lt;p&gt;$G \iff \text{“$G$ is not provable in $F$”}$&lt;&#x2F;p&gt;
+&lt;p&gt;Now here’s the brilliant move.
+Gödel proved that within $F$ itself:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$F$ can prove: “If $F$ is consistent, then $G$ is not provable”&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Now comes the devastating logic:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;Assume $F$ can prove its own consistency: $F \vdash \text{Con}(F)$&lt;&#x2F;li&gt;
+&lt;li&gt;We know $F$ can prove: $\text{Con}(F) \rightarrow G$&lt;&#x2F;li&gt;
+&lt;li&gt;By deduction: $F \vdash G$&lt;&#x2F;li&gt;
+&lt;li&gt;But this means $G$ is provable!&lt;&#x2F;li&gt;
+&lt;li&gt;Since $G$ says “$G$ is not provable”, $G$ must be false&lt;&#x2F;li&gt;
+&lt;li&gt;So $F$ proves a false statement - $F$ is inconsistent!&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;We’ve shown: &lt;strong&gt;If $F$ can prove its own consistency, then $F$ is inconsistent&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;Therefore: &lt;strong&gt;If $F$ is consistent, it cannot prove its own consistency&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;That’s a lot to digest.
+This is a very deep result that is still being studied today.
+I find this result to be on par with Cantor’s multiple infinities in beauty.
+However, Gödel’s incompleteness theorems are a much more outstanding and impressive result.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;turing-and-the-halting-problem&quot;&gt;Turing and the halting problem&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;storopoli.com&#x2F;blog&#x2F;beauty-of-math-incompleteness&#x2F;alan-turing.jpg&quot; alt=&quot;Alan Turing&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Hilbert, after being aware of Gödel’s incompleteness theorems,
+was devastated.
+His beautiful dream of a complete and consistent mathematics was &lt;strong&gt;shattered&lt;&#x2F;strong&gt;.
+But there were still hope in the idea of mathematics being decidable.&lt;&#x2F;p&gt;
+&lt;p&gt;Alan Turing, in 1936, while still an undergraduate at King’s College, Cambridge,
+published a paper entitled “On Computable Numbers, with an Application to the Entscheidungsproblem”.
+That mouthful word, &lt;em&gt;Entscheidungsproblem&lt;&#x2F;em&gt;, is the German for what has become known as the
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Halting_problem&quot;&gt;“&lt;strong&gt;halting problem&lt;&#x2F;strong&gt;”&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The halting problem is the &lt;strong&gt;problem of determining whether a program will halt or run forever&lt;&#x2F;strong&gt;.
+Turing showed that the halting problem is &lt;strong&gt;undecidable&lt;&#x2F;strong&gt;,
+thus shattering the last bastion of hope for a complete, consistent, and decidable mathematics.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;the-turing-machine&quot;&gt;The Turing machine&lt;&#x2F;h3&gt;
+&lt;p&gt;To tackle the halting problem,
+Turing introduced the concept of the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Turing_machine&quot;&gt;&lt;strong&gt;Turing machine&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.
+A Turing machine is a mathematical model of a computer that can be used to compute anything.
+It is comprised of a &lt;strong&gt;tape&lt;&#x2F;strong&gt;, a &lt;strong&gt;head&lt;&#x2F;strong&gt;, and a set of &lt;strong&gt;rules&lt;&#x2F;strong&gt;.
+The tape is infinite in both directions, and is divided into cells.
+The head can read and write symbols on the tape.
+The rules are a set of instructions that the head can follow.
+He showed that any &lt;strong&gt;computable function&lt;&#x2F;strong&gt; can be computed by a Turing machine.
+I won’t go into much details here,
+since if you are reading this through the internet,
+holding on your hands or standing in front of a “Turing machine”,
+is proof enough that Turing machines can compute stuff.&lt;&#x2F;p&gt;
+&lt;p&gt;Using the newfound concept of the Turing machine,
+Turing then redefined the concept of the &lt;strong&gt;halting problem&lt;&#x2F;strong&gt;:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given a Turing machine $M$ and input $I$, will $M$ eventually halt (stop) on input $I$, or will it run forever?&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;To answer this question,
+suppose that you have a function that detects if a Turing machine halts on a given input.
+Here’s how the function signature looks like in Haskell notation:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-meta z-function z-type-declaration z-haskell&quot;&gt;&lt;span class=&quot;z-entity z-name z-function z-haskell&quot;&gt;halts&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-double-colon z-haskell&quot;&gt;::&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;TuringMachine&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Input&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-arrow z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-storage z-type z-haskell&quot;&gt;Bool&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This function takes a Turing machine and an input,
+and returns a boolean value indicating whether the Turing machine halts on the input.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, let’s say that you have a Turing machine $M$ that uses the &lt;code&gt;halts&lt;&#x2F;code&gt; function to detect whether a Turing machine halts on a given input.
+However, this machine loops forever if the &lt;code&gt;halts&lt;&#x2F;code&gt; function returns &lt;code&gt;True&lt;&#x2F;code&gt;,
+or halts if the &lt;code&gt;halts&lt;&#x2F;code&gt; function returns &lt;code&gt;False&lt;&#x2F;code&gt;.
+This could be expressed in Haskell as:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;haskell&quot; class=&quot;language-haskell z-code&quot;&gt;&lt;code class=&quot;language-haskell&quot; data-lang=&quot;haskell&quot;&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;M&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;::&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;TuringMachine&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;Input&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;-&amp;gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-unit z-haskell&quot;&gt;()&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-haskell&quot;&gt;&lt;span class=&quot;z-constant z-other z-haskell&quot;&gt;M&lt;&#x2F;span&gt; m i &lt;span class=&quot;z-keyword z-operator z-haskell&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;if&lt;&#x2F;span&gt; halts m i &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;then&lt;&#x2F;span&gt; loop &lt;span class=&quot;z-keyword z-control z-haskell&quot;&gt;else&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-unit z-haskell&quot;&gt;()&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now, the question is:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Does $M$ halt on input $M$?&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;If $M$ halts on input $M$,
+then $M$ loops forever.
+If $M$ loops forever,
+then $M$ halts on input $M$.&lt;&#x2F;p&gt;
+&lt;p&gt;We have arrived at a &lt;strong&gt;contradiction&lt;&#x2F;strong&gt; and the final &lt;strong&gt;self-referential paradox&lt;&#x2F;strong&gt; in this blog post.&lt;&#x2F;p&gt;
+&lt;p&gt;That’s how Turing, at the young age of 24,
+proved that &lt;strong&gt;mathematics is &lt;em&gt;not&lt;&#x2F;em&gt; decidable&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;agda-proof-that-the-set-of-real-numbers-is-uncountable&quot;&gt;Agda proof that the set of real numbers is uncountable&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;agda.readthedocs.io&#x2F;&quot;&gt;&lt;strong&gt;Agda&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt; is a dependently typed programming language.
+It is often used to prove mathematical theorems.
+But you can also compile it to Haskell using GHC or to JavaScript using a native compiler.
+It is like Haskell on steroids,
+some call it &lt;a href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;OSDgVxdP20g&quot;&gt;“&lt;strong&gt;Super Haskell&lt;&#x2F;strong&gt;”&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;It follows very closely the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Curry%E2%80%93Howard_correspondence&quot;&gt;&lt;strong&gt;Curry-Howard correspondence&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+which is a &lt;strong&gt;magnificent connection between logic and programming&lt;&#x2F;strong&gt;.
+People also called it “&lt;strong&gt;proof-as-program&lt;&#x2F;strong&gt;” or “&lt;strong&gt;programs-as-proofs&lt;&#x2F;strong&gt;”,
+since it is a one-to-one correspondence between programs and proofs.
+The basic idea is that you can write a program that proves a theorem,
+and the program will type-check if the theorem is true.
+This is done by having a very powerful and expressive type system,
+that allows you to express the properties of the objects you are working with.
+If a type is “inhabited”, it means that there exists a term&#x2F;value of that type,
+which under Curry-Howard corresponds to having a proof of the proposition that the type represents.&lt;&#x2F;p&gt;
+&lt;p&gt;So when a type is “&lt;em&gt;inhabited&lt;&#x2F;em&gt;” in Agda, it means:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;You can construct a value of that type — there exists some term &lt;code&gt;t : T&lt;&#x2F;code&gt;.&lt;&#x2F;li&gt;
+&lt;li&gt;The corresponding logical proposition is true&#x2F;provable.&lt;&#x2F;li&gt;
+&lt;li&gt;You have evidence&#x2F;proof of that proposition.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Here are some Agda types and their corresponding logical propositions:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;⊥&lt;&#x2F;code&gt; (bottom type) is uninhabited — corresponds to &lt;code&gt;False&lt;&#x2F;code&gt; (no proof possible).&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;⊤&lt;&#x2F;code&gt; (unit type) is inhabited by &lt;code&gt;tt&lt;&#x2F;code&gt; — corresponds to trivially &lt;code&gt;True&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;A → B&lt;&#x2F;code&gt; (implication type) is inhabited by a function — corresponds to &lt;code&gt;A&lt;&#x2F;code&gt; implies &lt;code&gt;B&lt;&#x2F;code&gt; being provable.
+This is called the &lt;a href=&quot;https:&#x2F;&#x2F;agda.readthedocs.io&#x2F;en&#x2F;stable&#x2F;language&#x2F;function-types.html&quot;&gt;Function type&lt;&#x2F;a&gt;
+in Agda.
+For example, the type of the addition function for natural numbers is:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;Nat &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Nat &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Nat
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;A × B&lt;&#x2F;code&gt; (product type) is inhabited by a pair &lt;code&gt;a , b&lt;&#x2F;code&gt; — corresponds to &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt; both being true.
+For example, the type of a pair of natural numbers is:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;Nat × Nat
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;A ⊎ B&lt;&#x2F;code&gt; (sum type) is inhabited by &lt;code&gt;inj₁ a&lt;&#x2F;code&gt; or &lt;code&gt;inj₂ b&lt;&#x2F;code&gt; — corresponds to &lt;code&gt;A&lt;&#x2F;code&gt; or &lt;code&gt;B&lt;&#x2F;code&gt; being true.
+Note that &lt;code&gt;⊎&lt;&#x2F;code&gt; is the symbol for disjunction.
+For example, the type of a natural number or a boolean is:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;Nat ⊎ Bool
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Σ[ x ∈ A ] B x&lt;&#x2F;code&gt; (dependent sum type) is inhabited by a pair &lt;code&gt;a , b&lt;&#x2F;code&gt; — corresponds to “there exists &lt;code&gt;x : A&lt;&#x2F;code&gt; such that &lt;code&gt;B x&lt;&#x2F;code&gt; is true”.
+Note that &lt;a href=&quot;https:&#x2F;&#x2F;agda.readthedocs.io&#x2F;en&#x2F;stable&#x2F;language&#x2F;built-ins.html#the-type&quot;&gt;&lt;code&gt;Σ&lt;&#x2F;code&gt; type&lt;&#x2F;a&gt; is the same as the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Dependent_type&quot;&gt;dependent pair type&lt;&#x2F;a&gt; in type theory.
+This is more tricky than the product type, because the type of the second component depends on the value of the first component.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, consider a pair where the first component is a boolean and the second component’s type depends on that boolean:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;BoolDependent&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Bool &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;BoolDependent true  &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; ℕ      &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- If true, second component is a natural number&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;BoolDependent false &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; String &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- If false, second component is a string&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- The dependent sum type:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;BoolDependentPair&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;BoolDependentPair &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; Σ[ b ∈ Bool ] BoolDependent b
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;A value of this type could be &lt;code&gt;true , 42&lt;&#x2F;code&gt; (boolean true paired with natural number 42) or &lt;code&gt;false , &quot;hello&quot;&lt;&#x2F;code&gt; (boolean false paired with string “hello”).
+The type of the second component depends on the value of the first component.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;A ≡ B&lt;&#x2F;code&gt; (equality type) is inhabited by a proof of &lt;code&gt;A&lt;&#x2F;code&gt; being equal to &lt;code&gt;B&lt;&#x2F;code&gt; — corresponds to &lt;code&gt;A&lt;&#x2F;code&gt; and &lt;code&gt;B&lt;&#x2F;code&gt; being the same.
+Note that &lt;code&gt;≡&lt;&#x2F;code&gt; is the symbol for equality.&lt;&#x2F;p&gt;
+&lt;p&gt;For example, we can prove that &lt;code&gt;2 + 2 ≡ 4&lt;&#x2F;code&gt;:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;proof-2+2=4&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-numeric z-agda&quot;&gt;2&lt;&#x2F;span&gt; + &lt;span class=&quot;z-constant z-numeric z-agda&quot;&gt;2&lt;&#x2F;span&gt; ≡ &lt;span class=&quot;z-constant z-numeric z-agda&quot;&gt;4&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;proof-2+2=4 &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; refl
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Here &lt;code&gt;refl&lt;&#x2F;code&gt; (reflexivity) is the constructor that proves any term is equal to itself.
+Since &lt;code&gt;2 + 2&lt;&#x2F;code&gt; evaluates to &lt;code&gt;4&lt;&#x2F;code&gt; definitionally in Agda,
+we can use &lt;code&gt;refl&lt;&#x2F;code&gt; to prove they are equal. The type &lt;code&gt;2 + 2 ≡ 4&lt;&#x2F;code&gt; is inhabited by the proof &lt;code&gt;refl&lt;&#x2F;code&gt;,
+which serves as evidence that this equality holds.&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;To learn Agda, a really nice resource is not only the &lt;a href=&quot;https:&#x2F;&#x2F;agda.readthedocs.io&#x2F;&quot;&gt;&lt;strong&gt;Agda documentation&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;,
+but also the &lt;a href=&quot;https:&#x2F;&#x2F;leanpub.com&#x2F;certainty-by-construction&quot;&gt;&lt;strong&gt;Certainty by Construction: Software and Mathematics in Agda&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;
+book by Sandy Maguire.&lt;&#x2F;p&gt;
+&lt;p&gt;I also suggest this quick introduction to Agda:&lt;&#x2F;p&gt;
+&lt;style&gt;
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+&lt;&#x2F;style&gt;
+&lt;div class=&quot;embed-container&quot;&gt;
+  &lt;iframe
+    src=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;OSDgVxdP20g&quot;
+    frameborder=&quot;0&quot;
+    allowfullscreen
+  &gt;&lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;Now, let’s prove that the &lt;strong&gt;set of real numbers is &lt;em&gt;uncountable&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;.
+I’m gonna dump the whole Agda code here,
+then explain the parts that are not obvious.
+To run the code (which is the same as proving the code or theorem, since the code is the theorem, a.k.a Curry-Howard correspondence),
+dump the code into a file named &lt;code&gt;CantorDiagonalReals.agda&lt;&#x2F;code&gt;.
+You can run the code by installing Agda and running &lt;code&gt;agda CantorDiagonalReals.agda&lt;&#x2F;code&gt;.
+Agda will silently compile the code and if nothing is printed,
+it means the code (and the theorem) is correct (or true).&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;module&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;CantorDiagonalReals&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;where&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Data.Nat&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (ℕ; zero; suc)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Data.Bool&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (Bool; true; false)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Data.Empty&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (⊥)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Data.Product&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (Σ; _,_; _×_; Σ-&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;syntax&lt;&#x2F;span&gt;)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Relation.Binary.PropositionalEquality&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (_≡_; refl; cong; trans)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;open import&lt;&#x2F;span&gt; &lt;span class=&quot;z-entity z-name z-type z-agda&quot;&gt;Relation.Nullary&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;using&lt;&#x2F;span&gt; (¬_)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- A real number in (0,1) represented as an infinite sequence of binary digits&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;Real&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;Real &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; ℕ &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Bool  &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Each position has a digit 0 or 1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Abbreviation for inequality&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;_≢_&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; {A &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;} &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; A &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; A &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;x ≢ y &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; ¬ (x ≡ y)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Helper to flip a bit&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;flip&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Bool &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Bool
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip true &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; false
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip false &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; true
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Proof that flip always changes the bit&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;flip-changes&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (b &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Bool) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; b ≢ flip b
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip-changes true ()
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip-changes false ()
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- The diagonal argument: no enumeration of reals in (0,1) exists&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;no-enumeration&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (f &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Real) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Σ[ r ∈ Real ] ((n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; f n ≢ r)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;no-enumeration f &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; diagonal , proof
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;  &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;where&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;    &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Construct the diagonal number by flipping the nth digit of the nth number&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;    &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;diagonal&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Real
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;    diagonal n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; flip (f n n)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;    &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Proof that diagonal differs from every f n&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;    &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;proof&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; f n ≢ diagonal
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;    proof n eq &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; contradiction
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;      &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;where&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- If f n = diagonal, then at position n:&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- (f n n) = (diagonal n) = flip (f n n)&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;        &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;same-at-n&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; f n n ≡ diagonal n
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        same-at-n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; cong (&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;λ&lt;&#x2F;span&gt; r &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; r n) eq
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- But diagonal n = flip (f n n) by definition&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;        &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;diagonal-def&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; diagonal n ≡ flip (f n n)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        diagonal-def &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; refl
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- So f n n = flip (f n n)&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;        &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;self-eq-flip&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; f n n ≡ flip (f n n)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        self-eq-flip &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; trans same-at-n diagonal-def
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- This contradicts the fact that flip always changes the bit&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;        &lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;contradiction&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ⊥
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;        contradiction &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; flip-changes (f n n) self-eq-flip
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Let’s break down this proof step by step:&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;1-real-number-representation&quot;&gt;1. Real number representation&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;Real&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; &lt;span class=&quot;z-constant z-language z-agda&quot;&gt;Set&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;Real &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; ℕ &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Bool  &lt;span class=&quot;z-comment z-line z-double-dash z-agda&quot;&gt;-- Each position has a digit 0 or 1&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We represent real numbers in the interval $(0,1)$ as infinite sequences of binary digits.
+This will make the proof easier to follow without losing any generality.
+A real number is a function from natural numbers to booleans, where each position gives us a binary digit.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;2-the-flip-function&quot;&gt;2. The flip function&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;flip&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Bool &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Bool
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip true &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; false
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip false &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; true
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;flip-changes&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (b &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Bool) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; b ≢ flip b
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip-changes true ()
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;flip-changes false ()
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The &lt;code&gt;flip&lt;&#x2F;code&gt; function switches &lt;code&gt;true&lt;&#x2F;code&gt; to &lt;code&gt;false&lt;&#x2F;code&gt; and vice versa.
+The &lt;code&gt;flip-changes&lt;&#x2F;code&gt; proof shows that flipping a boolean always produces a different boolean.
+The &lt;code&gt;()&lt;&#x2F;code&gt; pattern means “impossible case” — there’s no way &lt;code&gt;true ≡ false&lt;&#x2F;code&gt; or &lt;code&gt;false ≡ true&lt;&#x2F;code&gt;.
+It is called the &lt;a href=&quot;https:&#x2F;&#x2F;agda.readthedocs.io&#x2F;en&#x2F;stable&#x2F;language&#x2F;function-definitions.html#absurd-patterns&quot;&gt;&lt;strong&gt;absurd pattern&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;3-the-main-theorem&quot;&gt;3. The main theorem&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;no-enumeration&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (f &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Real) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; Σ[ r ∈ Real ] ((n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; f n ≢ r)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This says: “For any supposed enumeration &lt;code&gt;f&lt;&#x2F;code&gt; of real numbers, there exists a real number &lt;code&gt;r&lt;&#x2F;code&gt; that differs from every number in the enumeration.”
+This is exactly Cantor’s &lt;strong&gt;diagonalization argument&lt;&#x2F;strong&gt;!&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;4-the-diagonal-construction&quot;&gt;4. The diagonal construction&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;diagonal&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; Real
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;diagonal n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; flip (f n n)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;We construct our diagonal number by taking the $n$-th digit of the $n$-th number in the enumeration and flipping it.
+So &lt;code&gt;diagonal 0 = flip (f 0 0)&lt;&#x2F;code&gt;, &lt;code&gt;diagonal 1 = flip (f 1 1)&lt;&#x2F;code&gt;, etc.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;5-the-proof-of-difference&quot;&gt;5. The proof of difference&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;proof&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; (n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ℕ) &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; f n ≢ diagonal
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;proof n eq &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; contradiction
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;For any number &lt;code&gt;f n&lt;&#x2F;code&gt; in our enumeration, we prove it cannot be equal to our diagonal number.
+If they were equal (&lt;code&gt;eq : f n ≡ diagonal&lt;&#x2F;code&gt;), we derive a contradiction.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;6-the-contradiction&quot;&gt;6. The contradiction&lt;&#x2F;h3&gt;
+&lt;p&gt;Now let’s examine the contradiction step by step.
+We assume we have an equality &lt;code&gt;eq : f n ≡ diagonal&lt;&#x2F;code&gt; and derive a contradiction:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;same-at-n&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; f n n ≡ diagonal n
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;same-at-n &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; cong (&lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;λ&lt;&#x2F;span&gt; r &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;→&lt;&#x2F;span&gt; r n) eq
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This uses &lt;strong&gt;congruence&lt;&#x2F;strong&gt; (&lt;code&gt;cong&lt;&#x2F;code&gt;) to say: if two functions are equal (&lt;code&gt;f n ≡ diagonal&lt;&#x2F;code&gt;),
+then applying them to the same argument (&lt;code&gt;n&lt;&#x2F;code&gt;) gives equal results.
+So &lt;code&gt;f n n ≡ diagonal n&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The &lt;code&gt;λ r → r n&lt;&#x2F;code&gt; is a &lt;strong&gt;lambda function&lt;&#x2F;strong&gt; (anonymous function) that takes a function &lt;code&gt;r&lt;&#x2F;code&gt; and applies it to the argument &lt;code&gt;n&lt;&#x2F;code&gt;.
+It’s like saying “given any function &lt;code&gt;r&lt;&#x2F;code&gt;, apply it to &lt;code&gt;n&lt;&#x2F;code&gt;”.
+So &lt;code&gt;cong (λ r → r n) eq&lt;&#x2F;code&gt; means: “if &lt;code&gt;f n ≡ diagonal&lt;&#x2F;code&gt;,
+then applying the operation “apply to &lt;code&gt;n&lt;&#x2F;code&gt;” to both sides gives &lt;code&gt;f n n ≡ diagonal n&lt;&#x2F;code&gt;“.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;diagonal-def&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; diagonal n ≡ flip (f n n)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;diagonal-def &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; refl
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;This is just the definition of our diagonal function unfolding.
+Since &lt;code&gt;diagonal n = flip (f n n)&lt;&#x2F;code&gt; by definition,
+we can prove this equality with &lt;code&gt;refl&lt;&#x2F;code&gt; (reflexivity).&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;self-eq-flip&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; f n n ≡ flip (f n n)
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;self-eq-flip &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; trans same-at-n diagonal-def
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Now we chain the equalities using &lt;strong&gt;transitivity&lt;&#x2F;strong&gt; (&lt;code&gt;trans&lt;&#x2F;code&gt;):&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;We know &lt;code&gt;f n n ≡ diagonal n&lt;&#x2F;code&gt; (from &lt;code&gt;same-at-n&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;We know &lt;code&gt;diagonal n ≡ flip (f n n)&lt;&#x2F;code&gt; (from &lt;code&gt;diagonal-def&lt;&#x2F;code&gt;)&lt;&#x2F;li&gt;
+&lt;li&gt;Therefore &lt;code&gt;f n n ≡ flip (f n n)&lt;&#x2F;code&gt; (by transitivity)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;But this is &lt;strong&gt;impossible&lt;&#x2F;strong&gt;!
+We’re saying a boolean equals its own flip.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;agda&quot; class=&quot;language-agda z-code&quot;&gt;&lt;code class=&quot;language-agda&quot; data-lang=&quot;agda&quot;&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;&lt;span class=&quot;z-entity z-name z-agda&quot;&gt;contradiction&lt;&#x2F;span&gt; &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;:&lt;&#x2F;span&gt; ⊥
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-agda&quot;&gt;contradiction &lt;span class=&quot;z-keyword z-other z-agda&quot;&gt;=&lt;&#x2F;span&gt; flip-changes (f n n) self-eq-flip
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Finally, we use our &lt;code&gt;flip-changes&lt;&#x2F;code&gt; lemma,
+which proves that &lt;code&gt;(b : Bool) → b ≢ flip b&lt;&#x2F;code&gt;.
+Since we have a proof that &lt;code&gt;f n n ≡ flip (f n n)&lt;&#x2F;code&gt; (which contradicts &lt;code&gt;flip-changes&lt;&#x2F;code&gt;),
+we can derive the bottom type &lt;code&gt;⊥&lt;&#x2F;code&gt;
+(which is uninhabited, so it is false&#x2F;contradiction).&lt;&#x2F;p&gt;
+&lt;p&gt;This elegant proof captures the essence of Cantor’s diagonalization:
+&lt;strong&gt;we construct a number that systematically differs from every number in any proposed enumeration,
+proving that &lt;em&gt;no such enumeration can exist&lt;&#x2F;em&gt;&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;&#x2F;h2&gt;
+&lt;p&gt;I hope you enjoyed this journey into the beauty of mathematics.
+These self-referential paradoxes underlie the
+absurd dichotomy of truth and provability,
+while also revealing the profound beauty of mathematics’ uncomprehensiveness.&lt;&#x2F;p&gt;
+&lt;p&gt;I often think that mathematics is the language of the universe.
+Yet, given the incompleteness of mathematics,
+will it ever be able to describe the universe?
+Or will the universe be engulfed by a mist of forever unknowable mysteries?&lt;&#x2F;p&gt;
+&lt;p&gt;Like Hilbert, I am left yelling at the void:
+&lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Ignoramus_et_ignorabimus&quot;&gt;“Wir müssen wissen, wir werden wissen.”&lt;&#x2F;a&gt;,
+which translates to “We must know, we will know.”&lt;&#x2F;p&gt;
+&lt;footer class=&quot;footnotes&quot;&gt;
+&lt;ol class=&quot;footnotes-list&quot;&gt;
+&lt;li id=&quot;fn-pairing-function&quot;&gt;
+&lt;p&gt;This is called a &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Pairing_function&quot;&gt;&lt;strong&gt;pairing function&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;, and specifically the &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cantor_pairing_function&quot;&gt;&lt;strong&gt;Cantor pairing function&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-pairing-function-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-godel-incompleteness&quot;&gt;
+&lt;p&gt;If you really want to dive deep into the details of Gödel’s incompleteness theorem, check out &lt;a href=&quot;https:&#x2F;&#x2F;www.logicmatters.net&#x2F;igt&quot;&gt;&lt;strong&gt;Gödel Without (Too Many) Tears&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt; by the logician Peter Smith. &lt;a href=&quot;#fr-godel-incompleteness-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;li id=&quot;fn-peano&quot;&gt;
+&lt;p&gt;Another rabbit hole to dive: &lt;a href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Peano_arithmetic&quot;&gt;&lt;strong&gt;Peano’s arithmetic&lt;&#x2F;strong&gt;&lt;&#x2F;a&gt;. &lt;a href=&quot;#fr-peano-1&quot;&gt;↩&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;&#x2F;footer&gt;
+</content>
+        </entry>
+</feed>
