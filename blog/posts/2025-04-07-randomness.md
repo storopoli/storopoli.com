@@ -1,18 +1,12 @@
-+++
-title = "Randomness in computation: sprinkle a little bit of randomness, and voilà!"
-date = "2025-04-07T06:57:00"
-author = "Jose Storopoli, PhD"
+---
+title: "Randomness in computation: sprinkle a little bit of randomness, and voilà!"
+date: 2025-04-07
+author: Jose Storopoli
+description: How to make your own non-deterministic, but highly reliable, linear
+tags: [math, probability, programming, haskell]
+---
 
-[taxonomies]
-tags = ["math", "probability", "programming", "haskell"]
-
-[extra]
-katex = true
-+++
-
-{{ katex_warning() }}
-
-![Just sprinkle a little bit of randomness, and voilà!](randomness-meme.jpg)
+![Just sprinkle a little bit of randomness, and voilà!](/images/randomness-meme.jpg)
 
 Sometimes when you deal with complicated computations,
 either because of the input size or the complexity of the computation,
@@ -29,18 +23,17 @@ to solve mathematical problems.
 And, of course, like everything nice in math and computer science,
 it has the **Von Neumann's fingerprints** all over it.
 Alas, that is a story for another post, that I already covered in
-["Von Neumann: the Sharpest Mind of the 20th Century"](@/blog/2024-06-22-von-neumann/index.md).
+["Von Neumann: the Sharpest Mind of the 20th Century"](/posts/2024-06-22-von-neumann.html).
 
 I was recently skimming over a textbook that I used to use
-in my undergraduate course on probability theory (Mitzenmacher and Upfal's
-"Probability and Computing"[^pdf], see references below),
+in my undergraduate course on probability theory [@probabilitycomputing][^pdf],
 and I stumbled upon a very interesting algorithm for calculating the **median** of a list.
 
 By the way, this textbook has one of the **best covers** in math textbooks.
 It is Alice in Wonderland dealing with a combinatorial explosion,
 see it below:
 
-{{ resize_image_relative(path="@/blog/2025-04-07-randomness/probability-and-computing.jpg", scale=0.5, alt="Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition" ) }}
+![Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition](/images/probability-and-computing.jpg)
 
 [^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
@@ -68,7 +61,7 @@ normal distributions assumptions that everything is a Gaussian bell curve[^bayes
 
 [^bayesian]:
     For my Bayesian rant,
-    see ["Lindley's Paradox, or The consistency of Bayesian Thinking"](@/blog/2023-11-23-lindley_paradox/index.md).
+    see ["Lindley's Paradox, or The consistency of Bayesian Thinking"](/posts/2023-11-23-lindley_paradox.html).
 
 ## Chebyshev's Inequality
 
@@ -122,7 +115,7 @@ as described in algorithm 3.1 in the "Probability and Computing" textbook:
 2. Sort the set $R$.
 3. Let $d$ be the $\bigg(\left\lfloor \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right\rfloor\bigg)$th smallest element in the sorted set $R$.
 4. Let $u$ be the $\bigg(\left\lceil \frac{1}{2}n^{\frac{3}{4}} + \sqrt{n} \right\rceil\bigg)$th smallest element in the sorted set $R$.
-5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\\{x \in S : d \leq x \leq u \big\\}$ and the numbers $\ell_d = \bigg| \big\\{x \in S : x < d \big\\}\bigg|$ and $\ell_u = \bigg| \big\\{x \in S : x > u \big\\}\bigg|$.
+5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\{x \in S : d \leq x \leq u \big\}$ and the numbers $\ell_d = \bigg| \big\{x \in S : x < d \big\}\bigg|$ and $\ell_u = \bigg| \big\{x \in S : x > u \big\}\bigg|$.
 6. If $\ell_d > n/2$ or $\ell_u > n/2$ then FAIL.
 7. If $\big|C\big| \leq 4n^{\frac{3}{4}}$ then sort the set $C$, otherwise FAIL.
 8. Output the $\big(\lfloor \frac{n}{2} \rfloor - \ell_d + 1\big)$th element in the sorted order of $C$.
@@ -412,9 +405,5 @@ But that is "left as an exercise to the reader".
 Finally, if you are intrigued to see how powerful these inequalities
 can be in probability theory,
 I highly recommend Nassim's Taleb technical book
-["Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications"](https://arxiv.org/abs/2001.10488)
+"Statistical Consequences of Fat Tails: Real World Preasymptotics, Epistemology, and Applications" [@taleb2022statisticalconsequencesfattails]
 which is freely available on arXiv.
-
-## References
-
-- Michael Mitzenmacher and Eli Upfal, "Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition", ISBN: 978-1107154889
