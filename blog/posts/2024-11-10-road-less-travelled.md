@@ -1,17 +1,16 @@
-+++
-title = "The road less travelled"
-date = "2024-11-10T10:02:30"
-author = "Jose Storopoli, PhD"
+---
+title: The road less travelled
+date: 2024-11-10
+author: Jose Storopoli
+description: Advice for those who want to marshall themselves and reach higher grounds.
+tags: [philosophy, programming]
+---
 
-[taxonomies]
-tags = ["philosophy", "programming"]
-+++
-
-![The Road Less Travelled](road_less_travelled.jpg)
+![The Road Less Travelled](/images/road_less_travelled.jpg)
 
 Recently, I've moved my blog from Go and Hugo towards
-[Rust](https://rust-lang.org) and
-[Zola](https://getzola.org).
+[Haskell](https://haskell.org) and
+[Hakyll](http://jaspervdj.be/hakyll).
 
 That made me revisit one of my favorites ideas: **the road less travelled**.
 It is a metaphor for taking the unconventional path,
@@ -23,11 +22,13 @@ Well, I can think of a few:
 - Avoiding JavaScript like the devil avoids the cross
 - Being a polyglot programmer, and getting used with managing memory and pointers.
   This means C, Rust, and Zig.
+  Also learn functional programming.
+  It is a powerful paradigm that can help you write more concise and expressive code.
+  It will make you a better programmer.
+  This means Haskell.
 - Learning the fundamentals concepts that underlie computer science,
   math, and cryptography.
 - Mastering and customizing my tools as needed.
-  That's why I use vim and the terminal for almost everything,
-  instead of GUIs and VS Code.
 - Writing a blog instead of posting on social media.
 - Reading books instead of watching TV shows.
 - Being a minimalist and a stoic.
@@ -37,7 +38,7 @@ Well, I can think of a few:
 
 ## Hercules at the Crossroads
 
-![Hercules at the Crossroads](hercules_at_the_crossroads.jpeg)
+![Hercules at the Crossroads](/images/hercules_at_the_crossroads.jpeg)
 
 Before diving into some of these roads,
 I'll share the tale of Hercules at the Crossroads.
@@ -83,7 +84,7 @@ It has a bunch of undefined behaviors and quirks that can lead to bugs.
 It is also very unintuitive and has a lot of gotchas.
 Just see the meme below:
 
-![JavaScript meme](javascript_meme.png)
+![JavaScript meme](/images/javascript_meme.png)
 
 This is exactly what you not want when coding your whole business logic.
 Imagine getting pwned and losing all your customer data or even your funds
@@ -134,11 +135,52 @@ follow a Von Neumann-ish architecture,
 and an Instruction Set Architecture (ISA) that is Turing-complete,
 then your computer science knowledge will always be true.
 
-There's a nice tale about when [Von Neumann](<$link.page('blog/2024-06-22-von-neumann')>)
+There's a nice tale about when [Von Neumann](/posts/2024-06-22-von-neumann.html)
 was asked, soon after the atomic bomb was dropped on Hiroshima,
 what he was working on, and if he was working on a new weapon.
 He kindly replied "No, I am working on something even more powerful:
 computers".
+
+## Master your tools
+
+Just listen to [John Romero](https://www.wikipedia.org/wiki/John_Romero),
+founder of id Software and creator of Doom and Quake
+on a talk about the early days of id Software at the Strange Loop 2022 conference.
+
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<div class="embed-container">
+  <iframe
+    src="https://www.youtube.com/embed/IzqdZAYcwfY?t=804"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
+
+He has the following principle:
+
+> Great tools make great games.
+> Spend as much time on tools as possible.
+
+If you do a substitution in the quote above
+from "games" to "software",
+you'll get my point.
 
 ## Writing a Blog
 
