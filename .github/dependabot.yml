@@ -1,10 +1,21 @@
 version: 2
 updates:
+  # GitHub Actions dependencies
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: monthly
-  - package-ecosystem: "gitsubmodule"
-    directory: "/"
-    schedule:
-      interval: "daily"
+      interval: "monthly"
+      time: "00:00"
+    # Group all updates into a single PR
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    open-pull-requests-limit: 10
+    commit-message:
+      # Use conventional commit format as specified in user rules
+      prefix: "chore(deps)"
+      include: "scope"
