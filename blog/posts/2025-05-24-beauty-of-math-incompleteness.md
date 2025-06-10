@@ -1,18 +1,12 @@
-+++
-title = "The beauty of math's incompleteness or how self-references can beautifully screw things up"
-date = "2025-05-24T12:57:00"
-author = "Jose Storopoli, PhD"
+---
+title: The beauty of math's incompleteness or how self-references can beautifully screw things up
+date: 2025-05-24
+author: Jose Storopoli
+description: How I've fell in love with Math.
+tags: [math, agda]
+---
 
-[taxonomies]
-tags = ["math", "agda"]
-
-[extra]
-katex = true
-+++
-
-{{ katex_warning() }}
-
-![A curios mathematician seeing a blackhole of self-referential paradoxes.](self-referential-blackhole.png)
+![A curios mathematician seeing a blackhole of self-referential paradoxes.](/images/self-referential-blackhole.png)
 
 > "Logic is the hygiene that the mathematician practises to keep his ideas healthy and strong."
 >
@@ -42,7 +36,7 @@ Which all stems from **self-referential paradoxes**.
 
 ## Cantor and multiple infinities
 
-![Georg Cantor](georg-cantor.jpg)
+![Georg Cantor](/images/georg-cantor.jpg)
 
 Let's go back to 1874, when [Georg Cantor](https://en.wikipedia.org/wiki/Georg_Cantor)
 proved that there are **multiple infinities**.
@@ -69,7 +63,7 @@ For example, the function
 
 $$
 f(n) = \begin{cases}
-    -\frac{n}{2} & \text{if } n \text{ is even} \\\\
+    -\frac{n}{2} & \text{if } n \text{ is even} \\
     \frac{n+1}{2} & \text{if } n \text{ is odd}
 \end{cases}
 $$
@@ -79,7 +73,7 @@ is a bijection between the set of natural numbers and the set of integers.
 It creates a one-to-one correspondence between the set of natural numbers and the set of integers:
 
 | $f(n)$ | $\mathbb{N}$ | $\mathbb{Z}$ |
-|--------|--------------|--------------|
+|:------:|:------------:|:------------:|
 | f(0)   | 0            | 0            |
 | f(1)   | 1            | 1            |
 | f(2)   | 2            | -1           |
@@ -95,28 +89,29 @@ We can represent the set of rational numbers as a grid of fractions:
 
 $$
 \begin{array}{cccc}
-    \frac{1}{1} & \quad \frac{1}{2} & \quad \frac{1}{3} & \quad \cdots \\\\\\\\
-    \frac{2}{1} & \quad \frac{2}{2} & \quad \frac{2}{3} & \quad \cdots \\\\\\\\
-    \frac{3}{1} & \quad \frac{3}{2} & \quad \frac{3}{3} & \quad \cdots \\\\\\\\
-    \vdots & \quad \vdots & \quad \vdots & \quad \ddots \\\\\\\\
+    \frac{1}{1} & \quad \frac{1}{2} & \quad \frac{1}{3} & \quad \cdots \\\\
+    \frac{2}{1} & \quad \frac{2}{2} & \quad \frac{2}{3} & \quad \cdots \\\\
+    \frac{3}{1} & \quad \frac{3}{2} & \quad \frac{3}{3} & \quad \cdots \\\\
+    \vdots & \quad \vdots & \quad \vdots & \quad \ddots \\\\
 \end{array}
 $$
 
 Now, we can't just go row by row or column by column --- that would never finish the first row!
 Instead, Cantor had a brilliant idea: traverse the grid diagonally in a zigzag pattern[^pairing-function].
 
-[^pairing-function]: This is called a [**pairing function**](https://en.wikipedia.org/wiki/Pairing_function), and specifically the [**Cantor pairing function**](https://en.wikipedia.org/wiki/Cantor_pairing_function).
+[^pairing-function]: {-} This is called a [**pairing function**](https://en.wikipedia.org/wiki/Pairing_function),
+  and specifically the [**Cantor pairing function**](https://en.wikipedia.org/wiki/Cantor_pairing_function).
 
 $$
-\begin{array}{ccccc}
-    \frac{1}{1} & \rightarrow & \frac{1}{2} & \quad & \frac{1}{3} & \rightarrow & \frac{1}{4} & \cdots \\\\
-    & \swarrow & & \nearrow & & \swarrow & \\\\
-    \frac{2}{1} & & \frac{2}{2} & & \frac{2}{3} & & \frac{2}{4} & \cdots \\\\
-    \downarrow & \nearrow & & \swarrow & & & \\\\
-    \frac{3}{1} & & \frac{3}{2} & & \frac{3}{3} & & \frac{3}{4} & \cdots \\\\
-    & \swarrow & & \nearrow & & & \\\\
-    \frac{4}{1} & & \frac{4}{2} & & \frac{4}{3} & & \frac{4}{4} & \cdots \\\\
-    \vdots & & \vdots & & \vdots & & \vdots & \ddots \\\\
+\begin{array}{cccccccc}
+    \frac{1}{1} & \rightarrow & \frac{1}{2} & \quad & \frac{1}{3} & \rightarrow & \frac{1}{4} & \cdots \\
+    & \swarrow & & \nearrow & & \swarrow & \\
+    \frac{2}{1} & & \frac{2}{2} & & \frac{2}{3} & & \frac{2}{4} & \cdots \\
+    \downarrow & \nearrow & & \swarrow & & & \\
+    \frac{3}{1} & & \frac{3}{2} & & \frac{3}{3} & & \frac{3}{4} & \cdots \\
+    & \swarrow & & \nearrow & & & \\
+    \frac{4}{1} & & \frac{4}{2} & & \frac{4}{3} & & \frac{4}{4} & \cdots \\
+    \vdots & & \vdots & & \vdots & & \vdots & \ddots \\
 \end{array}
 $$
 
@@ -155,7 +150,7 @@ however here's an algorithm describing the bijection:
 This gives us the following bijection:
 
 | $g(n)$ | $\mathbb{N}$ | $\mathbb{Q}^+$ enumeration  | $\mathbb{Q}$   |
-|--------|--------------|-----------------------------|----------------|
+|:------:|:------------:|:---------------------------:|:--------------:|
 | g(0)   | 0            | -                           | 0              |
 | g(1)   | 1            | 1st positive: $\frac{1}{1}$ | 1              |
 | g(2)   | 2            | 1st positive: $\frac{1}{1}$ | -1             |
@@ -177,7 +172,7 @@ Let's assume that we have a bijection $f$ between $\mathbb{N}$ and $\mathbb{R}_{
 This would give us the following table:
 
 | $f(n)$ | $\mathbb{N}$ | $\mathbb{R}_{(0,1)}$ |
-|--------|--------------|----------------------|
+|:------:|:------------:|:--------------------:|
 | f(0)   | 0            | 0.011...             |
 | f(1)   | 1            | 0.111...             |
 | f(2)   | 2            | 0.112...             |
@@ -223,7 +218,7 @@ This is called the [**continuum hypothesis**](https://en.wikipedia.org/wiki/Cont
 
 ## Russell and the barber paradox
 
-![Bertrand Russell](bertrand-russell.jpg)
+![Bertrand Russell](/images/bertrand-russell.jpg)
 
 Now let's fast forward to 1901.
 Set theory was still in its infancy,
@@ -238,7 +233,7 @@ Set theory is very lenient with the definition of sets.
 For example, we can define the set of all sets that are **not members of themselves**:
 
 $$
-R = \\{ x \mid x \notin x \\}
+R = \{ x \mid x \notin x \}
 $$
 
 Now what happens if we ask the question: **is $R$ a member of itself?**
@@ -269,7 +264,7 @@ But I acknowledge that Russell's paradox is way simpler and more accessible to t
 
 ## Gödel and the incompleteness theorem
 
-![Kurt Gödel](kurt-godel.jpg)
+![Kurt Gödel](/images/kurt-godel.jpg)
 
 Fasten your seatbelts, this is going to be a wild ride.
 But first, a little bit of history.
@@ -297,12 +292,12 @@ And later, Turing would show that mathematics is **not decidable**.
 
 Gödel's incompleteness theorems[^godel-incompleteness] are composed of two theorems.
 Let's start with the first incompleteness theorem, which Gödel proved in 1931
-in front of an audience that comprised of no one other than [Von Neumann](@/blog/2024-06-22-von-neumann/index.md),
+in front of an audience that comprised of no one other than [Von Neumann](/posts/2024-06-22-von-neumann.html),
 who allegedly was so impressed by Gödel's work that he remarked:
 
 > It's all over.
 
-[^godel-incompleteness]: If you really want to dive deep into the details of Gödel's incompleteness theorem, check out [**Gödel Without (Too Many) Tears**](https://www.logicmatters.net/igt) by the logician Peter Smith.
+[^godel-incompleteness]: {-} If you really want to dive deep into the details of Gödel's incompleteness theorem, check out **Gödel Without (Too Many) Tears** [@godelwithouttears].
 
 ### The first incompleteness theorem
 
@@ -314,7 +309,7 @@ The First Incompleteness Theorem states:
 > 2. $G$ cannot be proven within $F$
 > 3. $\neg G$ (not $G$) cannot be proven within $F$ either
 
-[^peano]: Another rabbit hole to dive: [**Peano's arithmetic**](https://en.wikipedia.org/wiki/Peano_arithmetic).
+[^peano]: {-} Another rabbit hole to dive: [**Peano's arithmetic**](https://en.wikipedia.org/wiki/Peano_arithmetic).
 
 In other words: **truth and provability are not the same thing**!
 
@@ -478,7 +473,7 @@ However, Gödel's incompleteness theorems are a much more outstanding and impres
 
 ## Turing and the halting problem
 
-![Alan Turing](alan-turing.jpg)
+![Alan Turing](/images/alan-turing.jpg)
 
 Hilbert, after being aware of Gödel's incompleteness theorems,
 was devastated.
@@ -612,7 +607,7 @@ Here are some Agda types and their corresponding logical propositions:
    BoolDependent : Bool → Set
    BoolDependent true  = ℕ      -- If true, second component is a natural number
    BoolDependent false = String -- If false, second component is a string
-   
+
    -- The dependent sum type:
    BoolDependentPair : Set
    BoolDependentPair = Σ[ b ∈ Bool ] BoolDependent b
@@ -642,7 +637,31 @@ book by Sandy Maguire.
 
 I also suggest this quick introduction to Agda:
 
-{{ youtube(id="OSDgVxdP20g") }}
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<div class="embed-container">
+  <iframe
+    src="https://www.youtube.com/embed/OSDgVxdP20g"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
 
 Now, let's prove that the **set of real numbers is _uncountable_**.
 I'm gonna dump the whole Agda code here,
