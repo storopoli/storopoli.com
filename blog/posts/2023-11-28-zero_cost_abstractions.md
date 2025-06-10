@@ -1,11 +1,9 @@
-+++
-title = "Zero-cost abstractions"
-date = "2023-11-28T18:19:36"
-author = "Jose Storopoli, PhD"
-
-[taxonomies]
-tags = ["programming", "julia", "rust", "python"]
-+++
+---
+title: Zero-cost abstractions
+date: 2023-11-28T18:19:36
+author: Jose Storopoli
+tags: [programming, julia, rust, python]
+---
 
 In programming language circles there's a recently trend of discussing a concept
 called **zero-cost abstractions**:
@@ -64,7 +62,7 @@ Don't get me wrong, Python is the second-best language for everything.
 
 ## The curious case of the Python boolean
 
-![Python WTF?](non-zero-cost-abstraction.png)
+![Python WTF?](/images/non-zero-cost-abstraction.png)
 
 I wish this meme was a joke, but it isn't.
 A boolean is one of the simplest data type taking only two possible values:
@@ -109,7 +107,7 @@ and [PyToch](https://github.com/pytorch/pytorch) (deep learning package),
 and checked the
 language codebase percentage.
 
-![Python my ass](python-my-ass.jpg)
+![Python my ass](images/python-my-ass.jpg)
 
 Surprise, they are **_not_ Python libraries**.
 They are **C/C++ codebases**.
@@ -136,7 +134,7 @@ Check the image below for the language codebase percentage of
 [Julia](https://github.com/JuliaLang/julia)
 and [`Lux.jl`](https://github.com/LuxDL/Lux.jl) (deep learning package).
 
-![Julia: turtles all the way](julia.jpg)
+![Julia: turtles all the way](/images/julia.jpg)
 
 Finally, here's [Rust](https://rust-lang.org), which is not dynamically-,
 but static-typed:
