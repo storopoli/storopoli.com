@@ -35,7 +35,7 @@ see it below:
 
 ![Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition](/images/probability-and-computing.jpg)
 
-[^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
+[^pdf]: {-} The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
 The algorithm uses sampling to probabilistically find the **median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
@@ -50,7 +50,7 @@ You can always iterate and run the algorithm until you get a result,
 but now the runtime is **non-deterministic**.
 
 [^quicksort]:
-    Note that I am comparing against quicksort since it uses $O(\log n)$ space,
+    {-} Note that I am comparing against quicksort since it uses $O(\log n)$ space,
     whereas merge sort would use $O(n)$ space with the worst case is $O(n)$.
 
 The nice thing about the algorithm is that Chebyshev's inequality
@@ -60,7 +60,7 @@ This is excellent since we can move away from the **lala-land** of
 normal distributions assumptions that everything is a Gaussian bell curve[^bayesian].
 
 [^bayesian]:
-    For my Bayesian rant,
+    {-} For my Bayesian rant,
     see ["Lindley's Paradox, or The consistency of Bayesian Thinking"](/posts/2023-11-23-lindley_paradox.html).
 
 ## Chebyshev's Inequality
@@ -256,7 +256,7 @@ which allows us to use the `>>=` operator to chain computations that may fail.
 It can take two values `Nothing` or `Just a`, where `a` is the type of the elements of the list.
 
 [^monad]:
-    Yes M word mentioned.
+    {-} Yes M word mentioned.
     If you want a good introduction to Haskell functors, applicatives, and monads,
     see ["Functors, Applicatives, And Monads In Pictures"](https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
 

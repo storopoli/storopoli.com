@@ -360,7 +360,7 @@ $$3^x = 15 \mod 17 $$
 Try to find it[^answer].
 Good luck.
 
-[^answer]: The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
+[^answer]: {-} The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
 
 ## Public-key cryptography
 

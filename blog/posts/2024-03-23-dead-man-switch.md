@@ -75,7 +75,7 @@ which means you can use it for free as long as you share your code.
 The package is also available on [crates.io](https://crates.io/crates/dead-man-switch),
 Rust's package manager[^web-ui].
 
-[^web-ui]: I've also released a Web Interface for the dead-man-switch.
+[^web-ui]: {-} I've also released a Web Interface for the dead-man-switch.
   You can easily deploy it using Docker or Docker Compose, or Nix.
   Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
 
@@ -131,7 +131,7 @@ Hence, the configuration file is at `/root/.config/deadman/config.toml`.
 If you open the configuration file, you will see the following content.
 I've added some default values for inspiration[^central-park]:
 
-[^central-park]: Please don't go to bench 137 in Central Park, NY.
+[^central-park]: {-} Please don't go to bench 137 in Central Park, NY.
   That was just an example.
 
 ```toml

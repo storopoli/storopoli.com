@@ -44,7 +44,7 @@ Hence, there is only one cubic polynomial that passes through these four points.
 As you might have guessed, **if you have $n$ points you can draw a _unique_ polynomial of degree $n-1$ that passes through them**.
 This is called **polynomial interpolation**[^interpolation].
 
-[^interpolation]: Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
+[^interpolation]: {-} Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
 
 More formally, say that we have a polynomial $f(x)$ of degree $n$:
 
@@ -131,7 +131,7 @@ Or, during the reconstruction phase, an attacker could learn the polynomial by o
 Additionally, during a distributed share generation, an attacker could disrupt the process
 and force the participants to reveal their shares[^nonces].
 
-[^nonces]: Or force them to reuse nonces. Then, "poof", private keys are gone.
+[^nonces]: {-} Or force them to reuse nonces. Then, "poof", private keys are gone.
 
 ## Conclusion
 
