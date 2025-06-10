@@ -1,18 +1,12 @@
-+++
-title = "Basics of cryptographic signatures"
-date = "2024-02-05T18:53:28"
-author = "Jose Storopoli, PhD"
+---
+title: Basics of cryptographic signatures
+date: 2024-02-05
+author: Jose Storopoli
+description: Don't roll your crypto but KNOW your crypto instead.
+tags: [cryptography, bitcoin]
+---
 
-[taxonomies]
-tags = ["cryptography", "bitcoin"]
-
-[extra]
-katex = true
-+++
-
-{{ katex_warning() }}
-
-![Euclid's one-way function](euclid.webp)
+![Euclid](/images/euclid.jpg)
 
 This is the companion post to the [cryptography workshop](https://github.com/storopoli/cryptography-workshop)
 that I gave at a local BitDevs.
@@ -168,7 +162,7 @@ This is due to the property of collision resistance that we mentioned earlier.
 Before we dive into public-key cryptography,
 we need a brief interlude on fields.
 
-**[Fields](<https://en.wikipedia.org/wiki/Field_(mathematics)>) are sets with two binary operations,
+**[Fields](https://en.wikipedia.org/wiki/Field_(mathematics)) are sets with two binary operations,
 called addition $+$ and multiplication $\times$**.
 We write
 
@@ -363,11 +357,10 @@ So let's plug in the numbers; find $x$ in
 
 $$3^x = 15 \mod 17 $$
 
-Try to find it.
+Try to find it[^answer].
 Good luck.
 
-> [](<$block.attrs('info')>)
-> The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
+[^answer]: The answer is $x = 6$. This means that $3^6 = 15 \mod 17$.
 
 ## Public-key cryptography
 
@@ -435,8 +428,8 @@ And here's how you can verify the signature:
 1. Compute $w = s^{-1} \mod q$.
 1. Compute $u_1 = H{m} \cdot w \mod q$.
 1. Compute $u_2 = K \cdot w \mod q$.
-1. Compute $K^\* = {g^{u_1} P^{u_2}_k \mod p} \mod q$.
-1. Assert $K = K^\*$.
+1. Compute $K^* = g^{u_1} P^{u_2}_k \mod p \mod q$.
+1. Assert $K = K^*$.
 
 How this works?
 Let's go through a proof of correctness.
@@ -450,7 +443,7 @@ I added some comments to every operation in parentheses to make it easier to fol
 1. $g^k = g^{H \cdot w \mod q} \cdot g^{S_k K \cdot w \mod q}$ (product of the exponents).
 1. $g^k = g^{H \cdot w \mod q} \cdot P^{K \cdot w \mod q}_k$ ($P_k = g^{S_k}$).
 1. $g^k = g^{u_1} \cdot P^{u_2}_k$ (replace $u_1$ and $u_2$).
-1. $K = K^\*$ (replace $K$ and $K^*$).
+1. $K = K^*$ (replace $K$ and $K^*$).
 
 There you go.
 This attest that the signature is correct and the message was signed by the owner of the private key.
@@ -484,18 +477,18 @@ Here's how you sign a message using Schnorr:
 And here's how you can verify the signature:
 
 1. Compute $e = H(K || m)$.
-1. Compute $K^\* = g^s P_k^e$.
-1. Compute $e^\* = H(K^* || m)$.
-1. Assert $e = e^\*$.
+1. Compute $K^* = g^s P_k^e$.
+1. Compute $e^* = H(K^* || m)$.
+1. Assert $e = e^*$.
 
 How this works?
 Let's go through a proof of correctness.
 As before, I added some comments to every operation in parentheses to make it easier to follow.
 
-1. $K^\* = g^s P_k^e$ ($\mod p$ implicit).
-1. $K^\* = g^{k - S_k e} g^{S_k e}$ ($s = k - S_k e$ and $P_k = g^{S_k}$).
-1. $K^\* = g^k$ (cancel $S_k e$ in the exponent of $g$).
-1. $K^\* = K$ ($K = g^k$).
+1. $K^* = g^s P_k^e$ ($\mod p$ implicit).
+1. $K^* = g^{k - S_k e} g^{S_k e}$ ($s = k - S_k e$ and $P_k = g^{S_k}$).
+1. $K^* = g^k$ (cancel $S_k e$ in the exponent of $g$).
+1. $K^* = K$ ($K = g^k$).
 1. Hence $H(K^* || m) = H(K || m)$.
 
 There you go.
@@ -537,11 +530,11 @@ Now let's do the Schnorr math.
 But in Schnorr, everything is simpler.
 Even nonce reuse attacks.
 
-$$s\^\prime - s = (k\^\prime - k) - S_k (e\^\prime - e)$$
+$$s^\prime - s = (k^\prime - k) - S_k (e^\prime - e)$$
 
-If $k\^\prime = k$ (nonce reuse) then you can easily isolate $S_k$ with simple algebra.
+If $k^\prime = k$ (nonce reuse) then you can easily isolate $S_k$ with simple algebra.
 
-Remember: you know $s\^\prime, s, e, e\^\prime$ and $k\^\prime - k = 0$.
+Remember: you know $s^\prime, s, e, e^\prime$ and $k^\prime - k = 0$.
 
 ## Why we can combine Schnorr Signatures and not DSA?
 

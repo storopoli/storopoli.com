@@ -6,7 +6,6 @@ description: Inside every non-Bayesian there is a Bayesian struggling to get out
 tags: [math, bayesian, probability, julia]
 ---
 
-
 ![Dennis Lindley](/images/lindley.jpg)
 
 [Dennis Lindley](https://en.wikipedia.org/wiki/Dennis_Lindley),
