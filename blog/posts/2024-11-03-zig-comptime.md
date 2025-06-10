@@ -1,11 +1,10 @@
-+++
-title = "Zig comptime is such a powerful built-in feature"
-date = "2024-11-03T11:03:11"
-author = "Jose Storopoli, PhD"
-
-[taxonomies]
-tags = ["zig", "compiler", "rust"]
-+++
+---
+title: Zig comptime is such a powerful built-in feature
+date: 2024-11-03
+author: Jose Storopoli
+description: A deep dive into the `comptime` feature of the Zig programming language.
+tags: [zig, compiler, rust, programming]
+---
 
 I have been following the development of [Zig](https://ziglang.org/)
 for a while now.
@@ -58,14 +57,38 @@ As an additional caveat, **Zig can be faster than C**.
 
 I've been wanting to write about Zig for a while now.
 But I had no topic in mind.
-Then, I was inspired by this talk by [@matklad](https://matklad.github.io)
+Then, I was inspired by this talk by [matklad](https://matklad.github.io)
 on modern systems programming comparing
 Rust and Zig interwoven with his
 professional journey from Rust to Zig,
 and the amazing work he's doing at
 [TigerBeetle](https://tigerbeetle.com):
 
-{{ youtube(id="4aLy6qjhHeo?t=1904") }}
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<div class="embed-container">
+  <iframe
+    src="https://www.youtube.com/embed/4aLy6qjhHeo?t=1904"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
 
 The talk goes on to compare Rust and Zig in terms of systems programming.
 Then, at the middle of the talk, he starts to talk about Zig.
@@ -176,7 +199,7 @@ The motivating example for this blog post is an explanation
 that matklad gives in his talk about how they use `comptime` at TigerBeetle
 to make sure that a `struct` that represents a header has no padding in its fields.
 
-![TigerBeetle's header struct](header_padding.png)
+![TigerBeetle's header struct](/images/zig-header_padding.png)
 
 Then, he said that to have the same checks at compile-time in Rust,
 you would need to bring a lot of complexity with `proc-macro`s.
