@@ -57,19 +57,6 @@ for the rescue.
 
 Check all the supported functions in [KaTeX documentation](https://katex.org/docs/supported).
 
-## Mermaid
-
-Mermaid diagrams can be enabled by setting the frontmatter with:
-
-```toml
-[extra]
-mermaid = true
-```
-
-This will load [Mermaid](https://mermaid.js.org/)
-under the hood, and anything between `{% mermaid() %}` and `{% end %}`
-will be rendered as a Mermaid diagram.
-
 ## License
 
 The code is [MIT](https://mit-license.org/)
