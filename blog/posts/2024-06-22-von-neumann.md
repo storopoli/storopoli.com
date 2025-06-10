@@ -1,18 +1,12 @@
-+++
-title = "Von Neumann: the sharpest mind of the 20th century"
-date = "2024-06-22T05:54:46"
-author = "Jose Storopoli, PhD"
+---
+title: "Von Neumann: the sharpest mind of the 20th century"
+date: 2024-06-22
+author: Jose Storopoli
+description: How Von Neumann single-handedly revolutionized mathematics, quantum mechanics, and computing.
+tags: [math]
+---
 
-[taxonomies]
-tags = ["math"]
-
-[extra]
-katex = true
-+++
-
-{{ katex_warning() }}
-
-![Von Neumann's wartime Los Alamos ID badge photo](von_neumann.jpg)
+![Von Neumann's wartime Los Alamos ID badge photo](/images/von_neumann.jpg)
 
 John von Neumann was a Hungarian-American mathematician.
 But to define him as a simple mathematician would be an understatement.
@@ -78,7 +72,7 @@ Here are some quotes from his contemporaries:
 - **[Marina von Neumann Whitman](https://en.wikipedia.org/wiki/Marina_von_Neumann_Whitman) (his daughter)**:
   "Although he genuinely adored my mother, my father's first love in life was thinking, a pursuit that occupied most of his waking hours."
 
-![Von Neumann and Oppenheimer together in-front of one of the computing machines used on the hydrogen bomb project. Von Neumann could do calculations in his head faster than these early computers and would sometimes face off against them in competitions meant to entertain the other people in the labs](von_neumann_oppenheimer.jpeg)
+![Von Neumann and Oppenheimer together in-front of one of the computing machines used on the hydrogen bomb project. Von Neumann could do calculations in his head faster than these early computers and would sometimes face off against them in competitions meant to entertain the other people in the labs](/images/von_neumann_oppenheimer.jpeg)
 
 If you want to know more about von Neumann, I recommend his biography:
 [The Man from the Future: The Visionary Life of John von Neumann](https://www.goodreads.com/book/show/61089520-the-man-from-the-future)
@@ -91,7 +85,31 @@ This was reported by [Eugene Wigner](https://en.wikipedia.org/wiki/Eugene_Wigner
 in the 1966 documentary on Von Neumann.
 Below is the exact part where Wigner tells the story:
 
-{{ youtube(id="HpJgBcE-cFQ?start=184") }}
+<style>
+  .embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .embed-container iframe,
+  .embed-container object,
+  .embed-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<div class="embed-container">
+  <iframe
+    src="https://www.youtube.com/embed/HpJgBcE-cFQ?start=184"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
 
 The tale takes place in Los Alamos during the Manhattan Project.
 [Max Born (Nobel Prize winner)](https://en.wikipedia.org/wiki/Max_Born)
@@ -121,26 +139,26 @@ $$ 15t = 20 - 10t,$$
 where $t$ is the time in hours.
 Note that $t_1$ is
 
-$$ t_1 = \frac{20}{25} = \frac{4}{5}.$$
+$$ t_1 = \frac{20}{25} = \frac{4}{5}. $$
 
 This means that the total time it takes for the fly to reach the second bicycle for the first time
 is $\frac{4}{5}$ hours and the total distance traveled by the fly is
 $d_1 = 15 \times \frac{4}{5} = 12$ miles.
 It then turns around and reaches the first bicycle when
 
-$$ 12 - 15t = 8 + 10t.$$
+$$ 12 - 15t = 8 + 10t. $$
 
 Solving for $t_2$ we get
 
-$$ t_2 = \frac{4}{25}.$$
+$$ t_2 = \frac{4}{25}. $$
 
 Continuing, the total distance traveled by the fly is given by summing the series
 
-$$ 15 \sum\_{n=1}^{\infty} \frac{4}{5^n} = 15.$$
+$$ 15 \sum\_{n=1}^{\infty} \frac{4}{5^n} = 15. $$
 
 This is a classical [geometric series](https://en.wikipedia.org/wiki/Geometric_series).
 In general, a geometric series is written as $a + ar + ar^{2} + ar^{3} + \ldots$,
-where a $a$ is the coefficient of each term and $r$ is the common ratio between adjacent terms.
+where $a$ is the coefficient of each term and $r$ is the common ratio between adjacent terms.
 
 Here we have $a = 12$ and $r = \frac{4}{5}$,
 and we know it converges to $\frac{a}{1-r} = 15$ when $r < 1$.
