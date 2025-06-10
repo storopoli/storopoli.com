@@ -1,8 +1,9 @@
 ---
 title: Lindley's paradox, or the consistency of Bayesian thinking
-date: 2023-11-22T07:06:59
+date: 2023-11-22
 author: Jose Storopoli
-tags: ["math", "bayesian", "probability", "julia"]
+description: Inside every non-Bayesian there is a Bayesian struggling to get out.
+tags: [math, bayesian, probability, julia]
 ---
 
 

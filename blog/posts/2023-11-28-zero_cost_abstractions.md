@@ -1,7 +1,8 @@
 ---
 title: Zero-cost abstractions
-date: 2023-11-28T18:19:36
+date: 2023-11-28
 author: Jose Storopoli
+description: Exploring the concept of zero-cost abstractions in programming languages.
 tags: [programming, julia, rust, python]
 ---
 

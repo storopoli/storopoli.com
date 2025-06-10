@@ -1,7 +1,8 @@
 ---
 title: Word embeddings
-date: 2023-11-19T22:49:51
+date: 2023-11-19
 author: Jose Storopoli
+description: How to do machine learning with cosines.
 tags: [math, machine learning, julia]
 ---
 
