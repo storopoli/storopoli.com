@@ -1,13 +1,12 @@
-+++
-title = "Sherlock Holmes final letter: a simple dead man's switch in Rust"
-date = "2024-03-23T14:00:16"
-author = "Jose Storopoli, PhD"
+---
+title: "Sherlock Holmes final letter: a simple dead man's switch in Rust"
+date: 2024-03-23
+author: Jose Storopoli
+description: A simple no-bullshit dead man's switch in Rust.
+tags: [rust, nix, privacy]
+---
 
-[taxonomies]
-tags = ["rust", "nix", "privacy"]
-+++
-
-![Sherlock Holmes fights Moriarty at the Reichenbach Falls](the_final_problem.png)
+![Sherlock Holmes fights Moriarty at the Reichenbach Falls](/images/the_final_problem.png)
 
 Got state secrets? Or maybe 50 BTC?
 Don't trust your government or lawyers?
@@ -69,16 +68,16 @@ But they would need a simple DMS to run on it.
 
 ## How to Use It
 
-{% admonition(type="danger", icon="danger", title="Disclaimer") %}
-Use at your own risk. Check the f\*\*\*\*(as in _friendly_) code.
-{% end %}
-
 I invite you to check out the code on GitHub at
 [`storopoli/dead-man-switch`](https://github.com/storopoli/dead-man-switch).
 The license is [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html),
 which means you can use it for free as long as you share your code.
 The package is also available on [crates.io](https://crates.io/crates/dead-man-switch),
-Rust's package manager.
+Rust's package manager[^web-ui].
+
+[^web-ui]: I've also released a Web Interface for the dead-man-switch.
+  You can easily deploy it using Docker or Docker Compose, or Nix.
+  Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
 
 DMS is very easy to use and deploy.
 There are several alternatives on how to deploy it.
@@ -107,19 +106,9 @@ Here are the two easiest ways:
 1. **Using Nix**. This is the easiest just do
    `nix run github:storopoli/dead-man-switch`.
 
-> [](<$block.attrs('info')>)
-> I've also released a Web Interface for the dead-man-switch.
-> You can easily deploy it using Docker or Docker Compose.
-> Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
->
-> I've also launched a [StartOS](https://start9.com) app with a simple interface
-> for configuring and checking in with the Dead Man's Switch.
-> Check out the instructions on the
-> [`dead-man-switch-startos` repository](https://github.com/storopoli/dead-man-switch-startos).
-
 Once, you successfully run the app, you will see the following output:
 
-![Initial Screen of Dead Man's Switch](app_first_run.png)
+![Initial Screen of Dead Man's Switch](/images/dead-man-app_first_run.png)
 
 If you read the instructions carefully, all you need to know is detailed in
 these 3 steps:
@@ -142,9 +131,8 @@ Hence, the configuration file is at `/root/.config/deadman/config.toml`.
 If you open the configuration file, you will see the following content.
 I've added some default values for inspiration[^central-park]:
 
-> [](<$block.attrs('info')>)
-> Please don't go to bench 137 in Central Park, NY.
-> That was just an example.
+[^central-park]: Please don't go to bench 137 in Central Park, NY.
+  That was just an example.
 
 ```toml
 username = "me@example.com"
@@ -242,10 +230,11 @@ If both timers run out, the messages will be sent and DMS will exit.
 
 ## The Implementation Details
 
-{% admonition(type="info", icon="info") %}
+<label for="mn-code" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-code" class="margin-toggle"/>
+<span class="marginnote">
 For the stupid smelly nerds that want to go beyond the
 ["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
-{% end %}
+</span>
 
 Before we dive into the code, here are the **dependencies** that I am using.
 I've tried to keep them to a minimum, since I want this to be a dead-simple
