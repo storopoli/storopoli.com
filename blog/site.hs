@@ -9,18 +9,20 @@
 --------------------------------------------------------------------------------
 
 import Control.Monad ((<=<))
-import Data.List (foldl', isPrefixOf, isSuffixOf)
+import Data.List (foldl', intercalate, isPrefixOf, isSuffixOf)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
+import Data.ByteString.Lazy qualified as BS
 import GHC.IO.Handle (BufferMode (NoBuffering), Handle, hSetBuffering)
 import Hakyll
+import Skylighting.Styles (parseTheme)
 import System.FilePath (takeFileName)
 import System.Process (runInteractiveCommand)
 import Text.Pandoc (Block (..), Extension (..), HTMLMathMethod (..), Inline (..), MathType (..), Pandoc, ReaderOptions (..), WriterOptions (..), extensionsFromList)
 import Text.Pandoc.Builder (HasMeta (..), Many, simpleTable)
 import Text.Pandoc.Builder qualified as Many (singleton, toList)
-import Text.Pandoc.Highlighting (Style, pygments, styleToCss)
+import Text.Pandoc.Highlighting (styleToCss)
 import Text.Pandoc.SideNote (usingSideNotes)
 import Text.Pandoc.Walk (walk, walkM)
 
@@ -119,7 +121,30 @@ main = hakyllWith configuration $ do
   create ["css/syntax.css"] $ do
     route idRoute
     compile $ do
-      makeItem $ styleToCss pandocCodeStyle
+      makeItem $
+        intercalate
+          "\n"
+          [ "@import \"syntax-light.css\" all and (prefers-color-scheme: light);",
+            "@import \"syntax-dark.css\" all and (prefers-color-scheme: dark);",
+            ""
+          ]
+  -- Syntax highlighting in light mode.
+  create ["css/syntax-light.css"] $ do
+    route idRoute
+    compile $ do
+      themeContent <- unsafeCompiler $ BS.readFile "themes/gruvbox-light.theme"
+      case parseTheme themeContent of
+        Left err -> fail $ "Failed to parse light theme: " ++ err
+        Right style -> makeItem $ styleToCss style
+
+  -- Syntax highlighting in dark mode.
+  create ["css/syntax-dark.css"] $ do
+    route idRoute
+    compile $ do
+      themeContent <- unsafeCompiler $ BS.readFile "themes/gruvbox-dark.theme"
+      case parseTheme themeContent of
+        Left err -> fail $ "Failed to parse dark theme: " ++ err
+        Right style -> makeItem $ styleToCss style
 
   -- Root index.html
   match "index.html" $ do
@@ -182,8 +207,7 @@ myFeedConfiguration =
 myWriter :: WriterOptions
 myWriter =
   defaultHakyllWriterOptions
-    { writerHTMLMathMethod = KaTeX "",
-      writerHighlightStyle = Just pandocCodeStyle
+    { writerHTMLMathMethod = KaTeX ""
     }
 
 -- Custom Reader Options
@@ -213,10 +237,6 @@ myPandocCompilerWithTransformM ::
   Compiler (Item String)
 myPandocCompilerWithTransformM ropt wopt f =
   getResourceBody >>= myRenderPandocWithTransformM ropt wopt f
-
--- Syntax Highlighting
-pandocCodeStyle :: Style
-pandocCodeStyle = pygments
 
 -- KaTeX server side rendering
 hlKaTeX :: Pandoc -> Compiler Pandoc

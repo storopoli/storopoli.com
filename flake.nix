@@ -77,6 +77,8 @@
           text
           process
           filepath
+          skylighting-core
+          bytestring
           pkgs.pandoc
         ];
 

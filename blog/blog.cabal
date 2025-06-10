@@ -13,6 +13,8 @@ executable site
                   , text >= 2.1.1
                   , process >= 1.6.25
                   , filepath >= 1.4
+                  , skylighting-core >= 0.14.4
+                  , bytestring >= 0.12.1.0
   ghc-options:      -Wall
                     -Wcompat
                     -Widentities

@@ -20,7 +20,15 @@ nix develop . --command just build
 
 ## JavaScript
 
-By default, all JavaScript[^javascript] is disabled.
+By default, all JavaScript[^javascript] is disabled
+and I will die on this hill.
+
+## Syntax Highlighting
+
+Syntax highlighting is done by [Pandoc](https://pandoc.org/)
+and automatically switches between light and dark themes.
+I am a [Gruvbox](https://github.com/morhetz/gruvbox) maximalist
+and use it for everything for years.
 
 ## Citations
 
