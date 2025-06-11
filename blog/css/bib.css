@@ -1,0 +1,17 @@
+div.csl-left-margin {
+    display: inline;
+}
+
+div.csl-right-inline {
+    display: inline;
+}
+
+/* Align citations to the top. */
+div#refs td {
+    vertical-align: top;
+}
+
+/* No justification for references, as otherwise it's rivers galore. */
+div#refs {
+    text-align: left;
+}

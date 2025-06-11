@@ -1,0 +1,45 @@
+{
+  "aliveStatusCodes": [429, 200],
+  "ignorePatterns": [
+    {
+      "pattern": "^/posts/"
+    },
+    {
+      "pattern": "^/images/"
+    },
+    {
+      "pattern": "https://onlinelibrary.wiley.com/doi"
+    },
+    {
+      "pattern": "https://www.gnu.org/licenses"
+    },
+    {
+      "pattern": "https://www.nytimes.com"
+    },
+    {
+      "pattern": "https://stackoverflow.com"
+    },
+    {
+      "pattern": "https://crypto.stackexchange.com"
+    },
+    {
+      "pattern": "https://bitcoin.stackexchange.com"
+    },
+    {
+      "pattern": "https://crates.io/crates"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": [
+        "https://github.com/",
+        "https://guides.github.com/",
+        "https://help.github.com/",
+        "https://docs.github.com/"
+      ],
+      "headers": {
+        "Accept-Encoding": "zstd, br, gzip, deflate"
+      }
+    }
+  ]
+}

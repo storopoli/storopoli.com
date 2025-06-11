@@ -19,5 +19,9 @@ extend-ignore-re = [
 extend-glob = [".gitignore"]
 check-file = false
 
+[type.css]
+extend-glob = [".css"]
+check-file = false
+
 [files]
-#extend-exclude = ["foo/*"]
+extend-exclude = ["blog/bib/*"]
