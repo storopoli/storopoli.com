@@ -11,6 +11,12 @@ div#refs td {
     vertical-align: top;
 }
 
+/* Add spacing between reference entries */
+#refs table {
+    border-spacing: 0 2rem;
+    border-collapse: separate;
+}
+
 /* No justification for references, as otherwise it's rivers galore. */
 div#refs {
     text-align: left;
