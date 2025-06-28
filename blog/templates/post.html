@@ -3,5 +3,11 @@
         Posted on $date$ $if(author)$ by $author$ $endif$
     </section>
     <div class="info">$if(tags)$ Tags: $tags$ $endif$</div>
+    $if(no-toc)$ $else$ $if(toc)$
+    <div id="table-of-contents" class="toc">
+        <p class="toc-title">Contents</p>
+        $toc$
+    </div>
+    $endif$ $endif$
     <section>$body$</section>
 </article>
