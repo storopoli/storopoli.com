@@ -172,6 +172,7 @@ main = hakyllWith configuration $ do
 postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
+    `mappend` boolField "is-post" (const True)
     `mappend` defaultContext
 
 postCtxWithTags :: Tags -> Context String
