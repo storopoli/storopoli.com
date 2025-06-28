@@ -57,6 +57,38 @@ for the rescue.
 
 Check all the supported functions in [KaTeX documentation](https://katex.org/docs/supported).
 
+## Table of Contents
+
+Posts automatically generate a table of contents from their headers.
+The ToC is responsive and switches between light and dark themes
+to match the site's overall design.
+
+### Usage
+
+By default, all posts with headers will display a ToC.
+You can control this behavior using metadata in your post's front matter:
+
+```yaml
+---
+title: "My Post"
+# Disable ToC for this post
+no-toc: true
+---
+```
+
+```yaml
+---
+title: "Research Post"
+# Set ToC depth (default: 3 levels)
+toc-depth: 2
+# Add References section to ToC if using bibliography
+bib: true
+---
+```
+
+The ToC appears between the post metadata and content,
+with automatic anchor links for easy navigation.
+
 ## License
 
 The code is [MIT](https://mit-license.org/)

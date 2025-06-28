@@ -4,6 +4,7 @@ date: 2025-04-07
 author: Jose Storopoli
 description: How to make your own non-deterministic, but highly reliable, linear
 tags: [math, probability, programming, haskell]
+bib: true
 ---
 
 ![Just sprinkle a little bit of randomness, and voilà!](/images/randomness-meme.jpg)

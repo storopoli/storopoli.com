@@ -45,6 +45,71 @@ article .header {
   color: #555;
 }
 
+/* Table of Contents */
+.toc {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 1.4rem;
+}
+
+.toc-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc li {
+  margin: 0.3rem 0;
+}
+
+.toc li ul {
+  padding-left: 1.5rem;
+  margin-top: 0.3rem;
+}
+
+.toc a {
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px dotted #999;
+}
+
+.toc a:hover {
+  color: #000;
+  border-bottom: 1px solid #000;
+}
+
+/* Dark mode support for ToC */
+@media (prefers-color-scheme: dark) {
+  .toc {
+    background-color: #222;
+    border: 1px solid #555;
+    color: #ddd;
+  }
+
+  .toc-title {
+    color: #ddd;
+  }
+
+  .toc a {
+    color: #bbb;
+    border-bottom: 1px dotted #666;
+  }
+
+  .toc a:hover {
+    color: #ddd;
+    border-bottom: 1px solid #888;
+  }
+}
+
 .logo a {
   font-weight: bold;
   color: #000;
