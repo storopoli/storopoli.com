@@ -4,6 +4,7 @@ date: 2023-11-22
 author: Jose Storopoli
 description: Inside every non-Bayesian there is a Bayesian struggling to get out.
 tags: [math, bayesian, probability, julia]
+bib: true
 ---
 
 ![Dennis Lindley](/images/lindley.jpg)
