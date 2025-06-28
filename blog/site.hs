@@ -350,13 +350,14 @@ processBib pandoc = do
   p <- withItemBody (pure . setMeta "link-citations" True) pandoc
   fmap tableiseBib <$> processPandocBiblio csl bib p
 
--- | Align all citations in a table.
+-- | Align all citations in a table and add References header.
 tableiseBib :: Pandoc -> Pandoc
 tableiseBib = walk \case
   -- Citations start with a <div id="refs" …>
   Div a@("refs", _, _) body ->
-    -- No header needed, we just want to fill in the body contents.
-    Div a (Many.toList (simpleTable [] (map citToRow body)))
+    -- Add h2 header and table with citations
+    Div a $ Header 2 ("", [], []) [Str "References"] : 
+           Many.toList (simpleTable [] (map citToRow body))
   body -> body
   where
     citToRow :: Block -> [Many Block]
@@ -375,3 +376,5 @@ pandocCompiler' =
     ( traverse (pure . usingSideNotes <=< hlKaTeX)
         <=< processBib
     )
+
+--------------------------------------------------------------------------------
