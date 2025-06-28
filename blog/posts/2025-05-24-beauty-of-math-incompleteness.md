@@ -140,8 +140,9 @@ I won't give the precise mathematical formula here because it is a bit messy,
 however here's an algorithm describing the bijection:
 
 1. Start with $n$
-2. If $n = 0$, return $0$
-3. Otherwise:
+1. If $n = 0$, return $0$
+1. Otherwise:
+
    - Let $k = \frac{n+1}{2}$ if $n$ is odd, $k = \frac{n}{2}$ if $n$ is even
    - Find the $k$-th positive rational in our enumeration, call it $r$
    - If $n$ is odd, return $r$
@@ -200,8 +201,8 @@ and probably in the history of mathematics.
 When we construct the _diagonal number_ $x$, we're creating something that:
 
 1. Refers to the entire supposed list of real numbers.
-2. Defines itself in opposition to that list --- "I differ from the 1st number at position 1, from the 2nd at position 2...".
-3. Uses the list to prove the list is incomplete.
+1. Defines itself in opposition to that list --- "I differ from the 1st number at position 1, from the 2nd at position 2...".
+1. Uses the list to prove the list is incomplete.
 
 Ultimately, this is where Cantor found the first example of a set that is **not countable**.
 There's no way to pair the set of natural numbers with the set of real numbers between 0 and 1.
@@ -262,287 +263,312 @@ And yet again, we have **self-reference** creating a paradox.
 Personally, I find Cantor's multiple infinities more beautiful than Russell's paradox.
 But I acknowledge that Russell's paradox is way simpler and more accessible to the general public.
 
-## Gödel and the incompleteness theorem
-
-![Kurt Gödel](/images/kurt-godel.jpg)
-
-Fasten your seatbelts, this is going to be a wild ride.
-But first, a little bit of history.
-
-In 1900,
-during the second [International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians) in Paris,
-David Hilbert,
-arguably the most important mathematician of the 20th century,
-gave a list of 23 problems that he thought would be the most important to solve in the century.
-These became known as the [Hilbert's problems](https://en.wikipedia.org/wiki/Hilbert%27s_problems).
-Right there in the second problem, Hilbert posed the following problem:
-
-> _The compatibility of the arithmetical axioms._
-
-Later, Hilbert recasted his "Second Problem" at the eighth [International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians) in Bologna.
-He posed three questions:
-
-1. **Was mathematics complete?**
-2. **Was mathematics consistent?**
-3. **Was mathematics decidable?**
-
-Hilbert believed that mathematics could be put on a completely secure foundation by answering these questions.
-Gödel would shatter the dream of a **complete and consistent mathematics**.
-And later, Turing would show that mathematics is **not decidable**.
-
-Gödel's incompleteness theorems[^godel-incompleteness] are composed of two theorems.
-Let's start with the first incompleteness theorem, which Gödel proved in 1931
-in front of an audience that comprised of no one other than [Von Neumann](/posts/2024-06-22-von-neumann.html),
-who allegedly was so impressed by Gödel's work that he remarked:
-
-> It's all over.
-
-[^godel-incompleteness]: {-} If you really want to dive deep into the details of Gödel's incompleteness theorem, check out **Gödel Without (Too Many) Tears** [@godelwithouttears].
-
-### The first incompleteness theorem
-
-The First Incompleteness Theorem states:
-
-> For any consistent formal system $F$ that is powerful enough to express basic arithmetic[^peano], there exists a statement $G$ in the language of $F$ such that:
->
-> 1. $G$ is true (when interpreted as a statement about natural numbers)
-> 2. $G$ cannot be proven within $F$
-> 3. $\neg G$ (not $G$) cannot be proven within $F$ either
-
-[^peano]: {-} Another rabbit hole to dive: [**Peano's arithmetic**](https://en.wikipedia.org/wiki/Peano_arithmetic).
-
-In other words: **truth and provability are not the same thing**!
-
-Gödel's genius was realizing he could make mathematical statements talk about mathematical statements.
-
-#### Step 1: Gödel numbering --- the encoding trick
-
-Gödel assigned a unique natural number to every mathematical symbol, expression, and proof.
-Think of it like ASCII encoding for math:
-
-Basic symbols get prime numbers:
-
-- `0` → 2
-- `=` → 3
-- `+` → 5
-- `(` → 7
-- `)` → 11
-- etc.
-
-Gödel used a system based on prime factorization.
-He first assigned a unique natural number to each basic symbol in the formal language of arithmetic with which he was dealing.
-
-To encode an entire formula, which is a sequence of symbols, Gödel used the following system.
-Given a sequence $(x_{1},x_{2},x_{3},...,x_{n})$ of positive integers,
-the Gödel encoding of the sequence is the product of the first $n$ primes raised to their corresponding values in the sequence
-For example, the formula $0 = 0$ might become:
-
-- `0` → 2
-- `=` → 3
-- `0` → 2
-
-Gödel number = $2^2 \times 3^3 \times 5^2 = 4 \times 27 \times 25 = 2,700$
-
-This is called the [**Gödel numbering**](https://en.wikipedia.org/wiki/G%C3%B6del_numbering).
-The key insight is that now **statements about formulas become statements about numbers**!
-
-#### Step 2: the predicate "proves(x, y)"
-
-Using Gödel numbering, we can write an arithmetic predicate that means:
-"$x$ is the Gödel number of a proof of the statement with Gödel number $y$"
-
-This is purely mechanical --- checking if $x$ represents a valid sequence of logical steps ending in $y$.
-
-#### Step 3: the diagonal lemma --- the self-reference trick
-
-This is where it gets mind-blowing.
-Gödel proved:
-
-> For any arithmetic property $P(x)$, we can construct a statement $S$ that says:
-> "$P$ holds for my own Gödel number"
-
-It's like writing a sentence that says "This sentence has 25 letters" --- but in arithmetic!
-
-How the **diagonal lemma** works:
-
-1. Define a function $\text{sub}(n, m) =$ "the result of substituting $m$ into formula $n$".
-2. Consider the property: "The formula with Gödel number $x$, when $x$ substituted into it, has property $P$".
-3. Let this property have Gödel number $d$.
-4. Now look at $\text{sub}(d, d)$ --- this is $d$ applied to itself.
-
-This creates a **fixed point** --- a statement that successfully refers to itself.
-
-#### Step 4: constructing $G$ --- the Gödel sentence
-
-Using the diagonal lemma with the property "is not provable", Gödel constructs $G$ such that:
-
-$G \iff$ "The statement with Gödel number $g$ is not provable"
-
-But $g$ is the Gödel number of $G$ itself! So:
-
-$G \iff \text{"$G$ is not provable"}$
-
-Now we reason:
-
-Case 1: Suppose G is provable:
-
-- Then G is false (since G says "G is not provable")
-- So our system proves a false statement
-- The system is inconsistent! ❌
-
-Case 2: Suppose $\neg G$ is provable:
-
-- Then G is true (G really isn't provable)
-- So $\neg G$ is false
-- Again, the system proves something false
-- Inconsistent! ❌
-
-Conclusion: If the system is consistent:
-
-- Neither $G$ nor $\neg G$ is provable
-- But $G$ is true (it correctly states its own _unprovability_)
-- We have a true but unprovable statement! ✅
-
-This is the **self-reference that Gödel uses to prove his first incompleteness theorem**.
-
-The deepest insight is that **self-reference is unavoidable in any system strong enough to do arithmetic**.
-Once you can:
-
-1. **Encode statements as numbers**
-2. **Talk about properties of those numbers**
-3. **Use diagonalization**
-
-You automatically get statements that assert their own _unprovability_.
-Mathematics contains the **seeds of its own incompleteness**!
-
-### The second incompleteness theorem
-
-The Second Incompleteness Theorem states:
-
-> If $F$ is a consistent formal system capable of proving basic arithmetic facts, then $F$ cannot prove its own consistency.
-
-This means **arithmetic cannot prove that arithmetic doesn't contradict itself**!
-It's like a judge who can't certify their own sanity --- the very act of self-certification is suspect.
-
-The Second Theorem is actually a clever consequence of the First.
-Here's the brilliant insight:
-
-#### Step 1: formalizing "consistency"
-
-First, we need to express "$F$ is consistent" in the language of arithmetic.
-Gödel realized:
-
-> "$F$ is consistent" $\iff$ "$F$ does not prove both a statement and its negation"
-
-Using Gödel numbering, this becomes:
-$\text{Consistency}(F)$ = "There is no statement $A$ such that $F$ proves both $A$ and $\neg A$"
-
-Or equivalently:
-$\text{Consistency}(F)$ = "$F$ does not prove $0=1$" (since from a contradiction, you can prove anything)
-
-#### Step 2: the key connection
-
-Remember our Gödel sentence $G$ from the First Theorem:
-
-$G \iff \text{"$G$ is not provable in $F$"}$
-
-Now here's the brilliant move.
-Gödel proved that within $F$ itself:
-
-> $F$ can prove: "If $F$ is consistent, then $G$ is not provable"
-
-Now comes the devastating logic:
-
-1. Assume $F$ can prove its own consistency: $F \vdash \text{Con}(F)$
-2. We know $F$ can prove: $\text{Con}(F) \rightarrow G$
-3. By deduction: $F \vdash G$
-4. But this means $G$ is provable!
-5. Since $G$ says "$G$ is not provable", $G$ must be false
-6. So $F$ proves a false statement - $F$ is inconsistent!
-
-We've shown: **If $F$ can prove its own consistency, then $F$ is inconsistent**!
-
-Therefore: **If $F$ is consistent, it cannot prove its own consistency**
-
----
-
-That's a lot to digest.
-This is a very deep result that is still being studied today.
-I find this result to be on par with Cantor's multiple infinities in beauty.
-However, Gödel's incompleteness theorems are a much more outstanding and impressive result.
-
-## Turing and the halting problem
+## Turing and computation
 
 ![Alan Turing](/images/alan-turing.jpg)
 
-Hilbert, after being aware of Gödel's incompleteness theorems,
-was devastated.
-His beautiful dream of a complete and consistent mathematics was **shattered**.
-But there were still hope in the idea of mathematics being decidable.
+Before we dive into Gödel's earth-shattering results,
+let's take a step back and understand a simpler but equally profound concept
+that will make everything else crystal clear: **computation** and **Turing machines**.
+
+In 1900 during the second
+[International Congress of Mathematicians](https://en.wikipedia.org/wiki/International_Congress_of_Mathematicians)
+in Paris, [David Hilbert](https://en.wikipedia.org/wiki/David_Hilbert)
+posed three fundamental questions about mathematics:
+
+1. **Was mathematics complete?** (Can every true statement be proven?)
+1. **Was mathematics consistent?** (Can we avoid contradictions?)
+1. **Was mathematics decidable?** (Is there an algorithm to determine if any statement is true?)
+
+Gödel would shatter the first two dreams in 1931.
+But the third question, [the **Entscheidungsproblem** ("decision problem"),
+also known as the **halting problem**](https://en.wikipedia.org/wiki/Halting_problem),
+remained tantalizingly open.
+Could there be a mechanical procedure to decide the truth of any mathematical statement?
 
 Alan Turing, in 1936, while still an undergraduate at King's College, Cambridge,
-published a paper entitled "On Computable Numbers, with an Application to the Entscheidungsproblem".
-That mouthful word, _Entscheidungsproblem_, is the German for what has become known as the
-["**halting problem**"](https://en.wikipedia.org/wiki/Halting_problem).
+would answer this question with a resounding **no**.
+But to do so, he first had to define what "mechanical procedure" even meant.
 
-The halting problem is the **problem of determining whether a program will halt or run forever**.
-Turing showed that the halting problem is **undecidable**,
-thus shattering the last bastion of hope for a complete, consistent, and decidable mathematics.
+### The Turing machine: the essence of computation
 
-### The Turing machine
+Turing introduced the concept of the [**Turing machine**](https://en.wikipedia.org/wiki/Turing_machine) ---
+a simple but powerful mathematical model of computation.
+A Turing machine consists of:
 
-To tackle the halting problem,
-Turing introduced the concept of the [**Turing machine**](https://en.wikipedia.org/wiki/Turing_machine).
-A Turing machine is a mathematical model of a computer that can be used to compute anything.
-It is comprised of a **tape**, a **head**, and a set of **rules**.
-The tape is infinite in both directions, and is divided into cells.
-The head can read and write symbols on the tape.
-The rules are a set of instructions that the head can follow.
-He showed that any **computable function** can be computed by a Turing machine.
-I won't go into much details here,
-since if you are reading this through the internet,
-holding on your hands or standing in front of a "Turing machine",
-is proof enough that Turing machines can compute stuff.
+1. **An infinite tape** divided into cells, each containing a symbol (usually 0, 1, or blank)
+1. **A read/write head** that can scan one cell at a time
+1. **A finite set of states** that control the machine's behavior
+1. **A transition function** that, given the current state and symbol, determines:
 
-Using the newfound concept of the Turing machine,
-Turing then redefined the concept of the **halting problem**:
+   - What symbol to write
+   - Whether to move left or right
+   - What state to enter next
 
-> Given a Turing machine $M$ and input $I$, will $M$ eventually halt (stop) on input $I$, or will it run forever?
+Here's a simple example --- a Turing machine that adds 1 to a binary number:
 
-To answer this question,
-suppose that you have a function that detects if a Turing machine halts on a given input.
-Here's how the function signature looks like in Haskell notation:
+```
+Input tape:  ...□ 1 0 1 1 □...
+             Start here ↑
+
+States:
+- q₀: "scanning right, looking for the end"
+- q₁: "found end, now carrying"
+- qf: "finished"
+
+Rules:
+- (q₀, 0) → (q₀, 0, R)  # Keep scanning right
+- (q₀, 1) → (q₀, 1, R)  # Keep scanning right
+- (q₀, □) → (q₁, □, L)  # Found end, go back left
+- (q₁, 0) → (qf, 1, R)  # 0+1=1, done
+- (q₁, 1) → (q₁, 0, L)  # 1+1=0, carry left
+```
+
+The beauty of Turing machines is their **universality** --- despite their simplicity,
+they can compute anything that any computer can compute.
+This is the [**Church-Turing thesis**](https://en.wikipedia.org/wiki/Church–Turing_thesis):
+anything we intuitively consider "computable" can be computed by a Turing machine.
+
+### Programs as data: the key insight
+
+Here's where things get interesting. Since Turing machines follow simple rules,
+we can **encode any Turing machine as a string of symbols**.
+Just assign numbers to states and symbols:
+
+- State $q_0 \rightarrow 1$
+- State $q_1 \rightarrow 2$
+- Symbol $0 \rightarrow 1$
+- Symbol $1 \rightarrow 2$
+- Move Left $\rightarrow 1$
+- Move Right $\rightarrow 2$
+
+Now our entire machine becomes a sequence of numbers, which we can write on a tape!
+
+This means we can build an [**Universal Turing Machine**](https://en.wikipedia.org/wiki/Universal_Turing_machine) (UTM) that:
+
+1. Takes as input the encoding of any Turing machine M
+1. Takes as input some data D
+1. Simulates what M would do when run on D
+
+In other words: **programs become data**.
+This is the fundamental insight behind modern computers ---
+we can write programs that manipulate other programs.
+
+### The halting problem: when self-reference strikes
+
+Now comes the million-dollar question:
+given a Turing machine $M$ and input $I$,
+can we determine **whether $M$ will eventually halt (stop) when run on $I$,
+or will it run forever?**
+
+This is called the [**halting problem**](https://en.wikipedia.org/wiki/Halting_problem),
+and Turing proved it's **undecidable**.
+
+The proof is a masterpiece of self-reference.
+It is a [**proof by contradiction**](https://en.wikipedia.org/wiki/Proof_by_contradiction),
+where we assume that something is true and we derive a contradiction.
+This allows us to disprove the initial assumption.
+
+Suppose we have a magical Turing machine `halts` that solves the halting problem.
+Here’s how the function signature looks like in Haskell notation:
 
 ```haskell
 halts :: TuringMachine -> Input -> Bool
 ```
 
-This function takes a Turing machine and an input,
-and returns a boolean value indicating whether the Turing machine halts on the input.
+The machine will output `True` if the machine halts and `False` if it runs forever.
 
-Now, let's say that you have a Turing machine $M$ that uses the `halts` function to detect whether a Turing machine halts on a given input.
-However, this machine loops forever if the `halts` function returns `True`,
-or halts if the `halts` function returns `False`.
-This could be expressed in Haskell as:
+Now, let's construct a diabolical machine `diagonal`:
 
 ```haskell
-M :: TuringMachine -> Input -> ()
-M m i = if halts m i then loop else ()
+diagonal :: TuringMachine -> ()
+diagonal m = if halts m m  -- Note: m is used as both machine AND input
+             then loop     -- Run forever
+             else ()       -- Halt immediately
+  where
+    loop = loop            -- Infinite recursion
 ```
 
-Now, the question is:
+The key insight is that `diagonal` takes a Turing machine `m`
+and **uses `m` as both the machine and the input** to `halts`.
+Then:
 
-> Does $M$ halt on input $M$?
+- If `halts m m` returns `True`
+  (meaning machine `m` halts when run on itself), then `diagonal`
+  enters an infinite loop
+- If `halts m m` returns `False`
+  (meaning machine `m` runs forever on itself), then `diagonal`
+  halts immediately by returning `()`
 
-If $M$ halts on input $M$,
-then $M$ loops forever.
-If $M$ loops forever,
-then $M$ halts on input $M$.
+Now comes the crucial question:
+**What happens when we run `diagonal diagonal`?**
 
-We have arrived at a **contradiction** and the final **self-referential paradox** in this blog post.
+Let's trace through both possibilities:
+
+- **Case 1**: Suppose `halts diagonal diagonal = True`
+
+  - This means `diagonal` halts when run on itself
+  - But by definition, if `halts diagonal diagonal = True`, then `diagonal diagonal` executes the `loop` branch
+  - So `diagonal diagonal` runs forever!
+  - Contradiction: we assumed it halts, but it actually loops ❌
+
+- **Case 2**: Suppose `halts diagonal diagonal = False`
+  - This means `diagonal` runs forever when run on itself
+  - But by definition, if `halts diagonal diagonal = False`, then `diagonal diagonal` executes the `()` branch
+  - So `diagonal diagonal` halts immediately!
+  - Contradiction: we assumed it loops, but it actually halts ❌
+
+Since both cases lead to contradiction,
+our assumption is false.
+**No such machine `halts` can exist!**
+
+Thus, the halting problem is **undecidable**!
 
 That's how Turing, at the young age of 24,
 proved that **mathematics is _not_ decidable**.
+
+### The deeper pattern: diagonalization everywhere
+
+Notice the beautiful pattern emerging:
+
+1. **Cantor**: Construct a real number that differs from every number in any proposed list
+2. **Russell**: Ask whether the set of "sets that don't contain themselves" contains itself
+3. **Turing**: Build a machine that does the opposite of what a hypothetical "halting detector" predicts
+
+All use the same technique: **diagonalization with self-reference**. We construct an object that:
+
+1. Refers to an entire collection (reals, sets, machines)
+1. Defines itself in opposition to that collection
+1. Creates a contradiction that proves the collection is impossible
+
+This is the **universal pattern** underlying all of mathematics' most profound limitations.
+
+## Gödel through Turing's lens
+
+![Kurt Gödel](/images/kurt-godel.jpg)
+
+Now that we understand Turing machines and the halting problem,
+Gödel's incompleteness theorems become much clearer.
+In fact, Gödel himself later said that using Turing machines was the "right way" to prove his theorems!
+
+Hilbert's three questions were:
+
+1. **Completeness**: Can every true statement be proven?
+1. **Consistency**: Can we avoid contradictions?
+1. **Decidability**: Can we mechanically determine if any statement is true?
+
+Turing answered #3 with a definitive **no**.
+Gödel answered #1 and #2 by showing they're incompatible ---
+we can have consistency **or** completeness,
+but not both.
+
+### From halting to incompleteness
+
+Here's the key insight: **mathematical proof-checking is a computational process**.
+
+Given a mathematical statement $S$ and a purported proof $P$,
+we can write a Turing machine that:
+
+1. Checks if $P$ follows valid logical rules
+1. Verifies each step is correct
+1. Confirms $P$ actually proves $S$
+1. Halts with "VALID" or "INVALID"
+
+This means **provability becomes a computational question**.
+
+### The first theorem: Gödel's incompleteness theorem
+
+The genius of Gödel's approach becomes crystal clear when viewed through Turing machines.
+Since mathematical proof-checking is computational,
+we can treat every mathematical statement as a string
+that a Turing machine can process[^godel-numbering].
+
+[^godel-numbering]:
+  {-} Gödel's original approach used a clever [**numbering system**](https://en.wikipedia.org/wiki/Gödel_numbering)
+  that assigned unique natural numbers to mathematical symbols and formulas,
+  allowing statements about formulas to become statements about numbers.
+  While ingenious, this encoding obscures the essential insight that computation provides more directly.
+
+Now imagine building a "proof searcher" machine `PROVE(S)` that systematically generates all possible proofs,
+checks if any proof establishes statement $S$,
+and halts if it finds one (running forever if no proof exists).
+
+With this setup,
+Gödel constructs his famous sentence $G$ that essentially says:
+**"This statement cannot be proven by any Turing machine"**[^statement]
+
+[^statement]:
+  {-} More precisely:
+  "There is no Turing machine that halts and outputs a valid proof of this statement".
+
+The self-reference paradox unfolds beautifully.
+If $G$ is provable,
+then some machine finds a proof and halts ---
+but this makes $G$ false,
+since $G$ claims no machine can prove it.
+So we've proven a false statement, making our system inconsistent!
+
+Conversely, if $G$ is not provable, then no machine can indeed prove it ---
+making $G$ true, since it correctly states its own unprovability.
+But now we have a true statement that can't be proven, making our system incomplete!
+
+The devastating conclusion:
+**Any consistent formal system strong enough to discuss Turing machines must be incomplete**.
+Truth and provability are fundamentally different concepts.
+
+### The second theorem: arithmetic cannot validate itself
+
+Why does **arithmetic matter so much?**
+Because arithmetic --- just addition, multiplication,
+and basic properties of natural numbers --- forms the foundation of all mathematics.
+Every mathematical structure ultimately relies on counting and basic numerical relationships.
+**If arithmetic fails, everything built on top of it collapses**.
+
+The Second Incompleteness Theorem delivers the devastating result:
+**"Arithmetic cannot prove its own consistency"**.
+
+The proof is a masterful application of the first theorem. Let's break it down step by step.
+
+Recall that our Gödel sentence $G$ says:
+"This statement ($G$) cannot be proven in arithmetic".
+From the first theorem, we learned that if arithmetic is consistent,
+then $G$ is indeed unprovable (because if $G$ were provable, we'd have a contradiction).
+
+Now here's the key insight:
+arithmetic itself can prove this logical relationship!
+That is, arithmetic can prove the statement:
+"If arithmetic is consistent, then $G$ is unprovable".
+
+Why can arithmetic prove this?
+Because the first incompleteness theorem's proof can be formalized within arithmetic itself.
+Arithmetic can "see" that assuming its own consistency leads to $G$ being unprovable.
+
+Now suppose arithmetic could also prove its own consistency ---
+call this statement Cons(Arithmetic).
+Then we'd have:
+
+1. Arithmetic proves: Cons(Arithmetic)
+1. Arithmetic proves: "If Cons(Arithmetic), then $G$ is unprovable"
+1. By modus ponens: Arithmetic proves "$G$ is unprovable"
+
+But wait!
+If arithmetic can prove that "$G$ is unprovable",
+then arithmetic knows $G$ is true
+(since $G$ says exactly that --- it cannot be proven).
+And if arithmetic knows $G$ is true in a consistent system,
+it should be able to prove $G$.
+
+This creates the contradiction:
+arithmetic both proves that $G$ is unprovable AND should be able to prove $G$ itself.
+
+The only way to avoid this contradiction is if arithmetic cannot prove Cons(Arithmetic) in the first place.
+
+The profound implication: **Mathematics cannot certify its own reliability from within**.
+We must take arithmetic's consistency on faith ---
+there's no internal proof that it won't one day derive both
+"$2+2 = 4$" and "$2+2 \ne 4$".
+Any proof of consistency must come from a stronger system outside arithmetic itself,
+but then we face the same problem for that stronger system.
 
 ## Agda proof that the set of real numbers is uncountable
 
