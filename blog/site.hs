@@ -9,11 +9,13 @@
 --------------------------------------------------------------------------------
 
 import Control.Monad ((<=<))
+import Data.ByteString.Lazy qualified as BS
+import Data.Functor ((<&>))
 import Data.List (foldl', intercalate, isPrefixOf, isSuffixOf)
+import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Text qualified as T
 import Data.Text.IO qualified as T
-import Data.ByteString.Lazy qualified as BS
 import GHC.IO.Handle (BufferMode (NoBuffering), Handle, hSetBuffering)
 import Hakyll
 import Skylighting.Styles (parseTheme)
@@ -24,6 +26,7 @@ import Text.Pandoc.Builder (HasMeta (..), Many, simpleTable)
 import Text.Pandoc.Builder qualified as Many (singleton, toList)
 import Text.Pandoc.Highlighting (styleToCss)
 import Text.Pandoc.SideNote (usingSideNotes)
+import Text.Pandoc.Templates (compileTemplate)
 import Text.Pandoc.Walk (walk, walkM)
 
 --------------------------------------------------------------------------------
@@ -87,11 +90,12 @@ main = hakyllWith configuration $ do
   -- Posts markdown
   match "posts/*.md" $ do
     route $ setExtension "html"
-    compile $
+    compile $ do
+      tocCtx <- getTocCtx (postCtxWithTags tags)
       pandocCompiler'
-        >>= loadAndApplyTemplate "templates/post.html" (postCtxWithTags tags)
+        >>= loadAndApplyTemplate "templates/post.html" tocCtx
         >>= saveSnapshot "content"
-        >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+        >>= loadAndApplyTemplate "templates/default.html" tocCtx
         >>= relativizeUrls
 
   -- Archive
@@ -188,7 +192,6 @@ configuration = defaultConfiguration {ignoreFile = ignoreFile'}
         fileName = takeFileName path
 
 --------------------------------------------------------------------------------
-
 -- RSS
 myFeedConfiguration :: FeedConfiguration
 myFeedConfiguration =
@@ -199,6 +202,60 @@ myFeedConfiguration =
       feedAuthorEmail = "jose@storopoli.com",
       feedRoot = "https://storopoli.com"
     }
+
+--------------------------------------------------------------------------------
+-- Table of Contents
+
+-- | Text conversion utility function
+asTxt :: (Text -> Text) -> String -> String
+asTxt f = T.unpack . f . T.pack
+
+-- | Create a context that contains a table of contents.
+getTocCtx :: Context a -> Compiler (Context a)
+getTocCtx ctx = do
+  noToc <- (Just "true" ==) <$> (getUnderlying >>= (`getMetadataField` "no-toc"))
+  bib <- (Just "true" ==) <$> (getUnderlying >>= (`getMetadataField` "bib"))
+  writerOpts <- mkTocWriter myWriter
+  toc <- renderPandocWith myReader writerOpts =<< getResourceBody
+  pure $
+    mconcat
+      [ ctx,
+        constField "toc" $
+          (if bib then addBibHeading else id) $
+            killLinkIds (itemBody toc),
+        if noToc then boolField "no-toc" (pure noToc) else mempty
+      ]
+  where
+    mkTocWriter :: WriterOptions -> Compiler WriterOptions
+    mkTocWriter writerOpts = do
+      tmpl <- either (const Nothing) Just <$> unsafeCompiler (compileTemplate "" "$toc$")
+      dpth <- fromMaybe 3 <$> (getUnderlying >>= (`getMetadataField` "toc-depth") <&> fmap read)
+      pure $
+        writerOpts
+          { writerTableOfContents = True,
+            writerTOCDepth = dpth,
+            writerTemplate = tmpl
+          }
+
+-- | Remove duplicate IDs from table of contents to avoid HTML validation issues.
+-- Pandoc adds IDs for ToC elements, but having multiple ToCs can create duplicates.
+killLinkIds :: String -> String
+killLinkIds = asTxt (mconcat . go . T.splitOn "id=\"toc-")
+  where
+    go :: [Text] -> [Text]
+    go = \case
+      [] -> []
+      x : xs -> x : map (T.drop 1 . T.dropWhile (/= '\"')) xs
+
+-- | Add a bibliography heading to the ToC if needed.
+addBibHeading :: String -> String
+addBibHeading = asTxt \s ->
+  let (before, after) = T.breakOnEnd "</ul>" s
+   in mconcat
+        [ T.dropEnd 5 before,
+          "<li><a href=\"#refs\">References</a></li></ul>",
+          after
+        ]
 
 --------------------------------------------------------------------------------
 -- COMPILERS --
