@@ -21,6 +21,8 @@ build: install deno
 clean: install
   @stack exec site clean
   @stack clean --full
+  @rm -rf vendor
+  @rm -rf import_map.json
 
 # Preview the site
 [working-directory: 'blog']
