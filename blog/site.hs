@@ -357,8 +357,9 @@ tableiseBib = walk \case
   -- Citations start with a <div id="refs" …>
   Div a@("refs", _, _) body ->
     -- Add h2 header and table with citations
-    Div a $ Header 2 ("", [], []) [Str "References"] : 
-           Many.toList (simpleTable [] (map citToRow body))
+    Div a $
+      Header 2 ("", [], []) [Str "References"]
+        : Many.toList (simpleTable [] (map citToRow body))
   body -> body
   where
     citToRow :: Block -> [Many Block]
