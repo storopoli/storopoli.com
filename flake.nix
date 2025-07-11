@@ -1,8 +1,11 @@
 {
   description = "storopoli.com Hakyll flake";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.git-hooks.url = "github:cachix/git-hooks.nix";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+  };
 
   outputs =
     {
@@ -80,6 +83,7 @@
           stack-wrapped
           nil # Nix LSP
           nixfmt-rfc-style # Nix formatter
+          statix # Nix linter
           just
           deno # KaTeX rendering of maths—see blog/scripts/math.ts
         ];
@@ -181,6 +185,7 @@
           hooks = {
             hlint.enable = true;
             nixfmt-rfc-style.enable = true; # Nix formatter
+            statix.enable = true; # Nix formatter
             fourmolu.enable = true; # Haskell formatter
             cabal-fmt.enable = true; # cabal formatter
           };
