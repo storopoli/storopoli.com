@@ -29,6 +29,11 @@ clean: install
 preview: install deno
   @stack exec site watch
 
+# Lint the site
+[working-directory: 'blog']
+lint:
+  @hlint .
+
 # Setup deno cache for KaTeX
 deno:
   #!/usr/bin/env bash
