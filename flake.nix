@@ -2,9 +2,17 @@
   description = "storopoli.com Hakyll flake";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.git-hooks.url = "github:cachix/git-hooks.nix";
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      git-hooks,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
@@ -12,14 +20,19 @@
         hPkgs = pkgs.haskell.packages."ghc984";
 
         # Shared source for both derivations
-        src = pkgs.nix-gitignore.gitignoreSourcePure [
-          ./.gitignore
-          ".git"
-          ".github"
-        ] (builtins.path {
-          path = ./.;
-          name = "source";
-        });
+        src =
+          pkgs.nix-gitignore.gitignoreSourcePure
+            [
+              ./.gitignore
+              ".git"
+              ".github"
+            ]
+            (
+              builtins.path {
+                path = ./.;
+                name = "source";
+              }
+            );
 
         # Build the Haskell site generator executable from the blog subdirectory
         siteBuilder = hPkgs.callCabal2nix "blog" ./blog {
@@ -56,14 +69,16 @@
         myDevTools = [
           hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
           hPkgs.ghcid # Continuous terminal Haskell compile checker
-          hPkgs.ormolu # Haskell formatter
+          hPkgs.fourmolu # Haskell formatter
           hPkgs.hlint # Haskell codestyle checker
           hPkgs.hoogle # Lookup Haskell documentation
           hPkgs.haskell-language-server # LSP server for editor
           hPkgs.implicit-hie # auto generate LSP hie.yaml file from cabal
           hPkgs.retrie # Haskell refactoring tool
           hPkgs.cabal-install
+          hPkgs.cabal-fmt # Cabal formatter
           stack-wrapped
+          pkgs.nixfmt-rfc-style # Nix formatter
           pkgs.just
           pkgs.deno # KaTeX rendering of maths—see blog/scripts/math.ts
         ];
@@ -102,13 +117,16 @@
         };
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [ siteBuilder pkgs.deno ] ++ haskellDeps;
+          buildInputs = [
+            siteBuilder
+            pkgs.deno
+          ] ++ haskellDeps;
           inherit src;
 
           LANG = "en_US.UTF-8";
-          LOCALE_ARCHIVE =
-            pkgs.lib.optionalString (pkgs.buildPlatform.libc == "glibc")
-            "${pkgs.glibcLocales}/lib/locale/locale-archive";
+          LOCALE_ARCHIVE = pkgs.lib.optionalString (
+            pkgs.buildPlatform.libc == "glibc"
+          ) "${pkgs.glibcLocales}/lib/locale/locale-archive";
           buildPhase = ''
             cd blog
 
@@ -134,7 +152,8 @@
             cp -a _site/. "$out/"
           '';
         };
-      in {
+      in
+      {
 
         packages = {
           inherit siteBuilder website vendorDir;
@@ -147,6 +166,7 @@
         };
 
         devShells.default = pkgs.mkShell {
+          inherit (self.checks.${system}.git-hooks-check) shellHook;
           buildInputs = myDevTools ++ haskellDeps;
 
           # Make external Nix c libraries like zlib known to GHC, like
@@ -154,5 +174,16 @@
           # https://github.com/NixOS/nixpkgs/blob/d64780ea0e22b5f61cd6012a456869c702a72f20/pkgs/development/haskell-modules/generic-stack-builder.nix#L38
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath myDevTools;
         };
-      });
+
+        checks.git-hooks-check = git-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            hlint.enable = true;
+            nixfmt-rfc-style.enable = true; # Nix formatter
+            fourmolu.enable = true; # Haskell formatter
+            cabal-fmt.enable = true; # cabal formatter
+          };
+        };
+      }
+    );
 }

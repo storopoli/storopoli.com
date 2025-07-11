@@ -6,6 +6,7 @@ _site/
 # Nix
 result
 .direnv/
+.pre-commit-config.yaml
 
 # Fucking macOS
 .DS_Store
