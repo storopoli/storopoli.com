@@ -66,7 +66,7 @@
           outputHash = "sha256-sbqPST20JuaZJKX8yjfS5di5GiE+BjbEW3rEhsHY2p4=";
         };
 
-        myDevTools = [
+        myDevTools = with pkgs; [
           hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
           hPkgs.ghcid # Continuous terminal Haskell compile checker
           hPkgs.fourmolu # Haskell formatter
@@ -78,9 +78,10 @@
           hPkgs.cabal-install
           hPkgs.cabal-fmt # Cabal formatter
           stack-wrapped
-          pkgs.nixfmt-rfc-style # Nix formatter
-          pkgs.just
-          pkgs.deno # KaTeX rendering of maths—see blog/scripts/math.ts
+          nil # Nix LSP
+          nixfmt-rfc-style # Nix formatter
+          just
+          deno # KaTeX rendering of maths—see blog/scripts/math.ts
         ];
 
         haskellDeps = with hPkgs; [
