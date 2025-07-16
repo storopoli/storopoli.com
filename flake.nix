@@ -185,9 +185,9 @@
           hooks = {
             hlint.enable = true;
             nixfmt-rfc-style.enable = true; # Nix formatter
-            statix.enable = true; # Nix formatter
+            statix.enable = true; # Nix linter
             fourmolu.enable = true; # Haskell formatter
-            cabal-fmt.enable = true; # cabal formatter
+            cabal-fmt.enable = true; # Cabal formatter
           };
         };
       }
