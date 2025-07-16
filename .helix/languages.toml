@@ -1,0 +1,16 @@
+[[language]]
+name = "haskell"
+auto-format = true
+
+[[language]]
+name = "nix"
+formatter = {command = "nixfmt"}
+auto-format = true
+
+[language-server.haskell-language-server.config]
+"formattingProvider" = "fourmolu"
+cabalFormattingProvider = 'cabal-fmt'
+
+[language-server.haskell-language-server.config.plugin]
+fourmolu.config.external = true
+rename.config.crossModule = true
