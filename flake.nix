@@ -86,6 +86,7 @@
           statix # Nix linter
           just
           deno # KaTeX rendering of maths—see blog/scripts/math.ts
+          typos # Spellchecking
         ];
 
         haskellDeps = with hPkgs; [
@@ -184,6 +185,7 @@
           src = ./.;
           hooks = {
             hlint.enable = true;
+            typos.enable = true; # Spellchecking
             nixfmt-rfc-style.enable = true; # Nix formatter
             statix.enable = true; # Nix linter
             fourmolu.enable = true; # Haskell formatter
