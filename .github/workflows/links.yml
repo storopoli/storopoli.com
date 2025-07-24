@@ -1,6 +1,8 @@
 name: Markdown Links Check
 # runs every monday at 9 am
 on:
+  pull_request:
+    branches: ["**"]
   schedule:
     - cron: "0 9 * * 1"
   workflow_dispatch: null
