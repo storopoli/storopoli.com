@@ -301,8 +301,6 @@ Probably the way he would have used it is by:
 1. Disallow password authentication and only allow key-based authentication.
 1. Encrypt everything in the case the server is seized.
 
-{% admonition(type="tip", icon="tip") %}
-Sherlock could also use a coreboot non-KYC piece of hardware that
-runs StartOS and the newly launched Dead Man's Switch StartOS app that already
-uses an onion service for handling the check-ins via Tor.
-{% end %}
+> Sherlock could also use a coreboot non-KYC piece of hardware that
+> runs StartOS and the newly launched Dead Man's Switch StartOS app that already
+> uses an onion service for handling the check-ins via Tor.
