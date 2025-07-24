@@ -1,0 +1,32 @@
+name: "Publish every Git push to main to FlakeHub"
+
+on:
+  push:
+    branches:
+      - "main"
+
+
+permissions: {}
+
+jobs:
+  flakehub-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          persist-credentials: false
+
+      - name: Determinate Nix Action
+        uses: DeterminateSystems/determinate-nix-action@2b7bca919ce8854111c6f9135091ddf5eea8e0eb # v3.8.2
+
+      - name: Publish Flake into FlakeHub
+        uses: DeterminateSystems/flakehub-push@71f57208810a5d299fc6545350981de98fdbc860 # v6
+        with:
+          name: "storopoli/storopoli.com"
+          rolling: true
+          visibility: "public"
+          include-output-paths: true
