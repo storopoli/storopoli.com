@@ -20,7 +20,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         # need to match Stackage LTS version from stack.yaml snapshot
-        hPkgs = pkgs.haskell.packages."ghc910";
+        hPkgs = pkgs.haskell.packages."ghc984";
 
         # Shared source for both derivations
         src =
