@@ -27,6 +27,9 @@
     },
     {
       "pattern": "https://crates.io/crates"
+    },
+    {
+      "pattern": "https://www.reddit.com"
     }
   ],
   "httpHeaders": [
