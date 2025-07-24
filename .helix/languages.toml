@@ -4,7 +4,7 @@ auto-format = true
 
 [[language]]
 name = "nix"
-formatter = {command = "nixfmt"}
+formatter = { command = "nixfmt" }
 auto-format = true
 
 [language-server.haskell-language-server.config]
