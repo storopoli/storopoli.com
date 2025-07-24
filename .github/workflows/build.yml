@@ -24,7 +24,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@21a544727d0c62386e78b4befe52d19ad12692e3 # v17
+        uses: DeterminateSystems/determinate-nix-action@2b7bca919ce8854111c6f9135091ddf5eea8e0eb # v3.8.2
 
       - name: Build
         run: nix build -L
