@@ -26,6 +26,16 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/determinate-nix-action@2b7bca919ce8854111c6f9135091ddf5eea8e0eb # v3.8.2
 
+      - name: Cache Nix store
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4.2.3
+        with:
+          path: |
+            /nix/store
+            ~/.cache/nix
+          key: nix-${{ runner.os }}-${{ hashFiles('flake.nix', 'flake.lock') }}
+          restore-keys: |
+            nix-${{ runner.os }}-
+
       - name: Build
         run: nix build -L
 
