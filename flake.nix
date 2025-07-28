@@ -91,6 +91,7 @@
 
         haskellDeps = with hPkgs; [
           pkgs.zlib # External C library needed by some Haskell packages
+          pkgs.pkg-config
           hakyll
           pandoc
           pandoc-types
