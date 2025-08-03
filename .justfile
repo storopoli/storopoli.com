@@ -18,7 +18,7 @@ build: install deno
 
 # Clean the site
 [working-directory: 'blog']
-clean: install
+clean:
   @stack exec site clean
   @stack clean --full
   @rm -rf vendor
