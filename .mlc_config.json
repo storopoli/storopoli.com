@@ -30,6 +30,9 @@
     },
     {
       "pattern": "https://www.reddit.com"
+    },
+    {
+      "pattern": "https://wiki.nixos.org"
     }
   ],
   "httpHeaders": [
