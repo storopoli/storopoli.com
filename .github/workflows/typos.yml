@@ -19,4 +19,4 @@ jobs:
           persist-credentials: false
 
       - name: Check spelling
-        uses: crate-ci/typos@392b78fe18a52790c53f42456e46124f77346842 # master
+        uses: crate-ci/typos@65f69f021b736bdbe548ce72200500752d42b40e # master
