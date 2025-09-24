@@ -1,0 +1,25 @@
+packages: blog/
+
+-- Use the same GHC version as the template (ghc984)
+with-compiler: ghc-9.8.4
+
+-- Enable parallel builds
+jobs: $ncpus
+
+-- Enable documentation
+documentation: true
+
+-- Enable tests
+tests: true
+
+-- Enable benchmarks
+benchmarks: true
+
+-- Optimization level
+optimization: 2
+
+-- Enable all warnings
+program-options: --ghc-options="-Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wpartial-fields -Wredundant-constraints"
+
+-- Enable threading
+program-options: --ghc-options="-threaded -rtsopts -with-rtsopts=-N"
