@@ -8,26 +8,27 @@ default:
   just --list
 
 # Install the site
+[working-directory: 'blog']
 install:
-  @stack install
+  @cabal install
 
 # Build the site
 [working-directory: 'blog']
 build: install deno
-  @stack exec site build
+  @cabal run site build
 
 # Clean the site
 [working-directory: 'blog']
 clean:
-  @stack exec site clean
-  @stack clean --full
+  @cabal run site clean
+  @cabal clean
   @rm -rf vendor
   @rm -rf import_map.json
 
 # Preview the site
 [working-directory: 'blog']
 preview: install deno
-  @stack exec site watch
+  @cabal run site watch
 
 # Lint the site
 [working-directory: 'blog']

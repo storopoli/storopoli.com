@@ -2,7 +2,7 @@
   description = "storopoli.com Hakyll flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks.url = "github:cachix/git-hooks.nix";
   };
@@ -17,10 +17,27 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        lib = "blog";
 
-        # need to match Stackage LTS version from stack.yaml snapshot
-        hPkgs = pkgs.haskell.packages."ghc984";
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowBroken = true;
+        };
+
+        hlib = pkgs.haskell.lib;
+
+        # ghc 9.8.4 is 25.05
+        hpkgs = pkgs.haskell.packages.ghc984.extend (
+          new: old: {
+            ${lib} = new.callCabal2nix lib ./blog { };
+            # tests are broken somehow in these deps
+            pandoc-sidenote = hlib.dontCheck old.pandoc-sidenote;
+          }
+        );
+
+        inherit (pkgs.stdenv) cc;
+        inherit (hpkgs) ghc;
+        cabal = hpkgs.cabal-install;
 
         # Shared source for both derivations
         src =
@@ -36,11 +53,6 @@
                 name = "source";
               }
             );
-
-        # Build the Haskell site generator executable from the blog subdirectory
-        siteBuilder = hPkgs.callCabal2nix "blog" ./blog {
-          # Add any Haskell dependencies here if needed
-        };
 
         # Vendor deno dependencies
         vendorDir = pkgs.stdenv.mkDerivation {
@@ -69,65 +81,12 @@
           outputHash = "sha256-sbqPST20JuaZJKX8yjfS5di5GiE+BjbEW3rEhsHY2p4=";
         };
 
-        myDevTools = with pkgs; [
-          hPkgs.ghc # GHC compiler in the desired version (will be available on PATH)
-          hPkgs.ghcid # Continuous terminal Haskell compile checker
-          hPkgs.fourmolu # Haskell formatter
-          hPkgs.hlint # Haskell codestyle checker
-          hPkgs.hoogle # Lookup Haskell documentation
-          hPkgs.haskell-language-server # LSP server for editor
-          hPkgs.implicit-hie # auto generate LSP hie.yaml file from cabal
-          hPkgs.retrie # Haskell refactoring tool
-          hPkgs.cabal-install
-          hPkgs.cabal-fmt # Cabal formatter
-          stack-wrapped
-          nil # Nix LSP
-          nixfmt-rfc-style # Nix formatter
-          statix # Nix linter
-          just
-          deno # KaTeX rendering of maths—see blog/scripts/math.ts
-          typos # Spellchecking
-        ];
-
-        haskellDeps = with hPkgs; [
-          pkgs.zlib # External C library needed by some Haskell packages
-          pkgs.pkg-config
-          hakyll
-          pandoc
-          pandoc-types
-          pandoc-sidenote
-          text
-          process
-          filepath
-          skylighting-core
-          bytestring
-          pkgs.pandoc
-        ];
-
-        # Wrap Stack to work with our Nix integration. We don't want to modify
-        # stack.yaml so non-Nix users don't notice anything.
-        # - no-nix: We don't want Stack's way of integrating Nix.
-        # --system-ghc    # Use the existing GHC on PATH (will come from this Nix file)
-        # --no-install-ghc  # Don't try to install GHC if no matching GHC found on PATH
-        stack-wrapped = pkgs.symlinkJoin {
-          name = "stack"; # will be available as the usual `stack` in terminal
-          paths = [ pkgs.stack ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/stack \
-              --add-flags "\
-                --no-nix \
-                --system-ghc \
-                --no-install-ghc \
-              "
-          '';
-        };
         website = pkgs.stdenv.mkDerivation {
           name = "website";
-          buildInputs = [
-            siteBuilder
-            pkgs.deno
-          ] ++ haskellDeps;
+          buildInputs = with pkgs; [
+            hpkgs.${lib}
+            deno
+          ];
           inherit src;
 
           LANG = "en_US.UTF-8";
@@ -151,7 +110,7 @@
             EOF
 
             # Run the site generator
-            ${siteBuilder}/bin/site build --verbose
+            ${hpkgs.${lib}}/bin/site build --verbose
           '';
 
           installPhase = ''
@@ -163,36 +122,73 @@
       {
 
         packages = {
-          inherit siteBuilder website vendorDir;
+          inherit website vendorDir;
           default = website;
         };
 
         apps.default = flake-utils.lib.mkApp {
-          drv = siteBuilder;
+          drv = hpkgs.${lib};
           exePath = "/bin/site";
         };
 
-        devShells.default = pkgs.mkShell {
-          inherit (self.checks.${system}.git-hooks-check) shellHook;
-          buildInputs = myDevTools ++ haskellDeps;
+        devShells.default = hpkgs.shellFor {
+          packages = p: [
+            (hlib.doBenchmark p.${lib})
+          ];
 
-          # Make external Nix c libraries like zlib known to GHC, like
-          # pkgs.haskell.lib.buildStackProject does
-          # https://github.com/NixOS/nixpkgs/blob/d64780ea0e22b5f61cd6012a456869c702a72f20/pkgs/development/haskell-modules/generic-stack-builder.nix#L38
-          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath myDevTools;
+          buildInputs = with pkgs; [
+            cabal
+            cc
+            hpkgs.haskell-language-server
+            hpkgs.fourmolu
+            hpkgs.cabal-fmt
+            hpkgs.hlint
+            just
+            deno
+            typos
+            nil
+            nixfmt-rfc-style
+            statix
+          ];
+
+          inputsFrom = builtins.attrValues self.packages.${system};
+
+          doBenchmark = true;
+
+          shellHook = ''
+            PS1="[${lib}] \w$ "
+            echo "entering ${system} shell, using"
+            echo "cc:    $(${cc}/bin/cc --version)"
+            echo "ghc:   $(${ghc}/bin/ghc --version)"
+            echo "cabal: $(${cabal}/bin/cabal --version)"
+          '';
         };
 
         checks.git-hooks-check = git-hooks.lib.${system}.run {
           src = ./.;
           hooks = {
+            # Nix
+            nixfmt-rfc-style.enable = true;
+            statix.enable = true;
+            flake-checker = {
+              enable = true;
+              args = [
+                "--check-outdated"
+                "false" # don't check for nixpkgs
+              ];
+            };
+
+            # Haskell
+            cabal2nix.enable = true;
+            fourmolu.enable = true;
+            cabal-fmt.enable = true;
             hlint.enable = true;
-            typos.enable = true; # Spellchecking
-            nixfmt-rfc-style.enable = true; # Nix formatter
-            statix.enable = true; # Nix linter
-            fourmolu.enable = true; # Haskell formatter
-            cabal-fmt.enable = true; # Cabal formatter
+
+            # Tin-foil hat
+            zizmor.enable = true;
           };
         };
+
       }
     );
 }

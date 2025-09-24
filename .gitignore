@@ -1,5 +1,5 @@
 # Haskell
-.stack-work/
+.dist-newstyle/
 _cache/
 _site/
 
