@@ -7,28 +7,27 @@ alias p := preview
 default:
   just --list
 
-# Install the site
-[working-directory: 'blog']
+# Install the site 
 install:
-  @cabal install
+  @nix build
 
 # Build the site
 [working-directory: 'blog']
 build: install deno
-  @cabal run site build
+  @nix run . -- build
 
 # Clean the site
 [working-directory: 'blog']
 clean:
-  @cabal run site clean
-  @cabal clean
+  @nix run . -- clean
   @rm -rf vendor
   @rm -rf import_map.json
+  @rm -rf _site
 
 # Preview the site
 [working-directory: 'blog']
 preview: install deno
-  @cabal run site watch
+  @nix run . -- watch
 
 # Lint the site
 [working-directory: 'blog']
