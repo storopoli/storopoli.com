@@ -19,7 +19,7 @@ build: install deno
 # Clean the site
 [working-directory: 'blog']
 clean:
-  @nix run . -- clean
+  @nix run .. -- clean
   @rm -rf vendor
   @rm -rf import_map.json
   @rm -rf _site
