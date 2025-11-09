@@ -14,7 +14,7 @@ install:
 # Build the site
 [working-directory: 'blog']
 build: install deno
-  @nix run . -- build
+  @nix run .. -- build
 
 # Clean the site
 [working-directory: 'blog']
@@ -27,7 +27,7 @@ clean:
 # Preview the site
 [working-directory: 'blog']
 preview: install deno
-  @nix run . -- watch
+  @nix run .. -- watch
 
 # Lint the site
 [working-directory: 'blog']
