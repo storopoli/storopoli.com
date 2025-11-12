@@ -6,7 +6,6 @@ I have a professional X account at [\@jose_storopoli](https://x.com/jose_storopo
 If you want to contact me, please
 [send an email](mailto:jose@storopoli.com),
 my PGP key can be located at [`storopoli.com/publickey.txt`](https://storopoli.com/publickey.txt).
-You can also contact me via Matrix at [`@jose:storopoli.com`](https://matrix.to/#/@jose:storopoli.com).
 If you want to contact me _in a very private way_,
 [send me a SimpleX message](https://smp12.simplex.im/a#8cao3kDok35dCN7dWi4plm_znWubsnktcBPBwWGAh6g).
 
