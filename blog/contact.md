@@ -2,7 +2,7 @@
 title: Contact
 ---
 
-I have a professional X account at [\@jose_storopoli](https://x.com/jose_storopoli).
+I have a professional X account at [\@storopoli](https://x.com/storopoli).
 If you want to contact me, please
 [send an email](mailto:jose@storopoli.com),
 my PGP key can be located at [`storopoli.com/publickey.txt`](https://storopoli.com/publickey.txt).
