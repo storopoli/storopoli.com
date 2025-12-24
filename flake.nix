@@ -2,7 +2,7 @@
   description = "storopoli.com Hakyll flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
     git-hooks.url = "github:cachix/git-hooks.nix";
   };
@@ -26,8 +26,8 @@
 
         hlib = pkgs.haskell.lib;
 
-        # ghc 9.8.4 is 25.05
-        hpkgs = pkgs.haskell.packages.ghc984.extend (
+        # ghc 9.10.3 is 25.11
+        hpkgs = pkgs.haskell.packages.ghc9103.extend (
           new: old: {
             ${lib} = new.callCabal2nix lib ./blog { };
             # tests are broken somehow in these deps
