@@ -23,6 +23,7 @@ title: About
 I am a software developer with a PhD and background in
 Computational Statistics.
 I primarily work with cryptography,
+blockchain solutions,
 zero-knowledge protocols,
 censorship-resistant tools,
 and distributed systems.
