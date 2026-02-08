@@ -1,5 +1,6 @@
 # Haskell
 .dist-newstyle/
+/dist-newstyle
 _cache/
 _site/
 
