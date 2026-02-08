@@ -697,6 +697,7 @@ dump the code into a file named `CantorDiagonalReals.agda`.
 You can run the code by installing Agda and running `agda CantorDiagonalReals.agda`.
 Agda will silently compile the code and if nothing is printed,
 it means the code (and the theorem) is correct (or true).
+If you want the Lean version, see the [appendix](#appendix-lean-translation-of-the-agda-proof).
 
 ```agda
 module CantorDiagonalReals where
@@ -872,6 +873,30 @@ we can derive the bottom type `⊥`
 This elegant proof captures the essence of Cantor's diagonalization:
 **we construct a number that systematically differs from every number in any proposed enumeration,
 proving that _no such enumeration can exist_**.
+
+## Appendix: Lean translation of the Agda proof
+
+```{.haskell .lean}
+namespace CantorDiagonalReals
+
+def Real : Type := Nat → Bool
+
+def bitFlip : Bool → Bool
+  | true => false
+  | false => true
+
+theorem bitFlip_changes (b : Bool) : b ≠ bitFlip b := by
+  cases b <;> decide
+
+theorem no_enumeration (f : Nat → Real) : ∃ r : Real, ∀ n : Nat, f n ≠ r := by
+  refine ⟨fun n => bitFlip (f n n), ?_⟩
+  intro n eq_fn_r
+  have self_eq_flip : f n n = bitFlip (f n n) := by
+    simpa using congrFun eq_fn_r n
+  exact bitFlip_changes (f n n) self_eq_flip
+
+end CantorDiagonalReals
+```
 
 ## Conclusion
 
