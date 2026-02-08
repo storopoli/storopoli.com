@@ -11,7 +11,7 @@
 import Control.Monad ((<=<))
 import Data.ByteString.Lazy qualified as BS
 import Data.Functor ((<&>))
-import Data.List (foldl', intercalate, isPrefixOf, isSuffixOf)
+import Data.List (intercalate, isPrefixOf, isSuffixOf)
 import Data.Maybe (fromMaybe)
 import Data.Text (Text)
 import Data.Text qualified as T
