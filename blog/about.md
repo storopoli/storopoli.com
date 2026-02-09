@@ -29,7 +29,7 @@ censorship-resistant tools,
 and distributed systems.
 
 If you are in a bad day, grab a curated Stoicism piece of advice at
-[`stoicquotes.io`](https://stoicquotes.io).
+[`stoic.storopoli.com`](https://stoic.storopoli.com).
 I also made a [Sudoku App](https://sudoku.storopoli.com) that is free of spyware for my mother,
 and don't need Google or Apple permissions to install (it is a PWA);
 you can use it as well.
