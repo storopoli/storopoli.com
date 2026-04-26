@@ -1,7 +1,17 @@
-@charset "UTF-8";
+/* ---------------------------------------------------------------------------
+ * tufte.css — fixed for mobile + justified body text
+ * Changes vs. original (only what changed; everything else is the same):
+ *   1. body padding is now symmetric — was 12.5% left / 0 right
+ *   2. body now uses `max-width` + auto margins instead of fixed 87.5% width
+ *      so it fluidly recenters; sidenote column still computed off the same width
+ *   3. paragraphs are justified, with `hyphens: auto` and `text-wrap: pretty`
+ *      so we don't get rivers
+ *   4. the mobile breakpoint now caps `pre > code` overflow inside the column
+ *      (was producing a weird inset on phones)
+ *   5. tightened the < 480px regime — body padding shrinks, h1/h2 reflow
+ * --------------------------------------------------------------------------- */
 
-/* Import ET Book styles
-   adapted from https://github.com/edwardtufte/et-book/blob/gh-pages/et-book.css */
+@charset "UTF-8";
 
 @font-face {
     font-family: "et-book";
@@ -77,20 +87,23 @@ html {
 }
 
 body {
-    width: 87.5%;
-    margin-left: auto;
-    margin-right: auto;
+    /* CHANGED: was width: 87.5%; padding-left: 12.5%; (asymmetric)
+       Now symmetric, centered, capped — always leaves a real right gutter. */
+    max-width: 1400px;
+    width: auto;
+    margin: 0 auto;
     padding-left: 12.5%;
+    padding-right: 12.5%;
+    box-sizing: border-box;
+
     font-family:
         et-book, Palatino, "Palatino Linotype", "Palatino LT STD",
         "Book Antiqua", Georgia, serif;
     background-color: #fffff8;
     color: #111;
-    max-width: 1400px;
     counter-reset: sidenote-counter;
 }
 
-/* Adds dark mode */
 @media (prefers-color-scheme: dark) {
     body {
         background-color: #151515;
@@ -104,6 +117,7 @@ h1 {
     margin-bottom: 1.5rem;
     font-size: 3.2rem;
     line-height: 1;
+    text-wrap: balance;
 }
 
 h2 {
@@ -113,6 +127,7 @@ h2 {
     margin-bottom: 1.4rem;
     font-size: 2.2rem;
     line-height: 1;
+    text-wrap: balance;
 }
 
 h3 {
@@ -122,6 +137,7 @@ h3 {
     margin-top: 2rem;
     margin-bottom: 1.4rem;
     line-height: 1;
+    text-wrap: balance;
 }
 
 hr {
@@ -173,6 +189,19 @@ p {
     margin-bottom: 1.4rem;
     padding-right: 0;
     vertical-align: baseline;
+
+    /* NEW: justification + hyphenation so we don't get rivers.
+       text-wrap: pretty improves last-line ragging in modern engines. */
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-wrap: pretty;
+    hanging-punctuation: first last;
+}
+
+/* Don't justify list items — short items + justify produces ugly gaps */
+li {
+    text-align: left;
 }
 
 /* Chapter Epigraphs */
@@ -197,7 +226,6 @@ div.epigraph > blockquote > footer {
 div.epigraph > blockquote > footer > cite {
     font-style: italic;
 }
-/* end chapter epigraphs styles */
 
 blockquote {
     font-size: 1.4rem;
@@ -206,6 +234,8 @@ blockquote {
 blockquote p {
     width: 55%;
     margin-right: 40px;
+    text-align: left; /* keep blockquotes ragged-right; they're usually short */
+    hyphens: manual;
 }
 
 blockquote footer {
@@ -220,7 +250,6 @@ section > table {
     width: 55%;
 }
 
-/* 50 + 5 == 55, to be the same width as paragraph */
 section > dl,
 section > ol,
 section > ul {
@@ -268,11 +297,12 @@ a:visited {
     text-decoration-thickness: 0.05em;
 }
 
-/* Sidenotes, margin notes, figures, captions */
 img {
     max-width: 100%;
+    height: auto;
 }
 
+/* Sidenotes, margin notes */
 .sidenote,
 .marginnote {
     float: right;
@@ -285,6 +315,8 @@ img {
     line-height: 1.3;
     vertical-align: baseline;
     position: relative;
+    text-align: left;
+    hyphens: manual;
 }
 
 .sidenote-number {
@@ -338,7 +370,7 @@ pre > code {
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 1rem;
     line-height: 1.42;
-    -webkit-text-size-adjust: 100%; /* Prevent adjustments of font size after orientation changes in iOS. See https://github.com/edwardtufte/tufte-css/issues/81#issuecomment-261953409 */
+    -webkit-text-size-adjust: 100%;
 }
 
 .sans > code {
@@ -384,7 +416,7 @@ input.margin-toggle {
 
 label.sidenote-number {
     display: inline-block;
-    max-height: 2rem; /* should be less than or equal to paragraph line-height */
+    max-height: 2rem;
 }
 
 label.margin-toggle:not(.sidenote-number) {
@@ -393,7 +425,7 @@ label.margin-toggle:not(.sidenote-number) {
 
 .iframe-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 */
+    padding-bottom: 56.25%;
     padding-top: 25px;
     height: 0;
 }
@@ -406,11 +438,12 @@ label.margin-toggle:not(.sidenote-number) {
     height: 100%;
 }
 
+/* --- Tablet / mid-width --- */
 @media (max-width: 760px) {
     body {
-        width: 84%;
-        padding-left: 8%;
-        padding-right: 8%;
+        /* CHANGED: symmetric, slightly tighter than the old 8% */
+        padding-left: 7%;
+        padding-right: 7%;
     }
 
     hr,
@@ -421,28 +454,39 @@ label.margin-toggle:not(.sidenote-number) {
     }
 
     pre > code {
-        width: 97%;
+        /* CHANGED: was 97% / margin-left: 2.5% (asymmetric).
+           Now full-width with internal padding so code sits inside the column. */
+        width: 100%;
+        margin-left: 0;
+        padding: 0.6rem 0.8rem;
+        background: rgba(0, 0, 0, 0.04);
+        border-radius: 3px;
     }
 
     section > dl,
     section > ol,
     section > ul {
-        width: 90%;
+        width: 100%;
+        -webkit-padding-start: 1.6em;
+        padding-inline-start: 1.6em;
     }
 
     figure {
-        max-width: 90%;
+        max-width: 100%;
     }
 
     figcaption,
     figure.fullwidth figcaption {
         margin-right: 0%;
         max-width: none;
+        float: none;
     }
 
     blockquote {
-        margin-left: 1.5em;
+        margin-left: 1.2em;
         margin-right: 0em;
+        border-left: 2px solid currentColor;
+        padding-left: 1em;
     }
 
     blockquote p,
@@ -462,11 +506,14 @@ label.margin-toggle:not(.sidenote-number) {
     .margin-toggle:checked + .sidenote,
     .margin-toggle:checked + .marginnote {
         display: block;
-        float: left;
-        left: 1rem;
+        float: none;
         clear: both;
-        width: 95%;
-        margin: 1rem 2.5%;
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0.6rem 0.8rem;
+        background: rgba(0, 0, 0, 0.04);
+        border-left: 2px solid currentColor;
+        border-radius: 3px;
         vertical-align: baseline;
         position: relative;
     }
@@ -477,10 +524,49 @@ label.margin-toggle:not(.sidenote-number) {
 
     div.table-wrapper,
     table {
-        width: 85%;
+        width: 100%;
     }
 
     img {
         width: 100%;
+    }
+}
+
+/* --- Phone --- */
+@media (max-width: 480px) {
+    html {
+        font-size: 16px; /* slightly larger root for legibility */
+    }
+    body {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    h1 {
+        font-size: 2.6rem;
+        margin-top: 2rem;
+    }
+    h2 {
+        font-size: 1.9rem;
+    }
+    article {
+        padding: 2rem 0;
+    }
+    /* On very narrow viewports, justify often makes ugly gaps.
+       Tighten by allowing more aggressive hyphenation. */
+    p {
+        hyphenate-limit-chars: 6 3 3;
+        -webkit-hyphenate-limit-before: 3;
+        -webkit-hyphenate-limit-after: 3;
+    }
+}
+
+/* Dark-mode tweaks for the new mobile blockquote / code blocks */
+@media (prefers-color-scheme: dark) {
+    @media (max-width: 760px) {
+        pre > code,
+        .margin-toggle:checked + .sidenote,
+        .margin-toggle:checked + .marginnote {
+            background: rgba(255, 255, 255, 0.06);
+        }
     }
 }
