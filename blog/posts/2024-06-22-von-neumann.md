@@ -105,8 +105,11 @@ Below is the exact part where Wigner tells the story:
 </style>
 <div class="embed-container">
   <iframe
-    src="https://www.youtube.com/embed/HpJgBcE-cFQ?start=184"
+    src="https://www.youtube-nocookie.com/embed/HpJgBcE-cFQ?start=184"
     frameborder="0"
+    loading="lazy"
+    referrerpolicy="strict-origin-when-cross-origin"
+    sandbox="allow-scripts allow-same-origin allow-presentation"
     allowfullscreen
   ></iframe>
 </div>
