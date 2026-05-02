@@ -73,8 +73,11 @@ that does a post-morten on the whole thing:
 </style>
 <div class="embed-container">
   <iframe
-    src="https://www.youtube.com/embed/CqKZhYsjw6M"
+    src="https://www.youtube-nocookie.com/embed/CqKZhYsjw6M"
+    title="YouTube video player"
     frameborder="0"
+    referrerpolicy="strict-origin-when-cross-origin"
+    sandbox="allow-scripts allow-same-origin allow-presentation"
     allowfullscreen
   ></iframe>
 </div>
