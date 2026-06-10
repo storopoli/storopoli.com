@@ -231,13 +231,13 @@ If both timers run out, the messages will be sent and DMS will exit.
 ## The Implementation Details
 
 Before we dive into the code[^make-exe], here are the **dependencies** that I am using.
-
-[^make-exe]: For the stupid smelly nerds that want to go beyond the
-  ["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
 I've tried to keep them to a minimum, since I want this to be a dead-simple
 program.
 This also helps with reducing the incidence of bugs and narrowing the
 attack surface[^dms-web]:
+
+[^make-exe]: For the stupid smelly nerds that want to go beyond the
+  ["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
 
 - [`ratatui`](https://ratatui.rs) for the Terminal User Interface (TUI)
 - [`serde`](https://serde.rs), [`toml`](https://crates.io/crates/toml),
