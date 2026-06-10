@@ -75,7 +75,7 @@ which means you can use it for free as long as you share your code.
 The package is also available on [crates.io](https://crates.io/crates/dead-man-switch),
 Rust's package manager[^web-ui].
 
-[^web-ui]: {-} I've also released a Web Interface for the dead-man-switch.
+[^web-ui]: I've also released a Web Interface for the dead-man-switch.
   You can easily deploy it using Docker or Docker Compose, or Nix.
   Check out the [GitHub repository](https://github.com/storopoli/dead-man-switch).
 
@@ -131,7 +131,7 @@ Hence, the configuration file is at `/root/.config/deadman/config.toml`.
 If you open the configuration file, you will see the following content.
 I've added some default values for inspiration[^central-park]:
 
-[^central-park]: {-} Please don't go to bench 137 in Central Park, NY.
+[^central-park]: Please don't go to bench 137 in Central Park, NY.
   That was just an example.
 
 ```toml
@@ -230,13 +230,10 @@ If both timers run out, the messages will be sent and DMS will exit.
 
 ## The Implementation Details
 
-<label for="mn-code" class="margin-toggle">&#8853;</label><input type="checkbox" id="mn-code" class="margin-toggle"/>
-<span class="marginnote">
-For the stupid smelly nerds that want to go beyond the
-["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
-</span>
+Before we dive into the code[^make-exe], here are the **dependencies** that I am using.
 
-Before we dive into the code, here are the **dependencies** that I am using.
+[^make-exe]: For the stupid smelly nerds that want to go beyond the
+  ["JUST MAKE A FUCKING .EXE AND GIVE IT TO ME"](https://github.com/sherlock-project/sherlock/issues/2019).
 I've tried to keep them to a minimum, since I want this to be a dead-simple
 program.
 This also helps with reducing the incidence of bugs and narrowing the
@@ -252,7 +249,7 @@ attack surface[^dms-web]:
 - [`chrono`](https://crates.io/crates/chrono) to handle timers and date/time
   formatting.
 
-[^dms-web]: {-} The Dead Man's Switch Web Interface uses [`axum`](https://github.com/tokio-rs/axum),
+[^dms-web]: The Dead Man's Switch Web Interface uses [`axum`](https://github.com/tokio-rs/axum),
   [`askama`](https://djc.github.io/askama/) and [`tower`](https://github.com/tower-rs/tower).
 
 The app is divided into a library and a binary.
