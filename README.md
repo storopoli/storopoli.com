@@ -47,7 +47,7 @@ just new my-post-slug  # scaffold a new post
   Typst math inside `$...$` / `$$...$$`)
 - `pages/*.md` — standalone pages (about, contact, 404)
 - `lib/*.typ` — the Typst templates (site chrome, post/page/listing wrappers)
-- `bib/` — BibTeX bibliography + CSL style
+- `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
 - `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …)
 - `themes/` — Gruvbox tmTheme for code highlighting
 - `scripts/build.sh` — the whole build: compiles posts and pages, generates

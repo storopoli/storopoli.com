@@ -46,7 +46,7 @@
     }
     html.elem("section", render-md(body-src))
     if fm.at("bib", default: false) {
-      bibliography("/bib/bibliography.bib", style: "/bib/style.csl")
+      bibliography("/bib/bibliography.bib", style: "ieee")
     }
   })
 })
