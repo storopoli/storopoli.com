@@ -85,33 +85,8 @@ This was reported by [Eugene Wigner](https://en.wikipedia.org/wiki/Eugene_Wigner
 in the 1966 documentary on Von Neumann.
 Below is the exact part where Wigner tells the story:
 
-<style>
-  .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
 <div class="embed-container">
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/HpJgBcE-cFQ?start=184"
-    frameborder="0"
-    loading="lazy"
-    referrerpolicy="strict-origin-when-cross-origin"
-    sandbox="allow-scripts allow-same-origin allow-presentation"
-    allowfullscreen
-  ></iframe>
+  <iframe src="https://www.youtube-nocookie.com/embed/HpJgBcE-cFQ?start=184" frameborder="0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen></iframe>
 </div>
 
 The tale takes place in Los Alamos during the Manhattan Project.
@@ -142,28 +117,28 @@ $$ 15t = 20 - 10t,$$
 where $t$ is the time in hours.
 Note that $t_1$ is
 
-$$ t_1 = \frac{20}{25} = \frac{4}{5}. $$
+$$ t_1 = 20/25 = 4/5. $$
 
 This means that the total time it takes for the fly to reach the second bicycle for the first time
-is $\frac{4}{5}$ hours and the total distance traveled by the fly is
-$d_1 = 15 \times \frac{4}{5} = 12$ miles.
+is $4/5$ hours and the total distance traveled by the fly is
+$d_1 = 15 times 4/5 = 12$ miles.
 It then turns around and reaches the first bicycle when
 
 $$ 12 - 15t = 8 + 10t. $$
 
 Solving for $t_2$ we get
 
-$$ t_2 = \frac{4}{25}. $$
+$$ t_2 = 4/25. $$
 
 Continuing, the total distance traveled by the fly is given by summing the series
 
-$$ 15 \sum\_{n=1}^{\infty} \frac{4}{5^n} = 15. $$
+$$ 15 sum_(n=1)^infinity 4/(5^n) = 15. $$
 
 This is a classical [geometric series](https://en.wikipedia.org/wiki/Geometric_series).
-In general, a geometric series is written as $a + ar + ar^{2} + ar^{3} + \ldots$,
+In general, a geometric series is written as $a + a r + a r^2 + a r^3 + dots$,
 where $a$ is the coefficient of each term and $r$ is the common ratio between adjacent terms.
 
-Here we have $a = 12$ and $r = \frac{4}{5}$,
-and we know it converges to $\frac{a}{1-r} = 15$ when $r < 1$.
+Here we have $a = 12$ and $r = 4/5$,
+and we know it converges to $a/(1-r) = 15$ when $r < 1$.
 
 That's how von Neumann solved the problem in his head in a matter of seconds.
