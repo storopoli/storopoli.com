@@ -1,7 +1,7 @@
-// Shared chrome, show rules, and markdown rendering for storopoli.com.
+// Shared chrome, show rules, and body rendering for storopoli.com.
 // Every compile/query must pass: --root <repo> --features html
-
-#import "/vendor/cmarker/lib.typ" as cmarker
+// Markdown is converted to typst markup by pandoc (scripts/body-filter.lua)
+// in build.sh; the wrappers eval the generated body with the helpers below.
 
 #let site-title = "Jose Storopoli, PhD"
 #let site-url = "https://storopoli.com"
@@ -84,43 +84,47 @@
   })
 }
 
-// CommonMark -> content. Math inside $...$/$$...$$ is typst math syntax.
-#let render-md(src) = cmarker.render(
-  src,
-  math: (it, block: false) => if block {
-    eval("$ " + it + " $", mode: "markup")
-  } else {
-    eval("$" + it + "$", mode: "markup")
-  },
-  // posts use `##` as their top section level (pandoc legacy); map it to
-  // <h2> so headings match the original Tufte CSS sizes
-  h1-level: 0,
-  scope: (
-    // Reference images instead of cmarker's default #image(), which would
-    // embed them as base64 data URIs and resolve paths against the package.
-    // The markdown alt text doubles as a visible caption, like pandoc's
-    // implicit_figures did.
-    image: (src, alt: none) => {
-      let alt-text = if alt == none { "" } else { alt }
-      html.elem("figure", {
-        html.elem("img", attrs: (src: src, alt: alt-text, loading: "lazy"))
-        if alt-text != "" {
-          html.elem("figcaption", alt-text)
-        }
-      })
-    },
-  ),
-  html: (
-    div: (attrs, body) => html.elem("div", attrs: attrs, body),
-    span: (attrs, body) => html.elem("span", attrs: attrs, body),
-    blockquote: (attrs, body) => html.elem("blockquote", attrs: attrs, body),
-    footer: (attrs, body) => html.elem("footer", attrs: attrs, body),
-    cite: (attrs, body) => html.elem("cite", attrs: attrs, body),
-    iframe: ("raw-text", (attrs, body) => html.elem("iframe", attrs: attrs, body)),
-    img: ("void", (attrs) => html.elem("img", attrs: attrs)),
-    br: ("void", (attrs) => html.elem("br")),
-    // Embed styling lives in site.css and the site ships no JavaScript.
-    style: ("raw-text", (attrs, body) => none),
-    script: ("raw-text", (attrs, body) => none),
-  ),
+// Markdown image: real <img> reference (typst's image() would embed the
+// file as a base64 data URI) with the alt text doubling as a caption.
+#let md-img(src, alt: "") = html.elem("figure", {
+  html.elem("img", attrs: (src: src, alt: alt, loading: "lazy"))
+  if alt != "" {
+    html.elem("figcaption", alt)
+  }
+})
+
+// Raw <img> passthrough (about page profile picture keeps its class).
+#let raw-img(src, alt: "", class: "") = html.elem("img", attrs: (
+  src: src,
+  alt: alt,
+  class: class,
+  loading: "lazy",
+))
+
+// Privacy-hardened YouTube embed; styling lives in site.css.
+#let youtube(id) = html.elem(
+  "div",
+  attrs: (class: "embed-container"),
+  html.elem("iframe", attrs: (
+    src: "https://www.youtube-nocookie.com/embed/" + id,
+    title: "YouTube video player",
+    frameborder: "0",
+    loading: "lazy",
+    referrerpolicy: "strict-origin-when-cross-origin",
+    sandbox: "allow-scripts allow-same-origin allow-presentation",
+    allowfullscreen: "",
+  )),
 )
+
+// Evaluate a pandoc-generated typst body with the helpers in scope.
+#let render-body(path) = eval(read(path), mode: "markup", scope: (
+  md-img: md-img,
+  raw-img: raw-img,
+  youtube: youtube,
+  // pandoc emits #horizontalrule for markdown thematic breaks; its
+  // standalone template normally defines it
+  horizontalrule: html.elem("hr"),
+  // pandoc centers tables with align(center)[...], which typst's HTML
+  // export ignores (with a warning); unwrap it and let CSS center tables
+  align: (alignment, body) => body,
+))

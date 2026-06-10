@@ -1,10 +1,11 @@
-// Generic post wrapper: typst compile lib/post.typ --input path=/posts/X.md
+// Generic post wrapper:
+//   typst compile lib/post.typ --input path=/posts/X.md \
+//     --input body=/.cache/bodies/X.typ
 #import "/lib/template.typ": *
 
 #let src = read(sys.inputs.path)
 #let parts = src.split("---\n")
 #let fm = yaml(bytes(parts.at(1)))
-#let body-src = parts.slice(2).join("---\n")
 
 #let iso = date-iso(fm.date)
 #let author = fm.at("author", default: "Jose Storopoli")
@@ -44,7 +45,7 @@
         outline(title: none, depth: toc-depth)
       })
     }
-    html.elem("section", render-md(body-src))
+    html.elem("section", render-body(sys.inputs.body))
     if fm.at("bib", default: false) {
       bibliography("/bib/bibliography.bib", style: "ieee")
     }

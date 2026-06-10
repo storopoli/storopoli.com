@@ -5,10 +5,10 @@
 This is my personal site at [storopoli.com](https://storopoli.com).
 
 It is a barebones static site: no site generator, no JavaScript[^javascript].
-Posts are written in Markdown with [Typst](https://typst.app) math syntax,
-rendered to HTML by Typst's HTML export
-(via the [cmarker](https://typst.app/universe/package/cmarker) package,
-vendored in `vendor/`), and orchestrated by a single shell script.
+Posts are written in Markdown with [Typst](https://typst.app) math syntax;
+[Pandoc](https://pandoc.org) converts the Markdown to Typst markup (passing
+the math through verbatim via a small Lua filter), Typst's HTML export
+renders the pages, and a single shell script orchestrates everything.
 Styling is the original [Tufte CSS](https://edwardtufte.github.io/tufte-css/),
 in honor of the great statistician and visual displayer of information
 [Edward Tufte](https://www.edwardtufte.com),
@@ -20,16 +20,15 @@ and automatic light/dark mode.
 Dependencies (all on Homebrew):
 
 ```sh
-brew install typst just jq
+brew install typst pandoc just jq
 # optional, for `just watch`:
 brew install watchexec
 ```
 
 > [!IMPORTANT]
 > Typst's HTML export is still unstable across versions.
-> The site is developed and CI-pinned against **Typst 0.14.2**.
-> The [cmarker](https://typst.app/universe/package/cmarker) package is
-> vendored in `vendor/cmarker/`, so builds need no network access.
+> The site is developed and CI-pinned against **Typst 0.14.2**
+> and **Pandoc 3.9**.
 
 Then:
 
@@ -50,9 +49,11 @@ just new my-post-slug  # scaffold a new post
 - `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
 - `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …)
 - `themes/` — Gruvbox tmTheme for code highlighting
-- `vendor/` — the vendored cmarker package
-- `scripts/build.sh` — the whole build: compiles posts and pages, generates
-  index/archive/tag listings and `atom.xml`
+- `scripts/build.sh` — the whole build: converts Markdown with Pandoc,
+  compiles posts and pages with Typst, generates index/archive/tag
+  listings and `atom.xml`
+- `scripts/body-filter.lua` — the Pandoc filter: Typst math passthrough,
+  image figures, YouTube embeds
 
 ## Math Support
 

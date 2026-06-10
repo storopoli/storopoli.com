@@ -49,13 +49,24 @@ mkdir -p "$OUT/posts" "$OUT/tags" "$CACHE"
 echo "==> Copying static files"
 cp -R "$ROOT/static/." "$OUT/"
 
-echo "==> Collecting post metadata"
+echo "==> Converting markdown bodies with pandoc"
 shopt -s nullglob
 posts=("$ROOT"/posts/*.md)
+mkdir -p "$CACHE/bodies"
+for f in "${posts[@]}" "$ROOT"/pages/*.md; do
+  name="$(basename "$f" .md)"
+  pandoc "$f" --from markdown --to typst \
+    --shift-heading-level-by=-1 --wrap=none \
+    --lua-filter "$ROOT/scripts/body-filter.lua" \
+    > "$CACHE/bodies/$name.typ"
+done
+
+echo "==> Collecting post metadata"
 {
   for f in "${posts[@]}"; do
     slug="$(basename "$f" .md)"
     typst query "${TYPST_FLAGS[@]}" --input "path=/posts/$slug.md" \
+      --input "body=/.cache/bodies/$slug.typ" \
       lib/post.typ '<frontmatter>' --field value --one \
       | jq --arg slug "$slug" '. + {slug: $slug, url: ("/posts/" + $slug + ".html")}'
   done
@@ -64,13 +75,15 @@ posts=("$ROOT"/posts/*.md)
 echo "==> Building posts ($(jq length "$CACHE/posts.json"))"
 for f in "${posts[@]}"; do
   slug="$(basename "$f" .md)"
-  build_page "$ROOT/lib/post.typ" "$OUT/posts/$slug.html" --input "path=/posts/$slug.md"
+  build_page "$ROOT/lib/post.typ" "$OUT/posts/$slug.html" \
+    --input "path=/posts/$slug.md" --input "body=/.cache/bodies/$slug.typ"
 done
 
 echo "==> Building pages"
 for f in "$ROOT"/pages/*.md; do
   name="$(basename "$f" .md)"
-  build_page "$ROOT/lib/page.typ" "$OUT/$name.html" --input "path=/pages/$name.md"
+  build_page "$ROOT/lib/page.typ" "$OUT/$name.html" \
+    --input "path=/pages/$name.md" --input "body=/.cache/bodies/$name.typ"
 done
 
 echo "==> Building listings"
