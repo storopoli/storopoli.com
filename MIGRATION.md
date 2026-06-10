@@ -20,15 +20,15 @@ Per-post procedure:
 
 | Post | Migrated | Verified light | Verified dark | Notes |
 | --- | --- | --- | --- | --- |
-| 2023-11-10-soydev | | | | pilot |
-| 2023-11-20-word_embeddings | | | | pilot |
-| 2023-11-23-lindley_paradox | | | | pilot, bib + aligned |
+| 2023-11-10-soydev | x | x | x | pilot |
+| 2023-11-20-word_embeddings | x | x | x | pilot |
+| 2023-11-23-lindley_paradox | x | x | x | pilot, bib + aligned |
 | 2023-11-28-zero_cost_abstractions | | | | |
 | 2024-01-14-htmx | | | | |
 | 2024-01-30-sudoku | | | | raw HTML form elements |
 | 2024-02-05-crypto-basics | | | | 261 inline + 32 display eqs |
 | 2024-02-11-mnemonic | | | | |
-| 2024-03-23-dead-man-switch | | | | pilot, marginnote |
+| 2024-03-23-dead-man-switch | x | x | x | pilot, marginnote |
 | 2024-04-14-shamir-secret-sharing | | | | |
 | 2024-06-08-zkp | | | | bib |
 | 2024-06-22-von-neumann | | | | YouTube embed |
@@ -47,6 +47,6 @@ Per-post procedure:
 
 | Page | Migrated | Verified |
 | --- | --- | --- |
-| about | | |
-| contact | | |
-| 404 | | |
+| about | x | x |
+| contact | x | x |
+| 404 | x | x |
