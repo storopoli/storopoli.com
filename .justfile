@@ -1,104 +1,50 @@
 alias b := build
-alias i := install
+alias s := serve
 alias c := clean
-alias p := preview
+alias w := watch
 
 # List all the available commands
 default:
   just --list
 
-# Install the site 
-install:
-  @if command -v nix >/dev/null 2>&1; then \
-    nix build; \
+# Build the site into _site/
+build:
+  ./scripts/build.sh
+
+# Serve _site/ locally (brew install caddy; falls back to python3)
+serve:
+  @if command -v caddy >/dev/null 2>&1; then \
+    caddy file-server --root _site --listen :8080; \
   else \
-    cabal build exe:site; \
+    python3 -m http.server 8080 -d _site; \
   fi
 
-# Ensure we can render math (needed for build/preview)
-require-math-runtime:
-  @if command -v nix >/dev/null 2>&1 || command -v deno >/dev/null 2>&1; then \
-    true; \
-  else \
-    echo "Error: build/preview requires either 'nix' or 'deno' in PATH." >&2; \
-    echo "Install Nix, or install Deno to use the non-Nix fallback." >&2; \
-    exit 1; \
-  fi
+# Rebuild on change (brew install watchexec); run `just serve` in another pane
+watch:
+  watchexec --exts md,typ,css,bib,csl,tmTheme,sh -- just build
 
-# Build the site
-[working-directory: 'blog']
-build: require-math-runtime install deno
-  @if command -v nix >/dev/null 2>&1; then \
-    nix run .. -- build; \
-  elif command -v deno >/dev/null 2>&1; then \
-    cabal run site -- build; \
-  else \
-    echo "Error: building the site requires either 'nix' or 'deno' in PATH." >&2; \
-    echo "Install Nix, or install Deno to use the non-Nix fallback." >&2; \
-    exit 1; \
-  fi
-
-# Clean the site
-[working-directory: 'blog']
+# Remove build artifacts
 clean:
-  @if command -v nix >/dev/null 2>&1; then \
-    nix run .. -- clean; \
-  else \
-    cabal run site -- clean; \
-  fi
-  @rm -rf vendor
-  @rm -rf import_map.json
-  @rm -rf _site
+  rm -rf _site .cache
 
-# Preview the site
-[working-directory: 'blog']
-preview: require-math-runtime install deno
-  @if command -v nix >/dev/null 2>&1; then \
-    nix run .. -- watch; \
-  elif command -v deno >/dev/null 2>&1; then \
-    cabal run site -- watch; \
-  else \
-    echo "Error: preview requires either 'nix' or 'deno' in PATH." >&2; \
-    echo "Install Nix, or install Deno to use the non-Nix fallback." >&2; \
-    exit 1; \
-  fi
+# Scaffold a new post
+new slug:
+  ./scripts/new-post.sh {{slug}}
 
-# Lint the site
-[working-directory: 'blog']
+# Spell check
 lint:
-  @hlint .
+  typos
 
-# Setup deno cache for KaTeX
-deno:
-  #!/usr/bin/env bash
-  run_deno() {
-    if command -v deno >/dev/null 2>&1; then
-      deno "$@"
-    elif command -v nix >/dev/null 2>&1; then
-      nix develop .. --command deno "$@"
-    else
-      echo "Error: deno setup requires either 'deno' or 'nix' in PATH." >&2
-      exit 1
-    fi
-  }
-
-  # Set up deno vendor directory and import map for development
-  if [ ! -d blog/vendor ]; then
-    echo "Setting up deno vendor directory..."
-    cd blog
-    run_deno cache --vendor scripts/math.ts
-    cd ..
+# Build and run sanity checks over the output
+check: build
+  @echo "==> No base64 data URIs in posts"
+  @! grep -rl 'src="data:' _site/posts 2>/dev/null
+  @echo "==> atom.xml is well-formed"
+  @if command -v xmllint >/dev/null 2>&1; then xmllint --noout _site/atom.xml; fi
+  @echo "==> Internal links resolve"
+  @if command -v lychee >/dev/null 2>&1; then \
+    lychee --offline --root-dir "$(pwd)/_site" "_site/**/*.html"; \
+  else \
+    echo "(lychee not installed, skipping)"; \
   fi
-
-  # Create import map if it doesn't exist
-  if [ ! -f blog/import_map.json ]; then
-    echo "Creating import map..."
-    cat > blog/import_map.json << 'EOF'
-  {
-    "imports": {
-      "https://deno.land/std@0.224.0/": "./vendor/deno.land/std@0.224.0/",
-      "https://cdn.jsdelivr.net/npm/katex@0.16.11/": "./vendor/cdn.jsdelivr.net/npm/katex@0.16.11/"
-    }
-  }
-  EOF
-  fi
+  @echo "OK"

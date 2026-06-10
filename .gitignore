@@ -15,3 +15,6 @@ result
 # deno artifacts for the KaTeX self-contained
 blog/vendor
 blog/import_map.json
+
+# build artifacts
+.cache/
