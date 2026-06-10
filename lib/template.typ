@@ -47,7 +47,10 @@
 // Site header, main, and footer emitted inside typst's default <body>.
 // A custom <html>/<body> element would break native footnotes, so the
 // remaining <head> links are injected by scripts/build.sh instead.
-#let chrome(is-post: false, body) = {
+// Skipped entirely outside HTML export: `typst query` (used for the
+// frontmatter metadata) runs paged export, which would warn about every
+// top-level html.elem.
+#let chrome(is-post: false, body) = context if target() == "html" {
   html.elem("header", {
     // CSS-only light/dark toggle: site.css flips color-scheme when checked
     html.elem("input", attrs: (
