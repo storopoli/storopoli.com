@@ -44,14 +44,14 @@ Hence, there is only one cubic polynomial that passes through these four points.
 As you might have guessed, **if you have $n$ points you can draw a _unique_ polynomial of degree $n-1$ that passes through them**.
 This is called **polynomial interpolation**[^interpolation].
 
-[^interpolation]: {-} Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
+[^interpolation]: Steams from the [Lagrange interpolation](https://en.wikipedia.org/wiki/Lagrange_polynomial).
 
 More formally, say that we have a polynomial $f(x)$ of degree $n$:
 
-$$ f(x) = ax^n + a\_{n-1} x^{n-1} + \ldots + a_1 x + a_0 $$
+$$ f(x) = a x^n + a_(n-1) x^(n-1) + dots + a_1 x + a_0 $$
 
-and we have $n$ points $(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)$.
-Then, there is a unique polynomial $f(x)$ of degree $n-1$ such that $f(x_i) = y_i$ for $i = 1, 2, \ldots, n$.
+and we have $n$ points $(x_1, y_1)$, $(x_2, y_2)$, $dots$, $(x_n, y_n)$.
+Then, there is a unique polynomial $f(x)$ of degree $n-1$ such that $f(x_i) = y_i$ for $i = 1, 2, dots, n$.
 
 ## Shamir's Secret Sharing
 
@@ -91,7 +91,7 @@ Note that there's nothing special about the points
 
 - $(-2, f(-2))$
 - $(-1, f(-1))$
-- $(\frac{1}{2}, f(\frac{1}{2}))$
+- $(1/2, f(1/2))$
 - $(1, f(1))$
 - $(2, f(2))$
 
@@ -99,7 +99,7 @@ that we've used in the previous example.
 You could have chosen **any other $N$ points and the polynomial would still be the same**.
 
 Suppose now that your share buddy has lost his share.
-Then, the participants can get together and **generate a new polynomial evaluation at any point $n \notin \\{ -2, -1, \frac{1}{2}, 1, 2 \\}$**.
+Then, the participants can get together and **generate a new polynomial evaluation at any point $n in.not \{ -2, -1, 1/2, 1, 2 \}$**.
 
 This is exactly what the image below shows:
 
@@ -131,7 +131,7 @@ Or, during the reconstruction phase, an attacker could learn the polynomial by o
 Additionally, during a distributed share generation, an attacker could disrupt the process
 and force the participants to reveal their shares[^nonces].
 
-[^nonces]: {-} Or force them to reuse nonces. Then, "poof", private keys are gone.
+[^nonces]: Or force them to reuse nonces. Then, "poof", private keys are gone.
 
 ## Conclusion
 
