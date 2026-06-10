@@ -10,6 +10,40 @@
  *     endnotes, bibliography, embeds
  * --------------------------------------------------------------------------- */
 
+/* --- Color scheme ----------------------------------------------------------
+ * All colors are written with light-dark(). By default the scheme follows
+ * the system preference; the header checkbox (#theme-toggle) flips it,
+ * with no JavaScript. The checkbox state resets on navigation — that is the
+ * price of zero JS.
+ * --------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: light) {
+  html:has(#theme-toggle:checked) {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:has(#theme-toggle:checked) {
+    color-scheme: light;
+  }
+}
+
+input.theme-toggle {
+  display: none;
+}
+
+label.theme-label {
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
 /* --- Layout: symmetric centered column ----------------------------------- */
 
 body {
@@ -18,6 +52,37 @@ body {
   padding-left: 5%;
   padding-right: 5%;
   margin: 0 auto;
+  background-color: light-dark(#fffff8, #151515);
+  color: light-dark(#111, #ddd);
+}
+
+/* Tufte only styles h1-h3; cmarker posts go deeper. Keep the Tufte feel
+   and never drop below the body text size (1.4rem). */
+h4 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-top: 1.9rem;
+  margin-bottom: 1.3rem;
+  line-height: 1;
+}
+
+h5 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1.2rem;
+  line-height: 1;
+}
+
+h6 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1.2rem;
+  line-height: 1;
 }
 
 /* Tufte constrains these to 55% to leave room for sidenotes; use the full
@@ -127,7 +192,7 @@ article .info {
 /* --- Table of contents ----------------------------------------------------- */
 
 .toc {
-  background-color: rgba(0, 0, 0, 0.04);
+  background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
   border-left: 2px solid currentColor;
   padding: 0.7rem 1rem;
   margin: 1.4rem 0;
@@ -167,12 +232,6 @@ article .info {
   border-bottom-style: solid;
 }
 
-@media (prefers-color-scheme: dark) {
-  .toc {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-}
-
 /* --- Math (typst SVG frames) ----------------------------------------------- */
 
 /* typst hardcodes black paint in the exported SVGs; repaint anything black
@@ -202,15 +261,26 @@ div.math-display > svg {
 
 /* --- Code ------------------------------------------------------------------ */
 
-/* Gruvbox dark background in both color schemes; token colors are inline
-   styles from the typst raw theme. */
+/* Gruvbox light/dark. Typst highlights with the gruvbox-dark tmTheme at
+   build time; scripts/postprocess.py rewrites the inline colors into the
+   .tok-* classes below so the palette can follow the color scheme. */
 pre {
-  background-color: #282828;
-  color: #ebdbb2;
+  background-color: light-dark(#fbf1c7, #282828);
+  color: light-dark(#3c3836, #ebdbb2);
   border-radius: 4px;
   padding: 0.8rem 1rem;
   overflow-x: auto;
 }
+
+.tok-gray { color: #928374; }
+.tok-red { color: light-dark(#9d0006, #fb4934); }
+.tok-green { color: light-dark(#79740e, #b8bb26); }
+.tok-yellow { color: light-dark(#b57614, #fabd2f); }
+.tok-blue { color: light-dark(#076678, #83a598); }
+.tok-purple { color: light-dark(#8f3f71, #d3869b); }
+.tok-aqua { color: light-dark(#427b58, #8ec07c); }
+.tok-orange { color: light-dark(#af3a03, #fe8019); }
+.tok-fg { color: light-dark(#3c3836, #ebdbb2); }
 
 pre > code {
   width: 100%;
@@ -245,13 +315,20 @@ a[role="doc-backlink"] {
   text-decoration: none;
 }
 
-/* cmarker footnote definitions leave an empty noteref anchor behind */
+/* cmarker footnote definitions leave an empty noteref anchor behind.
+   It is also the target of the endnote backlinks, so it must remain
+   scrollable: collapse it to zero size instead of display: none. */
 a[role="doc-noteref"]:empty {
-  display: none;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 p:has(> a[role="doc-noteref"]:empty:only-child) {
-  display: none;
+  margin: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 /* --- Bibliography ----------------------------------------------------------- */

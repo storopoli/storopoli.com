@@ -1,7 +1,7 @@
 // Shared chrome, show rules, and markdown rendering for storopoli.com.
 // Every compile/query must pass: --root <repo> --features html
 
-#import "@preview/cmarker:0.1.6"
+#import "/vendor/cmarker/lib.typ" as cmarker
 
 #let site-title = "Jose Storopoli, PhD"
 #let site-url = "https://storopoli.com"
@@ -49,6 +49,13 @@
 // remaining <head> links are injected by scripts/build.sh instead.
 #let chrome(is-post: false, body) = {
   html.elem("header", {
+    // CSS-only light/dark toggle: site.css flips color-scheme when checked
+    html.elem("input", attrs: (
+      type: "checkbox",
+      id: "theme-toggle",
+      class: "theme-toggle",
+      "aria-label": "Toggle light/dark theme",
+    ))
     html.elem("div", attrs: (class: "logo"), html.elem("a", attrs: (href: "/"), site-title))
     html.elem("nav", {
       html.elem("a", attrs: (href: "/"), "Home")
@@ -56,6 +63,11 @@
       html.elem("a", attrs: (href: "/contact.html"), "Contact")
       html.elem("a", attrs: (href: "/archive.html"), "Archive")
       html.elem("a", attrs: (href: "/atom.xml"), "RSS")
+      html.elem("label", attrs: (
+        "for": "theme-toggle",
+        class: "theme-label",
+        title: "Toggle light/dark theme",
+      ), "◐")
     })
   })
   html.elem("main", attrs: (role: "main"), body)
@@ -80,15 +92,23 @@
   } else {
     eval("$" + it + "$", mode: "markup")
   },
-  h1-level: 1,
+  // posts use `##` as their top section level (pandoc legacy); map it to
+  // <h2> so headings match the original Tufte CSS sizes
+  h1-level: 0,
   scope: (
     // Reference images instead of cmarker's default #image(), which would
     // embed them as base64 data URIs and resolve paths against the package.
-    image: (src, alt: none) => html.elem("img", attrs: (
-      src: src,
-      alt: if alt == none { "" } else { alt },
-      loading: "lazy",
-    )),
+    // The markdown alt text doubles as a visible caption, like pandoc's
+    // implicit_figures did.
+    image: (src, alt: none) => {
+      let alt-text = if alt == none { "" } else { alt }
+      html.elem("figure", {
+        html.elem("img", attrs: (src: src, alt: alt-text, loading: "lazy"))
+        if alt-text != "" {
+          html.elem("figcaption", alt-text)
+        }
+      })
+    },
   ),
   html: (
     div: (attrs, body) => html.elem("div", attrs: attrs, body),
