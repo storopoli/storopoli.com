@@ -53,39 +53,14 @@ the discussion at
 and also taking a look at this [YouTube video](https://youtu.be/CqKZhYsjw6M)
 that does a post-morten on the whole thing:
 
-<style>
-  .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
 <div class="embed-container">
-  <iframe
-    src="https://www.youtube-nocookie.com/embed/CqKZhYsjw6M"
-    title="YouTube video player"
-    frameborder="0"
-    referrerpolicy="strict-origin-when-cross-origin"
-    sandbox="allow-scripts allow-same-origin allow-presentation"
-    allowfullscreen
-  ></iframe>
+  <iframe src="https://www.youtube-nocookie.com/embed/CqKZhYsjw6M" title="YouTube video player" frameborder="0" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen></iframe>
 </div>
 
 What surprised me in this supply chain attack is how legit was
 the malicious extension.
 I might have fallen for this,
-of course with the caveat that maybe I would not lose $500k.
+of course with the caveat that maybe I would not lose \$500k.
 First, I don't have that kind of money,
 and second, remember, my private keys never touches or resides in my computer;
 i.e. my private keys are never "hot", always "cold".
@@ -100,7 +75,7 @@ blindly fetch code from GitHub repos,
 without any attestation (PGP verification)
 or integrity (SHA hash verification) measures.
 
-[^zed]: {-} Note that this is not exclusively to VS Code or NeoVim,
+[^zed]: Note that this is not exclusively to VS Code or NeoVim,
   [Zed](https://zed.dev) also has external plugin support that blindly
   fetches code from GitHub repos without any checks that can execute
   arbitrary code in your computer.
@@ -186,7 +161,7 @@ supply chain attacks.
 I am fine with using both Homebrew and Nix as my package managers,
 and being extra judicious on which packages I install[^nix].
 
-[^nix]: {-} If I ever need a package or dependency that is seldom used,
+[^nix]: If I ever need a package or dependency that is seldom used,
   I can move that to a [Nix flake](https://wiki.nixos.org/wiki/Flakes)
   or a [Nix devshell](https://wiki.nixos.org/wiki/Development_environment_with_nix-shell);
   or just use it with `nix-shell -p foo`.
