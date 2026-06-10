@@ -32,10 +32,10 @@ First, a **real-valued vector** is any vector which its elements belong to the r
 numbers.
 Generally we denote vectors with a bold lower-case letter,
 and we denote its elements (also called components) using square brackets.
-Hence, a vector $\bold{v}$ that has 3 elements, $1$, $2$, and $3$,
+Hence, a vector $bold(v)$ that has 3 elements, $1$, $2$, and $3$,
 can be written as
 
-$$\bold{v} = \begin{bmatrix} 1 \\\ 2 \\\ 3 \end{bmatrix}$$
+$$bold(v) = mat(delim: "[", 1; 2; 3)$$
 
 Next, what "close" means for vectors?
 We can use distance functions to get a measurable value.
