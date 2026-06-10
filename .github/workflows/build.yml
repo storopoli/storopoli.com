@@ -30,13 +30,6 @@ jobs:
           # the site is developed against
           typst-version: "0.14.2"
 
-      - name: Cache Typst packages
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        with:
-          path: ~/.cache/typst/packages
-          key: typst-packages-${{ runner.os }}-${{ hashFiles('lib/template.typ') }}
-          restore-keys: typst-packages-${{ runner.os }}-
-
       - name: Build site
         run: ./scripts/build.sh
 
