@@ -11,13 +11,9 @@ default:
 build:
   ./scripts/build.sh
 
-# Serve _site/ locally (brew install caddy; falls back to python3)
+# Serve _site/ locally
 serve:
-  @if command -v caddy >/dev/null 2>&1; then \
-    caddy file-server --root _site --listen :8080; \
-  else \
-    python3 -m http.server 8080 -d _site; \
-  fi
+  python3 -m http.server 8080 -d _site
 
 # Rebuild on change (brew install watchexec); run `just serve` in another pane
 watch:
