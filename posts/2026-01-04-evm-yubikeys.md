@@ -32,7 +32,7 @@ It is used by YubiKeys, Apple Secure Enclave, and Android Keystore, for example.
 The "r" in secp256r1 stands for "random", since the curve is supposedly from random numbers,
 however, it is impossible to prove that's really the case[^secp256r1-backdoor].
 
-[^secp256r1-backdoor]: {-} See [this Cryptography StackExchange discussion](https://crypto.stackexchange.com/a/18982).
+[^secp256r1-backdoor]: See [this Cryptography StackExchange discussion](https://crypto.stackexchange.com/a/18982).
 
 There is a revival of secp256r1 in the cryptographic engineering world recently.
 It is a curve that has been around for a long time and is well understood;
@@ -43,7 +43,7 @@ It has even an [IETF RFC draft](https://www.ietf.org/archive/id/draft-google-cfr
 This is because they need to support not only the latest hardware,
 but also legacy hardware as a restriction from the European Union[^eu-podcast].
 
-[^eu-podcast]: {-} The Google Wallet engineers and cryptographers discuss these EU restrictions in this [Podcast episode](https://zeroknowledge.fm/podcast/363/).
+[^eu-podcast]: The Google Wallet engineers and cryptographers discuss these EU restrictions in this [Podcast episode](https://zeroknowledge.fm/podcast/363/).
 
 With the new [Fusaka upgrade](https://ethereum.org/roadmap/fusaka/),
 we have the new [EIP-7951](https://eips.ethereum.org/EIPS/eip-7951),
@@ -87,7 +87,7 @@ YubiKeys deserve special attention in this landscape. These small, affordable US
 
 **Accessible Price Point**:
 
-- Starting around $25-50 USD, hardware security is accessible to everyone
+- Starting around \$25-50 USD, hardware security is accessible to everyone
 - No recurring fees, no cloud dependencies
 
 **PIN Protection**:
