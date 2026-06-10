@@ -97,6 +97,7 @@
     footer: (attrs, body) => html.elem("footer", attrs: attrs, body),
     cite: (attrs, body) => html.elem("cite", attrs: attrs, body),
     iframe: ("raw-text", (attrs, body) => html.elem("iframe", attrs: attrs, body)),
+    img: ("void", (attrs) => html.elem("img", attrs: attrs)),
     br: ("void", (attrs) => html.elem("br")),
     // Embed styling lives in site.css and the site ships no JavaScript.
     style: ("raw-text", (attrs, body) => none),

@@ -293,6 +293,21 @@ img {
   margin: 1.4rem auto;
 }
 
+.profile-image {
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    float: none;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+}
+
 .embed-container {
   position: relative;
   padding-bottom: 56.25%;

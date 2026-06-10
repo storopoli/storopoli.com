@@ -2,22 +2,6 @@
 title: About
 ---
 
-<style>
-.profile-image {
-    float: right;
-    margin: 10px;
-    width: 200px;
-    height: auto;
-}
-
-@media (max-width: 768px) {
-    .profile-image {
-        float: none;
-        display: block;
-        margin: 0 auto 10px auto;
-    }
-}
-</style>
 <img src="/pp.jpg" alt="Jose Storoopoli, PhD" class="profile-image" />
 
 I am a software developer with a PhD and background in
