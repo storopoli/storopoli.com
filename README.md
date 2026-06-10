@@ -7,8 +7,8 @@ This is my personal site at [storopoli.com](https://storopoli.com).
 It is a barebones static site: no site generator, no JavaScript[^javascript].
 Posts are written in Markdown with [Typst](https://typst.app) math syntax,
 rendered to HTML by Typst's HTML export
-(via the [cmarker](https://typst.app/universe/package/cmarker) package),
-and orchestrated by a single shell script.
+(via the [cmarker](https://typst.app/universe/package/cmarker) package,
+vendored in `vendor/`), and orchestrated by a single shell script.
 Styling is the original [Tufte CSS](https://edwardtufte.github.io/tufte-css/),
 in honor of the great statistician and visual displayer of information
 [Edward Tufte](https://www.edwardtufte.com),
@@ -21,15 +21,15 @@ Dependencies (all on Homebrew):
 
 ```sh
 brew install typst just jq
-# optional, for `just serve` and `just watch`:
-brew install caddy watchexec
+# optional, for `just watch`:
+brew install watchexec
 ```
 
 > [!IMPORTANT]
 > Typst's HTML export is still unstable across versions.
 > The site is developed and CI-pinned against **Typst 0.14.2**.
-> The [cmarker](https://typst.app/universe/package/cmarker) package (pinned
-> in `lib/template.typ`) is downloaded automatically on first build.
+> The [cmarker](https://typst.app/universe/package/cmarker) package is
+> vendored in `vendor/cmarker/`, so builds need no network access.
 
 Then:
 
@@ -50,6 +50,7 @@ just new my-post-slug  # scaffold a new post
 - `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
 - `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …)
 - `themes/` — Gruvbox tmTheme for code highlighting
+- `vendor/` — the vendored cmarker package
 - `scripts/build.sh` — the whole build: compiles posts and pages, generates
   index/archive/tag listings and `atom.xml`
 
@@ -94,9 +95,15 @@ bib: true
 ## Syntax Highlighting
 
 Code blocks are highlighted by Typst with a
-[Gruvbox](https://github.com/morhetz/gruvbox) dark theme on a fixed dark
-background in both color schemes.
+[Gruvbox](https://github.com/morhetz/gruvbox) theme that follows the color
+scheme: gruvbox-light in light mode, gruvbox-dark in dark mode.
 I am a Gruvbox maximalist and use it for everything for years.
+
+## Light/Dark Mode
+
+The site follows the system color scheme, and the `◐` button in the header
+flips it — pure CSS (`light-dark()` + a checkbox), no JavaScript, so the
+choice resets on navigation.
 
 ## License
 
