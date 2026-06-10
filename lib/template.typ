@@ -76,9 +76,9 @@
 #let render-md(src) = cmarker.render(
   src,
   math: (it, block: false) => if block {
-    eval("$ " + it + " $")
+    eval("$ " + it + " $", mode: "markup")
   } else {
-    eval("$" + it + "$")
+    eval("$" + it + "$", mode: "markup")
   },
   h1-level: 1,
   scope: (
