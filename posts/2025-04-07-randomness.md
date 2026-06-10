@@ -36,22 +36,22 @@ see it below:
 
 ![Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition](/images/probability-and-computing.jpg)
 
-[^pdf]: {-} The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
+[^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
 
 The algorithm uses sampling to probabilistically find the **median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
 an upper bound on the probability of deviation of a random variable from its mean.
 Since it is a probabilistic algorithm,
 it finds the median in $O(n)$ (linear time) with probability
-$1 - n^{-\frac{1}{4}}$ (close to $1$ for large $n$).
+$1 - n^(-1/4)$ (close to $1$ for large $n$).
 Note that for any deterministic algorithm to find the median,
-it needs to sort the list, which takes $O(n \log n)$ (linearithmic time)
+it needs to sort the list, which takes $O(n log n)$ (linearithmic time)
 on average or $O(n^2)$ (quadratic time) in the worst case[^quicksort].
 You can always iterate and run the algorithm until you get a result,
 but now the runtime is **non-deterministic**.
 
 [^quicksort]:
-    {-} Note that I am comparing against quicksort since it uses $O(\log n)$ space,
+    Note that I am comparing against quicksort since it uses $O(log n)$ space,
     whereas merge sort would use $O(n)$ space with the worst case is $O(n)$.
 
 The nice thing about the algorithm is that Chebyshev's inequality
@@ -61,7 +61,7 @@ This is excellent since we can move away from the **lala-land** of
 normal distributions assumptions that everything is a Gaussian bell curve[^bayesian].
 
 [^bayesian]:
-    {-} For my Bayesian rant,
+    For my Bayesian rant,
     see ["Lindley's Paradox, or The consistency of Bayesian Thinking"](/posts/2023-11-23-lindley_paradox.html).
 
 ## Chebyshev's Inequality
@@ -72,11 +72,11 @@ of deviation of a random variable (with finite variance) from its mean.
 The inequality is given by:
 
 $$
-P(|X - \mu| \geq k \sigma) \leq \frac{1}{k^2}
+P(|X - mu| >= k sigma) <= 1/k^2
 $$
 
-where $X$ is a random variable, $\mu$ is the mean,
-$\sigma$ is the standard deviation, and $k$ is a positive real number.
+where $X$ is a random variable, $mu$ is the mean,
+$sigma$ is the standard deviation, and $k$ is a positive real number.
 
 This is a consequence of the [Markov's inequality](https://en.wikipedia.org/wiki/Markov's_inequality),
 and can be derived using simple algebra.
@@ -90,7 +90,7 @@ Here's a table showing how much of the distribution's values must lie within $k$
 | $k$        | Min. % within $k$ standard deviations | Max. % beyond $k$ standard deviations |
 |------------|---------------------------------------|---------------------------------------|
 | 1          | 0%                                    | 100%                                  |
-| $\sqrt{2}$ | 50%                                   | 50%                                   |
+| $sqrt(2)$ | 50%                                   | 50%                                   |
 | 2          | 75%                                   | 25%                                   |
 | 3          | 88.8889%                              | 11.1111%                              |
 | 4          | 93.75%                                | 6.25%                                 |
@@ -112,14 +112,14 @@ as described in algorithm 3.1 in the "Probability and Computing" textbook:
 
 **Output:** The median element of $S$, denoted by $m$.
 
-1. Pick a (multi-)set $R$ of $\lceil n^{\frac{3}{4}} \rceil$ elements in $S$, chosen independently and uniformly at random with replacement.
+1. Pick a (multi-)set $R$ of $ceil(n^(3/4))$ elements in $S$, chosen independently and uniformly at random with replacement.
 2. Sort the set $R$.
-3. Let $d$ be the $\bigg(\left\lfloor \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right\rfloor\bigg)$th smallest element in the sorted set $R$.
-4. Let $u$ be the $\bigg(\left\lceil \frac{1}{2}n^{\frac{3}{4}} + \sqrt{n} \right\rceil\bigg)$th smallest element in the sorted set $R$.
-5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \big\{x \in S : d \leq x \leq u \big\}$ and the numbers $\ell_d = \bigg| \big\{x \in S : x < d \big\}\bigg|$ and $\ell_u = \bigg| \big\{x \in S : x > u \big\}\bigg|$.
-6. If $\ell_d > n/2$ or $\ell_u > n/2$ then FAIL.
-7. If $\big|C\big| \leq 4n^{\frac{3}{4}}$ then sort the set $C$, otherwise FAIL.
-8. Output the $\big(\lfloor \frac{n}{2} \rfloor - \ell_d + 1\big)$th element in the sorted order of $C$.
+3. Let $d$ be the $(floor(1/2 n^(3/4) - sqrt(n)))$th smallest element in the sorted set $R$.
+4. Let $u$ be the $(ceil(1/2 n^(3/4) + sqrt(n)))$th smallest element in the sorted set $R$.
+5. By comparing every element in $S$ to $d$ and $u$, compute the set $C = \{x in S : d <= x <= u\}$ and the numbers $ell_d = abs(\{x in S : x < d\})$ and $ell_u = abs(\{x in S : x > u\})$.
+6. If $ell_d > n/2$ or $ell_u > n/2$ then FAIL.
+7. If $abs(C) <= 4n^(3/4)$ then sort the set $C$, otherwise FAIL.
+8. Output the $(floor(n/2) - ell_d + 1)$th element in the sorted order of $C$.
 
 As you can see, the algorithm starts by sampling a set of elements from the list,
 sorting them, and then using the sorted elements to find the median.
@@ -135,7 +135,7 @@ It can fail in three ways:
 2. Too few sampled elements are greater than the true median
 3. The set $C$ becomes too large to sort efficiently
 
-However, the probability of any of these failures occurring is **remarkably small**: less than $n^{-\frac{1}{4}}$.
+However, the probability of any of these failures occurring is **remarkably small**: less than $n^(-1/4)$.
 This means that as the input size grows, the chance of failure becomes increasingly negligible:
 
 - For n = 10,000: failure probability ≤ 0.1
@@ -144,8 +144,8 @@ This means that as the input size grows, the chance of failure becomes increasin
 
 When the algorithm doesn't fail (which is the vast majority of the time),
 it is guaranteed to find the **exact median** in linear time.
-This is achieved by carefully choosing the sample size, $n^{\frac{3}{4}}$, and
-the buffer zone around the median, $\sqrt{n}$, to balance between:
+This is achieved by carefully choosing the sample size, $n^(3/4)$, and
+the buffer zone around the median, $sqrt(n)$, to balance between:
 
 1. Having enough samples to make failure unlikely
 2. Keeping the set $C$ small enough to sort quickly
@@ -157,62 +157,62 @@ The algorithm provides two important guarantees:
    First, we show that the true median $m$ will be in set $C$ with high probability:
 
    - Let $Y_1$ be the count of sampled elements ≤ $m$ in $R$
-     - When $Y_1 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_1$
+     - When $Y_1 < 1/2 n^(3/4) - sqrt(n)$, we call this event $cal(E)_1$
    - Let $Y_2$ be the count of sampled elements ≥ $m$ in $R$
-     - When $Y_2 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n}$, we call this event $\mathcal{E}_2$
-   - When $|C| > 4n^{\frac{3}{4}}$, we call this event $\mathcal{E}_3$
-   - By Chebyshev's inequality, each event has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$
+     - When $Y_2 < 1/2 n^(3/4) - sqrt(n)$, we call this event $cal(E)_2$
+   - When $abs(C) > 4n^(3/4)$, we call this event $cal(E)_3$
+   - By Chebyshev's inequality, each event has probability at most $1/4 n^(-1/4)$
 
    Second, we show that when $m$ is in $C$, we find it:
 
-   - $\ell_d$ counts elements < $d$, so there are exactly $\big\lfloor \frac{n}{2} \big\rfloor - \ell_d$ elements between $d$ and $m$
-   - Therefore, $m$ must be the $\bigg(\big\lfloor \frac{n}{2} \big\rfloor - \ell_d + 1\bigg)$th element in the sorted $C$
+   - $ell_d$ counts elements < $d$, so there are exactly $floor(n/2) - ell_d$ elements between $d$ and $m$
+   - Therefore, $m$ must be the $(floor(n/2) - ell_d + 1)$th element in the sorted $C$
 
 1. **Linear Time**: The algorithm runs in $O(n)$ time when it succeeds because:
 
-   - Sampling and sorting $R$ takes $O\left(n^\frac{3}{4} \log n\right)$ time
+   - Sampling and sorting $R$ takes $O(n^(3/4) log n)$ time
    - Comparing all elements to $d$ and $u$ takes $O(n)$ time
-   - Sorting $C$ takes $O\left(n^\frac{3}{4} \log n\right)$ time since $|C| \leq 4n^\frac{3}{4}$
+   - Sorting $C$ takes $O(n^(3/4) log n)$ time since $abs(C) <= 4n^(3/4)$
    - All other operations are constant time
 
 ### Why These Guarantees Work
 
 The key to understanding why this algorithm works lies in analyzing the **probability of failure**.
-Let's look at how we bound the probability of having too few samples below the median (event $\mathcal{E}_1$):
+Let's look at how we bound the probability of having too few samples below the median (event $cal(E)_1$):
 
 1. For each sampled element $i$, define an indicator variable $X_i$ where:
    $$
-   X_i = 1 \text{ if the $i$th sample is } \leq \text{ median}
+   X_i = 1 "if the " i "th sample is " <= " median"
    $$
    $$
-   X_i = 0 \text{ otherwise}
+   X_i = 0 "otherwise"
    $$
 
 1. Since we sample with replacement, the $X_i$ are independent. And since there are
-   $\frac{n-1}{2} + 1$ elements ≤ median in $S$, we have:
+   $(n-1)/2 + 1$ elements ≤ median in $S$, we have:
    $$
-   P(X_i = 1) = \frac{\frac{n-1}{2} + 1}{n} = \frac{1}{2} + \frac{1}{2n}
+   P(X_i = 1) = ((n-1)/2 + 1)/n = 1/2 + 1/(2n)
    $$
 
-1. Let $Y_1 = \sum_{i=1}^{n^{3/4}} X_i$ count samples ≤ median. This is a binomial random variable with:
+1. Let $Y_1 = sum_(i=1)^(n^(3/4)) X_i$ count samples ≤ median. This is a binomial random variable with:
 
-   - Expected value: $E[Y_1] = n^{\frac{3}{4}}\left(\frac{1}{2} + \frac{1}{2n}\right)$
-   - Variance: $Var[Y_1] < \frac{1}{4}n^{\frac{3}{4}}$
+   - Expected value: $E[Y_1] = n^(3/4) (1/2 + 1/(2n))$
+   - Variance: $"Var"[Y_1] < 1/4 n^(3/4)$
 
 1. Using Chebyshev's inequality:
    $$
-   P \left(Y_1 < \frac{1}{2}n^{\frac{3}{4}} - \sqrt{n} \right) \leq \frac{Var[Y_1]}{n} < \frac{1}{4}n^{-\frac{1}{4}}
+   P(Y_1 < 1/2 n^(3/4) - sqrt(n)) <= ("Var"[Y_1])/n < 1/4 n^(-1/4)
    $$
 
-This shows that both events $\mathcal{E}_1$ and $\mathcal{E}_2$ have probability at most $\frac{1}{4}n^{-\frac{1}{4}}$,
-and also that $\mathcal{E}_3$ has probability at most $\frac{1}{4}n^{-\frac{1}{4}}$:
+This shows that both events $cal(E)_1$ and $cal(E)_2$ have probability at most $1/4 n^(-1/4)$,
+and also that $cal(E)_3$ has probability at most $1/4 n^(-1/4)$:
 
 $$
-P(\mathcal{E}_1) \leq P(\mathcal{E}_2 + \mathcal{E}_3) \leq \frac{1}{2}n^{-\frac{1}{4}}
+P(cal(E)_1) <= P(cal(E)_2 + cal(E)_3) <= 1/2 n^(-1/4)
 $$
 
 All these events combined demonstrate that the algorithm rarely fails: the probability of having too few samples
-on either side of the median decreases as $n^{-\frac{1}{4}}$, becoming negligible for large $n$.
+on either side of the median decreases as $n^(-1/4)$, becoming negligible for large $n$.
 If higher reliability is needed, you can simply run the algorithm multiple times,
 as each run is independent.
 
@@ -257,7 +257,7 @@ which allows us to use the `>>=` operator to chain computations that may fail.
 It can take two values `Nothing` or `Just a`, where `a` is the type of the elements of the list.
 
 [^monad]:
-    {-} Yes M word mentioned.
+    Yes M word mentioned.
     If you want a good introduction to Haskell functors, applicatives, and monads,
     see ["Functors, Applicatives, And Monads In Pictures"](https://www.adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
 
@@ -345,7 +345,7 @@ We do this by finding the index of the element at position `n^(3/4)/2 - sqrt(n)`
 and `n^(3/4)/2 + sqrt(n)` in the sorted sample.
 We then take the element at these indices as the lower and upper bounds.
 
-Then, we compute the set $C$ and the counts $\ell_d$ and $\ell_u$.
+Then, we compute the set $C$ and the counts $ell_d$ and $ell_u$.
 We do this by filtering the list with the lower and upper bounds.
 
 Next, we check if the set $C$ is too large to sort efficiently.
@@ -359,9 +359,9 @@ using the **magical number 42** as the seed of our random number generator.
 As you can see both the exact and randomized median algorithms find the right
 median value:
 
-$$ \frac{10,000,001}{2} = 5,000,001 $$
+$$ (10","000","001)/2 = 5","000","001 $$
 
-since $10,000,001$ is odd, the median is the element at position $\frac{10,000,001}{2} = 5,000,001$.
+since $10","000","001$ is odd, the median is the element at position $(10","000","001)/2 = 5","000","001$.
 
 ```bash
 ============================
@@ -379,7 +379,7 @@ Error percentage: 0.0000%
 Speedup factor: 17.26x
 ```
 
-The randomized median algorithm for the case of $n = 10,000,001$
+The randomized median algorithm for the case of $n = 10","000","001$
 is at least **17x faster** than the exact median calculation.
 That is an **order of magnitude improvement** over the deterministic median algorithm.
 
