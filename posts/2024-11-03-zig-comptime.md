@@ -36,7 +36,7 @@ I have hugely benefited from Zig's built-in features such as:
 - [**BYOA** (Bring Your Own Allocator)](https://ziglang.org/documentation/master/#Choosing-an-Allocator)[^BYOA]
 
 [^BYOA]:
-    {-} Zig doesn't have a built-in allocator.
+    Zig doesn't have a built-in allocator.
     And I don't know it the acronym BYOA is a thing.
     I just made it up. But it makes sense, right?
 
@@ -64,24 +64,6 @@ professional journey from Rust to Zig,
 and the amazing work he's doing at
 [TigerBeetle](https://tigerbeetle.com):
 
-<style>
-  .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
 <div class="embed-container">
   <iframe
     src="https://www.youtube.com/embed/4aLy6qjhHeo?t=1904"
