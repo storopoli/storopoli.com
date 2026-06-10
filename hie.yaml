@@ -1,4 +1,0 @@
-cradle:
-  cabal:
-    - path: "blog/./site.hs"
-      component: "blog:exe:site"

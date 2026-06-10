@@ -24,4 +24,4 @@ extend-glob = [".css"]
 check-file = false
 
 [files]
-extend-exclude = ["blog/bib/*"]
+extend-exclude = ["bib/*"]

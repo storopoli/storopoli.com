@@ -1,0 +1,434 @@
+/* ---------------------------------------------------------------------------
+ * site.css — overrides on top of pristine tufte.css for storopoli.com
+ *
+ * tufte.css owns typography (et-book, headings, links, dark mode colors).
+ * This layer:
+ *   - replaces Tufte's asymmetric sidenote layout with a symmetric centered
+ *     reading column (footnotes are endnotes here, no margin needed)
+ *   - adds the site chrome: header / nav / footer / article meta / ToC
+ *   - adapts typst HTML output: math SVG frames, gruvbox code blocks,
+ *     endnotes, bibliography, embeds
+ * --------------------------------------------------------------------------- */
+
+/* --- Color scheme ----------------------------------------------------------
+ * All colors are written with light-dark(). By default the scheme follows
+ * the system preference; the header checkbox (#theme-toggle) flips it,
+ * with no JavaScript. The checkbox state resets on navigation — that is the
+ * price of zero JS.
+ * --------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: light) {
+  html:has(#theme-toggle:checked) {
+    color-scheme: dark;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:has(#theme-toggle:checked) {
+    color-scheme: light;
+  }
+}
+
+input.theme-toggle {
+  display: none;
+}
+
+label.theme-label {
+  cursor: pointer;
+  user-select: none;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* --- Layout: symmetric centered column ----------------------------------- */
+
+body {
+  width: auto;
+  max-width: 800px;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0 auto;
+  background-color: light-dark(#fffff8, #151515);
+  color: light-dark(#111, #ddd);
+}
+
+/* Tufte only styles h1-h3; cmarker posts go deeper. Keep the Tufte feel
+   and never drop below the body text size (1.4rem). */
+h4 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.5rem;
+  margin-top: 1.9rem;
+  margin-bottom: 1.3rem;
+  line-height: 1;
+}
+
+h5 {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1.2rem;
+  line-height: 1;
+}
+
+h6 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1.2rem;
+  line-height: 1;
+}
+
+/* Tufte constrains these to 55% to leave room for sidenotes; use the full
+   column instead. */
+section > p,
+section > footer,
+section > table,
+blockquote p,
+blockquote footer,
+hr {
+  width: 100%;
+}
+
+section > dl,
+section > ol,
+section > ul {
+  width: 95%;
+}
+
+figure {
+  max-width: 100%;
+}
+
+figcaption {
+  float: none;
+  clear: none;
+  max-width: 100%;
+  font-style: italic;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* --- Header / nav --------------------------------------------------------- */
+
+header {
+  border-bottom: 2px solid currentColor;
+  padding: 0.8rem 0;
+  margin: 1.4rem 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.1rem;
+}
+
+.logo a {
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.8rem;
+}
+
+/* typst wraps inline runs (the nav links) in a <p>; flatten it so the
+   anchors participate in the nav flex layout directly */
+nav > p {
+  display: contents;
+}
+
+nav a {
+  font-size: 1rem;
+  font-weight: bold;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+/* --- Footer --------------------------------------------------------------- */
+
+footer {
+  margin-top: 3rem;
+  padding: 0.8rem 0;
+  border-top: 2px solid currentColor;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: right;
+}
+
+footer a {
+  color: inherit;
+}
+
+.small-caps {
+  font-variant: small-caps;
+}
+
+/* --- Article meta (date / author / tags) ---------------------------------- */
+
+article .header {
+  font-size: 0.95rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+article .info {
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.7;
+  margin-bottom: 0.7rem;
+}
+
+/* --- Table of contents ----------------------------------------------------- */
+
+.toc {
+  background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
+  border-left: 2px solid currentColor;
+  padding: 0.7rem 1rem;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.toc-title {
+  font-weight: bold;
+  font-style: italic;
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+
+.toc ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc ol ol {
+  padding-left: 1.1rem;
+  margin-top: 0.2rem;
+}
+
+.toc li {
+  margin: 0.2rem 0;
+}
+
+.toc a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px dotted currentColor;
+}
+
+.toc a:hover {
+  border-bottom-style: solid;
+}
+
+/* --- Math (typst SVG frames) ----------------------------------------------- */
+
+/* typst hardcodes black paint in the exported SVGs; repaint anything black
+   with the surrounding text color so dark mode works. Attribute selectors
+   leave fill="none" and deliberately colored elements untouched. */
+.typst-frame [fill="#000000"] {
+  fill: currentColor;
+}
+
+.typst-frame [stroke="#000000"] {
+  stroke: currentColor;
+}
+
+span.math-inline svg {
+  vertical-align: -0.15em;
+}
+
+div.math-display {
+  overflow-x: auto;
+  margin: 1.4rem 0;
+}
+
+div.math-display > svg {
+  display: block;
+  margin: 0 auto;
+}
+
+/* --- Code ------------------------------------------------------------------ */
+
+/* Gruvbox light/dark. Typst highlights with the gruvbox-dark tmTheme at
+   build time; scripts/postprocess.py rewrites the inline colors into the
+   .tok-* classes below so the palette can follow the color scheme. */
+pre {
+  background-color: light-dark(#fbf1c7, #282828);
+  color: light-dark(#3c3836, #ebdbb2);
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+}
+
+.tok-gray { color: #928374; }
+.tok-red { color: light-dark(#9d0006, #fb4934); }
+.tok-green { color: light-dark(#79740e, #b8bb26); }
+.tok-yellow { color: light-dark(#b57614, #fabd2f); }
+.tok-blue { color: light-dark(#076678, #83a598); }
+.tok-purple { color: light-dark(#8f3f71, #d3869b); }
+.tok-aqua { color: light-dark(#427b58, #8ec07c); }
+.tok-orange { color: light-dark(#af3a03, #fe8019); }
+.tok-fg { color: light-dark(#3c3836, #ebdbb2); }
+
+pre > code {
+  width: 100%;
+  margin-left: 0;
+  font-size: 0.9rem;
+  overflow-x: visible;
+}
+
+/* --- Endnotes (typst footnotes) -------------------------------------------- */
+
+section[role="doc-endnotes"] {
+  margin-top: 3rem;
+  border-top: 1px solid currentColor;
+  padding-top: 1rem;
+  font-size: 0.95rem;
+}
+
+section[role="doc-endnotes"] ol {
+  padding-left: 1.4rem;
+}
+
+section[role="doc-endnotes"] li {
+  margin-bottom: 0.5rem;
+}
+
+section[role="doc-endnotes"] li p {
+  width: 100%;
+  display: inline;
+}
+
+a[role="doc-backlink"] {
+  text-decoration: none;
+}
+
+/* cmarker footnote definitions leave an empty noteref anchor behind.
+   It is also the target of the endnote backlinks, so it must remain
+   scrollable: collapse it to zero size instead of display: none. */
+a[role="doc-noteref"]:empty {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+p:has(> a[role="doc-noteref"]:empty:only-child) {
+  margin: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* --- Bibliography ----------------------------------------------------------- */
+
+section[role="doc-bibliography"] {
+  margin-top: 3rem;
+}
+
+section[role="doc-bibliography"] ul {
+  padding-left: 0;
+}
+
+section[role="doc-bibliography"] li {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+/* --- Tables ------------------------------------------------------------------ */
+
+section > table {
+  width: auto;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 1.4rem auto;
+}
+
+th,
+td {
+  padding: 0.3rem 0.9rem;
+  border-bottom: 1px solid currentColor;
+}
+
+/* --- Images & embeds ---------------------------------------------------------- */
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.4rem auto;
+}
+
+.profile-image {
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .profile-image {
+    float: none;
+    display: block;
+    margin: 0 auto 10px auto;
+  }
+}
+
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  margin: 1.4rem 0;
+}
+
+.embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* --- Mobile -------------------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  body {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  header {
+    margin: 1rem 0 1.6rem;
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  footer {
+    text-align: center;
+  }
+}

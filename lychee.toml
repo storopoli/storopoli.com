@@ -1,0 +1,25 @@
+# lychee link checker configuration (weekly online check in links.yml)
+
+# Accept rate-limited and bot-blocked responses as OK
+accept = ["200..=299", "403", "429"]
+
+max_retries = 3
+timeout = 30
+
+exclude = [
+  # embeds load client-side; the nocookie host rejects plain GETs
+  "^https://www\\.youtube-nocookie\\.com/embed/",
+  # bot-hostile or login-walled hosts
+  "^https://x\\.com/",
+  "^https://twitter\\.com/",
+  "^https://www\\.reddit\\.com/",
+  "^https://onlinelibrary\\.wiley\\.com/",
+  "^https://smp12\\.simplex\\.im/",
+  "^https://crates\\.io/",
+  "^https://www\\.urbandictionary\\.com/",
+]
+
+exclude_path = []
+
+# mailto: and other schemes
+scheme = ["http", "https"]
