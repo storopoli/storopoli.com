@@ -24,12 +24,16 @@
   "Archives"
 }
 
-#let post-list = html.elem("ul", for p in shown {
+#let post-list-of(items) = html.elem("ul", for p in items {
   html.elem("li", {
     html.elem("a", attrs: (href: p.url), p.title)
     " - " + display-date(p.date)
   })
 })
+
+#let post-list = post-list-of(shown)
+
+#let all-tags = posts.map(p => p.tags).flatten().dedup().sorted()
 
 #show: setup
 #set document(title: site-title + " - " + title)
@@ -52,5 +56,10 @@
   } else {
     html.elem("p", "Here you can find all my previous posts:")
     post-list
+    html.elem("h2", "By tag")
+    for t in all-tags {
+      html.elem("h3", html.elem("a", attrs: (href: "/tags/" + slugify(t) + ".html"), t))
+      post-list-of(posts.filter(p => p.tags.contains(t)))
+    }
   }
 })
