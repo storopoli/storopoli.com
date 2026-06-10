@@ -1,4 +1,4 @@
-name: Markdown Links Check
+name: Links Check
 # runs every monday at 9 am
 on:
   schedule:
@@ -10,14 +10,24 @@ permissions: {}
 jobs:
   check-links:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v4
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v4
         with:
           persist-credentials: false
-      - uses: tcort/github-action-markdown-link-check@e7c7a18363c842693fadde5d41a3bd3573a7a225 # v1.1.2
+
+      - name: Install Typst
+        uses: typst-community/setup-typst@63ac138db421d586de61f7f5ac3bcef6a2e6c78c # v5.1.0
         with:
-          use-quiet-mode: "yes"
-          use-verbose-mode: "yes"
-          config-file: ".mlc_config.json"
-          folder-path: "blog/posts"
-          max-depth: 5
+          typst-version: "0.14.2"
+
+      - name: Build site
+        run: ./scripts/build.sh
+
+      - name: Check all links in built site
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
+        with:
+          args: --config lychee.toml --root-dir "${{ github.workspace }}/_site" --no-progress "_site"
+          fail: true
