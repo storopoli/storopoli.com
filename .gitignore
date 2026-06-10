@@ -1,20 +1,6 @@
-# Haskell
-.dist-newstyle/
-/dist-newstyle
-_cache/
+# Build artifacts
 _site/
-
-# Nix
-result
-.direnv/
-.pre-commit-config.yaml
+.cache/
 
 # Fucking macOS
 .DS_Store
-
-# deno artifacts for the KaTeX self-contained
-blog/vendor
-blog/import_map.json
-
-# build artifacts
-.cache/
