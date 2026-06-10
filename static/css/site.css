@@ -138,7 +138,14 @@ header {
 nav {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   gap: 0.3rem 0.8rem;
+}
+
+/* typst wraps inline runs (the nav links) in a <p>; flatten it so the
+   anchors participate in the nav flex layout directly */
+nav > p {
+  display: contents;
 }
 
 nav a {
