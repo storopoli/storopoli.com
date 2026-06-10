@@ -486,8 +486,8 @@ Since mathematical proof-checking is computational,
 we can treat every mathematical statement as a string
 that a Turing machine can process[^godel-numbering].
 
-[^godel-numbering]:
-  Gödel's original approach used a clever [**numbering system**](https://en.wikipedia.org/wiki/Gödel_numbering)
+[^godel-numbering]: Gödel's original approach used a clever
+  [**numbering system**](https://en.wikipedia.org/wiki/Gödel_numbering)
   that assigned unique natural numbers to mathematical symbols and formulas,
   allowing statements about formulas to become statements about numbers.
   While ingenious, this encoding obscures the essential insight that computation provides more directly.
@@ -500,8 +500,7 @@ With this setup,
 Gödel constructs his famous sentence $G$ that essentially says:
 **"This statement cannot be proven by any Turing machine"**[^statement]
 
-[^statement]:
-  More precisely:
+[^statement]: More precisely:
   "There is no Turing machine that halts and outputs a valid proof of this statement".
 
 The self-reference paradox unfolds beautifully.
