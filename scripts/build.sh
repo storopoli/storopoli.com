@@ -82,6 +82,26 @@ while IFS= read -r tag; do
     --input kind=tag --input "tag=$tag"
 done < <(jq -r '[.[].tags[]] | unique | .[]' "$CACHE/posts.json")
 
+echo "==> Checking for silently escaped raw HTML"
+# cmarker only parses raw HTML tags written on a single line; multi-line
+# tags get HTML-escaped into visible text without any build error.
+# Escaped tags inside <code>/<pre> are legitimate (posts talk about HTML).
+python3 - "$OUT" <<'PYCHECK'
+import re, sys
+from pathlib import Path
+
+bad = []
+for f in Path(sys.argv[1]).rglob("*.html"):
+    html = f.read_text()
+    prose = re.sub(r"<(code|pre)\b.*?</\1>", "", html, flags=re.S)
+    if re.search(r"&lt;(iframe|div|img|span)\b", prose):
+        bad.append(str(f))
+if bad:
+    print("FAIL: escaped raw HTML outside code blocks (multi-line tag in a post?)",
+          *bad, sep="\n", file=sys.stderr)
+    sys.exit(1)
+PYCHECK
+
 echo "==> Generating atom.xml"
 jq -r --arg root "https://storopoli.com" '
   def esc: @html;

@@ -65,11 +65,7 @@ and the amazing work he's doing at
 [TigerBeetle](https://tigerbeetle.com):
 
 <div class="embed-container">
-  <iframe
-    src="https://www.youtube.com/embed/4aLy6qjhHeo?t=1904"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
+  <iframe src="https://www.youtube.com/embed/4aLy6qjhHeo?t=1904" frameborder="0" allowfullscreen></iframe>
 </div>
 
 The talk goes on to compare Rust and Zig in terms of systems programming.

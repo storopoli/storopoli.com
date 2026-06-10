@@ -667,11 +667,7 @@ book by Sandy Maguire.
 I also suggest this quick introduction to Agda:
 
 <div class="embed-container">
-  <iframe
-    src="https://www.youtube.com/embed/OSDgVxdP20g"
-    frameborder="0"
-    allowfullscreen
-  ></iframe>
+  <iframe src="https://www.youtube.com/embed/OSDgVxdP20g" frameborder="0" allowfullscreen></iframe>
 </div>
 
 Now, let's prove that the **set of real numbers is _uncountable_**.
