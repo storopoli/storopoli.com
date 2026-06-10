@@ -50,9 +50,9 @@ For finite sets, this was kinda trivial.
 However, for infinite sets, this is where things started to get interesting.
 
 Cantor started exploring the properties of infinite sets.
-First, he analyzed the properties of the set of natural numbers $\mathbb{N}$.
+First, he analyzed the properties of the set of natural numbers $NN$.
 He then realized that the set of natural numbers is the same size
-as the set of the integers $\mathbb{Z}$ and the set of the rational numbers $\mathbb{Q}$.
+as the set of the integers $ZZ$ and the set of the rational numbers $QQ$.
 To show this, he had to come up with a way to compare the sizes of sets.
 He did this by defining a bijection between the set of natural numbers and the set of integers.
 A **bijection** is a function that is one-to-one and onto.
@@ -62,17 +62,17 @@ and each element of the second set to a unique element of the first set.
 For example, the function
 
 $$
-f(n) = \begin{cases}
-    -\frac{n}{2} & \text{if } n \text{ is even} \\
-    \frac{n+1}{2} & \text{if } n \text{ is odd}
-\end{cases}
+f(n) = cases(
+    - n/2 quad & "if" n "is even",
+    (n+1)/2 quad & "if" n "is odd",
+)
 $$
 
 is a bijection between the set of natural numbers and the set of integers.
 
 It creates a one-to-one correspondence between the set of natural numbers and the set of integers:
 
-| $f(n)$ | $\mathbb{N}$ | $\mathbb{Z}$ |
+| $f(n)$ | $NN$ | $ZZ$ |
 |:------:|:------------:|:------------:|
 | f(0)   | 0            | 0            |
 | f(1)   | 1            | 1            |
@@ -83,59 +83,62 @@ It creates a one-to-one correspondence between the set of natural numbers and th
 | f(6)   | 6            | -3           |
 
 Ok that was easy, we just proved that the **set of natural numbers and the set of integers have the same size**.
-Now let's try to prove the same for the set of rational numbers $\mathbb{Q}$.
+Now let's try to prove the same for the set of rational numbers $QQ$.
 The idea again is to find a bijection between the set of natural numbers and the set of rational numbers.
 We can represent the set of rational numbers as a grid of fractions:
 
 $$
-\begin{array}{cccc}
-    \frac{1}{1} & \quad \frac{1}{2} & \quad \frac{1}{3} & \quad \cdots \\\\
-    \frac{2}{1} & \quad \frac{2}{2} & \quad \frac{2}{3} & \quad \cdots \\\\
-    \frac{3}{1} & \quad \frac{3}{2} & \quad \frac{3}{3} & \quad \cdots \\\\
-    \vdots & \quad \vdots & \quad \vdots & \quad \ddots \\\\
-\end{array}
+mat(
+    delim: #none,
+    column-gap: #1.5em,
+    1/1, 1/2, 1/3, dots;
+    2/1, 2/2, 2/3, dots;
+    3/1, 3/2, 3/3, dots;
+    dots.v, dots.v, dots.v, dots.down;
+)
 $$
 
 Now, we can't just go row by row or column by column --- that would never finish the first row!
 Instead, Cantor had a brilliant idea: traverse the grid diagonally in a zigzag pattern[^pairing-function].
 
-[^pairing-function]: {-} This is called a [**pairing function**](https://en.wikipedia.org/wiki/Pairing_function),
+[^pairing-function]: This is called a [**pairing function**](https://en.wikipedia.org/wiki/Pairing_function),
   and specifically the [**Cantor pairing function**](https://en.wikipedia.org/wiki/Cantor_pairing_function).
 
 $$
-\begin{array}{cccccccc}
-    \frac{1}{1} & \rightarrow & \frac{1}{2} & \quad & \frac{1}{3} & \rightarrow & \frac{1}{4} & \cdots \\
-    & \swarrow & & \nearrow & & \swarrow & \\
-    \frac{2}{1} & & \frac{2}{2} & & \frac{2}{3} & & \frac{2}{4} & \cdots \\
-    \downarrow & \nearrow & & \swarrow & & & \\
-    \frac{3}{1} & & \frac{3}{2} & & \frac{3}{3} & & \frac{3}{4} & \cdots \\
-    & \swarrow & & \nearrow & & & \\
-    \frac{4}{1} & & \frac{4}{2} & & \frac{4}{3} & & \frac{4}{4} & \cdots \\
-    \vdots & & \vdots & & \vdots & & \vdots & \ddots \\
-\end{array}
+mat(
+    delim: #none,
+    1/1, ->, 1/2, , 1/3, ->, 1/4, dots;
+    , arrow.bl, , arrow.tr, , arrow.bl, , ;
+    2/1, , 2/2, , 2/3, , 2/4, dots;
+    arrow.b, arrow.tr, , arrow.bl, , , , ;
+    3/1, , 3/2, , 3/3, , 3/4, dots;
+    , arrow.bl, , arrow.tr, , , , ;
+    4/1, , 4/2, , 4/3, , 4/4, dots;
+    dots.v, , dots.v, , dots.v, , dots.v, dots.down;
+)
 $$
 
 This gives us the sequence:
 $$
-\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{3}{1}, \frac{2}{2}, \frac{1}{3}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \ldots
+1/1, 1/2, 2/1, 3/1, 2/2, 1/3, 1/4, 2/3, 3/2, 4/1, dots
 $$
 
 But wait! We have a problem --- many fractions represent the same rational number:
 
-- $\frac{2}{2} = \frac{1}{1} = 1$
-- $\frac{2}{4} = \frac{1}{2} = 0.5$
+- $2/2 = 1/1 = 1$
+- $2/4 = 1/2 = 0.5$
 
 To create a true bijection, we need to skip these duplicates.
 We only keep fractions in **lowest terms**,
-where $\text{gcd}(\text{numerator}, \text{denominator}) = 1$.
+where $gcd("numerator", "denominator") = 1$.
 
 After removing duplicates:
-$$\frac{1}{1}, \frac{1}{2}, \frac{2}{1}, \frac{3}{1}, \frac{1}{3}, \frac{1}{4}, \frac{2}{3}, \frac{3}{2}, \frac{4}{1}, \ldots$$
+$$1/1, 1/2, 2/1, 3/1, 1/3, 1/4, 2/3, 3/2, 4/1, dots$$
 
 Ok we're almost there.
 This is truly a bijection.
-However, it is a bijection between $\mathbb{N}$ and the set of _positive rationals_, $\mathbb{Q}^+$.
-To include all of $\mathbb{Q}$, we interleave _positive and negative rationals_ (and zero).
+However, it is a bijection between $NN$ and the set of _positive rationals_, $QQ^+$.
+To include all of $QQ$, we interleave _positive and negative rationals_ (and zero).
 I won't give the precise mathematical formula here because it is a bit messy,
 however here's an algorithm describing the bijection:
 
@@ -143,36 +146,36 @@ however here's an algorithm describing the bijection:
 1. If $n = 0$, return $0$
 1. Otherwise:
 
-   - Let $k = \frac{n+1}{2}$ if $n$ is odd, $k = \frac{n}{2}$ if $n$ is even
+   - Let $k = (n+1)/2$ if $n$ is odd, $k = n/2$ if $n$ is even
    - Find the $k$-th positive rational in our enumeration, call it $r$
    - If $n$ is odd, return $r$
    - If $n$ is even, return $-r$
 
 This gives us the following bijection:
 
-| $g(n)$ | $\mathbb{N}$ | $\mathbb{Q}^+$ enumeration  | $\mathbb{Q}$   |
+| $g(n)$ | $NN$ | $QQ^+$ enumeration  | $QQ$   |
 |:------:|:------------:|:---------------------------:|:--------------:|
 | g(0)   | 0            | -                           | 0              |
-| g(1)   | 1            | 1st positive: $\frac{1}{1}$ | 1              |
-| g(2)   | 2            | 1st positive: $\frac{1}{1}$ | -1             |
-| g(3)   | 3            | 2nd positive: $\frac{1}{2}$ | $\frac{1}{2}$  |
-| g(4)   | 4            | 2nd positive: $\frac{1}{2}$ | $-\frac{1}{2}$ |
-| g(5)   | 5            | 3rd positive: $\frac{2}{1}$ | 2              |
-| g(6)   | 6            | 3rd positive: $\frac{2}{1}$ | -2             |
+| g(1)   | 1            | 1st positive: $1/1$ | 1              |
+| g(2)   | 2            | 1st positive: $1/1$ | -1             |
+| g(3)   | 3            | 2nd positive: $1/2$ | $1/2$  |
+| g(4)   | 4            | 2nd positive: $1/2$ | $-1/2$ |
+| g(5)   | 5            | 3rd positive: $2/1$ | 2              |
+| g(6)   | 6            | 3rd positive: $2/1$ | -2             |
 
-Q.E.D.! We have a **bijection between $\mathbb{N}$ and $\mathbb{Q}$**.
+Q.E.D.! We have a **bijection between $NN$ and $QQ$**.
 
 I went over all of these details because this diagonalization argument is a very important insight.
 Any set that can be put in a one-to-one correspondence with the set of natural numbers is called **countable**.
 Cantor showed that the set of rational numbers is countable.
 
-Let's see what happens when we try to apply the same argument to the set of real numbers $\mathbb{R}$.
-For the sake of simplicity, let's consider the set of real numbers between 0 and 1, $\mathbb{R}_{(0,1)}$.
+Let's see what happens when we try to apply the same argument to the set of real numbers $RR$.
+For the sake of simplicity, let's consider the set of real numbers between 0 and 1, $RR_((0,1))$.
 
-Let's assume that we have a bijection $f$ between $\mathbb{N}$ and $\mathbb{R}_{(0,1)}$.
+Let's assume that we have a bijection $f$ between $NN$ and $RR_((0,1))$.
 This would give us the following table:
 
-| $f(n)$ | $\mathbb{N}$ | $\mathbb{R}_{(0,1)}$ |
+| $f(n)$ | $NN$ | $RR_((0,1))$ |
 |:------:|:------------:|:--------------------:|
 | f(0)   | 0            | 0.011...             |
 | f(1)   | 1            | 0.111...             |
@@ -188,7 +191,7 @@ For example, for the first real number in the list, we add 1 to the first digit,
 for the second real number in the list, we add 1 to the second digit,
 and so on.
 
-This gives us the following real number: $0.123\ldots$
+This gives us the following real number: $0.123 dots$
 By construction, this real number is not in the list,
 since it differs from the first real number in the list by 1 in the first digit,
 from the second real number in the list by 1 in the second digit,
@@ -213,8 +216,8 @@ This is a very important insight.
 It shows that there are **different sizes of infinity**.
 Yes, that is mind-blowing and paradoxically beautiful.
 
-Cantor called the size of the set of natural numbers $\aleph_0$,
-and conjectured that the set of real numbers is $\aleph_1$.
+Cantor called the size of the set of natural numbers $aleph_0$,
+and conjectured that the set of real numbers is $aleph_1$.
 This is called the [**continuum hypothesis**](https://en.wikipedia.org/wiki/Continuum_hypothesis) (CH).
 
 ## Russell and the barber paradox
@@ -234,7 +237,7 @@ Set theory is very lenient with the definition of sets.
 For example, we can define the set of all sets that are **not members of themselves**:
 
 $$
-R = \{ x \mid x \notin x \}
+R = \{ x | x in.not x \}
 $$
 
 Now what happens if we ask the question: **is $R$ a member of itself?**
@@ -335,12 +338,12 @@ Here's where things get interesting. Since Turing machines follow simple rules,
 we can **encode any Turing machine as a string of symbols**.
 Just assign numbers to states and symbols:
 
-- State $q_0 \rightarrow 1$
-- State $q_1 \rightarrow 2$
-- Symbol $0 \rightarrow 1$
-- Symbol $1 \rightarrow 2$
-- Move Left $\rightarrow 1$
-- Move Right $\rightarrow 2$
+- State $q_0 -> 1$
+- State $q_1 -> 2$
+- Symbol $0 -> 1$
+- Symbol $1 -> 2$
+- Move Left $-> 1$
+- Move Right $-> 2$
 
 Now our entire machine becomes a sequence of numbers, which we can write on a tape!
 
@@ -484,7 +487,7 @@ we can treat every mathematical statement as a string
 that a Turing machine can process[^godel-numbering].
 
 [^godel-numbering]:
-  {-} Gödel's original approach used a clever [**numbering system**](https://en.wikipedia.org/wiki/Gödel_numbering)
+  Gödel's original approach used a clever [**numbering system**](https://en.wikipedia.org/wiki/Gödel_numbering)
   that assigned unique natural numbers to mathematical symbols and formulas,
   allowing statements about formulas to become statements about numbers.
   While ingenious, this encoding obscures the essential insight that computation provides more directly.
@@ -498,7 +501,7 @@ Gödel constructs his famous sentence $G$ that essentially says:
 **"This statement cannot be proven by any Turing machine"**[^statement]
 
 [^statement]:
-  {-} More precisely:
+  More precisely:
   "There is no Turing machine that halts and outputs a valid proof of this statement".
 
 The self-reference paradox unfolds beautifully.
@@ -566,7 +569,7 @@ The only way to avoid this contradiction is if arithmetic cannot prove Cons(Arit
 The profound implication: **Mathematics cannot certify its own reliability from within**.
 We must take arithmetic's consistency on faith ---
 there's no internal proof that it won't one day derive both
-"$2+2 = 4$" and "$2+2 \ne 4$".
+"$2+2 = 4$" and "$2+2 != 4$".
 Any proof of consistency must come from a stronger system outside arithmetic itself,
 but then we face the same problem for that stronger system.
 
@@ -663,24 +666,6 @@ book by Sandy Maguire.
 
 I also suggest this quick introduction to Agda:
 
-<style>
-  .embed-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-  }
-  .embed-container iframe,
-  .embed-container object,
-  .embed-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
 <div class="embed-container">
   <iframe
     src="https://www.youtube.com/embed/OSDgVxdP20g"
