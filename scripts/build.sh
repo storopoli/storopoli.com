@@ -34,7 +34,7 @@ build_page() {
   local tmp
   tmp="$(mktemp)"
   compile "$src" "$tmp" "$@"
-  python3 "$ROOT/scripts/postprocess.py" < "$tmp" > "$dst"
+  python3 "$ROOT/scripts/postprocess.py" "$CSS_HREF" < "$tmp" > "$dst"
   rm -f "$tmp"
 }
 
@@ -48,6 +48,14 @@ mkdir -p "$OUT/posts" "$OUT/tags" "$CACHE"
 
 echo "==> Copying static files"
 cp -R "$ROOT/static/." "$OUT/"
+
+# Fingerprint the stylesheet: pages link /css/site.<hash>.css so a deploy
+# can never pair new HTML with a stale cached stylesheet (the Cloudflare
+# edge in front of GitHub Pages caches assets with a 4h browser TTL).
+# The unhashed copy stays in place as a stable URL.
+CSS_HASH="$(python3 -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest()[:8])' "$ROOT/static/css/site.css")"
+CSS_HREF="/css/site.$CSS_HASH.css"
+cp "$OUT/css/site.css" "$OUT$CSS_HREF"
 
 echo "==> Converting markdown bodies with pandoc"
 shopt -s nullglob

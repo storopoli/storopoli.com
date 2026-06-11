@@ -14,6 +14,9 @@
 import re
 import sys
 
+# build.sh passes the fingerprinted stylesheet href (/css/site.<hash>.css)
+CSS_HREF = sys.argv[1] if len(sys.argv) > 1 else "/css/site.css"
+
 # Token colors of typst's built-in raw highlight theme (pinned: typst 0.14.2)
 # mapped to palette-role classes defined in static/css/site.css
 TOKEN_CLASSES = {
@@ -38,7 +41,7 @@ HEAD = (
     'as="font" type="font/woff2" crossorigin>\n'
     '    <link rel="preload" href="/fonts/newsreader-latin-opsz-italic.woff2" '
     'as="font" type="font/woff2" crossorigin>\n'
-    '    <link rel="stylesheet" href="/css/site.css">\n'
+    f'    <link rel="stylesheet" href="{CSS_HREF}">\n'
     '    <link rel="alternate" type="application/atom+xml" href="/atom.xml" '
     'title="Jose Storopoli, PhD - Atom Feed">\n'
 )
