@@ -28,20 +28,23 @@
 #chrome(is-post: true, {
   html.elem("h1", fm.title)
   html.elem("article", {
-    html.elem(
-      "section",
-      attrs: (class: "header"),
-      "Posted on " + display-date(iso) + " by " + author,
-    )
-    if tags.len() > 0 {
-      html.elem("div", attrs: (class: "info"), {
-        "Tags: "
-        tags.map(t => html.elem("a", attrs: (href: "/tags/" + slugify(t) + ".html"), t)).join(", ")
-      })
-    }
+    html.elem("div", attrs: (class: "post-meta"), {
+      html.elem("time", attrs: (datetime: iso), iso)
+      html.elem("span", author)
+      if tags.len() > 0 {
+        html.elem(
+          "span",
+          attrs: (class: "post-tags"),
+          tags.map(t => html.elem("a", attrs: (
+            href: "/tags/" + slugify(t) + ".html",
+            class: "tag",
+          ), t)).join(),
+        )
+      }
+    })
     if show-toc {
-      html.elem("div", attrs: (id: "table-of-contents", class: "toc"), {
-        html.elem("p", attrs: (class: "toc-title"), "Contents")
+      html.elem("details", attrs: (id: "table-of-contents", class: "toc"), {
+        html.elem("summary", "Contents")
         outline(title: none, depth: toc-depth)
       })
     }

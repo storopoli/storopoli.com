@@ -9,11 +9,16 @@ Posts are written in Markdown with [Typst](https://typst.app) math syntax;
 [Pandoc](https://pandoc.org) converts the Markdown to Typst markup (passing
 the math through verbatim via a small Lua filter), Typst's HTML export
 renders the pages, and a single shell script orchestrates everything.
-Styling is the original [Tufte CSS](https://edwardtufte.github.io/tufte-css/),
-in honor of the great statistician and visual displayer of information
-[Edward Tufte](https://www.edwardtufte.com),
-with a small override layer that adds the site chrome
-and automatic light/dark mode.
+
+Styling is a single hand-written stylesheet (`static/css/site.css`) around
+one idea: _literary text, terminal chrome_. Prose is set in
+[Newsreader](https://github.com/productiontype/Newsreader), a contemporary
+editorial serif (self-hosted variable woff2 with optical sizing); everything
+machine-adjacent — nav, dates, tags, labels, captions, footnote markers,
+code — is monospaced. One color system throughout, after
+[Flexoki](https://stephango.com/flexoki): warm paper/ink surfaces in both
+color schemes, one burnt-orange accent, the Flexoki accents for syntax
+highlighting, and automatic light/dark mode.
 
 ## Building
 
@@ -47,8 +52,10 @@ just new my-post-slug  # scaffold a new post
 - `pages/*.md` — standalone pages (about, contact, 404)
 - `lib/*.typ` — the Typst templates (site chrome, post/page/listing wrappers)
 - `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
-- `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …)
-- `themes/` — Gruvbox tmTheme for code highlighting
+- `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …);
+  `static/fonts/` holds the self-hosted Newsreader variable woff2 files
+  (latin + latin-ext, normal + italic, pinned from
+  [fontsource](https://fontsource.org/fonts/newsreader) 5.2.10)
 - `scripts/build.sh` — the whole build: converts Markdown with Pandoc,
   compiles posts and pages with Typst, generates index/archive/tag
   listings and `atom.xml`
@@ -78,7 +85,9 @@ This is a valid claim [@referenceYYYY].
 
 ## Table of Contents
 
-Posts automatically generate a table of contents from their headers.
+Posts automatically generate a table of contents from their headers,
+rendered as a native `<details>` element (collapsed by default, no
+JavaScript).
 You can control this behavior using metadata in your post's front matter:
 
 ```yaml
@@ -95,10 +104,13 @@ bib: true
 
 ## Syntax Highlighting
 
-Code blocks are highlighted by Typst with a
-[Gruvbox](https://github.com/morhetz/gruvbox) theme that follows the color
-scheme: gruvbox-light in light mode, gruvbox-dark in dark mode.
-I am a Gruvbox maximalist and use it for everything for years.
+Code blocks are highlighted by Typst's built-in default raw theme, which
+only classifies the tokens: `scripts/postprocess.py` rewrites its colors
+into role classes (`.tok-red`, `.tok-green`, …) that `site.css` renders in
+the [Flexoki](https://stephango.com/flexoki) accents — 600-series in light
+mode, 400-series in dark mode — so code shares one color system with the
+rest of the site. If a Typst upgrade ever changes the default theme's
+palette, postprocess fails the build listing the unmapped colors.
 
 ## Light/Dark Mode
 

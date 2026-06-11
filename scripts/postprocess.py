@@ -4,30 +4,40 @@
    replacing it with a custom <html> element would break native footnotes).
 2. Move the endnotes section, which typst appends at the very end of <body>,
    back inside <main> so it sits above the site footer.
-3. Rewrite syntax-highlight colors (inline styles from the gruvbox-dark
-   tmTheme) into .tok-* classes so CSS can swap the palette per color scheme.
+3. Rewrite syntax-highlight colors (inline styles from typst's built-in
+   default raw theme) into .tok-* classes so CSS can swap the palette per
+   color scheme. Any color span left unmapped fails the build loudly: it
+   means a typst upgrade changed the default theme's palette and this
+   mapping needs updating.
 """
 
 import re
 import sys
 
-# gruvbox-dark hex (as emitted by typst from themes/gruvbox-dark.tmTheme)
+# Token colors of typst's built-in raw highlight theme (pinned: typst 0.14.2)
 # mapped to palette-role classes defined in static/css/site.css
 TOKEN_CLASSES = {
-    "#928374": "tok-gray",
-    "#fb4934": "tok-red",
-    "#b8bb26": "tok-green",
-    "#fabd2f": "tok-yellow",
-    "#83a598": "tok-blue",
-    "#d3869b": "tok-purple",
-    "#8ec07c": "tok-aqua",
-    "#fe8019": "tok-orange",
-    "#ebdbb2": "tok-fg",
+    "#74747c": "tok-gray",  # comments
+    "#d73948": "tok-red",  # keywords, operators
+    "#198810": "tok-green",  # strings
+    "#301414": "tok-yellow",  # attributes (#[...] in rust)
+    "#4b69c6": "tok-blue",  # function names
+    "#8b41b1": "tok-purple",  # markup attribute names
+    "#1d6c76": "tok-aqua",  # string escapes
+    "#16718d": "tok-aqua",  # macros
+    "#b60157": "tok-magenta",  # numbers, literals
 }
 
 HEAD = (
     '    <link rel="icon" type="image/svg+xml" href="/favicon.svg">\n'
-    '    <link rel="stylesheet" href="/css/tufte.css">\n'
+    '    <meta name="theme-color" media="(prefers-color-scheme: light)" '
+    'content="#fffcf0">\n'
+    '    <meta name="theme-color" media="(prefers-color-scheme: dark)" '
+    'content="#100f0f">\n'
+    '    <link rel="preload" href="/fonts/newsreader-latin-opsz-normal.woff2" '
+    'as="font" type="font/woff2" crossorigin>\n'
+    '    <link rel="preload" href="/fonts/newsreader-latin-opsz-italic.woff2" '
+    'as="font" type="font/woff2" crossorigin>\n'
     '    <link rel="stylesheet" href="/css/site.css">\n'
     '    <link rel="alternate" type="application/atom+xml" href="/atom.xml" '
     'title="Jose Storopoli, PhD - Atom Feed">\n'
@@ -49,5 +59,12 @@ if match:
 
 for hex_color, cls in TOKEN_CLASSES.items():
     html = html.replace(f'<span style="color: {hex_color}">', f'<span class="{cls}">')
+
+unmapped = sorted(set(re.findall(r'<span style="color: (#[0-9a-fA-F]{6})">', html)))
+if unmapped:
+    sys.exit(
+        "postprocess: unmapped highlight colors (typst default theme changed?): "
+        + ", ".join(unmapped)
+    )
 
 sys.stdout.write(html)

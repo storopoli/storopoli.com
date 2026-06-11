@@ -17,7 +17,7 @@ serve:
 
 # Rebuild on change (brew install watchexec); run `just serve` in another pane
 watch:
-  watchexec --exts md,typ,css,bib,csl,tmTheme,sh -- just build
+  watchexec --exts md,typ,css,bib,csl,sh -- just build
 
 # Remove build artifacts
 clean:

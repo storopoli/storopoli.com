@@ -31,6 +31,28 @@ function Image(el)
   )
 end
 
+-- Pandoc wraps a standalone image in a Figure, which the typst writer
+-- renders as #figure(..) around the #md-img(..) the Image filter already
+-- produced — duplicating the caption (plus a "Figure N:" prefix) in the
+-- HTML output. Unwrap it: md-img owns the <figure>/<figcaption>.
+-- Inline filters run before block filters, so the Image inside has
+-- already been converted to a typst RawInline by the time we get here.
+function Figure(el)
+  if #el.content ~= 1 then
+    return nil
+  end
+  local blk = el.content[1]
+  if (blk.t ~= 'Plain' and blk.t ~= 'Para') or #blk.content ~= 1 then
+    return nil
+  end
+  local inl = blk.content[1]
+  if inl.t == 'RawInline' and inl.format == 'typst'
+    and inl.text:sub(1, 8) == '#md-img(' then
+    return pandoc.RawBlock('typst', inl.text)
+  end
+  return nil
+end
+
 local function html_to_typst(html)
   -- YouTube embed iframe; the youtube() helper emits the hardened
   -- youtube-nocookie wrapper whatever the source host was. The capture

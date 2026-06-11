@@ -1,24 +1,92 @@
 /* ---------------------------------------------------------------------------
- * site.css — overrides on top of pristine tufte.css for storopoli.com
+ * site.css — the whole stylesheet for storopoli.com.
  *
- * tufte.css owns typography (et-book, headings, links, dark mode colors).
- * This layer:
- *   - replaces Tufte's asymmetric sidenote layout with a symmetric centered
- *     reading column (footnotes are endnotes here, no margin needed)
- *   - adds the site chrome: header / nav / footer / article meta / ToC
- *   - adapts typst HTML output: math SVG frames, gruvbox code blocks,
- *     endnotes, bibliography, embeds
+ * Concept: "literary text, terminal chrome". Prose is set in Newsreader,
+ * a contemporary editorial serif (self-hosted variable woff2, optical
+ * sizing); everything machine-adjacent — nav, dates, tags, labels,
+ * captions, footnote numbers, code — is monospaced. One color system
+ * throughout: Flexoki paper/ink surfaces with the Flexoki accents for
+ * both the site accent and the syntax-highlight palette.
+ *
+ * No JavaScript anywhere: the theme toggle is a checkbox + light-dark(),
+ * the ToC is a native <details>, page transitions are CSS view
+ * transitions where supported.
  * --------------------------------------------------------------------------- */
 
-/* --- Color scheme ----------------------------------------------------------
- * All colors are written with light-dark(). By default the scheme follows
- * the system preference; the header checkbox (#theme-toggle) flips it,
- * with no JavaScript. The checkbox state resets on navigation — that is the
- * price of zero JS.
+/* --- Fonts ------------------------------------------------------------------ */
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-opsz-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-opsz-italic.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-ext-opsz-normal.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("/fonts/newsreader-latin-ext-opsz-italic.woff2") format("woff2-variations");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* --- Tokens ------------------------------------------------------------------
+ * Warm paper/ink in both schemes (palette after Flexoki). The scheme follows
+ * the system preference; the header checkbox (#theme-toggle) flips it with
+ * no JavaScript. The checkbox state resets on navigation — the price of
+ * zero JS.
  * --------------------------------------------------------------------------- */
 
 :root {
   color-scheme: light dark;
+
+  --paper: light-dark(#fffcf0, #100f0f);
+  --ink: light-dark(#100f0f, #cecdc3);
+  --ink-2: light-dark(#6f6e69, #878580); /* secondary text */
+  --ink-3: light-dark(#b7b5ac, #575653); /* faint marks */
+  --line: light-dark(#e6e4d9, #282726); /* hairlines */
+  --wash: light-dark(#f2f0e5, #1c1b1a); /* subtle panels */
+  --accent: light-dark(#bc5215, #da702c);
+
+  /* Code surfaces: Flexoki base-50 / base-950, same family as --wash */
+  --code-bg: light-dark(#f2f0e5, #1c1b1a);
+  --code-fg: light-dark(#100f0f, #cecdc3);
+
+  --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino,
+    Georgia, serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo,
+    Consolas, monospace;
+
+  accent-color: var(--accent);
 }
 
 @media (prefers-color-scheme: light) {
@@ -33,213 +101,451 @@
   }
 }
 
+/* --- Base -------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 2rem);
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 420;
+  line-height: 1.6;
+  font-optical-sizing: auto;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  hanging-punctuation: first last;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 24%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+[id] {
+  scroll-margin-top: 2rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Cross-document crossfade between pages (progressive enhancement) */
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+/* --- Prose ------------------------------------------------------------------- */
+
+p {
+  margin: 1.1em 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--serif);
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.7rem);
+  font-weight: 540;
+  letter-spacing: -0.012em;
+  margin: 1rem 0 0.8rem;
+}
+
+h2 {
+  font-size: 1.55rem;
+  font-weight: 560;
+  margin: 2.4rem 0 0.9rem;
+}
+
+h3 {
+  font-size: 1.28rem;
+  font-weight: 600;
+  margin: 2rem 0 0.7rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 640;
+  margin: 1.8rem 0 0.6rem;
+}
+
+/* Deep subsections become monospaced eyebrow labels */
+h5,
+h6 {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 1.8rem 0 0.6rem;
+}
+
+main a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 55%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+main a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+strong {
+  font-weight: 660;
+}
+
+ul,
+ol {
+  padding-left: 1.5rem;
+  margin: 1.1em 0;
+}
+
+li {
+  margin: 0.3em 0;
+}
+
+li::marker {
+  color: var(--ink-3);
+}
+
+blockquote {
+  margin: 1.7rem 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--ink-3);
+  font-style: italic;
+}
+
+blockquote em {
+  font-style: normal;
+}
+
+/* Thematic break as a typewriter dinkus */
+hr {
+  border: 0;
+  margin: 2.8rem 0;
+  text-align: center;
+}
+
+hr::before {
+  content: "* * *";
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  color: var(--ink-3);
+}
+
+sup {
+  line-height: 0;
+}
+
+/* --- Header / nav -------------------------------------------------------------- */
+
+body > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.2rem;
+  padding: 1.5rem 0 0.9rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 2.2rem;
+}
+
 input.theme-toggle {
   display: none;
+}
+
+.logo a {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  font-weight: 540;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo a:hover {
+  color: var(--accent);
+}
+
+body > header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 1.1rem;
+}
+
+/* typst wraps inline runs (the nav links) in a <p>; flatten it so the
+   anchors participate in the nav flex layout directly */
+body > header nav > p {
+  display: contents;
+}
+
+body > header nav a {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+body > header nav a:hover {
+  color: var(--accent);
 }
 
 label.theme-label {
   cursor: pointer;
   user-select: none;
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-/* --- Layout: symmetric centered column ----------------------------------- */
-
-body {
-  width: auto;
-  max-width: 800px;
-  padding-left: 5%;
-  padding-right: 5%;
-  margin: 0 auto;
-  background-color: light-dark(#fffff8, #151515);
-  color: light-dark(#111, #ddd);
-}
-
-/* Tufte only styles h1-h3; cmarker posts go deeper. Keep the Tufte feel
-   and never drop below the body text size (1.4rem). */
-h4 {
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.5rem;
-  margin-top: 1.9rem;
-  margin-bottom: 1.3rem;
-  line-height: 1;
-}
-
-h5 {
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.4rem;
-  margin-top: 1.8rem;
-  margin-bottom: 1.2rem;
-  line-height: 1;
-}
-
-h6 {
-  font-style: normal;
-  font-weight: bold;
-  font-size: 1.4rem;
-  margin-top: 1.8rem;
-  margin-bottom: 1.2rem;
-  line-height: 1;
-}
-
-/* Tufte constrains these to 55% to leave room for sidenotes; use the full
-   column instead. */
-section > p,
-section > footer,
-section > table,
-blockquote p,
-blockquote footer,
-hr {
-  width: 100%;
-}
-
-section > dl,
-section > ol,
-section > ul {
-  width: 95%;
-}
-
-figure {
-  max-width: 100%;
-}
-
-figcaption {
-  float: none;
-  clear: none;
-  max-width: 100%;
-  font-style: italic;
-  text-align: center;
-  margin-top: 0.5rem;
-}
-
-/* --- Header / nav --------------------------------------------------------- */
-
-header {
-  border-bottom: 2px solid currentColor;
-  padding: 0.8rem 0;
-  margin: 1.4rem 0 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 1.1rem;
-}
-
-.logo a {
-  font-weight: bold;
-  color: inherit;
-  text-decoration: none;
-  font-size: 1.2rem;
-}
-
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.3rem 0.8rem;
-}
-
-/* typst wraps inline runs (the nav links) in a <p>; flatten it so the
-   anchors participate in the nav flex layout directly */
-nav > p {
-  display: contents;
-}
-
-nav a {
   font-size: 1rem;
-  font-weight: bold;
+  line-height: 1;
+  color: var(--ink-2);
+  transition: transform 0.4s ease, color 0.15s ease;
+}
+
+label.theme-label:hover {
+  color: var(--accent);
+  transform: rotate(180deg);
+}
+
+/* --- Footer ---------------------------------------------------------------------- */
+
+body > footer {
+  margin-top: 4.5rem;
+  padding: 1rem 0 2.5rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-2);
+}
+
+body > footer a {
   color: inherit;
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
 }
 
-nav a:hover {
+body > footer a:hover {
+  color: var(--accent);
+}
+
+/* --- Post header (meta line under the title) -------------------------------------- */
+
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  margin: 0.4rem 0 2.2rem;
+}
+
+.post-meta > * + *::before {
+  content: "·";
+  color: var(--ink-3);
+  margin: 0 0.6rem;
+}
+
+.post-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+a.tag {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a.tag::before {
+  content: "#";
+  opacity: 0.65;
+}
+
+a.tag:hover {
   text-decoration: underline;
-  text-underline-offset: 0.3em;
+  text-underline-offset: 0.22em;
 }
 
-/* --- Footer --------------------------------------------------------------- */
-
-footer {
-  margin-top: 3rem;
-  padding: 0.8rem 0;
-  border-top: 2px solid currentColor;
-  font-size: 0.8rem;
-  opacity: 0.7;
-  text-align: right;
+/* Tag page title: the tag itself, oversized */
+h1.tag-title {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.2rem);
+  letter-spacing: -0.01em;
+  color: var(--accent);
 }
 
-footer a {
-  color: inherit;
+h1.tag-title::before {
+  content: "#";
+  opacity: 0.5;
 }
 
-.small-caps {
-  font-variant: small-caps;
+/* --- Table of contents (native <details>, no JS) ------------------------------------ */
+
+details.toc {
+  margin: 0 0 2.4rem;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
-/* --- Article meta (date / author / tags) ---------------------------------- */
-
-article .header {
-  font-size: 0.95rem;
-  font-style: italic;
-  opacity: 0.7;
+details.toc summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.65rem 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
 }
 
-article .info {
+details.toc summary::-webkit-details-marker {
+  display: none;
+}
+
+details.toc summary::after {
+  content: "+";
   font-size: 0.9rem;
-  font-style: italic;
-  opacity: 0.7;
-  margin-bottom: 0.7rem;
 }
 
-/* --- Table of contents ----------------------------------------------------- */
+details.toc[open] summary::after {
+  content: "\2212"; /* minus sign */
+}
 
-.toc {
-  background-color: light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.05));
-  border-left: 2px solid currentColor;
-  padding: 0.7rem 1rem;
-  margin: 1.4rem 0;
+details.toc summary:hover {
+  color: var(--accent);
+}
+
+details.toc nav {
+  padding: 0.2rem 0 1rem;
   font-size: 0.95rem;
-  box-sizing: border-box;
 }
 
-.toc-title {
-  font-weight: bold;
-  font-style: italic;
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
-}
-
-.toc ol {
+details.toc ol {
   list-style: none;
   padding-left: 0;
   margin: 0;
 }
 
-.toc ol ol {
-  padding-left: 1.1rem;
-  margin-top: 0.2rem;
+details.toc ol ol {
+  padding-left: 1.2rem;
 }
 
-.toc li {
-  margin: 0.2rem 0;
+details.toc li {
+  margin: 0.35em 0;
 }
 
-.toc a {
+details.toc a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+details.toc a:hover {
+  color: var(--accent);
+}
+
+/* --- Post lists (index, archive, tags) ------------------------------------------------ */
+
+ul.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.6rem 0 2.4rem;
+}
+
+ul.post-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 1.3rem;
+  margin: 0;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+ul.post-list li:first-child {
+  border-top: 1px solid var(--line);
+}
+
+time.post-date {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-2);
+}
+
+a.post-link {
+  font-size: 1.08rem;
+  font-weight: 500;
   text-decoration: none;
   color: inherit;
-  border-bottom: 1px dotted currentColor;
 }
 
-.toc a:hover {
-  border-bottom-style: solid;
+a.post-link:hover {
+  color: var(--accent);
 }
 
-/* --- Math (typst SVG frames) ----------------------------------------------- */
+/* Section labels on listing pages ("Posts", "By tag") */
+h2.section-label {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 2.6rem 0 0.4rem;
+}
+
+h3.tag-heading {
+  margin: 2.2rem 0 0.2rem;
+}
+
+h3.tag-heading a.tag {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* --- Math (typst SVG frames) ----------------------------------------------------------- */
 
 /* typst hardcodes black paint in the exported SVGs; repaint anything black
    with the surrounding text color so dark mode works. Attribute selectors
@@ -258,7 +564,8 @@ span.math-inline svg {
 
 div.math-display {
   overflow-x: auto;
-  margin: 1.4rem 0;
+  margin: 1.8rem 0;
+  padding: 0.2rem 0;
 }
 
 div.math-display > svg {
@@ -266,60 +573,102 @@ div.math-display > svg {
   margin: 0 auto;
 }
 
-/* --- Code ------------------------------------------------------------------ */
+/* --- Code --------------------------------------------------------------------------------- */
 
-/* Gruvbox light/dark. Typst highlights with the gruvbox-dark tmTheme at
-   build time; scripts/postprocess.py rewrites the inline colors into the
-   .tok-* classes below so the palette can follow the color scheme. */
-pre {
-  background-color: light-dark(#fbf1c7, #282828);
-  color: light-dark(#3c3836, #ebdbb2);
-  border-radius: 4px;
-  padding: 0.8rem 1rem;
-  overflow-x: auto;
+code {
+  font-family: var(--mono);
+  font-size: 0.82em;
 }
 
-.tok-gray { color: #928374; }
-.tok-red { color: light-dark(#9d0006, #fb4934); }
-.tok-green { color: light-dark(#79740e, #b8bb26); }
-.tok-yellow { color: light-dark(#b57614, #fabd2f); }
-.tok-blue { color: light-dark(#076678, #83a598); }
-.tok-purple { color: light-dark(#8f3f71, #d3869b); }
-.tok-aqua { color: light-dark(#427b58, #8ec07c); }
-.tok-orange { color: light-dark(#af3a03, #fe8019); }
-.tok-fg { color: light-dark(#3c3836, #ebdbb2); }
+/* inline code */
+:not(pre) > code {
+  background: var(--wash);
+  border-radius: 4px;
+  padding: 0.1em 0.32em;
+}
+
+pre {
+  background-color: var(--code-bg);
+  color: var(--code-fg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.7rem 0;
+  overflow-x: auto;
+  line-height: 1.55;
+}
 
 pre > code {
-  width: 100%;
-  margin-left: 0;
-  font-size: 0.9rem;
-  overflow-x: visible;
+  font-size: 0.84rem;
 }
 
-/* --- Endnotes (typst footnotes) -------------------------------------------- */
+/* Syntax palette roles, rendered in Flexoki accents (600-series in light,
+   400-series in dark). Typst's built-in default raw theme classifies the
+   tokens at build time; scripts/postprocess.py rewrites its inline colors
+   into these classes so the palette can follow the color scheme. */
+.tok-gray { color: #878580; }
+.tok-red { color: light-dark(#af3029, #d14d41); }
+.tok-green { color: light-dark(#66800b, #879a39); }
+.tok-yellow { color: light-dark(#ad8301, #d0a215); }
+.tok-blue { color: light-dark(#205ea6, #4385be); }
+.tok-purple { color: light-dark(#5e409d, #8b7ec8); }
+.tok-aqua { color: light-dark(#24837b, #3aa99f); }
+.tok-magenta { color: light-dark(#a02f6f, #ce5d97); }
+
+/* --- Endnotes (typst footnotes) -------------------------------------------------------------- */
+
+a[role="doc-noteref"] {
+  font-family: var(--mono);
+  font-size: 0.78em;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  padding-inline: 0.06em;
+}
 
 section[role="doc-endnotes"] {
-  margin-top: 3rem;
-  border-top: 1px solid currentColor;
-  padding-top: 1rem;
-  font-size: 0.95rem;
+  margin-top: 3.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+  font-size: 0.97rem;
+}
+
+section[role="doc-endnotes"]::before {
+  content: "Footnotes";
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 0.8rem;
 }
 
 section[role="doc-endnotes"] ol {
-  padding-left: 1.4rem;
+  padding-left: 1.5rem;
 }
 
 section[role="doc-endnotes"] li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+}
+
+section[role="doc-endnotes"] li:target {
+  background: var(--wash);
+  box-shadow: 0 0 0 6px var(--wash);
+  border-radius: 2px;
 }
 
 section[role="doc-endnotes"] li p {
-  width: 100%;
   display: inline;
+  margin: 0;
 }
 
 a[role="doc-backlink"] {
+  font-family: var(--mono);
+  color: var(--accent);
   text-decoration: none;
+  margin-right: 0.35em;
 }
 
 /* cmarker footnote definitions leave an empty noteref anchor behind.
@@ -330,6 +679,7 @@ a[role="doc-noteref"]:empty {
   width: 0;
   height: 0;
   overflow: hidden;
+  padding: 0;
 }
 
 p:has(> a[role="doc-noteref"]:empty:only-child) {
@@ -338,58 +688,102 @@ p:has(> a[role="doc-noteref"]:empty:only-child) {
   overflow: hidden;
 }
 
-/* --- Bibliography ----------------------------------------------------------- */
+/* --- Bibliography ------------------------------------------------------------------------------- */
 
 section[role="doc-bibliography"] {
-  margin-top: 3rem;
+  margin-top: 3.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+}
+
+section[role="doc-bibliography"] h2 {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 0.8rem;
 }
 
 section[role="doc-bibliography"] ul {
+  list-style: none;
   padding-left: 0;
 }
 
 section[role="doc-bibliography"] li {
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
+  margin-bottom: 0.7rem;
+  font-size: 0.97rem;
 }
 
-/* --- Tables ------------------------------------------------------------------ */
+section[role="doc-bibliography"] .prefix a {
+  font-family: var(--mono);
+  font-size: 0.85em;
+  color: var(--accent);
+  text-decoration: none;
+}
 
-section > table {
-  width: auto;
-  max-width: 100%;
+section[role="doc-bibliography"] li:target {
+  background: var(--wash);
+  box-shadow: 0 0 0 6px var(--wash);
+  border-radius: 2px;
+}
+
+/* --- Tables ---------------------------------------------------------------------------------------- */
+
+main table {
   border-collapse: collapse;
-  margin: 1.4rem auto;
+  margin: 2rem auto;
+  max-width: 100%;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
 }
 
-th,
+th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-2);
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid var(--ink-3);
+}
+
 td {
-  padding: 0.3rem 0.9rem;
-  border-bottom: 1px solid currentColor;
+  padding: 0.45rem 1rem;
+  border-bottom: 1px solid var(--line);
 }
 
-/* --- Images & embeds ---------------------------------------------------------- */
+/* --- Figures, images, embeds -------------------------------------------------------------------------- */
+
+figure {
+  margin: 2rem 0;
+}
 
 img {
   display: block;
   max-width: 100%;
   height: auto;
-  margin: 1.4rem auto;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+figcaption {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  text-align: center;
+  margin-top: 0.7rem;
 }
 
 .profile-image {
   float: right;
-  margin: 10px;
   width: 200px;
   height: auto;
-}
-
-@media (max-width: 768px) {
-  .profile-image {
-    float: none;
-    display: block;
-    margin: 0 auto 10px auto;
-  }
+  margin: 0.4rem 0 1rem 1.5rem;
+  border-radius: 6px;
 }
 
 .embed-container {
@@ -398,7 +792,8 @@ img {
   height: 0;
   overflow: hidden;
   max-width: 100%;
-  margin: 1.4rem 0;
+  margin: 2rem 0;
+  border-radius: 6px;
 }
 
 .embed-container iframe {
@@ -410,25 +805,79 @@ img {
   border: 0;
 }
 
-/* --- Mobile -------------------------------------------------------------------- */
+/* --- Entrance ------------------------------------------------------------------------------------------ */
 
-@media (max-width: 760px) {
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+
+  main > :nth-child(1) {
+    animation: rise 0.45s ease-out backwards;
+  }
+
+  main > :nth-child(2) {
+    animation: rise 0.45s ease-out 0.07s backwards;
+  }
+
+  main > :nth-child(3) {
+    animation: rise 0.45s ease-out 0.14s backwards;
+  }
+}
+
+/* --- Mobile ---------------------------------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
   body {
-    padding-left: 4%;
-    padding-right: 4%;
+    font-size: 1.15rem;
   }
 
-  header {
-    margin: 1rem 0 1.6rem;
+  body > header {
     justify-content: center;
     text-align: center;
+    margin-bottom: 1.8rem;
   }
 
-  nav {
+  body > header nav {
     justify-content: center;
   }
 
-  footer {
+  p {
+    hyphens: auto;
+  }
+
+  .profile-image {
+    float: none;
+    margin: 1rem auto;
+  }
+
+  ul.post-list li {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  body > footer {
     text-align: center;
+  }
+}
+
+/* --- Print ---------------------------------------------------------------------------------------------------- */
+
+@media print {
+  body > header nav,
+  label.theme-label,
+  body > footer {
+    display: none;
+  }
+
+  body {
+    max-width: none;
+  }
+
+  details.toc {
+    display: none;
   }
 }

@@ -24,10 +24,10 @@
   "Archives"
 }
 
-#let post-list-of(items) = html.elem("ul", for p in items {
+#let post-list-of(items) = html.elem("ul", attrs: (class: "post-list"), for p in items {
   html.elem("li", {
-    html.elem("a", attrs: (href: p.url), p.title)
-    " - " + display-date(p.date)
+    html.elem("time", attrs: (class: "post-date", datetime: date-iso(p.date)), date-iso(p.date))
+    html.elem("a", attrs: (href: p.url, class: "post-link"), p.title)
   })
 })
 
@@ -39,11 +39,11 @@
 #set document(title: site-title + " - " + title)
 
 #chrome({
-  html.elem("h1", title)
   if kind == "index" {
+    // No visible "Home" heading; the welcome line leads the page.
     html.elem("p", "Welcome to my blog!")
     html.elem("p", "I've reproduced a list of recent posts here for your reading pleasure:")
-    html.elem("h2", "Posts")
+    html.elem("h2", attrs: (class: "section-label"), "Posts")
     post-list
     html.elem("p", {
       "…or you can find more in the "
@@ -51,14 +51,19 @@
       "."
     })
   } else if kind == "tag" {
+    html.elem("h1", attrs: (class: "tag-title"), tag)
     html.elem("p", "Here are all posts tagged with this category:")
     post-list
   } else {
+    html.elem("h1", title)
     html.elem("p", "Here you can find all my previous posts:")
     post-list
-    html.elem("h2", "By tag")
+    html.elem("h2", attrs: (class: "section-label"), "By tag")
     for t in all-tags {
-      html.elem("h3", html.elem("a", attrs: (href: "/tags/" + slugify(t) + ".html"), t))
+      html.elem("h3", attrs: (class: "tag-heading"), html.elem("a", attrs: (
+        href: "/tags/" + slugify(t) + ".html",
+        class: "tag",
+      ), t))
       post-list-of(posts.filter(p => p.tags.contains(t)))
     }
   }
