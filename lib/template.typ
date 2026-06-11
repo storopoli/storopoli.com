@@ -40,7 +40,8 @@
 // frontmatter metadata) runs paged export, which would warn about every
 // top-level html.elem.
 #let chrome(is-post: false, body) = context if target() == "html" {
-  html.elem("header", {
+  // Posts get a reading-progress bar on the sticky header (site.css).
+  html.elem("header", attrs: if is-post { (class: "post-header") } else { (:) }, {
     // CSS-only light/dark toggle: site.css flips color-scheme when checked
     html.elem("input", attrs: (
       type: "checkbox",

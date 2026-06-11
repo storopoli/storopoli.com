@@ -139,8 +139,9 @@ body {
   border-radius: 2px;
 }
 
+/* Anchor jumps (ToC, footnotes) must clear the floating header */
 [id] {
-  scroll-margin-top: 2rem;
+  scroll-margin-top: 4.5rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -276,15 +277,53 @@ sup {
 
 /* --- Header / nav -------------------------------------------------------------- */
 
+/* Floating nav: sticky on every screen size, translucent paper with a
+   blur so content slides beneath it. Pure CSS, no JS. The mobile media
+   query below compacts the bar so it stays slim when pinned. */
 body > header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 0.4rem 1.2rem;
-  padding: 1.5rem 0 0.9rem;
+  padding: 1.1rem 0 0.8rem;
   border-bottom: 1px solid var(--line);
   margin-bottom: 2.2rem;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Reading progress on posts: an accent hairline along the header's
+   bottom edge, driven by scroll position — CSS scroll-driven animation,
+   no JS; browsers without support just don't draw it. */
+@supports (animation-timeline: scroll()) {
+  @keyframes reading-progress {
+    from {
+      transform: scaleX(0);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  body > header.post-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: reading-progress linear both;
+    animation-timeline: scroll(root);
+  }
 }
 
 input.theme-toggle {
@@ -835,14 +874,31 @@ figcaption {
     font-size: 1.15rem;
   }
 
+  /* Compact pinned bar: slim paddings and type so the floating header
+     stays out of the way on small screens */
   body > header {
     justify-content: center;
     text-align: center;
+    padding: 0.55rem 0 0.5rem;
+    gap: 0.1rem 1rem;
     margin-bottom: 1.8rem;
+  }
+
+  .logo a {
+    font-size: 1rem;
   }
 
   body > header nav {
     justify-content: center;
+    gap: 0.2rem 0.75rem;
+  }
+
+  body > header nav a {
+    font-size: 0.72rem;
+  }
+
+  label.theme-label {
+    font-size: 0.9rem;
   }
 
   p {
