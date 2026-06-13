@@ -28,7 +28,7 @@ jobs:
         with:
           # html export is unstable across versions; pin the exact version
           # the site is developed against
-          typst-version: "0.14.2"
+          typst-version: "0.15.0"
 
       - name: Install Pandoc
         uses: pandoc/actions/setup@86321b6dd4675f5014c611e05088e10d4939e09e # v1.1.1

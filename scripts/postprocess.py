@@ -17,7 +17,7 @@ import sys
 # build.sh passes the fingerprinted stylesheet href (/css/site.<hash>.css)
 CSS_HREF = sys.argv[1] if len(sys.argv) > 1 else "/css/site.css"
 
-# Token colors of typst's built-in raw highlight theme (pinned: typst 0.14.2)
+# Token colors of typst's built-in raw highlight theme (pinned: typst 0.15.0)
 # mapped to palette-role classes defined in static/css/site.css
 TOKEN_CLASSES = {
     "#74747c": "tok-gray",  # comments

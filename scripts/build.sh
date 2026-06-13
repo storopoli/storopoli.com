@@ -73,9 +73,9 @@ echo "==> Collecting post metadata"
 {
   for f in "${posts[@]}"; do
     slug="$(basename "$f" .md)"
-    typst query "${TYPST_FLAGS[@]}" --input "path=/posts/$slug.md" \
+    typst eval "${TYPST_FLAGS[@]}" --input "path=/posts/$slug.md" \
       --input "body=/.cache/bodies/$slug.typ" \
-      lib/post.typ '<frontmatter>' --field value --one \
+      --in lib/post.typ 'query(<frontmatter>).first().value' \
       | jq --arg slug "$slug" '. + {slug: $slug, url: ("/posts/" + $slug + ".html")}'
   done
 } | jq -s 'sort_by(.date) | reverse' > "$CACHE/posts.json"
