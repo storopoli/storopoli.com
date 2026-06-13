@@ -350,12 +350,6 @@ body > header nav {
   gap: 0.3rem 1.1rem;
 }
 
-/* typst wraps inline runs (the nav links) in a <p>; flatten it so the
-   anchors participate in the nav flex layout directly */
-body > header nav > p {
-  display: contents;
-}
-
 body > header nav a {
   font-family: var(--mono);
   font-size: 0.78rem;
