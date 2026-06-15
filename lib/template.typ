@@ -17,7 +17,8 @@
 #let slugify(s) = lower(s).replace(" ", "-")
 
 // Show rules for HTML export: math as inline SVG frames.
-// Math would otherwise be silently dropped by typst's HTML export.
+// Typst 0.15 exports equations as MathML by default; we override to inline
+// SVG frames for pixel-consistent rendering across browsers.
 #let setup(doc) = {
   set text(lang: "en")
   show math.equation.where(block: false): it => html.elem(

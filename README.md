@@ -32,7 +32,7 @@ brew install watchexec
 
 > [!IMPORTANT]
 > Typst's HTML export is still unstable across versions.
-> The site is developed and CI-pinned against **Typst 0.14.2**
+> The site is developed and CI-pinned against **Typst 0.15.0**
 > and **Pandoc 3.9**.
 
 Then:
