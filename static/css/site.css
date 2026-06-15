@@ -578,32 +578,18 @@ h3.tag-heading a.tag {
   font-weight: 500;
 }
 
-/* --- Math (typst SVG frames) ----------------------------------------------------------- */
+/* --- Math (native MathML, typst 0.15) --------------------------------------------------- */
 
-/* typst hardcodes black paint in the exported SVGs; repaint anything black
-   with the surrounding text color so dark mode works. Attribute selectors
-   leave fill="none" and deliberately colored elements untouched. */
-.typst-frame [fill="#000000"] {
-  fill: currentColor;
-}
-
-.typst-frame [stroke="#000000"] {
-  stroke: currentColor;
-}
-
-span.math-inline svg {
-  vertical-align: -0.15em;
-}
-
-div.math-display {
-  overflow-x: auto;
-  margin: 1.8rem 0;
-  padding: 0.2rem 0;
-}
-
-div.math-display > svg {
+/* MathML is live text: it inherits `color`, so light/dark mode works with no
+   repainting, and it scales with zoom/font-size. Inline math needs no styling
+   (native baseline alignment). Block math is centered, and wide equations
+   scroll horizontally instead of overflowing the column. */
+math[display="block"] {
   display: block;
-  margin: 0 auto;
+  width: fit-content;
+  max-width: 100%;
+  margin: 1.8rem auto;
+  overflow-x: auto;
 }
 
 /* --- Code --------------------------------------------------------------------------------- */

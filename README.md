@@ -66,8 +66,9 @@ just new my-post-slug  # scaffold a new post
 
 Anything between `$` and `$$` is [Typst math
 syntax](https://typst.app/docs/reference/math/), typeset at build time and
-embedded as inline SVG that follows the text color in both light and dark
-mode.
+exported as native [MathML](https://developer.mozilla.org/en-US/docs/Web/MathML).
+It is accessible to screen readers, selectable and copyable, scales with zoom
+and font size, and follows the text color in both light and dark mode.
 No KaTeX, no MathJax, no client-side rendering.
 Hooray!
 
