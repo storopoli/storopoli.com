@@ -16,21 +16,13 @@
 
 #let slugify(s) = lower(s).replace(" ", "-")
 
-// Show rules for HTML export: math as inline SVG frames.
-// Typst 0.15 exports equations as MathML by default; we override to inline
-// SVG frames for pixel-consistent rendering across browsers.
+// Math is exported as native MathML by Typst 0.15: accessible, selectable,
+// scales with zoom/font-size, ~90% smaller than inline SVG, and inherits the
+// surrounding text color for free (so light/dark mode needs no repainting).
+// `<math>` carries an implicit ARIA role, so no wrapper element is needed;
+// styling lives on the `math` element in site.css.
 #let setup(doc) = {
   set text(lang: "en")
-  show math.equation.where(block: false): it => html.elem(
-    "span",
-    attrs: (class: "math-inline", role: "math"),
-    html.frame(it),
-  )
-  show math.equation.where(block: true): it => html.elem(
-    "div",
-    attrs: (class: "math-display", role: "math"),
-    html.frame(it),
-  )
   doc
 }
 
