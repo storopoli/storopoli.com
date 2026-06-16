@@ -4,7 +4,10 @@
    replacing it with a custom <html> element would break native footnotes).
 2. Move the endnotes section, which typst appends at the very end of <body>,
    back inside <main> so it sits above the site footer.
-3. Rewrite syntax-highlight colors (inline styles from typst's built-in
+3. Wrap block equations in a <div class="math-block"> scroll container so wide
+   math scrolls instead of overflowing the column — the overflow must live on
+   a wrapper, not the <math> element (see site.css for why).
+4. Rewrite syntax-highlight colors (inline styles from typst's built-in
    default raw theme) into .tok-* classes so CSS can swap the palette per
    color scheme. Any color span left unmapped fails the build loudly: it
    means a typst upgrade changed the default theme's palette and this
@@ -48,6 +51,10 @@ HEAD = (
 
 ENDNOTES = re.compile(r"[ \t]*<section role=\"doc-endnotes\">.*?</section>\n?", re.S)
 
+# Block equations only (display="block"); inline <math> is left alone. <math>
+# never nests, so the first </math> closes the match.
+BLOCK_MATH = re.compile(r'<math\b[^>]*\bdisplay="block"[^>]*>.*?</math>', re.S)
+
 html = sys.stdin.read()
 
 if "</head>" not in html:
@@ -59,6 +66,10 @@ if match:
     html = ENDNOTES.sub("", html, count=1)
     notes = match.group(0).rstrip("\n")
     html = html.replace("</main>", notes + "\n</main>", 1)
+
+html = BLOCK_MATH.sub(
+    lambda m: '<div class="math-block">' + m.group(0) + "</div>", html
+)
 
 for hex_color, cls in TOKEN_CLASSES.items():
     html = html.replace(f'<span style="color: {hex_color}">', f'<span class="{cls}">')

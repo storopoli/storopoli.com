@@ -582,14 +582,23 @@ h3.tag-heading a.tag {
 
 /* MathML is live text: it inherits `color`, so light/dark mode works with no
    repainting, and it scales with zoom/font-size. Inline math needs no styling
-   (native baseline alignment). Block math is centered, and wide equations
-   scroll horizontally instead of overflowing the column. */
-math[display="block"] {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  margin: 1.8rem auto;
+   (native baseline alignment). Block math is centered by the engine's default
+   display-equation layout, and wide equations scroll horizontally instead of
+   overflowing the column.
+
+   The horizontal scroll lives on a wrapper (postprocess.py wraps each block
+   equation in <div class="math-block">), never on the <math> element itself:
+   giving <math> an intrinsic width (fit-content) or overflow makes engines
+   collapse it to min-content — every atom stacking vertically on a narrow
+   screen — or right-align it (iOS Safari). Left untouched, <math> stays a
+   full-width centered block, and the wrapper scrolls when it is too wide. */
+.math-block {
+  margin: 1.8rem 0;
   overflow-x: auto;
+}
+
+math[display="block"] {
+  margin: 0;
 }
 
 /* --- Code --------------------------------------------------------------------------------- */
