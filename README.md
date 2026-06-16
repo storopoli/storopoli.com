@@ -45,6 +45,10 @@ just check  # build + sanity checks (links, atom.xml, no base64 images)
 just new my-post-slug  # scaffold a new post
 ```
 
+The per-file phases (pandoc conversion, per-post compiles, listings) run in
+parallel across all cores; set `JOBS=1` to serialize, e.g. when debugging a
+single failing input.
+
 ## Layout
 
 - `posts/*.md` — blog posts (`YYYY-MM-DD-slug.md`, YAML frontmatter,
