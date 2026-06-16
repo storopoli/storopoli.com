@@ -86,7 +86,7 @@ build_standalone() {
 
 # Build a single listing page from a "kind[:tag]" spec.
 build_listing() {
-  local spec="$1" kind="${1%%:*}" tag="${1#*:}"
+  local kind="${1%%:*}" tag="${1#*:}"
   if [ "$kind" = tag ]; then
     build_page "$ROOT/lib/listing.typ" "$OUT/tags/$(slugify "$tag").html" \
       --input kind=tag --input "tag=$tag"
