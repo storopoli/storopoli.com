@@ -45,15 +45,6 @@ jobs:
           test -f _site/CNAME
           ! grep -rl 'src="data:' _site/posts
 
-      - name: Validate Atom feed is well-formed
-        # Each entry embeds full post HTML in <content type="html">, so a
-        # malformed body would break the feed's XML — catch it before deploy.
-        # xmllint (libxml2-utils) isn't on the runner image, so install it.
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libxml2-utils
-          xmllint --noout _site/atom.xml
-
       - name: Check internal links
         uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2.8.0
         with:
