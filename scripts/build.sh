@@ -167,29 +167,9 @@ if bad:
 PYCHECK
 
 echo "==> Generating atom.xml"
-jq -r --arg root "https://storopoli.com" '
-  def esc: @html;
-  def rfc: . + "T00:00:00Z";
-  ( "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
-    "<feed xmlns=\"http://www.w3.org/2005/Atom\">",
-    "  <title>Jose Storopoli, PhD</title>",
-    "  <link href=\"\($root)/atom.xml\" rel=\"self\"/>",
-    "  <link href=\"\($root)\"/>",
-    "  <id>\($root)/atom.xml</id>",
-    "  <updated>\((.[0].date // "2000-01-01") | rfc)</updated>",
-    "  <author><name>Jose Storopoli, PhD</name><email>jose@storopoli.com</email></author>"
-  ),
-  ( .[0:10][]
-    | "  <entry>",
-      "    <title>\(.title | esc)</title>",
-      "    <link href=\"\($root + .url)\"/>",
-      "    <id>\($root + .url)</id>",
-      "    <published>\(.date | rfc)</published>",
-      "    <updated>\(.date | rfc)</updated>",
-      "    <summary>\((.description // .title) | esc)</summary>",
-      "  </entry>"
-  ),
-  "</feed>"
-' "$CACHE/posts.json" > "$OUT/atom.xml"
+# Full-content feed: gen-feed.py lifts each post's body out of its built page
+# (math, highlighting and footnotes included) into <content type="html">, so
+# readers show the whole post instead of just the summary.
+python3 "$ROOT/scripts/gen-feed.py" "$CACHE/posts.json" "$OUT" > "$OUT/atom.xml"
 
 echo "==> Done: $OUT"
