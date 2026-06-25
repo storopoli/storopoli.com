@@ -30,7 +30,6 @@ SITE_URL = "https://storopoli.com"
 SITE_TITLE = "Jose Storopoli, PhD"
 AUTHOR_NAME = "Jose Storopoli, PhD"
 AUTHOR_EMAIL = "jose@storopoli.com"
-MAX_ENTRIES = 10  # newest N posts carry full content in the feed
 
 # The post body lives inside <main>; everything else (header/footer/nav) is
 # site chrome we never want in the feed.
@@ -107,7 +106,7 @@ def main():
         f"  <author><name>{text(AUTHOR_NAME)}</name>"
         f"<email>{AUTHOR_EMAIL}</email></author>",
     ]
-    for post in posts[:MAX_ENTRIES]:
+    for post in posts:
         lines += entry(post, site_dir)
     lines.append("</feed>")
     sys.stdout.write("\n".join(lines) + "\n")
