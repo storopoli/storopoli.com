@@ -50,7 +50,7 @@ slugify() {
 convert_body() {
   local f="$1" name
   name="$(basename "$f" .md)"
-  pandoc "$f" --from markdown --to typst \
+  pandoc "$f" --from markdown-raw_attribute --to typst \
     --shift-heading-level-by=-1 --wrap=none \
     --lua-filter "$ROOT/scripts/body-filter.lua" \
     > "$CACHE/bodies/$name.typ"

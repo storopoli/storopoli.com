@@ -10,6 +10,9 @@ Pandoc Lua filter: markdown -> typst body for storopoli.com.
 - Raw HTML: typst has no raw-HTML primitive, so the known patterns are
   mapped to template helpers; anything unrecognized fails the build
   loudly rather than disappearing.
+- Other raw formats: reject explicitly. In particular, Pandoc raw Typst
+  blocks/inlines would otherwise survive conversion and be eval()ed by
+  the templates, bypassing the raw-HTML allowlist.
 ]]
 
 local function typst_str(s)
@@ -86,9 +89,15 @@ local function html_to_typst(html)
   return nil
 end
 
+local function reject_raw(el, kind)
+  io.stderr:write('body-filter.lua: unhandled raw ' .. kind .. ' format '
+    .. el.format .. ': ' .. el.text:sub(1, 120) .. '\n')
+  os.exit(1)
+end
+
 function RawBlock(el)
   if el.format ~= 'html' then
-    return nil
+    reject_raw(el, 'block')
   end
   local typst = html_to_typst(el.text)
   if typst == nil then
@@ -101,7 +110,7 @@ end
 
 function RawInline(el)
   if el.format ~= 'html' then
-    return nil
+    reject_raw(el, 'inline')
   end
   local typst = html_to_typst(el.text)
   if typst == nil then
