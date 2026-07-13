@@ -17,6 +17,12 @@ exclude = [
   "^https://smp12\\.simplex\\.im/",
   "^https://crates\\.io/",
   "^https://www\\.urbandictionary\\.com/",
+  # diagram renderer; intermittently 503 rate-limits
+  "^https://mermaid\\.ink/",
+  # rate-limits link checkers, causes timeouts
+  "^https://www\\.gnu\\.org/",
+  # HTTP/2 protocol errors against lychee's client
+  "^https://polymarket\\.com/",
 ]
 
 exclude_path = []
