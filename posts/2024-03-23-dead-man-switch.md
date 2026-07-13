@@ -59,7 +59,7 @@ My inspiration to build one came from two sources.
 First, a friend of mine told me that he is using a bunch of badly-written
 shell scripts with some cron jobs to manage his DMS.
 Second, there might be a genuine need for a simple DMS in the privacy community.
-For example, [finalmessage.io](https://finalmessage.io),
+For example, [finalmessage.io](https://web.archive.org/web/20260218185104/https://finalmessage.io/),
 despite being closed source, and you have no idea who's behind it,
 has gathered enough users in a subscription model and they are not accepting new
 users anymore.
