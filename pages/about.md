@@ -6,24 +6,20 @@ title: About
 
 I am a software developer with a PhD and background in
 Computational Statistics.
-I am the Engineering & Security Team Lead at [Alpen Labs](https://alpenlabs.io).
+Currently, my role is Engineering & Security Team Lead at [Alpen Labs](https://alpenlabs.io).
 Alpen is a Bitcoin-native, EVM-compatible rollup based on Reth,
-plus a BitVM-style bridge.
-I lead the rollup team, I am the AI tzar,
-and I handle protocol and IT security.
-I joined as a software engineer in 2024
-and took the lead in 2025.
+alongside the Strata chain orchestration layer heavily inspired on Celestia's ZK Accounts,
+on top of a BitVM-style Bitcoin bridge.
 
-Most of what I do now is security engineering on the infrastructure.
-The AI-assisted audits and the audit automation are in `alpenlabs/actions`:
-a global context, and a local context for each repository.
-I built an AI red-team harness,
-I do traditional security audits,
-I monitor the chain and the bridge,
-and I handle the other security and infrastructure work at Alpen.
+Most of what I do now is security engineering on infrastructure,
+protocol, and engineering; and interfacing with multiple teams,
+processes, and tools.
+I build and maintain AI-enabled security audit workflow and processes automations
+with bespoke AI red-team harnesses for defensive purposes;
+and security-focused monitoring and alerting tools.
 
-I still work with cryptography,
-zero-knowledge protocols,
+My work revolves around cryptography,
+zero-knowledge protocols and zkVMs,
 censorship-resistant tools,
 and distributed systems,
 mostly in Rust.
@@ -49,10 +45,9 @@ or has a permissive Creative Commons license.
 ### Experience
 
 - **Engineering & Security Team Lead**, Alpen Labs — _2025–present_.
-  Rollup team, AI, and protocol and IT security:
-  AI-assisted audits and audit automation in `alpenlabs/actions`
-  (global context, and a local context per repository),
-  an AI red-team harness, traditional security audits,
+  Rollup team, AI, and protocol and security:
+  AI-assisted audits and audit automation,
+  AI red-team harness, traditional security audits,
   and on-chain and bridge security monitoring.
 - **Software Engineer**, Alpen Labs — _2024–2025_
 - **Protocol Engineer**, Portal DeFi — _2024_
