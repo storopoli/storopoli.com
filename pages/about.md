@@ -4,13 +4,7 @@ title: About
 
 <img src="/pp.jpg" alt="Jose Storopoli, PhD" class="profile-image" />
 
-I am a software developer with a PhD and background in
-Computational Statistics.
-Currently, my role is Engineering & Security Team Lead at [Alpen Labs](https://alpenlabs.io).
-Alpen is a Bitcoin-native, EVM-compatible rollup based on Reth,
-alongside the Strata chain orchestration layer heavily inspired on Celestia's ZK Accounts,
-on top of a BitVM-style Bitcoin bridge.
-
+I have PhD and background in Computational Statistics.
 Most of what I do now is security engineering on infrastructure,
 protocol, and engineering; and interfacing with multiple teams,
 processes, and tools.
@@ -22,7 +16,7 @@ My work revolves around cryptography,
 zero-knowledge protocols and zkVMs,
 censorship-resistant tools,
 and distributed systems,
-mostly in Rust.
+mostly in Rust, a little bit in Haskell.
 
 If you are in a bad day, grab a curated Stoicism piece of advice at
 [`stoic.storopoli.com`](https://stoic.storopoli.com).
