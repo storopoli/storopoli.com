@@ -36,7 +36,7 @@ see it below:
 
 ![Probability and Computing: Randomization and Probabilistic Techniques in Algorithms and Data Analysis 2nd Edition](/images/probability-and-computing.jpg)
 
-[^pdf]: The PDF is freely available [here](http://lib.ysu.am/open_books/413311.pdf).
+[^pdf]: The PDF is freely available [here](https://web.archive.org/web/20250521030945/http://lib.ysu.am/open_books/413311.pdf).
 
 The algorithm uses sampling to probabilistically find the **median**,
 and uses [Chebyshev's inequality](https://en.wikipedia.org/wiki/Chebyshev's_inequality),
