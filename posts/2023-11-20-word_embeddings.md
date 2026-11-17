@@ -76,7 +76,7 @@ Here is a list of some of the most popular ones:
   One of the first public available word embeddings,
   made by Google in 2013.
   Only supports English.
-- [GloVe](https://nlp.stanford.edu/projects/glove/):
+- [GloVe](https://github.com/stanfordnlp/GloVe):
   made by Stanford in 2014.
   Only supports English.
 - [FastText](https://fasttext.cc/):
@@ -100,7 +100,7 @@ julia> using Embeddings
 julia> using Distances
 ```
 
-Let's load the [GloVe](https://nlp.stanford.edu/projects/glove/)
+Let's load the [GloVe](https://github.com/stanfordnlp/GloVe)
 word embeddings.
 First, let's check what we have in store to choose from
 GloVe's English language embeddings:
