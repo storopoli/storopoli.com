@@ -43,11 +43,13 @@ or has a permissive Creative Commons license.
   AI-assisted audits and audit automation,
   AI red-team harness, traditional security audits,
   and on-chain and bridge security monitoring.
-- **Software Engineer**, Alpen Labs — _2024–2025_
-- **Protocol Engineer**, Portal DeFi — _2024_
+- **Software Engineer**, Alpen Labs — _2024–2025_.
+- **Protocol Engineer**, Portal DeFi — _2024_.
+  Multiparty payment channels on Bitcoin for DeFi applications.
+  Lead on the Bitcoin and EVM wallet and protocol integration.
 - **Senior Software Engineer**, Pumas-AI — _2020–2024_.
   Led AI integration across the pharmacometrics products.
-- **Associate Professor** of Computer Science, Universidade Nove de Julho — _2017–present, on leave_
+- **Associate Professor** of Computer Science, Universidade Nove de Julho — _2017–present, on indefinite leave_
 
 ### Education
 
@@ -56,5 +58,6 @@ or has a permissive Creative Commons license.
 
 ### Open source
 
+- Maintainer of [Haskell's musig2 library](https://hackage.haskell.org/package/musig2).
 - Contributor to [Rust Bitcoin](https://github.com/rust-bitcoin) and the [Bitcoin Dev Kit](https://bitcoindevkit.org)
 - Former Maintainer of [Turing.jl](https://turinglang.org) and former elected board member of the [Stan Governing Body](https://mc-stan.org)
