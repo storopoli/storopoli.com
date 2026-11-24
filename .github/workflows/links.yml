@@ -32,7 +32,24 @@ jobs:
         run: ./scripts/build.sh
 
       - name: Check all links in built site
+        id: lychee
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
-          args: --config lychee.toml --root-dir "${{ github.workspace }}/_site" --no-progress "_site"
+          args: --config lychee.toml --cache --root-dir "${{ github.workspace }}/_site" --no-progress "_site"
+          fail: false
+
+      # Workaround for lycheeverse/lychee#2319: lychee v0.24.2 does not retry
+      # rejected 5xx/408 status codes despite max_retries = 3 (fixed upstream
+      # in lycheeverse/lychee#2324, not yet in a tagged release). Re-run with
+      # the cache populated by the first pass so only failed/uncached links are
+      # re-checked after a short backoff, without masking persistent outages.
+      - name: Wait before retrying failed links
+        if: steps.lychee.outputs.exit_code != '0'
+        run: sleep 15
+
+      - name: Re-check failed links
+        if: steps.lychee.outputs.exit_code != '0'
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: --config lychee.toml --cache --root-dir "${{ github.workspace }}/_site" --no-progress "_site"
           fail: true
