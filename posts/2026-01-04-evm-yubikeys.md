@@ -194,8 +194,9 @@ const device = await YubiKeyDevice.connectBridge(
     "<BEARER_TOKEN_PRINTED_BY_THE_BRIDGE>"
 );
 
-// The slot 9a P-256 public key (0x04 || X || Y) to register with your verifier,
-// and its keccak256-derived address identifier (not a secp256k1 account)
+// Slot 9a must already hold a P-256 key (see below for generating one).
+// Its public key (0x04 || X || Y) is what you register with your verifier;
+// the keccak256-derived address is an identifier (not a secp256k1 account)
 const publicKey = await device.getPublicKey();
 const address = await device.getAddress();
 
@@ -224,7 +225,13 @@ So the browser reaches the YubiKey through a small local bridge.
 `yubikey-cli bridge` (`just cli-bridge` from a checkout of the repository) listens only on `127.0.0.1`, prints a URL and a random bearer token,
 and forwards an allowlist of PIV commands to the YubiKey over PC/SC.
 
-Generating a key with `generateKey()` overwrites whatever key is in the slot.
+`signTransaction` signs the EIP-1559 signing hash, and only a chain that validates transactions with P-256 accepts that signature as a transaction.
+For a smart account you sign the 32-byte digest its contract verifies with `signHash(pin, hash)`;
+for an ERC-4337 account that is usually the `userOpHash`.
+`signTypedData` and `signMessage` cover EIP-712 typed data and EIP-191 personal messages.
+
+The sample assumes slot 9a already holds a P-256 key, and a factory-default YubiKey has none.
+`generateKey()` creates one and overwrites whatever key is in the slot.
 It needs `authenticateManagementKey()` first, and the bridge refuses it unless you start it with `--allow-generate`.
 
 **Browser Support**: PC/SC does the smart card work, so the bridge works in Chrome, Firefox, Safari, Edge, and Brave on macOS, Linux, and Windows.
