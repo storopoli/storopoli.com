@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build storopoli.com: markdown posts -> HTML via typst (+ cmarker), no SSG.
+# Build storopoli.com: markdown posts -> HTML via Pandoc + Typst, no SSG.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -147,8 +147,8 @@ echo "==> Building listings"
 } | fanout build_listing
 
 echo "==> Checking for silently escaped raw HTML"
-# cmarker only parses raw HTML tags written on a single line; multi-line
-# tags get HTML-escaped into visible text without any build error.
+# Defense-in-depth check: catch raw HTML tags that slipped through Markdown
+# conversion as HTML-escaped visible text without raising a build error.
 # Escaped tags inside <code>/<pre> are legitimate (posts talk about HTML).
 python3 - "$OUT" <<'PYCHECK'
 import re, sys

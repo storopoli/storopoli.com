@@ -20,5 +20,5 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       # Use conventional commit format as specified in user rules
-      prefix: "chore(deps)"
+      prefix: "chore"
       include: "scope"

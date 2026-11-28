@@ -6,7 +6,7 @@ description: How I've fell in love with Math.
 tags: [math, agda]
 ---
 
-![A curios mathematician seeing a blackhole of self-referential paradoxes.](/images/self-referential-blackhole.png)
+![A curious mathematician seeing a blackhole of self-referential paradoxes.](/images/self-referential-blackhole.png)
 
 > "Logic is the hygiene that the mathematician practises to keep his ideas healthy and strong."
 >

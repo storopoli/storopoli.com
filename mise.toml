@@ -1,0 +1,5 @@
+# Versions match CI (.github/workflows/build.yml); Typst's HTML export is still
+# unstable across versions.
+[tools]
+typst = "0.15.0"
+pandoc = "3.14"
