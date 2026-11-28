@@ -327,7 +327,21 @@ body > header {
 }
 
 input.theme-toggle {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+input.theme-toggle:focus-visible ~ nav label.theme-label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .logo a {
@@ -630,17 +644,18 @@ pre > code {
   font-size: 0.84rem;
 }
 
-/* Syntax palette roles, rendered in Flexoki accents (600-series in light,
-   400-series in dark). Typst's built-in default raw theme classifies the
-   tokens at build time; scripts/postprocess.py rewrites its inline colors
-   into these classes so the palette can follow the color scheme. */
-.tok-gray { color: #878580; }
-.tok-red { color: light-dark(#af3029, #d14d41); }
-.tok-green { color: light-dark(#66800b, #879a39); }
-.tok-yellow { color: light-dark(#ad8301, #d0a215); }
-.tok-blue { color: light-dark(#205ea6, #4385be); }
+/* Syntax palette roles, rendered in Flexoki accents (600–800 in light,
+   300–400 in dark, chosen so every token meets WCAG AA ≥4.5:1 on
+   --code-bg). Typst's built-in default raw theme classifies the tokens
+   at build time; scripts/postprocess.py rewrites its inline colors into
+   these classes so the palette can follow the color scheme. */
+.tok-gray { color: light-dark(#575653, #878580); }
+.tok-red { color: light-dark(#af3029, #e8705f); }
+.tok-green { color: light-dark(#536907, #879a39); }
+.tok-yellow { color: light-dark(#664d01, #d0a215); }
+.tok-blue { color: light-dark(#205ea6, #66a0c8); }
 .tok-purple { color: light-dark(#5e409d, #8b7ec8); }
-.tok-aqua { color: light-dark(#24837b, #3aa99f); }
+.tok-aqua { color: light-dark(#1c6c66, #3aa99f); }
 .tok-magenta { color: light-dark(#a02f6f, #ce5d97); }
 
 /* --- Endnotes (typst footnotes) -------------------------------------------------------------- */
@@ -699,23 +714,6 @@ a[role="doc-backlink"] {
   margin-right: 0.35em;
 }
 
-/* cmarker footnote definitions leave an empty noteref anchor behind.
-   It is also the target of the endnote backlinks, so it must remain
-   scrollable: collapse it to zero size instead of display: none. */
-a[role="doc-noteref"]:empty {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  padding: 0;
-}
-
-p:has(> a[role="doc-noteref"]:empty:only-child) {
-  margin: 0;
-  height: 0;
-  overflow: hidden;
-}
-
 /* --- Bibliography ------------------------------------------------------------------------------- */
 
 section[role="doc-bibliography"] {
@@ -760,9 +758,12 @@ section[role="doc-bibliography"] li:target {
 /* --- Tables ---------------------------------------------------------------------------------------- */
 
 main table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
   border-collapse: collapse;
   margin: 2rem auto;
-  max-width: 100%;
   font-size: 0.95rem;
   font-variant-numeric: tabular-nums;
 }
@@ -788,6 +789,14 @@ td {
 
 figure {
   margin: 2rem 0;
+}
+
+figure > a {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  text-decoration: none;
 }
 
 img {
@@ -843,15 +852,18 @@ figcaption {
     }
   }
 
-  main > :nth-child(1) {
+  main > :not(article):nth-child(1),
+  main > article > :nth-child(1) {
     animation: rise 0.45s ease-out backwards;
   }
 
-  main > :nth-child(2) {
+  main > :not(article):nth-child(2),
+  main > article > :nth-child(2) {
     animation: rise 0.45s ease-out 0.07s backwards;
   }
 
-  main > :nth-child(3) {
+  main > :not(article):nth-child(3),
+  main > article > :nth-child(n + 3) {
     animation: rise 0.45s ease-out 0.14s backwards;
   }
 }
@@ -913,6 +925,7 @@ figcaption {
 
 @media print {
   body > header nav,
+  input.theme-toggle,
   label.theme-label,
   body > footer {
     display: none;

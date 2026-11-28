@@ -1,5 +1,5 @@
 // Shared chrome, show rules, and body rendering for storopoli.com.
-// Every compile/query must pass: --root <repo> --features html
+// Every compile/eval must pass: --root <repo> --features html
 // Markdown is converted to typst markup by pandoc (scripts/body-filter.lua)
 // in build.sh; the wrappers eval the generated body with the helpers below.
 
@@ -28,8 +28,8 @@
 
 // Site header, main, and footer emitted inside typst's default <body>.
 // A custom <html>/<body> element would break native footnotes, so the
-// remaining <head> links are injected by scripts/build.sh instead.
-// Skipped entirely outside HTML export: `typst query` (used for the
+// remaining <head> links are injected by scripts/postprocess.py instead.
+// Skipped entirely outside HTML export: `typst eval` (used for the
 // frontmatter metadata) runs paged export, which would warn about every
 // top-level html.elem.
 #let chrome(is-post: false, body) = context if target() == "html" {
@@ -56,7 +56,7 @@
       ), "◐")
     })
   })
-  html.elem("main", attrs: (role: "main"), body)
+  html.elem("main", body)
   html.elem("footer", {
     if is-post {
       html.elem("a", attrs: (href: "#"), "↑ Go to top")
@@ -73,11 +73,24 @@
 }
 
 // Markdown image: real <img> reference (typst's image() would embed the
-// file as a base64 data URI) with the alt text doubling as a caption.
-#let md-img(src, alt: "") = html.elem("figure", {
-  html.elem("img", attrs: (src: src, alt: alt, loading: "lazy"))
-  if alt != "" {
-    html.elem("figcaption", alt)
+// file as a base64 data URI), with optional link wrapper and rich Typst
+// caption (preserving inline math as MathML in <figcaption>).
+#let md-img(src, alt: "", caption: none, href: none) = html.elem("figure", {
+  let img = html.elem("img", attrs: (src: src, alt: alt, loading: "lazy"))
+  if href != none {
+    html.elem("a", attrs: (href: href), img)
+  } else {
+    img
+  }
+  let cap = if caption != none and caption != [] {
+    caption
+  } else if alt != "" {
+    alt
+  } else {
+    none
+  }
+  if cap != none {
+    html.elem("figcaption", cap)
   }
 })
 
