@@ -1,6 +1,7 @@
 ---
 title: YubiKey EVM Signer
 date: 2026-01-04
+updated: 2026-11-25
 author: Jose Storopoli
 description: Hardware-backed secp256r1 signatures from your YubiKey, verified natively in the EVM.
 tags: [ethereum, security, cryptography]

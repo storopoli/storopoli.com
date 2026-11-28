@@ -1,7 +1,7 @@
 // Shared chrome, show rules, and body rendering for storopoli.com.
-// Every compile/eval must pass: --root <repo> --features html
+// Every compile must pass: --root <repo> --features html
 // Markdown is converted to typst markup by pandoc (scripts/body-filter.lua)
-// in build.sh; the wrappers eval the generated body with the helpers below.
+// in scripts/build.py; the wrappers eval the generated body with the helpers below.
 
 #let site-title = "Jose Storopoli, PhD"
 #let site-url = "https://storopoli.com"
@@ -14,7 +14,19 @@
   str(date)
 }
 
-#let slugify(s) = lower(s).replace(" ", "-")
+// ASCII lowercase hyphenated slug; kept aligned with slugify() in scripts/build.py.
+#let slugify(s) = lower(s).replace(regex("[^a-z0-9]+"), "-").trim("-")
+
+// Extract YAML frontmatter safely, handling UTF-8 BOM, CRLF line endings,
+// and `---` thematic breaks later in the Markdown body.
+#let parse-frontmatter(src) = {
+  let norm = src.trim("\u{feff}", at: start, repeat: false).replace("\r\n", "\n").replace("\r", "\n")
+  let m = norm.match(regex("(?s)^---[ \t]*\n(.*?)\n---[ \t]*(?:\n|$)"))
+  if m == none {
+    panic("Missing or malformed YAML frontmatter")
+  }
+  yaml(bytes(m.captures.at(0)))
+}
 
 // Math is exported as native MathML by Typst 0.15: accessible, selectable,
 // scales with zoom/font-size, ~90% smaller than inline SVG, and inherits the
@@ -28,10 +40,8 @@
 
 // Site header, main, and footer emitted inside typst's default <body>.
 // A custom <html>/<body> element would break native footnotes, so the
-// remaining <head> links are injected by scripts/postprocess.py instead.
-// Skipped entirely outside HTML export: `typst eval` (used for the
-// frontmatter metadata) runs paged export, which would warn about every
-// top-level html.elem.
+// remaining <head> links and metadata are injected by scripts/build.py instead.
+// Guarded with target() == "html" so non-HTML targets stay warning-free.
 #let chrome(is-post: false, body) = context if target() == "html" {
   // Posts get a reading-progress bar on the sticky header (site.css).
   html.elem("header", attrs: if is-post { (class: "post-header") } else { (:) }, {

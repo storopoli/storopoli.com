@@ -17,7 +17,7 @@ serve:
 
 # Rebuild on change (brew install watchexec); run `just serve` in another pane
 watch:
-  watchexec --exts md,typ,css,bib,sh,py,lua -- just build
+  watchexec --exts md,typ,css,bib,sh,py,lua,xsl -- just build
 
 # Remove build artifacts
 clean:
@@ -35,8 +35,8 @@ lint:
 check: build
   @echo "==> No base64 data URIs in posts"
   @! grep -rl 'src="data:' _site/posts 2>/dev/null
-  @echo "==> atom.xml is well-formed"
-  @python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml')"
+  @echo "==> atom.xml and sitemap.xml are well-formed"
+  @python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml'); ET.parse('_site/sitemap.xml')"
   @echo "==> Shell scripts pass shellcheck"
   @if command -v shellcheck >/dev/null 2>&1; then \
     shellcheck scripts/*.sh; \

@@ -3,12 +3,11 @@
 //     --input body=/.cache/bodies/X.typ
 #import "/lib/template.typ": *
 
-#let src = read(sys.inputs.path)
-#let parts = src.split("---\n")
-#let fm = yaml(bytes(parts.at(1)))
+#let fm = parse-frontmatter(read(sys.inputs.path))
+#let description = fm.at("description", default: none)
 
 #show: setup
-#set document(title: site-title + " - " + fm.title)
+#set document(title: site-title + " - " + fm.title, description: description)
 
 #chrome({
   html.elem("h1", fm.title)

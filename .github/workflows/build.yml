@@ -36,6 +36,9 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
 
+      - name: Run build orchestrator unit tests
+        run: python3 -m unittest discover -s tests -v
+
       - name: Build site
         run: ./scripts/build.sh
 
@@ -43,9 +46,11 @@ jobs:
         run: |
           test -f _site/index.html
           test -f _site/atom.xml
+          test -f _site/atom.xsl
+          test -f _site/sitemap.xml
           test -f _site/CNAME
           ! grep -rl 'src="data:' _site/posts
-          python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml')"
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml'); ET.parse('_site/sitemap.xml')"
 
       - name: Check internal links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0

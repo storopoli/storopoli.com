@@ -1,5 +1,6 @@
 ---
 title: About
+description: About Jose Storopoli, PhD — security engineering, cryptography, zero-knowledge protocols, Rust, and curriculum vitae.
 ---
 
 <img src="/pp.jpg" alt="Jose Storopoli, PhD" class="profile-image" />
