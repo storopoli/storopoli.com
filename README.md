@@ -26,10 +26,14 @@ Dependencies (via Homebrew, or install the pinned `typst` and `pandoc` versions
 with [mise](https://mise.jdx.dev/) via `mise install`):
 
 ```sh
-brew install typst pandoc just jq
+brew install typst pandoc just jq uv
 # optional, for `just watch`:
 brew install watchexec
 ```
+
+`uv` runs the build-time image optimizer (`scripts/optimize-images.py`) with its
+pinned Pillow dependency via inline PEP 723 metadata (or falls back to system
+`python3` if Pillow is already installed).
 
 > [!IMPORTANT]
 > Typst's HTML export is still unstable across versions.
@@ -57,13 +61,16 @@ single failing input.
 - `pages/*.md` — standalone pages (about, contact, 404)
 - `lib/*.typ` — the Typst templates (site chrome, post/page/listing wrappers)
 - `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
-- `static/` — copied verbatim into `_site/` (CSS, fonts, images, CNAME, …);
-  `static/fonts/` holds the self-hosted Newsreader variable woff2 files
-  (latin + latin-ext, normal + italic, pinned from
-  [fontsource](https://fontsource.org/fonts/newsreader) 5.2.10)
-- `scripts/build.sh` — the whole build: converts Markdown with Pandoc,
-  compiles posts and pages with Typst, generates index/archive/tag
+- `static/` — source static assets copied into `_site/` (CSS, fonts, images,
+  CNAME, …); source images stay untouched in `static/` and raster images are
+  optimized into `_site/` at build time; `static/fonts/` holds the self-hosted
+  Newsreader variable woff2 files (latin + latin-ext, normal + italic, pinned
+  from [fontsource](https://fontsource.org/fonts/newsreader) 5.2.10)
+- `scripts/build.sh` — the whole build: optimizes images, converts Markdown
+  with Pandoc, compiles posts and pages with Typst, generates index/archive/tag
   listings and `atom.xml`
+- `scripts/optimize-images.py` — build-time image optimizer (downscales,
+  strips EXIF, emits smaller WebP variants, caches outputs in `.cache/images/`)
 - `scripts/body-filter.lua` — the Pandoc filter: Typst math passthrough,
   image figures, YouTube embeds
 

@@ -36,8 +36,22 @@ build_page() {
   local tmp
   tmp="$(mktemp)"
   compile "$src" "$tmp" "$@"
-  python3 "$ROOT/scripts/postprocess.py" "$CSS_HREF" < "$tmp" > "$dst"
+  python3 "$ROOT/scripts/postprocess.py" "$CSS_HREF" "$IMAGE_MANIFEST" < "$tmp" > "$dst"
   rm -f "$tmp"
+}
+
+# Run the image optimizer using uv (auto-resolves pinned Pillow via PEP 723),
+# falling back to system python3 if Pillow is already installed.
+run_optimize_images() {
+  if command -v uv >/dev/null 2>&1; then
+    uv run --quiet "$ROOT/scripts/optimize-images.py" "$@"
+  elif python3 -c 'import PIL' >/dev/null 2>&1; then
+    python3 "$ROOT/scripts/optimize-images.py" "$@"
+  else
+    printf 'FAIL: image optimization requires uv (https://docs.astral.sh/uv/) or python3 with Pillow\n' >&2
+    printf 'Install uv: brew install uv  (or: curl -LsSf https://astral.sh/uv/install.sh | sh)\n' >&2
+    return 1
+  fi
 }
 
 slugify() {
@@ -108,11 +122,18 @@ export -f compile build_page slugify convert_body collect_meta \
 export ROOT OUT CACHE
 
 echo "==> Cleaning"
-rm -rf "$OUT" "$CACHE"
-mkdir -p "$OUT/posts" "$OUT/tags" "$CACHE/bodies" "$CACHE/meta"
+# Keep $CACHE/images across rebuilds so unchanged images hit the cache
+# (`just clean` removes the entire .cache/ directory).
+rm -rf "$OUT" "$CACHE/bodies" "$CACHE/meta" "$CACHE/posts.json" "$CACHE/image-manifest.json"
+mkdir -p "$OUT/posts" "$OUT/tags" "$CACHE/bodies" "$CACHE/meta" "$CACHE/images"
 
 echo "==> Copying static files"
 cp -R "$ROOT/static/." "$OUT/"
+
+echo "==> Optimizing images"
+IMAGE_MANIFEST="$CACHE/image-manifest.json"
+run_optimize_images --jobs "$JOBS" "$ROOT/static" "$OUT" "$CACHE/images" "$IMAGE_MANIFEST"
+export IMAGE_MANIFEST
 
 # Fingerprint the stylesheet: pages link /css/site.<hash>.css so a deploy
 # can never pair new HTML with a stale cached stylesheet (the Cloudflare
