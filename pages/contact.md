@@ -1,5 +1,6 @@
 ---
 title: Contact
+description: How to reach Jose Storopoli via email, PGP, SimpleX, X, GitHub, and Codeberg.
 ---
 
 I have a professional X account at [\@storopoli](https://x.com/storopoli).

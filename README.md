@@ -8,7 +8,7 @@ It is a barebones static site: no site generator, no JavaScript[^javascript].
 Posts are written in Markdown with [Typst](https://typst.app) math syntax;
 [Pandoc](https://pandoc.org) converts the Markdown to Typst markup (passing
 the math through verbatim via a small Lua filter), Typst's HTML export
-renders the pages, and a single shell script orchestrates everything.
+renders the pages, and a single stdlib-only Python script orchestrates everything.
 
 Styling is a single hand-written stylesheet (`static/css/site.css`) around
 one idea: _literary text, terminal chrome_. Prose is set in
@@ -26,7 +26,7 @@ Dependencies (via Homebrew, or install the pinned `typst` and `pandoc` versions
 with [mise](https://mise.jdx.dev/) via `mise install`):
 
 ```sh
-brew install typst pandoc just jq uv
+brew install typst pandoc just uv
 # optional, for `just watch`:
 brew install watchexec
 ```
@@ -62,13 +62,16 @@ single failing input.
 - `lib/*.typ` — the Typst templates (site chrome, post/page/listing wrappers)
 - `bib/` — BibTeX bibliography (rendered with Typst's built-in IEEE style)
 - `static/` — source static assets copied into `_site/` (CSS, fonts, images,
-  CNAME, …); source images stay untouched in `static/` and raster images are
-  optimized into `_site/` at build time; `static/fonts/` holds the self-hosted
-  Newsreader variable woff2 files (latin + latin-ext, normal + italic, pinned
-  from [fontsource](https://fontsource.org/fonts/newsreader) 5.2.10)
-- `scripts/build.sh` — the whole build: optimizes images, converts Markdown
-  with Pandoc, compiles posts and pages with Typst, generates index/archive/tag
-  listings and `atom.xml`
+  CNAME, `atom.xsl`, …); source images stay untouched in `static/` and raster
+  images are optimized into `_site/` at build time; `static/fonts/` holds the
+  self-hosted Newsreader variable woff2 files (latin + latin-ext, normal +
+  italic, pinned from [fontsource](https://fontsource.org/fonts/newsreader)
+  5.2.10)
+- `scripts/build.py` (wrapped by `scripts/build.sh`) — the whole build:
+  optimizes images, incrementally converts Markdown with Pandoc, parses
+  frontmatter in Python, compiles posts/pages/listings with Typst,
+  post-processes HTML with `html.parser`, and generates `atom.xml` and
+  `sitemap.xml`
 - `scripts/optimize-images.py` — build-time image optimizer (downscales,
   strips EXIF, emits smaller WebP variants, caches outputs in `.cache/images/`)
 - `scripts/body-filter.lua` — the Pandoc filter: Typst math passthrough,
@@ -118,7 +121,7 @@ bib: true
 ## Syntax Highlighting
 
 Code blocks are highlighted by Typst's built-in default raw theme, which
-only classifies the tokens: `scripts/postprocess.py` rewrites its colors
+only classifies the tokens: `scripts/build.py` rewrites its colors
 into role classes (`.tok-red`, `.tok-green`, …) that `site.css` renders in
 the [Flexoki](https://stephango.com/flexoki) accents — 600-series in light
 mode, 400-series in dark mode — so code shares one color system with the

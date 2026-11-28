@@ -1,6 +1,9 @@
 # Build artifacts
 _site/
+_site.tmp.*/
+._site.old.*/
 .cache/
+__pycache__/
 
 # Fucking macOS
 .DS_Store

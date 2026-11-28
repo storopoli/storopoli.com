@@ -35,8 +35,16 @@
 
 #let all-tags = posts.map(p => p.tags).flatten().dedup().sorted()
 
+#let description = if kind == "index" {
+  "Personal website and blog of Jose Storopoli, PhD — cryptography, mathematics, security engineering, Rust, and distributed systems."
+} else if kind == "tag" {
+  "All posts tagged \"" + tag + "\" on Jose Storopoli's blog."
+} else {
+  "Complete archive of all posts by Jose Storopoli, PhD, organized chronologically and by tag."
+}
+
 #show: setup
-#set document(title: site-title + " - " + title)
+#set document(title: site-title + " - " + title, description: description)
 
 #chrome({
   if kind == "index" {
