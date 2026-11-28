@@ -2,7 +2,7 @@
 title: "Randomness in computation: sprinkle a little bit of randomness, and voilà!"
 date: 2025-04-07
 author: Jose Storopoli
-description: How to make your own non-deterministic, but highly reliable, linear
+description: How to make your own non-deterministic, but highly reliable, linear-time median algorithm in Haskell.
 tags: [math, probability, programming, haskell]
 bib: true
 ---

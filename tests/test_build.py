@@ -222,7 +222,9 @@ SAMPLE_TYPST_POST_HTML = """<!DOCTYPE html>
           <p>Inline math: <math><mi>x</mi></math>.</p>
           <math display="block"><msup><mi>a</mi><mn>2</mn></msup></math>
           <h3 id="code-sample">Code</h3>
-          <pre><code><span style="color: #d73948">let</span> <span style="color: #4b69c6">html</span> = <span style="color: #198810">"&lt;a href=\"/do-not-rewrite\"&gt;&lt;span style=\"color: #123456\"&gt;x&lt;/span&gt;&lt;/a&gt;"</span>;</code></pre>
+          <pre><code data-lang="rust"><span style="color: #d73948">let</span> <span style="color: #4b69c6">html</span> = <span style="color: #198810">"&lt;a href=\"/do-not-rewrite\"&gt;&lt;span style=\"color: #123456\"&gt;x&lt;/span&gt;&lt;/a&gt;"</span>;</code></pre>
+          <pre><code>plain block without lang</code></pre>
+          <table><thead><tr><th><math><mi>b</mi></math></th><th><math><msup><mi>b</mi><mn>1</mn></msup><mo>mod</mo><mn>7</mn></math></th></tr></thead><tbody><tr><td>2</td><td>2</td></tr></tbody></table>
           <figure><img src="/images/demo.png" alt="Demo" loading="lazy"><figcaption>Demo</figcaption></figure>
           <figure><img src="/images/second.svg" alt="Second" loading="lazy"><figcaption>Second</figcaption></figure>
           <h4 id="sub">Sub</h4>
@@ -298,6 +300,23 @@ class HtmlPostprocessorTests(unittest.TestCase):
         self.assertIn('<span class="tok-blue">html</span>', out)
         self.assertIn('<span class="tok-green">"&lt;a href=', out)
         self.assertIn('<span class="tok-gray">// comment</span>', out)
+
+        # Language-tagged <pre><code data-lang="..."> wrapped in .code-block + .code-lang;
+        # untagged <pre><code> left unwrapped.
+        self.assertIn(
+            '<div class="code-block"><div class="code-lang">rust</div><pre><code data-lang="rust">',
+            out,
+        )
+        self.assertIn("</code></pre></div>", out)
+        self.assertIn("<pre><code>plain block without lang</code></pre>", out)
+        self.assertEqual(out.count('class="code-block"'), 1)
+
+        # Tables inside <main> wrapped in .table-wrap
+        self.assertIn(
+            '<div class="table-wrap"><table><thead><tr><th><math><mi>b</mi></math></th>',
+            out,
+        )
+        self.assertIn("</tbody></table></div>", out)
 
         # Section anchors injected on h2-h4 with id, NOT on h2 without id or h5
         self.assertIn(
@@ -376,6 +395,52 @@ class HtmlPostprocessorTests(unittest.TestCase):
         meta = build.PageMeta(title="T", description="D", canonical_url="https://storopoli.com/t.html")
         with self.assertRaises(build.BuildError):
             build.postprocess_html("<html><body><main></main></body></html>", "/css/site.css", meta)
+
+    def test_postprocess_code_block_and_table_wrap_edge_cases(self) -> None:
+        raw = (
+            "<!DOCTYPE html><html><head><title>T</title></head><body><main>"
+            '<pre>\n  <code data-lang="c++ &amp; rust">x</code></pre>'
+            '<pre><code data-lang="   ">blank lang</code></pre>'
+            "<pre>raw pre text</pre>"
+            "<table><tbody><tr><td><table><tr><td>nested</td></tr></table></td></tr></tbody></table>"
+            "</main></body></html>"
+        )
+        meta = build.PageMeta(title="T", description="D", canonical_url="https://storopoli.com/t.html")
+        out = build.postprocess_html(raw, "/css/site.css", meta)
+
+        self.assertIn(
+            '<div class="code-block"><div class="code-lang">c++ &amp; rust</div>'
+            '<pre>\n  <code data-lang="c++ &amp; rust">x</code></pre></div>',
+            out,
+        )
+        self.assertIn('<pre><code data-lang="   ">blank lang</code></pre>', out)
+        self.assertIn("<pre>raw pre text</pre>", out)
+        self.assertEqual(out.count('class="code-block"'), 1)
+        # Nested table must only be wrapped once on the outermost <table>
+        self.assertEqual(out.count('class="table-wrap"'), 1)
+        self.assertIn(
+            '<div class="table-wrap"><table><tbody><tr><td><table><tr><td>nested</td></tr></table></td></tr></tbody></table></div>',
+            out,
+        )
+
+    def test_extract_feed_content_unwraps_wrappers_preserving_inner_divs(self) -> None:
+        page_html = (
+            "<!DOCTYPE html><html><head></head><body><main><article>"
+            "<h1>Title</h1>"
+            '<div class="code-block"><div class="code-lang">rust</div>'
+            '<pre><code data-lang="rust"><span class="tok-red">fn</span> main() {}</code></pre></div>'
+            '<div class="table-wrap"><table><tbody><tr><td><div class="cell">ok</div></td></tr></tbody></table></div>'
+            '<div class="embed-container"><iframe src="https://example.com"></iframe></div>'
+            "</article></main></body></html>"
+        )
+        content = build.extract_feed_content(page_html)
+        assert content is not None
+        self.assertNotIn("code-block", content)
+        self.assertNotIn("code-lang", content)
+        self.assertNotIn("table-wrap", content)
+        self.assertIn('<pre><code data-lang="rust"><span style="color: #af3029">fn</span> main() {}</code></pre>', content)
+        self.assertIn('<table><tbody><tr><td><div class="cell">ok</div></td></tr></tbody></table>', content)
+        self.assertIn('<div class="embed-container"><iframe src="https://example.com"></iframe></div>', content)
 
     def test_all_token_classes_match_feed_colors_and_css(self) -> None:
         css = (REPO_ROOT / "static" / "css" / "site.css").read_text(encoding="utf-8")
@@ -491,6 +556,12 @@ class AtomFeedAndSitemapTests(unittest.TestCase):
         self.assertIn('<span style="color: #205ea6">html</span>', content)
         self.assertIn('<span style="color: #575653">// comment</span>', content)
         self.assertNotIn("tok-red", content)
+        # Layout wrappers (.code-block, .code-lang, .table-wrap) stripped/unwrapped cleanly
+        self.assertNotIn("code-block", content)
+        self.assertNotIn("code-lang", content)
+        self.assertNotIn("table-wrap", content)
+        self.assertIn('<pre><code data-lang="rust">', content)
+        self.assertIn("<table><thead><tr><th><math><mi>b</mi></math></th>", content)
 
         # Second entry falls back to published date for <updated>
         second = entries[1]

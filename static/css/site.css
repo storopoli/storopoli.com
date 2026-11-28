@@ -72,10 +72,12 @@
   --paper: light-dark(#fffcf0, #100f0f);
   --ink: light-dark(#100f0f, #cecdc3);
   --ink-2: light-dark(#6f6e69, #878580); /* secondary text */
+  --ink-2-wash: light-dark(#575653, #9a9891); /* secondary text on --wash */
   --ink-3: light-dark(#b7b5ac, #575653); /* faint marks */
   --line: light-dark(#e6e4d9, #282726); /* hairlines */
   --wash: light-dark(#f2f0e5, #1c1b1a); /* subtle panels */
   --accent: light-dark(#bc5215, #da702c);
+  --accent-wash: light-dark(#9d4310, #da702c); /* accent text on --wash */
 
   /* Code surfaces: Flexoki base-50 / base-950, same family as --wash */
   --code-bg: light-dark(#f2f0e5, #1c1b1a);
@@ -114,7 +116,7 @@ html {
 }
 
 body {
-  max-width: 46rem;
+  max-width: 44rem;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 4vw, 2rem);
   background-color: var(--paper);
@@ -122,7 +124,7 @@ body {
   font-family: var(--serif);
   font-size: 1.25rem;
   font-weight: 420;
-  line-height: 1.6;
+  line-height: 1.65;
   font-optical-sizing: auto;
   font-kerning: normal;
   text-rendering: optimizeLegibility;
@@ -177,28 +179,40 @@ h4 {
 }
 
 h1 {
-  font-size: clamp(1.9rem, 1.3rem + 2.2vw, 2.7rem);
+  font-size: clamp(1.95rem, 1.35rem + 2.2vw, 2.6rem);
   font-weight: 540;
-  letter-spacing: -0.012em;
+  line-height: 1.16;
+  letter-spacing: -0.016em;
   margin: 1rem 0 0.8rem;
 }
 
 h2 {
-  font-size: 1.55rem;
+  font-size: 1.65rem;
   font-weight: 560;
-  margin: 2.4rem 0 0.9rem;
+  line-height: 1.2;
+  letter-spacing: -0.008em;
+  margin: 2.5rem 0 0.85rem;
 }
 
 h3 {
-  font-size: 1.28rem;
+  font-size: 1.35rem;
   font-weight: 600;
-  margin: 2rem 0 0.7rem;
+  line-height: 1.24;
+  margin: 2rem 0 0.65rem;
 }
 
 h4 {
-  font-size: 1.1rem;
-  font-weight: 640;
-  margin: 1.8rem 0 0.6rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 560;
+  line-height: 1.28;
+  margin: 1.7rem 0 0.5rem;
+}
+
+h1 code,
+h2 code,
+h3 code {
+  font-weight: 500;
 }
 
 /* Deep subsections become monospaced eyebrow labels */
@@ -231,6 +245,7 @@ main a:hover {
 main a.heading-anchor {
   margin-left: 0.35em;
   font-family: var(--mono);
+  font-style: normal;
   font-weight: 400;
   font-size: 0.78em;
   color: var(--ink-3);
@@ -277,13 +292,49 @@ li::marker {
 
 blockquote {
   margin: 1.7rem 0;
-  padding-left: 1.25rem;
+  padding: 0.15rem 0 0.15rem 1.25rem;
   border-left: 2px solid var(--ink-3);
   font-style: italic;
 }
 
 blockquote em {
   font-style: normal;
+}
+
+/* Editorial update/note callouts: blockquotes opening with a bold lead render
+   upright in a --wash panel with an accent rule (no JS or Markdown changes) */
+blockquote:has(> p:first-child > strong:first-child) {
+  font-style: normal;
+  font-size: 1.04rem;
+  line-height: 1.58;
+  background: var(--wash);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 6px 6px 0;
+  padding: 0.85rem 1.15rem;
+}
+
+blockquote:has(> p:first-child > strong:first-child) p:first-child {
+  margin-top: 0;
+}
+
+blockquote:has(> p:first-child > strong:first-child) p:last-child {
+  margin-bottom: 0;
+}
+
+blockquote:has(> p:first-child > strong:first-child) em {
+  font-style: italic;
+}
+
+blockquote:has(> p:first-child > strong:first-child) > p:first-child > strong:first-child {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--accent-wash);
+}
+
+blockquote:has(> p:first-child > strong:first-child) a:hover {
+  color: var(--accent-wash);
 }
 
 /* Thematic break as a typewriter dinkus */
@@ -316,7 +367,7 @@ body > header {
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.4rem 1.2rem;
   padding: 1.1rem 0 0.8rem;
@@ -390,35 +441,58 @@ input.theme-toggle:focus-visible ~ nav label.theme-label {
 body > header nav {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.3rem 1.1rem;
+  align-items: center;
+  gap: 0.25rem 1.05rem;
 }
 
 body > header nav a {
+  position: relative;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.02em;
   text-transform: lowercase;
   color: var(--ink-2);
   text-decoration: none;
+  padding: 0.2rem 0;
 }
 
 body > header nav a:hover {
   color: var(--accent);
 }
 
+body > header nav a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+body > header nav a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
 label.theme-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   user-select: none;
-  font-size: 1rem;
+  padding: 0.22rem 0.38rem 0.22rem 0.65rem;
+  margin-left: 0.05rem;
+  border-left: 1px solid var(--line);
+  font-size: 0.98rem;
   line-height: 1;
   color: var(--ink-2);
-  transition: transform 0.4s ease, color 0.15s ease;
+  transition: color 0.15s ease;
 }
 
 label.theme-label:hover {
   color: var(--accent);
-  transform: rotate(180deg);
 }
 
 /* --- Footer ---------------------------------------------------------------------- */
@@ -498,8 +572,10 @@ h1.tag-title::before {
 
 details.toc {
   margin: 0 0 2.4rem;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 1rem;
 }
 
 details.toc summary {
@@ -514,7 +590,7 @@ details.toc summary {
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--ink-2-wash);
 }
 
 details.toc summary::-webkit-details-marker {
@@ -531,22 +607,25 @@ details.toc[open] summary::after {
 }
 
 details.toc summary:hover {
-  color: var(--accent);
+  color: var(--accent-wash);
 }
 
 details.toc nav {
-  padding: 0.2rem 0 1rem;
+  padding: 0.15rem 0 0.9rem;
+  border-top: 1px solid var(--line);
   font-size: 0.95rem;
 }
 
 details.toc ol {
   list-style: none;
   padding-left: 0;
-  margin: 0;
+  margin: 0.45rem 0 0;
 }
 
 details.toc ol ol {
-  padding-left: 1.2rem;
+  margin: 0.25rem 0 0.25rem 0.2rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
 }
 
 details.toc li {
@@ -554,20 +633,70 @@ details.toc li {
 }
 
 details.toc a {
-  color: var(--ink-2);
+  color: var(--ink-2-wash);
   text-decoration: none;
 }
 
 details.toc a:hover {
-  color: var(--accent);
+  color: var(--accent-wash);
 }
 
-/* --- Post lists (index, archive, tags) ------------------------------------------------ */
+/* --- Home intro & post lists (index, archive, tags) ----------------------------------- */
+
+.home-intro {
+  margin: 0 0 2.1rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.home-intro p.lede {
+  margin: 0 0 0.5rem;
+  font-size: 1.32rem;
+  font-weight: 440;
+  line-height: 1.46;
+  letter-spacing: -0.006em;
+  color: var(--ink);
+}
+
+.home-intro p.sub {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.home-intro p.sub a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.home-intro p.sub a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.tag-meta {
+  margin: -0.2rem 0 1.8rem;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--ink-2);
+}
+
+.tag-meta a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.tag-meta a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
 
 ul.post-list {
   list-style: none;
   padding: 0;
-  margin: 1.6rem 0 2.4rem;
+  margin: 0.6rem 0 1.8rem;
 }
 
 ul.post-list li {
@@ -583,25 +712,89 @@ ul.post-list li:first-child {
   border-top: 1px solid var(--line);
 }
 
+ul.post-list.detailed li {
+  display: grid;
+  grid-template-columns: 6.4rem 1fr;
+  column-gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+}
+
+.post-entry {
+  min-width: 0;
+}
+
 time.post-date {
   flex: none;
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
 }
 
 a.post-link {
-  font-size: 1.08rem;
-  font-weight: 500;
+  display: inline-block;
+  font-size: 1.12rem;
+  font-weight: 540;
+  line-height: 1.3;
   text-decoration: none;
-  color: inherit;
+  color: var(--ink);
 }
 
 a.post-link:hover {
   color: var(--accent);
+  text-decoration: none;
 }
 
-/* Section labels on listing pages ("Posts", "By tag") */
+p.post-desc {
+  margin: 0.28rem 0 0.38rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.post-entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.65rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-2);
+}
+
+.post-entry-meta a.tag {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.post-entry-meta a.tag:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+.post-entry-meta .read-time {
+  color: var(--ink-2);
+}
+
+.archive-more {
+  margin: 1.2rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.archive-more a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.archive-more a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
+/* Section labels on listing pages ("Recent posts") */
 h2.section-label {
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -609,17 +802,110 @@ h2.section-label {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-2);
-  margin: 2.6rem 0 0.4rem;
+  margin: 0 0 0.65rem;
 }
 
-h3.tag-heading {
-  margin: 2.2rem 0 0.2rem;
-}
-
-h3.tag-heading a.tag {
+/* Archive: compact tag index panel + year-grouped chronological rows */
+.tag-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.95rem;
+  margin: 1rem 0 2.2rem;
+  padding: 0.85rem 1rem;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 6px;
   font-family: var(--mono);
-  font-size: 0.95rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.tag-index a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.tag-index a:hover {
+  color: var(--accent-wash);
+  text-decoration: none;
+}
+
+.tag-index a .hash {
+  color: var(--accent-wash);
+}
+
+.tag-index a .cnt {
+  color: var(--ink-2-wash);
+  margin-left: 0.24rem;
+  font-size: 0.68rem;
+}
+
+.year-group {
+  margin: 1.8rem 0;
+}
+
+h2.year-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  color: var(--ink-2);
+  margin: 0 0 0.4rem;
+}
+
+h2.year-heading .year-count {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+ul.post-list.compact {
+  margin: 0;
+}
+
+ul.post-list.compact li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.52rem 0;
+}
+
+ul.post-list.compact .row-main {
+  display: flex;
+  align-items: baseline;
+  gap: 1.15rem;
+  min-width: 0;
+}
+
+ul.post-list.compact a.post-link {
+  font-size: 1.05rem;
   font-weight: 500;
+}
+
+ul.post-list.compact .row-tags {
+  flex: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-2);
+}
+
+ul.post-list.compact .row-tags a.tag {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+ul.post-list.compact .row-tags a.tag:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 /* --- Math (native MathML, typst 0.15) --------------------------------------------------- */
@@ -674,6 +960,36 @@ pre > code {
   font-size: 0.84rem;
 }
 
+/* Language-tagged code blocks wrapped by scripts/build.py so the language
+   label stays pinned in a non-scrolling top hairline bar */
+.code-block {
+  background-color: var(--code-bg);
+  color: var(--code-fg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  margin: 1.7rem 0;
+  overflow: hidden;
+}
+
+.code-lang {
+  padding: 0.35rem 1.1rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2-wash);
+}
+
+.code-block pre {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0.85rem 1.1rem;
+  margin: 0;
+}
+
 /* Syntax palette roles, rendered in Flexoki accents (600–800 in light,
    300–400 in dark, chosen so every token meets WCAG AA ≥4.5:1 on
    --code-bg). Typst's built-in default raw theme classifies the tokens
@@ -726,10 +1042,21 @@ section[role="doc-endnotes"] li {
   margin-bottom: 0.6rem;
 }
 
+section[role="doc-endnotes"] li::marker {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  color: var(--ink-2);
+}
+
 section[role="doc-endnotes"] li:target {
   background: var(--wash);
   box-shadow: 0 0 0 6px var(--wash);
   border-radius: 2px;
+}
+
+section[role="doc-endnotes"] li:target a[role="doc-backlink"],
+section[role="doc-endnotes"] li:target a:hover {
+  color: var(--accent-wash);
 }
 
 section[role="doc-endnotes"] li p {
@@ -785,34 +1112,61 @@ section[role="doc-bibliography"] li:target {
   border-radius: 2px;
 }
 
+section[role="doc-bibliography"] li:target .prefix a,
+section[role="doc-bibliography"] li:target a:hover {
+  color: var(--accent-wash);
+}
+
 /* --- Tables ---------------------------------------------------------------------------------------- */
 
-main table {
-  display: block;
-  width: max-content;
-  max-width: 100%;
+.table-wrap {
+  margin: 2rem 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+main table {
   border-collapse: collapse;
   margin: 2rem auto;
+  width: 100%;
   font-size: 0.95rem;
   font-variant-numeric: tabular-nums;
 }
 
+.table-wrap table {
+  margin: 0 auto;
+}
+
 th {
   font-family: var(--mono);
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: left;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  text-align: center;
   color: var(--ink-2);
-  padding: 0.45rem 1rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1.5px solid var(--ink-3);
   border-bottom: 1px solid var(--ink-3);
+  white-space: nowrap;
 }
 
 td {
-  padding: 0.45rem 1rem;
+  padding: 0.45rem 0.75rem;
+  text-align: center;
   border-bottom: 1px solid var(--line);
+}
+
+tbody tr:hover {
+  background: var(--wash);
+}
+
+tbody tr:hover a:hover {
+  color: var(--accent-wash);
+}
+
+tbody tr:last-child td {
+  border-bottom: 1.5px solid var(--ink-3);
 }
 
 /* --- Figures, images, embeds -------------------------------------------------------------------------- */
@@ -837,12 +1191,34 @@ img {
   border-radius: 4px;
 }
 
+figure img {
+  max-height: 28rem;
+  width: auto;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+/* Soften dark-mode glare on raster photos only; leave dark-mode-native Flexoki SVGs untouched */
+@media (prefers-color-scheme: dark) {
+  html:not(:has(#theme-toggle:checked)) figure img:not([src$=".svg" i]) {
+    filter: brightness(0.92) contrast(1.03);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html:has(#theme-toggle:checked) figure img:not([src$=".svg" i]) {
+    filter: brightness(0.92) contrast(1.03);
+  }
+}
+
 figcaption {
   font-family: var(--mono);
   font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--ink-2);
   text-align: center;
-  margin-top: 0.7rem;
+  max-width: 54ch;
+  margin: 0.65rem auto 0;
 }
 
 .profile-image {
@@ -983,6 +1359,7 @@ nav.post-nav a:hover .post-nav-title {
 
   label.theme-label {
     font-size: 0.9rem;
+    padding: 0.18rem 0.28rem 0.18rem 0.55rem;
   }
 
   p {
@@ -995,6 +1372,21 @@ nav.post-nav a:hover .post-nav-title {
   }
 
   ul.post-list li {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  ul.post-list.detailed li {
+    grid-template-columns: 1fr;
+    gap: 0.18rem;
+  }
+
+  ul.post-list.compact li {
+    flex-direction: column;
+    gap: 0.18rem;
+  }
+
+  ul.post-list.compact .row-main {
     flex-direction: column;
     gap: 0.1rem;
   }
@@ -1022,6 +1414,13 @@ nav.post-nav a:hover .post-nav-title {
 /* --- Print ---------------------------------------------------------------------------------------------------- */
 
 @media print {
+  body > header {
+    position: static;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  body > header.post-header::after,
   body > header nav,
   input.theme-toggle,
   label.theme-label,
@@ -1037,5 +1436,19 @@ nav.post-nav a:hover .post-nav-title {
 
   details.toc {
     display: none;
+  }
+
+  pre,
+  blockquote,
+  figure,
+  .code-block,
+  .table-wrap {
+    break-inside: avoid;
+  }
+
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
   }
 }
