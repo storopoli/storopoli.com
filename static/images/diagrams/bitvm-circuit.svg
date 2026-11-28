@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 332" width="460" height="332" role="img" aria-labelledby="title desc">
+  <title id="title">Simple Arithmetic Circuit of f(x₁, x₂)</title>
+  <desc id="desc">Directed acyclic graph with input gates x₁ and x₂ feeding a multiplication gate (×), whose output together with x₁ feeds an addition gate (+), computing x₁ · x₂ + x₁.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f2f0e5; stroke: #e6e4d9; stroke-width: 1; }
+      .edge { fill: none; stroke: #6f6e69; stroke-width: 1.75; stroke-linecap: round; }
+      .arrow-head { fill: #6f6e69; }
+      .node-input { fill: #edf2f7; stroke: #205ea6; stroke-width: 1.75; }
+      .node-mul { fill: #faf0e4; stroke: #bc5215; stroke-width: 1.75; }
+      .node-add { fill: #ebf4f3; stroke: #24837b; stroke-width: 1.75; }
+      .label {
+        fill: #100f0f;
+        font-family: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+        font-size: 17px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      .op {
+        fill: #100f0f;
+        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #1c1b1a; stroke: #282726; }
+        .edge { stroke: #878580; }
+        .arrow-head { fill: #878580; }
+        .node-input { fill: #172430; stroke: #4385be; }
+        .node-mul { fill: #2c1e15; stroke: #da702c; }
+        .node-add { fill: #152625; stroke: #3aa99f; }
+        .label, .op { fill: #cecdc3; }
+      }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path class="arrow-head" d="M 0 1.2 L 9 5 L 0 8.8 z"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0.5" y="0.5" width="459" height="331"/>
+
+  <!-- Directed edges -->
+  <path class="edge" d="M 161 86 L 239.0 149.0" marker-end="url(#arrow)"/>
+  <path class="edge" d="M 315 86 L 275.3 143.7" marker-end="url(#arrow)"/>
+  <path class="edge" d="M 244.2 185.4 L 197.1 243.1" marker-end="url(#arrow)"/>
+  <path class="edge" d="M 129 86 Q 115 178 163.7 242.5" marker-end="url(#arrow)"/>
+
+  <!-- Input gates -->
+  <rect class="node-input" x="107" y="42" width="76" height="44" rx="10"/>
+  <text class="label" x="145" y="64">x₁</text>
+
+  <rect class="node-input" x="277" y="42" width="76" height="44" rx="10"/>
+  <text class="label" x="315" y="64">x₂</text>
+
+  <!-- Multiplication gate -->
+  <circle class="node-mul" cx="260" cy="166" r="25"/>
+  <text class="op" x="260" y="165">×</text>
+
+  <!-- Addition gate -->
+  <circle class="node-add" cx="180" cy="264" r="25"/>
+  <text class="op" x="180" y="263">+</text>
+</svg>
