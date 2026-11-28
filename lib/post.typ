@@ -26,8 +26,8 @@
 )) <frontmatter>
 
 #chrome(is-post: true, {
-  html.elem("h1", fm.title)
   html.elem("article", {
+    html.elem("h1", fm.title)
     html.elem("div", attrs: (class: "post-meta"), {
       html.elem("time", attrs: (datetime: iso), iso)
       html.elem("span", author)

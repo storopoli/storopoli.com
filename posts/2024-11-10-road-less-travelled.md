@@ -148,7 +148,7 @@ founder of id Software and creator of Doom and Quake
 on a talk about the early days of id Software at the Strange Loop 2022 conference.
 
 <div class="embed-container">
-  <iframe src="https://www.youtube.com/embed/IzqdZAYcwfY?t=804" frameborder="0" allowfullscreen></iframe>
+  <iframe src="https://www.youtube.com/embed/IzqdZAYcwfY?start=804" frameborder="0" allowfullscreen></iframe>
 </div>
 
 He has the following principle:
