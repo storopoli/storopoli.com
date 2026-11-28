@@ -12,13 +12,24 @@
    color scheme. Any color span left unmapped fails the build loudly: it
    means a typst upgrade changed the default theme's palette and this
    mapping needs updating.
+5. Enhance <img> elements inside <main>: inject width/height/decoding="async"
+   from the image manifest (preventing CLS), wrap images with a smaller WebP
+   variant in <picture>, and prioritize the first content image for LCP
+   (drop loading="lazy", add fetchpriority="high").
 """
 
+from __future__ import annotations
+
+import html as html_lib
+import json
 import re
 import sys
+from urllib.parse import quote
 
 # build.sh passes the fingerprinted stylesheet href (/css/site.<hash>.css)
+# and the image manifest path (.cache/image-manifest.json).
 CSS_HREF = sys.argv[1] if len(sys.argv) > 1 else "/css/site.css"
+IMAGE_MANIFEST_PATH = sys.argv[2] if len(sys.argv) > 2 else None
 
 # Token colors of typst's built-in raw highlight theme (pinned: typst 0.15.0)
 # mapped to palette-role classes defined in static/css/site.css
@@ -55,6 +66,97 @@ ENDNOTES = re.compile(r"[ \t]*<section role=\"doc-endnotes\">.*?</section>\n?", 
 # never nests, so the first </math> closes the match.
 BLOCK_MATH = re.compile(r'<math\b[^>]*\bdisplay="block"[^>]*>.*?</math>', re.S)
 
+MAIN = re.compile(r"(<main\b[^>]*>)(.*?)(</main>)", re.S)
+IMG_TAG = re.compile(r'<img\b(?:"[^"]*"|\'[^\']*\'|[^\'">])*?>', re.S)
+ATTR = re.compile(
+    r'([a-zA-Z_:][-a-zA-Z0-9_:.]*)'
+    r'(?:\s*=\s*(?:"([^"]*)"|\'([^\']*)\'|([^\s"\'=<>`]+)))?'
+)
+
+
+def parse_img_attrs(tag: str) -> list[tuple[str, str | None]]:
+    """Parse attributes from an <img ...> tag, preserving order."""
+    inner = tag[4:-1].rstrip()
+    if inner.endswith("/"):
+        inner = inner[:-1]
+    attrs: list[tuple[str, str | None]] = []
+    for m in ATTR.finditer(inner):
+        name = m.group(1).lower()
+        raw_val = m.group(2) if m.group(2) is not None else (
+            m.group(3) if m.group(3) is not None else m.group(4)
+        )
+        val = html_lib.unescape(raw_val) if raw_val is not None else None
+        attrs.append((name, val))
+    return attrs
+
+
+def render_img_tag(attrs: list[tuple[str, str | None]]) -> str:
+    parts = ["<img"]
+    for name, val in attrs:
+        if val is None:
+            parts.append(f" {name}")
+        else:
+            parts.append(f' {name}="{html_lib.escape(val, quote=True)}"')
+    parts.append(">")
+    return "".join(parts)
+
+
+def enhance_main_images(doc: str, manifest: dict[str, dict[str, object]]) -> str:
+    """Rewrite <img> elements inside <main> for CLS, WebP <picture>, and LCP."""
+    def rewrite_main(main_match: re.Match[str]) -> str:
+        open_tag, body, close_tag = main_match.groups()
+        img_index = 0
+
+        def rewrite_img(img_match: re.Match[str]) -> str:
+            nonlocal img_index
+            is_first = img_index == 0
+            img_index += 1
+
+            attrs = parse_img_attrs(img_match.group(0))
+            attr_map = {k: v for k, v in attrs}
+            src = attr_map.get("src")
+            entry = manifest.get(src) if src else None
+
+            if is_first:
+                attrs = [
+                    (k, v)
+                    for k, v in attrs
+                    if not (k == "loading" and (v or "").lower() == "lazy")
+                ]
+                if "fetchpriority" not in attr_map:
+                    attrs.append(("fetchpriority", "high"))
+
+            if entry is not None:
+                if "width" not in attr_map and "width" in entry:
+                    attrs.append(("width", str(entry["width"])))
+                if "height" not in attr_map and "height" in entry:
+                    attrs.append(("height", str(entry["height"])))
+                if "decoding" not in attr_map:
+                    attrs.append(("decoding", "async"))
+
+            rebuilt = render_img_tag(attrs)
+            webp = entry.get("webp") if entry is not None else None
+            if isinstance(webp, str) and webp:
+                srcset = quote(webp, safe="/:@!$&'()*+,;=-._~")
+                return (
+                    f'<picture><source srcset="{html_lib.escape(srcset, quote=True)}" '
+                    f'type="image/webp">{rebuilt}</picture>'
+                )
+            return rebuilt
+
+        return open_tag + IMG_TAG.sub(rewrite_img, body) + close_tag
+
+    return MAIN.sub(rewrite_main, doc, count=1)
+
+
+image_manifest: dict[str, dict[str, object]] = {}
+if IMAGE_MANIFEST_PATH:
+    try:
+        with open(IMAGE_MANIFEST_PATH, encoding="utf-8") as mf:
+            image_manifest = json.load(mf)
+    except (OSError, json.JSONDecodeError) as exc:
+        sys.exit(f"postprocess: failed to read image manifest {IMAGE_MANIFEST_PATH}: {exc}")
+
 html = sys.stdin.read()
 
 if "</head>" not in html:
@@ -80,5 +182,7 @@ if unmapped:
         "postprocess: unmapped highlight colors (typst default theme changed?): "
         + ", ".join(unmapped)
     )
+
+html = enhance_main_images(html, image_manifest)
 
 sys.stdout.write(html)

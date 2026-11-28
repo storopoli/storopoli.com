@@ -11,7 +11,9 @@ that doesn't belong in a feed stripped out:
   * the <h1> title and the post-meta line (date/author/tags) — the Atom
     entry already carries all of that as real metadata;
   * the table-of-contents <details> — its in-page anchors are noise in a
-    reader.
+    reader;
+  * <picture> wrappers — unwrapped back to their fallback <img> for maximum
+    feed reader compatibility (and so no root-relative srcset survives).
 
 Root-relative URLs (/images/..., /posts/...) are rewritten to absolute so
 images and links resolve in a reader that has no notion of the site origin;
@@ -37,6 +39,13 @@ MAIN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S)
 H1 = re.compile(r"<h1\b[^>]*>.*?</h1>", re.S)
 POST_META = re.compile(r'<div class="post-meta">.*?</div>', re.S)
 TOC = re.compile(r'<details\b[^>]*\bid="table-of-contents"[^>]*>.*?</details>', re.S)
+# Unwrap <picture> wrappers to their inner fallback <img> for feed readers.
+PICTURE = re.compile(
+    r'<picture\b[^>]*>(?:(?!</picture>).)*?'
+    r'(<img\b(?:"[^"]*"|\'[^\']*\'|[^\'">])*?>)'
+    r'(?:(?!</picture>).)*?</picture>',
+    re.S,
+)
 # Root-relative href/src (a single leading slash, not protocol-relative "//").
 ROOT_REL = re.compile(r'(\b(?:href|src)=")/(?!/)')
 
@@ -57,6 +66,7 @@ def post_content(site_dir, slug):
     body = H1.sub("", body, count=1)
     body = POST_META.sub("", body, count=1)
     body = TOC.sub("", body, count=1)
+    body = PICTURE.sub(r"\1", body)
     body = ROOT_REL.sub(rf"\1{SITE_URL}/", body)
     return body.strip()
 
