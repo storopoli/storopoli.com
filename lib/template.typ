@@ -42,7 +42,16 @@
 // A custom <html>/<body> element would break native footnotes, so the
 // remaining <head> links and metadata are injected by scripts/build.py instead.
 // Guarded with target() == "html" so non-HTML targets stay warning-free.
-#let chrome(is-post: false, body) = context if target() == "html" {
+#let chrome(is-post: false, active: none, body) = context if target() == "html" {
+  let nav-link(key, href, label) = html.elem(
+    "a",
+    attrs: if active == key {
+      (href: href, "aria-current": "page")
+    } else {
+      (href: href)
+    },
+    label,
+  )
   // Posts get a reading-progress bar on the sticky header (site.css).
   html.elem("header", attrs: if is-post { (class: "post-header") } else { (:) }, {
     // CSS-only light/dark toggle: site.css flips color-scheme when checked
@@ -54,10 +63,10 @@
     ))
     html.elem("div", attrs: (class: "logo"), html.elem("a", attrs: (href: "/"), site-title))
     html.elem("nav", {
-      html.elem("a", attrs: (href: "/"), "Home")
-      html.elem("a", attrs: (href: "/about.html"), "About")
-      html.elem("a", attrs: (href: "/contact.html"), "Contact")
-      html.elem("a", attrs: (href: "/archive.html"), "Archive")
+      nav-link("home", "/", "Home")
+      nav-link("about", "/about.html", "About")
+      nav-link("contact", "/contact.html", "Contact")
+      nav-link("archive", "/archive.html", "Archive")
       html.elem("a", attrs: (href: "/atom.xml"), "RSS")
       html.elem("label", attrs: (
         "for": "theme-toggle",

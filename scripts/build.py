@@ -15,6 +15,9 @@ pipeline, postprocess.py, and gen-feed.py:
    - injects per-page <head> links, canonical, OpenGraph, and Twitter tags;
    - relocates Typst's <section role="doc-endnotes"> inside <article>/<main>;
    - wraps block <math display="block"> equations in <div class="math-block">;
+   - wraps <table> elements inside <main> in <div class="table-wrap">;
+   - wraps language-tagged <pre><code data-lang="..."> blocks in
+     <div class="code-block"><div class="code-lang">...</div><pre>...</pre></div>;
    - rewrites Typst syntax-highlight hex colors into .tok-* classes (failing
      loudly on any unmapped color);
    - injects clickable `#` anchor links on h2–h4 headings with an `id`.
@@ -578,8 +581,27 @@ class _PagePostprocessor(HTMLParser):
         self.article_close_idx: int | None = None
         self.main_close_idx: int | None = None
         self.math_block_stack: list[bool] = []
+        self.table_depth = 0
+        self.pending_pre_chunks: list[str] | None = None
+        self.pre_code_block_stack: list[bool] = []
         self.heading_anchor_stack: list[str | None] = []
         self.unmapped_colors: set[str] = set()
+
+    def _flush_pending_pre(self, lang: str | None = None) -> None:
+        chunks = self.pending_pre_chunks
+        if chunks is None:
+            return
+        self.pending_pre_chunks = None
+        if lang:
+            escaped_lang = html.escape(lang, quote=False)
+            self._emit(f'<div class="code-block"><div class="code-lang">{escaped_lang}</div>')
+            for chunk in chunks:
+                self._emit(chunk)
+            self.pre_code_block_stack.append(True)
+        else:
+            for chunk in chunks:
+                self._emit(chunk)
+            self.pre_code_block_stack.append(False)
 
     def _enhance_img(self, attrs: list[tuple[str, str | None]]) -> str:
         """Enhance an <img> inside <main> for CLS, WebP <picture>, and LCP."""
@@ -670,6 +692,13 @@ class _PagePostprocessor(HTMLParser):
         tag_l = tag.lower()
         attr_dict = {k.lower(): v for k, v in attrs}
 
+        if self.pending_pre_chunks is not None:
+            if tag_l == "code":
+                lang = (attr_dict.get("data-lang") or "").strip()
+                self._flush_pending_pre(lang or None)
+            else:
+                self._flush_pending_pre(None)
+
         if tag_l == "head":
             self.in_head = True
             self._emit(self.get_starttag_text() or format_start_tag(tag, attrs))
@@ -700,6 +729,11 @@ class _PagePostprocessor(HTMLParser):
             if is_block:
                 self._emit('<div class="math-block">')
 
+        if tag_l == "table" and (self.in_main or self.capturing_endnotes_depth > 0):
+            if self.table_depth == 0:
+                self._emit('<div class="table-wrap">')
+            self.table_depth += 1
+
         if tag_l == "span":
             changed, new_attrs = _rewrite_token_span_attrs(attrs, self.unmapped_colors)
             if changed:
@@ -719,11 +753,22 @@ class _PagePostprocessor(HTMLParser):
             heading_id = attr_dict.get("id")
             self.heading_anchor_stack.append(heading_id if heading_id else None)
 
+        if tag_l == "pre" and (self.in_main or self.capturing_endnotes_depth > 0):
+            self.pending_pre_chunks = [self.get_starttag_text() or format_start_tag(tag, attrs)]
+            return
+
         self._emit(self.get_starttag_text() or format_start_tag(tag, attrs))
 
     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         tag_l = tag.lower()
         attr_dict = {k.lower(): v for k, v in attrs}
+
+        if self.pending_pre_chunks is not None:
+            if tag_l == "code":
+                lang = (attr_dict.get("data-lang") or "").strip()
+                self._flush_pending_pre(lang or None)
+            else:
+                self._flush_pending_pre(None)
 
         if (
             self.in_head
@@ -748,6 +793,9 @@ class _PagePostprocessor(HTMLParser):
 
     def handle_endtag(self, tag: str) -> None:
         tag_l = tag.lower()
+
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
 
         if tag_l == "head":
             self.in_head = False
@@ -785,6 +833,15 @@ class _PagePostprocessor(HTMLParser):
 
         self._emit(f"</{tag}>")
 
+        if tag_l == "pre" and self.pre_code_block_stack:
+            if self.pre_code_block_stack.pop():
+                self._emit("</div>")
+
+        if tag_l == "table" and (self.in_main or self.capturing_endnotes_depth > 0) and self.table_depth > 0:
+            self.table_depth -= 1
+            if self.table_depth == 0:
+                self._emit("</div>")
+
         if tag_l == "math" and self.math_block_stack:
             if self.math_block_stack.pop():
                 self._emit("</div>")
@@ -793,24 +850,41 @@ class _PagePostprocessor(HTMLParser):
             self.capturing_endnotes_depth -= 1
 
     def handle_data(self, data: str) -> None:
+        if self.pending_pre_chunks is not None:
+            if data.strip() == "":
+                self.pending_pre_chunks.append(data)
+                return
+            self._flush_pending_pre(None)
         self._emit(data)
 
     def handle_entityref(self, name: str) -> None:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         self._emit(f"&{name};")
 
     def handle_charref(self, name: str) -> None:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         self._emit(f"&#{name};")
 
     def handle_comment(self, data: str) -> None:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         self._emit(f"<!--{data}-->")
 
     def handle_decl(self, decl: str) -> None:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         self._emit(f"<!{decl}>")
 
     def handle_pi(self, data: str) -> None:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         self._emit(f"<?{data}>")
 
     def finalize(self) -> str:
+        if self.pending_pre_chunks is not None:
+            self._flush_pending_pre(None)
         if not self.seen_head_close:
             raise BuildError("postprocess: no </head> found; typst scaffold changed?")
         if self.unmapped_colors:
@@ -851,9 +925,10 @@ class _FeedContentExtractor(HTMLParser):
 
     - Keeps only the inner HTML of `<main>`.
     - Strips chrome: first `<h1>`, `.post-meta`, `#table-of-contents`,
-      `.post-nav`, and `.heading-anchor` links.
-    - Unwraps `<picture>` wrappers back to their fallback `<img>` for feed
-      reader compatibility (stripping `<source>`).
+      `.post-nav`, `.heading-anchor` links, and `.code-lang` bars.
+    - Unwraps `<picture>` wrappers back to their fallback `<img>` (stripping
+      `<source>`), and unwraps `.code-block` and `.table-wrap` layout divs so
+      feed readers receive clean `<pre><code>` and `<table>` elements.
     - Absolutizes root-relative `href="/..."` and `src="/..."` ONLY on real
       HTML element attributes (never inside `<code>`/`<pre>` text).
     - Inlines light-mode Flexoki hex colors on `.tok-*` spans so syntax
@@ -868,6 +943,7 @@ class _FeedContentExtractor(HTMLParser):
         self.in_main = False
         self.main_depth = 0
         self.picture_depth = 0
+        self.div_unwrap_stack: list[bool] = []
         self.stripped_h1 = False
         self.skip_stack: list[str] = []
 
@@ -876,7 +952,7 @@ class _FeedContentExtractor(HTMLParser):
         if tag_l == "h1" and not self.stripped_h1:
             self.stripped_h1 = True
             return True
-        if tag_l == "div" and "post-meta" in classes:
+        if tag_l == "div" and ("post-meta" in classes or "code-lang" in classes):
             return True
         if tag_l == "details" and attr_dict.get("id") == "table-of-contents":
             return True
@@ -957,6 +1033,13 @@ class _FeedContentExtractor(HTMLParser):
                 self.skip_stack.append(tag_l)
             return
 
+        if tag_l == "div":
+            classes = set((attr_dict.get("class") or "").split())
+            if "code-block" in classes or "table-wrap" in classes:
+                self.div_unwrap_stack.append(True)
+                return
+            self.div_unwrap_stack.append(False)
+
         changed, new_attrs = self._transform_attrs(tag_l, attrs)
         if changed:
             self.out.append(format_start_tag(tag, new_attrs))
@@ -1001,6 +1084,9 @@ class _FeedContentExtractor(HTMLParser):
         if tag_l == "picture" and self.picture_depth > 0:
             self.picture_depth -= 1
             return
+        if tag_l == "div" and self.div_unwrap_stack:
+            if self.div_unwrap_stack.pop():
+                return
         self.out.append(f"</{tag}>")
 
     def handle_data(self, data: str) -> None:
@@ -1665,7 +1751,7 @@ def build_site(root: Path, jobs: int, clean: bool = False) -> Path:
                 args = ["--input", "kind=archive"]
                 dst = staging / "archive.html"
                 meta = PageMeta(
-                    title="Archives",
+                    title="Archive",
                     description=ARCHIVE_DESCRIPTION,
                     canonical_url=f"{SITE_URL}/archive.html",
                     og_type="website",

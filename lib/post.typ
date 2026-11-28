@@ -8,7 +8,8 @@
 #let iso = date-iso(fm.date)
 #let updated = fm.at("updated", default: none)
 #let updated-iso = if updated != none { date-iso(updated) } else { none }
-#let author = fm.at("author", default: "Jose Storopoli")
+#let default-author = "Jose Storopoli"
+#let author = fm.at("author", default: default-author)
 #let raw-tags = fm.at("tags", default: ())
 #let tags = if raw-tags == none { () } else { raw-tags }
 #let description = fm.at("description", default: none)
@@ -46,16 +47,18 @@
     html.elem("h1", fm.title)
     html.elem("div", attrs: (class: "post-meta"), {
       html.elem("time", attrs: (datetime: iso), iso)
+      if reading-time != none {
+        html.elem("span", attrs: (class: "reading-time"), str(reading-time) + " min read")
+      }
       if updated-iso != none and updated-iso != iso {
         html.elem("span", attrs: (class: "post-updated"), {
           "updated "
           html.elem("time", attrs: (datetime: updated-iso), updated-iso)
         })
       }
-      if reading-time != none {
-        html.elem("span", attrs: (class: "reading-time"), str(reading-time) + " min read")
+      if author != none and author != "" and author != default-author and author != site-title {
+        html.elem("span", author)
       }
-      html.elem("span", author)
       if tags.len() > 0 {
         html.elem(
           "span",
