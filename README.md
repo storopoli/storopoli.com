@@ -1,6 +1,6 @@
 # storopoli.com
 
-![CC-BI-NC-SA 4.0][cc-by-nc-sa-shield]
+![CC-BY-NC-SA 4.0][cc-by-nc-sa-shield]
 
 This is my personal site at [storopoli.com](https://storopoli.com).
 
@@ -22,7 +22,8 @@ highlighting, and automatic light/dark mode.
 
 ## Building
 
-Dependencies (all on Homebrew):
+Dependencies (via Homebrew, or install the pinned `typst` and `pandoc` versions
+with [mise](https://mise.jdx.dev/) via `mise install`):
 
 ```sh
 brew install typst pandoc just jq
@@ -32,8 +33,8 @@ brew install watchexec
 
 > [!IMPORTANT]
 > Typst's HTML export is still unstable across versions.
-> The site is developed and CI-pinned against **Typst 0.15.0**
-> and **Pandoc 3.14**.
+> The site is developed and CI-pinned (and pinned in [`mise.toml`](mise.toml))
+> against **Typst 0.15.0** and **Pandoc 3.14**.
 
 Then:
 
@@ -79,7 +80,7 @@ Hooray!
 ## Citations
 
 Citations are done using [BibTeX](https://www.bibtex.org/), handled by
-Typst's native bibliography support with a CSL style.
+Typst's native bibliography support using its built-in IEEE style.
 Just update the [`bib/bibliography.bib`](bib/bibliography.bib) file,
 set `bib: true` in the post's front matter,
 and reference entries in posts:
@@ -130,7 +131,7 @@ and the content is [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 In
 
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-image]][cc-by-nc-sa]
 
-[cc-by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/4.0/
+[cc-by-nc-sa]: https://creativecommons.org/licenses/by-nc-sa/4.0/
 [cc-by-nc-sa-image]: https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png
 [cc-by-nc-sa-shield]: https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg
 

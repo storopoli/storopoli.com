@@ -4,7 +4,7 @@ title: About
 
 <img src="/pp.jpg" alt="Jose Storopoli, PhD" class="profile-image" />
 
-I have PhD and background in Computational Statistics.
+I have a PhD and background in Computational Statistics.
 Most of what I do now is security engineering on infrastructure,
 protocol, and engineering; and interfacing with multiple teams,
 processes, and tools.
@@ -18,10 +18,10 @@ censorship-resistant tools,
 and distributed systems,
 mostly in Rust, a little bit in Haskell.
 
-If you are in a bad day, grab a curated Stoicism piece of advice at
+If you are having a bad day, grab a curated Stoicism piece of advice at
 [`stoic.storopoli.com`](https://stoic.storopoli.com).
 I also made a [Sudoku App](https://sudoku.storopoli.com) that is free of spyware for my mother,
-and don't need Google or Apple permissions to install (it is a PWA);
+and doesn't need Google or Apple permissions to install (it is a PWA);
 you can use it as well.
 
 If you have state secrets or any message that you

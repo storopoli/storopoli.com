@@ -1,4 +1,5 @@
 Contact: mailto:jose@storopoli.com
-Expires: 2030-01-01T03:00:00.000Z
+Expires: 2027-11-28T00:00:00.000Z
 Encryption: https://storopoli.com/publickey.txt
-
+Preferred-Languages: en, pt
+Canonical: https://storopoli.com/.well-known/security.txt

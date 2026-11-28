@@ -2,11 +2,9 @@ name: Build
 on:
   push:
     branches:
-      - master
       - main
   pull_request:
     branches:
-      - master
       - main
 
 permissions: {}
@@ -44,6 +42,7 @@ jobs:
           test -f _site/atom.xml
           test -f _site/CNAME
           ! grep -rl 'src="data:' _site/posts
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml')"
 
       - name: Check internal links
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0

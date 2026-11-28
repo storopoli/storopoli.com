@@ -17,7 +17,7 @@ serve:
 
 # Rebuild on change (brew install watchexec); run `just serve` in another pane
 watch:
-  watchexec --exts md,typ,css,bib,csl,sh -- just build
+  watchexec --exts md,typ,css,bib,sh,py,lua -- just build
 
 # Remove build artifacts
 clean:
@@ -36,10 +36,16 @@ check: build
   @echo "==> No base64 data URIs in posts"
   @! grep -rl 'src="data:' _site/posts 2>/dev/null
   @echo "==> atom.xml is well-formed"
-  @if command -v xmllint >/dev/null 2>&1; then xmllint --noout _site/atom.xml; fi
+  @python3 -c "import xml.etree.ElementTree as ET; ET.parse('_site/atom.xml')"
+  @echo "==> Shell scripts pass shellcheck"
+  @if command -v shellcheck >/dev/null 2>&1; then \
+    shellcheck scripts/*.sh; \
+  else \
+    echo "(shellcheck not installed, skipping)"; \
+  fi
   @echo "==> Internal links resolve"
   @if command -v lychee >/dev/null 2>&1; then \
-    lychee --offline --root-dir "$(pwd)/_site" "_site/**/*.html"; \
+    lychee --offline --root-dir "$(pwd)/_site" "_site"; \
   else \
     echo "(lychee not installed, skipping)"; \
   fi

@@ -26,7 +26,7 @@ The code can be found in GitHub at [storopoli/yubikey-evm-signer](https://github
 
 If you use Bitcoin or Ethereum, you probably are familiar with the elliptic curve secp256k1.
 It is the curve that is used to sign transactions and verify signatures.
-The "k" in secp256k1 stands for "Koblitz" which ia a family of curves that are optimized for fast scalar multiplication.
+The "k" in secp256k1 stands for "Koblitz" which is a family of curves that are optimized for fast scalar multiplication.
 
 secp256k1 has a sister curve called secp256r1 (change the "k" to an "r") that was proposed in the same
 Standards for Efficient Cryptography (SEC) document (Certicom Research, [http://www.secg.org/sec2-v2.pdf](http://www.secg.org/sec2-v2.pdf)),
