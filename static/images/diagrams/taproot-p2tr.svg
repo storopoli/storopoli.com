@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 370" width="600" height="370" role="img" aria-labelledby="title desc">
+  <title id="title">Taproot Address</title>
+  <desc id="desc">Pay-to-Taproot (P2TR) structure showing the Internal Key path and the Root of the Merkle Tree branching to script S1 and an internal Node leading to scripts S2 and S3.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f2f0e5; stroke: #e6e4d9; stroke-width: 1; }
+      .edge { fill: none; stroke: #6f6e69; stroke-width: 1.75; stroke-linecap: round; }
+      .node-root { fill: #faf0e4; stroke: #bc5215; stroke-width: 1.75; }
+      .node-key { fill: #f1f3e6; stroke: #66800b; stroke-width: 1.75; }
+      .node-merkle { fill: #edf2f7; stroke: #205ea6; stroke-width: 1.75; }
+      .node-script { fill: #f1eef7; stroke: #5e409d; stroke-width: 1.75; }
+      .label {
+        fill: #100f0f;
+        font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      .mono {
+        fill: #100f0f;
+        font-family: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #1c1b1a; stroke: #282726; }
+        .edge { stroke: #878580; }
+        .node-root { fill: #2c1e15; stroke: #da702c; }
+        .node-key { fill: #212615; stroke: #879a39; }
+        .node-merkle { fill: #172430; stroke: #4385be; }
+        .node-script { fill: #221e2e; stroke: #8b7ec8; }
+        .label, .mono { fill: #cecdc3; }
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0.5" y="0.5" width="599" height="369"/>
+
+  <!-- Tree edges -->
+  <line class="edge" x1="249" y1="75" x2="119" y2="121"/>
+  <line class="edge" x1="249" y1="75" x2="379" y2="121"/>
+  <line class="edge" x1="379" y1="163" x2="289" y2="209"/>
+  <line class="edge" x1="379" y1="163" x2="459" y2="209"/>
+  <line class="edge" x1="459" y1="251" x2="401" y2="295"/>
+  <line class="edge" x1="459" y1="251" x2="517" y2="295"/>
+
+  <!-- P2TR -->
+  <rect class="node-root" x="197" y="33" width="104" height="42" rx="10"/>
+  <text class="mono" x="249" y="54">P2TR</text>
+
+  <!-- Key path and Merkle root -->
+  <rect class="node-key" x="45" y="121" width="148" height="42" rx="10"/>
+  <text class="label" x="119" y="142">Internal Key</text>
+
+  <rect class="node-merkle" x="261" y="121" width="236" height="42" rx="10"/>
+  <text class="label" x="379" y="142">Root of the Merkle Tree</text>
+
+  <!-- Level 3: S1 and internal Node -->
+  <rect class="node-script" x="251" y="209" width="76" height="42" rx="10"/>
+  <text class="mono" x="289" y="230">S1</text>
+
+  <rect class="node-merkle" x="413" y="209" width="92" height="42" rx="10"/>
+  <text class="label" x="459" y="230">Node</text>
+
+  <!-- Level 4: S2 and S3 -->
+  <rect class="node-script" x="363" y="295" width="76" height="42" rx="10"/>
+  <text class="mono" x="401" y="316">S2</text>
+
+  <rect class="node-script" x="479" y="295" width="76" height="42" rx="10"/>
+  <text class="mono" x="517" y="316">S3</text>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 300" width="560" height="300" role="img" aria-labelledby="title desc">
+  <title id="title">A simple Merkle tree</title>
+  <desc id="desc">Binary Merkle tree with root connected to H(0 | 1) and H(2 | 3), which connect to leaves 0, 1, 2, and 3.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f2f0e5; stroke: #e6e4d9; stroke-width: 1; }
+      .edge { fill: none; stroke: #6f6e69; stroke-width: 1.75; stroke-linecap: round; }
+      .node-root { fill: #faf0e4; stroke: #bc5215; stroke-width: 1.75; }
+      .node-hash { fill: #edf2f7; stroke: #205ea6; stroke-width: 1.75; }
+      .node-leaf { fill: #fffcf0; stroke: #b7b5ac; stroke-width: 1.75; }
+      .label {
+        fill: #100f0f;
+        font-family: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+        font-size: 16px;
+        font-weight: 600;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      @media (prefers-color-scheme: dark) {
+        .bg { fill: #1c1b1a; stroke: #282726; }
+        .edge { stroke: #878580; }
+        .node-root { fill: #2c1e15; stroke: #da702c; }
+        .node-hash { fill: #172430; stroke: #4385be; }
+        .node-leaf { fill: #100f0f; stroke: #575653; }
+        .label { fill: #cecdc3; }
+      }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0.5" y="0.5" width="559" height="299"/>
+
+  <!-- Tree edges -->
+  <line class="edge" x1="280" y1="79" x2="160" y2="131"/>
+  <line class="edge" x1="280" y1="79" x2="400" y2="131"/>
+  <line class="edge" x1="160" y1="173" x2="100" y2="223"/>
+  <line class="edge" x1="160" y1="173" x2="220" y2="223"/>
+  <line class="edge" x1="400" y1="173" x2="340" y2="223"/>
+  <line class="edge" x1="400" y1="173" x2="460" y2="223"/>
+
+  <!-- Root -->
+  <rect class="node-root" x="228" y="37" width="104" height="42" rx="10"/>
+  <text class="label" x="280" y="58">root</text>
+
+  <!-- Internal hash nodes -->
+  <rect class="node-hash" x="98" y="131" width="124" height="42" rx="10"/>
+  <text class="label" x="160" y="152">H(0 | 1)</text>
+
+  <rect class="node-hash" x="338" y="131" width="124" height="42" rx="10"/>
+  <text class="label" x="400" y="152">H(2 | 3)</text>
+
+  <!-- Leaves -->
+  <rect class="node-leaf" x="68" y="223" width="64" height="42" rx="10"/>
+  <text class="label" x="100" y="244">0</text>
+
+  <rect class="node-leaf" x="188" y="223" width="64" height="42" rx="10"/>
+  <text class="label" x="220" y="244">1</text>
+
+  <rect class="node-leaf" x="308" y="223" width="64" height="42" rx="10"/>
+  <text class="label" x="340" y="244">2</text>
+
+  <rect class="node-leaf" x="428" y="223" width="64" height="42" rx="10"/>
+  <text class="label" x="460" y="244">3</text>
+</svg>
